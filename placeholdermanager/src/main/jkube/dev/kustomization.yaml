@@ -1,0 +1,15 @@
+resources:
+- namespace-dev.yml
+- pvc-claim-pipeline-dev.yml
+- rolebinding-dev.yml
+- DeploymentConfig-dev.yml
+- ConfigMaps-dev.yml
+- Secrets-dev.yml
+- Service-dev.yml
+- mavensetting-cm-dev.yml
+- Routes-dev.yaml
+- pipeline.yml
+- pipeline-triggerTemplate.yml
+- pipeline-triggerBinding.yml
+- pipeline-eventListener.yml
+- pipeline-eventListenerRoute.yml

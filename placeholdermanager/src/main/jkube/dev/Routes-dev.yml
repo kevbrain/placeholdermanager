@@ -1,0 +1,18 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  namespace: placeholdermanager-dev
+  name: placeholdermanager-route
+  labels:
+    app: placeholdermanager
+spec:
+  to:
+    kind: Service
+    name: placeholdermanager-service
+    weight: 256
+  port:
+    targetPort: 8080
+  tls:
+    termination: edge
+  wildcardPolicy: None
+---

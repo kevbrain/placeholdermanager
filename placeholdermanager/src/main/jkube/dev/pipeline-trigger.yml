@@ -1,0 +1,11 @@
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: Trigger
+metadata:
+  name: placeholdermanager-trigger
+  namespace: placeholdermanager-dev
+spec:
+  serviceAccountName: pipeline
+  bindings:
+    - ref: placeholdermanager
+  template:
+    ref: placeholdermanager

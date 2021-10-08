@@ -1,0 +1,54 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  namespace: placeholdermanager-dev
+  annotations:
+    reloader.stakater.com/auto: "true"
+    build-commit: '@git.commit.id.abbrev@'
+    build-date: "@git.build.time@"
+  name: placeholdermanager
+  labels:
+    app: placeholdermanager
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: placeholdermanager
+  template:
+    metadata:
+      name: placeholdermanager
+      labels:
+        app: placeholdermanager
+      annotations:
+        build-commit: '@git.commit.id.abbrev@'
+        build-date: "@git.build.time@"
+    spec:
+      volumes:
+        - name: emptydirlogs
+          emptyDir: {}
+      containers:
+        - name: microservice-pod 
+          resources:
+            requests:
+              memory: 250Mi
+              cpu : 200m
+            limits:
+              memory: 750Mi
+              cpu : 500m
+          readinessProbe:
+            httpGet:
+              path: actuator/health
+              port: 8080
+              scheme: HTTP
+          env:
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+              name: http
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: emptydirlogs
+              mountPath: /Logs
+          image: >-
+            image-registry.openshift-image-registry.svc.cluster.local:5000/placeholdermanager-dev/placeholdermanager:latest
+      restartPolicy: Always

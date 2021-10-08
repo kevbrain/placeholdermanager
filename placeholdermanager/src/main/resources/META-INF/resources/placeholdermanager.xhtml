@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:f="http://java.sun.com/jsf/core"
+>
+
+<h:head>
+</h:head>
+
+<h:body style="margin-left:50px">
+	
+	
+	<script type="text/javascript">
+		function handleDrop(event, ui) {
+			var droppredKey = ui.draggable;
+			
+		}
+	</script>
+    
+	<p:panel id="panelApp">
+			<f:facet name="header">
+				<h:panelGrid columns="3">
+					<p:graphicImage name="LOGO_ITS4U_Group_Interstate_COLOR.png"  style="background: transparent;width:200px;margin-right:20px;"/>
+					
+					<p:outputLabel value="placeholdermanager"   style="width:100%;text-align: center;font-size: 40px;color:#003b50"></p:outputLabel>
+					
+				</h:panelGrid>			
+			</f:facet>
+   		<h:form id="form" prependId="false">
+   			Welcome
+    	</h:form>
+	</p:panel>
+    
+ 
+</h:body>
+</html>

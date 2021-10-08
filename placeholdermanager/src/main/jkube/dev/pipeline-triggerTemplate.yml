@@ -1,0 +1,33 @@
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: TriggerTemplate
+metadata:
+  name: placeholdermanager
+  namespace: placeholdermanager-dev
+spec:
+  params:
+  - name: git-repo-url
+    description: The git repository url
+  - name: git-revision
+    description: The git revision
+    default: pipelines-1.4
+  - name: git-repo-name
+    description: The name of the deployment to be created / patched
+  resourcetemplates:
+  - apiVersion: tekton.dev/v1beta1
+    kind: PipelineRun
+    metadata:
+      generateName: build-deploy-$(tt.params.git-repo-name)-
+      namespace: placeholdermanager-dev
+      generation: 1
+    spec:
+      pipelineRef:
+        name: placeholdermanager-pipeline
+      serviceAccountName: pipeline
+      timeout: 1h0m0s
+      workspaces:
+        - name: source
+          persistentVolumeClaim:
+            claimName: placeholdermanager-pipeline-claim
+        - configMap:
+            name: maven-settings-cm
+          name: maven-settings

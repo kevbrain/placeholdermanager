@@ -1,0 +1,72 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: maven-settings-cm
+  namespace: placeholdermanager-dev
+  labels:
+    app.kubernetes.io/instance: cluster-configs
+data:
+  settings.xml: |-
+    <settings>
+      <localRepository>/workspace/source/.m2</localRepository>
+      <servers>
+        <server>
+          <id>nexus3-snapshots</id>
+          <username>admin</username>
+      <password>admin123</password>
+        </server>
+        <server>
+          <id>nexus3-releases</id>
+          <username>admin</username>
+      <password>admin123</password>
+        </server>
+        <server>
+          <id>nexus3-tests</id>
+          <username>admin</username>
+      <password>admin123</password>
+        </server>
+        <server>
+          <id>internal-repository</id>
+          <username>admin</username>
+      <password>admin123</password>
+        </server>
+      </servers>
+      <mirrors>
+        <mirror>
+          <id>internal-repository</id>
+          <name>Maven Repository Manager running on repo.mycompany.com</name>
+          <url>http://nexus3.nexus3.svc.cluster.local:8081/repository/maven-public/</url>
+          <mirrorOf>*</mirrorOf>
+        </mirror>
+      </mirrors>
+      <profiles>
+        <profile>
+          <properties>
+            <altDeploymentRepository>nexus3-snapshots::default:http://nexus3.nexus3.svc.cluster.local:8081/repository/maven-snapshots/</altDeploymentRepository>
+            <altReleaseDeploymentRepository>nexus3-releases::default::http://nexus3.nexus3.svc.cluster.local:8081/repository/maven-releases/</altReleaseDeploymentRepository>
+            <altSnapshotDeploymentRepository>nexus3-snapshots::default::http://nexus3.nexus3.svc.cluster.local:8081/repository/maven-snapshots/</altSnapshotDeploymentRepository>
+          </properties>
+          <id>allow-snapshots</id>
+          <activation><activeByDefault>true</activeByDefault></activation>
+          <repositories>
+            <repository>
+              <id>snapshots-repo</id>
+              <url>http://nexus3.nexus3.svc.cluster.local:8081/repository/maven-snapshots</url>
+              <releases><enabled>false</enabled></releases>
+              <snapshots><enabled>true</enabled><updatePolicy>always</updatePolicy></snapshots>
+            </repository>
+          </repositories>
+        </profile>
+        <profile>
+            <id>sonar</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <sonar.host.url>http://sonarqube.sonarqube.svc.cluster.local:9000</sonar.host.url>
+                <sonar.login>admin</sonar.login>
+                <sonar.password>admin</sonar.password>
+            </properties>
+        </profile>
+      </profiles>
+    </settings>

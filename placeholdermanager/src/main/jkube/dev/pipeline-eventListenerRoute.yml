@@ -1,0 +1,18 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  labels:
+    app.kubernetes.io/managed-by: EventListener
+    app.kubernetes.io/part-of: Triggers
+    eventlistener: placeholdermanager
+  name: el-placeholdermanager
+  namespace: placeholdermanager-dev
+spec:
+  host: el-placeholdermanager-placeholdermanager-dev.apps.ocp-lab.its4u.eu
+  port:
+    targetPort: http-listener
+  to:
+    kind: Service
+    name: el-placeholdermanager
+    weight: 100
+  wildcardPolicy: None
