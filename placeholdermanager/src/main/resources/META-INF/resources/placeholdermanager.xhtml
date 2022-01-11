@@ -31,7 +31,49 @@
 				</h:panelGrid>			
 			</f:facet>
    		<h:form id="form" prependId="false">
-   			Welcome
+   		<div style="position:relative;margin:auto;text-align:center;">	
+	   		<p:commandButton value="Refresh"  actionListener="#{placeHoldersView.refresh}" update="@form" style="margin:10px;background:#003b50;color:white" />
+	   		
+	   		<p:commandButton value="Save"  actionListener="#{placeHoldersView.save}" update="@form" style="margin:10px;background:#003b50;color:white" />
+   		</div>
+ 			<h:panelGrid columns="2">
+ 				<h:outputText value="My projects :"/>
+ 				 <p:selectOneMenu  value="#{placeHoldersView.selectedProjectId}" >
+ 				 	 	<f:selectItem itemLabel="Select One" itemValue=""/>
+                  	<f:selectItems value="#{placeHoldersView.myProjects}" var="project" itemLabel="#{project}" itemValue="#{project}"/>
+                  	<p:ajax event="change" update="@form" listener="#{placeHoldersView.onSelectedProject(placeHoldersView.selectedProjectId)}" />
+                  	
+ 				 </p:selectOneMenu>
+ 				 <h:outputText value="Git url"/>
+ 				 <h:outputText value="#{placeHoldersView.selectedProject.gitUrl}"/>
+   			</h:panelGrid>
+   			
+   			<p:tabView value="#{placeHoldersView.selectedProject.environments}" var="env" >
+			    	<p:tab title="#{env.environment}" >
+			    			<b>Clear Values :</b>
+			    			<p:dataTable value="#{env.clearPlaceholders}"  var="entry"  widgetVar="placeHolderTable">
+			    				<p:column  headerText="Key">	
+							        		<h:outputText value="#{entry.placeHolderId.key}"/>
+								</p:column>		
+								<p:column  headerText="Value">	
+							        		<p:inputText value="#{entry.value}" style="width:600px;"/>
+								</p:column>		
+								
+								
+			    			</p:dataTable>
+			    			<br/>
+			    			<b>Encrypted Values :</b>
+			    			<p:dataTable value="#{env.secretsPlaceholders}"  var="entry"  widgetVar="placeHolderTable">
+			    				<p:column  headerText="Key">	
+							        		<h:outputText value="#{entry.placeHolderId.key}" />
+								</p:column>		
+								<p:column  headerText="Value">	
+							        		<p:password  value="#{entry.value}" toggleMask="true" redisplay="true" style="width:400px;"/>
+								</p:column>		
+							
+			    			</p:dataTable>
+			    	</p:tab>
+			</p:tabView>
     	</h:form>
 	</p:panel>
     

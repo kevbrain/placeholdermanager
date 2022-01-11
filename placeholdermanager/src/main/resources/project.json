@@ -1,0 +1,88 @@
+{
+    "projectId": "boston",
+    "gitUrl": null,
+    "owner": "Kevyn",
+    "environments": [
+        {
+            "environment": "boston-dev",
+            "projectId": "boston",
+            "placeholders": [
+                {
+                    "placeHolderId": {
+                        "environment": "boston-dev",
+                        "key": "welcome.message"
+                    },
+                    "value": "Hello"
+                },
+                {
+                    "placeHolderId": {
+                        "environment": "boston-dev",
+                        "key": "ocp.replicas"
+                    },
+                    "value": "2"
+                },
+                {
+                    "placeHolderId": {
+                        "environment": "boston-dev",
+                        "key": "application.title"
+                    },
+                    "value": "My application"
+                }
+            ]
+        },
+        {
+            "environment": "boston-tst",
+            "projectId": "boston",
+            "placeholders": [
+                {
+                    "placeHolderId": {
+                        "environment": "boston-tst",
+                        "key": "welcome.message"
+                    },
+                    "value": "Hello"
+                },
+                {
+                    "placeHolderId": {
+                        "environment": "boston-tst",
+                        "key": "ocp.replicas"
+                    },
+                    "value": "2"
+                },
+                {
+                    "placeHolderId": {
+                        "environment": "boston-tst",
+                        "key": "application.title"
+                    },
+                    "value": "My application"
+                }
+            ]
+        },
+        {
+            "environment": "boston-int",
+            "projectId": "boston",
+            "placeholders": [
+                {
+                    "placeHolderId": {
+                        "environment": "boston-int",
+                        "key": "welcome.message"
+                    },
+                    "value": "Hello"
+                },
+                {
+                    "placeHolderId": {
+                        "environment": "boston-int",
+                        "key": "ocp.replicas"
+                    },
+                    "value": "2"
+                },
+                {
+                    "placeHolderId": {
+                        "environment": "boston-int",
+                        "key": "application.title"
+                    },
+                    "value": "My application"
+                }
+            ]
+        }
+    ]
+}

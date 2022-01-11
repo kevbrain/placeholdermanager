@@ -36,7 +36,16 @@
     </dependencies>
   </dependencyManagement>
  <dependencies>
-    	<dependency>
+    <dependency>
+    	<groupId>org.springframework.boot</groupId>
+    	<artifactId>spring-boot-starter-data-jpa</artifactId>
+	</dependency>
+	<dependency>
+    	<groupId>com.h2database</groupId>
+    	<artifactId>h2</artifactId>
+    	<scope>runtime</scope>
+	</dependency>
+    <dependency>
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-starter-actuator</artifactId>
 	</dependency>
@@ -73,6 +82,25 @@
 		<artifactId>sonar-maven-plugin</artifactId>
 		<version>3.2</version>
 	</dependency>
+	<dependency>
+	    <groupId>org.apache.commons</groupId>
+	    <artifactId>commons-collections4</artifactId>
+	    <version>4.4</version>
+	</dependency>
+	<dependency>
+		  <groupId>io.fabric8</groupId>
+		  <artifactId>kubernetes-client</artifactId>
+		  <version>5.7.0</version>
+	</dependency>
+	<dependency>
+	      <groupId>com.fasterxml.jackson.core</groupId>
+	      <artifactId>jackson-databind</artifactId>
+	 </dependency>
+	 	<dependency>
+		    <groupId>org.eclipse.jgit</groupId>
+		    <artifactId>org.eclipse.jgit</artifactId>
+		    <version>5.12.0.202106070339-r</version>
+		</dependency>
 </dependencies>
 	    
     <build>
@@ -86,10 +114,12 @@
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>3.1.0</version>
             </plugin>
-	    <plugin>
+	    	<plugin>
 		        <groupId>org.apache.maven.plugins</groupId>
 		        <artifactId>maven-compiler-plugin</artifactId>
       	    </plugin>
+
+      	    
             <plugin>
                 <groupId>com.google.cloud.tools</groupId>
                 <artifactId>jib-maven-plugin</artifactId>
@@ -117,5 +147,6 @@
                 </configuration>
             </plugin>  
         </plugins>
+        
     </build>
 </project>
