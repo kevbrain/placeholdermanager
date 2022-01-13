@@ -101,6 +101,15 @@
 		    <artifactId>org.eclipse.jgit</artifactId>
 		    <version>5.12.0.202106070339-r</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>org.postgresql</groupId>
+		    <artifactId>postgresql</artifactId>
+		    <version>42.3.1</version>
+		</dependency>
 </dependencies>
 	    
     <build>
