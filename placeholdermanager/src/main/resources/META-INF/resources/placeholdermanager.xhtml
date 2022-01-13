@@ -50,6 +50,13 @@
    			
    			<p:tabView value="#{placeHoldersView.selectedProject.environments}" var="env" >
 			    	<p:tab title="#{env.environment}" >
+			    			<div style="position:relative;margin:auto;text-align:center;">	
+			    				<p:commandButton value="Deploy"  actionListener="#{placeHoldersView.refresh}" update="@form" style="margin:10px;background:#003b50;color:white" />
+	   		
+	   							<p:commandButton value="UnDeploy"  actionListener="#{placeHoldersView.refresh}" update="@form" style="margin:10px;background:#003b50;color:white" />
+	   		
+	   							<p:commandButton value="Rollback"  actionListener="#{placeHoldersView.refresh}" update="@form" style="margin:10px;background:#003b50;color:white" />
+	   						</div>
 			    			<b>Clear Values :</b>
 			    			<p:dataTable value="#{env.clearPlaceholders}"  var="entry"  widgetVar="placeHolderTable">
 			    				<p:column  headerText="Key">	
