@@ -61,13 +61,23 @@ public class PlaceHoldersView {
 	}
 	
 	public void updateGitOps() {
+		String pathWorkkingGitOps = null;
+		// clone gitops
+		try {
+			pathWorkkingGitOps = GitController.loadGitOpsApps();
+			System.out.println("Git project cloned");
+		} catch (IllegalStateException | GitAPIException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		HashMap<String,HashMap<String,String>> placesH = new HashMap<String, HashMap<String, String>>();
 		for (Environments env:selectedProject.getEnvironments()) {
 			HashMap<String, String> keyValues = new HashMap<String, String>();
 			for (PlaceHolders pl:env.getPlaceholders()) {
 				keyValues.put(pl.getPlaceHolderId().getKey(),pl.getValue());
 			}
-			updateGitopsPerEnvironment(env.getEnvironment(),keyValues);
+			updateGitopsPerEnvironment(pathWorkkingGitOps,env.getEnvironment(),keyValues);
 		}
 			
 		
@@ -82,15 +92,20 @@ public class PlaceHoldersView {
 		}
 	}
 		
-	public void updateGitopsPerEnvironment(String keyenv, HashMap<String,String> placesH) {
-		String pathWorkkingGitOps;
+	public void updateGitopsPerEnvironment(String pathWorkkingGitOps,String keyenv, HashMap<String,String> placesH) {
+		String pathWorkkingGitOpsEnv = pathWorkkingGitOps+"\\jkube\\"+selectedProject.getProject_Id()+"-"+keyenv;
 		try {
-			pathWorkkingGitOps = GitController.loadGitOpsApps(selectedProject.getProject_Id())+"\\jkube\\"+keyenv;
-			String pathWorkingGitApp = GitController.loadGitApps(selectedProject.getProject_Id())+"\\src\\main\\jkube\\"+keyenv;
+			
+			String pathWorkingGitApp = GitController.loadGitApps(selectedProject.getProject_Id())
+					+"\\src\\main\\jkube\\"+keyenv;
+			
+			System.out.println("Sync resource between "+pathWorkingGitApp+ " and "+pathWorkkingGitOps);
 			
 			Path source = Paths.get(pathWorkingGitApp);
 			Path dest = Paths.get(pathWorkkingGitOps);
-			Files.walkFileTree(source, new CopyDir(source, dest));					
+			Files.walkFileTree(source, new CopyDir(source, dest));	
+			System.out.println("Replace PlaceHolders by values");
+			
 			Files.walk(Paths.get(pathWorkkingGitOps))
 	        .filter(Files::isRegularFile)
 	        .forEach(path -> Parser.parser(path,placesH));
