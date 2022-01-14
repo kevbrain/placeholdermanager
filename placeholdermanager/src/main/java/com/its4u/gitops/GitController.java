@@ -13,6 +13,7 @@ import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.transport.URIish;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.util.FileSystemUtils;
 
 public class GitController {
 
@@ -99,9 +100,19 @@ public class GitController {
 	    pushCommand.setCredentialsProvider(new UsernamePasswordCredentialsProvider(user, password));
 	    // you can add more settings here if needed
 	    pushCommand.call();
+	    /*
+	    gitApp.close();
 	    gitApp.shutdown();
+	    gitOpsApp.close();
 	    gitOpsApp.shutdown();
+	    */
 	    System.out.println("Project modified and pushed");
+	    
+		// clean
+		System.out.println("Clean workspace");
+		FileSystemUtils.deleteRecursively(new File("pathWorkspace"));
+		System.out.println("Workspace cleaned");
+		
 	}
 	
 }
