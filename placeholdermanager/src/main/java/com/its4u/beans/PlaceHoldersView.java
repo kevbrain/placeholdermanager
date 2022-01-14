@@ -62,10 +62,14 @@ public class PlaceHoldersView {
 	
 	public void updateGitOps() {
 		String pathWorkkingGitOps = null;
+		String pathWorkingGitApp = null;
 		// clone gitops
 		try {
 			pathWorkkingGitOps = GitController.loadGitOpsApps();
-			System.out.println("Git project cloned");
+			System.out.println("Git Ops project cloned");
+			pathWorkingGitApp = GitController.loadGitApps(selectedProject.getProject_Id());
+			System.out.println("Git App project cloned");
+			
 		} catch (IllegalStateException | GitAPIException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -77,7 +81,7 @@ public class PlaceHoldersView {
 			for (PlaceHolders pl:env.getPlaceholders()) {
 				keyValues.put(pl.getPlaceHolderId().getKey(),pl.getValue());
 			}
-			updateGitopsPerEnvironment(pathWorkkingGitOps,env.getEnvironment(),keyValues);
+			updateGitopsPerEnvironment(pathWorkkingGitOps,pathWorkingGitApp,env.getEnvironment(),keyValues);
 		}
 			
 		
@@ -92,27 +96,23 @@ public class PlaceHoldersView {
 		}
 	}
 		
-	public void updateGitopsPerEnvironment(String pathWorkkingGitOps,String keyenv, HashMap<String,String> placesH) {
-		String pathWorkkingGitOpsEnv = pathWorkkingGitOps+"\\jkube\\"+selectedProject.getProject_Id()+"-"+keyenv;
+	public void updateGitopsPerEnvironment(String pathWorkkingGitOps,String pathWorkingGitApp,String keyenv, HashMap<String,String> placesH) {
+		String pathWorkkingGitOpsEnv = pathWorkkingGitOps+"/jkube/"+selectedProject.getProject_Id()+"-"+keyenv;
+		String pathWorkingGitAppEnv = pathWorkingGitApp+"/src/main/jkube/"+selectedProject.getProject_Id()+"-"+keyenv;
 		try {
 			
-			String pathWorkingGitApp = GitController.loadGitApps(selectedProject.getProject_Id())
-					+"\\src\\main\\jkube\\"+keyenv;
+			System.out.println("Sync resource between "+pathWorkingGitAppEnv+ " and "+pathWorkkingGitOpsEnv);
 			
-			System.out.println("Sync resource between "+pathWorkingGitApp+ " and "+pathWorkkingGitOps);
-			
-			Path source = Paths.get(pathWorkingGitApp);
-			Path dest = Paths.get(pathWorkkingGitOps);
+			Path source = Paths.get(pathWorkingGitAppEnv);
+			Path dest = Paths.get(pathWorkkingGitOpsEnv);
 			Files.walkFileTree(source, new CopyDir(source, dest));	
 			System.out.println("Replace PlaceHolders by values");
 			
-			Files.walk(Paths.get(pathWorkkingGitOps))
+			Files.walk(Paths.get(pathWorkkingGitOpsEnv))
 	        .filter(Files::isRegularFile)
 	        .forEach(path -> Parser.parser(path,placesH));
 			
 		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		} catch (GitAPIException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
