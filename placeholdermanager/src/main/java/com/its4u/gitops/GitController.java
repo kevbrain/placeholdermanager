@@ -20,7 +20,7 @@ public class GitController {
 	
 	private static String gitOpsAppsDeployUrl = "https://github.com/kevbrain/ocp-gitops-apps-deploy.git";
 	
-	private static String pathWorkspace = "c:/Tmp";
+	private static String pathWorkspace = "/tmp";
 	
 	private static Git gitOpsApp;
 	
