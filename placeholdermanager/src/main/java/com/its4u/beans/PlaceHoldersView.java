@@ -62,24 +62,51 @@ public class PlaceHoldersView {
 		updateGitOps();
 	}
 	
-	public void updateGitOps() {
-		String pathWorkkingGitOps = null;
-		String pathWorkingGitApp = null;
-		String pathWorkkingGitOpsProject = null;
-		String pathWorkingGitAppProject = null;
-		// clone gitops
+	public void searchForNewPlaceHolders() {
+		System.out.println("Search for new PlaceHolders...");
+		String pathWorkingGitAppProject = cloneGitApp()+"/"+selectedProject.getProject_Id();
+		HashMap<String,String> placeholders = new HashMap<String, String>();
 		try {
-			pathWorkkingGitOps = GitController.loadGitOpsApps();
-			pathWorkkingGitOpsProject = pathWorkkingGitOps+"/"+selectedProject.getProject_Id();
-			System.out.println("Git Ops project cloned on "+pathWorkkingGitOps);
+			Files.walk(Paths.get(pathWorkingGitAppProject+"/src/main/jkube/"))
+			.filter(Files::isRegularFile)
+			.forEach(path -> Parser.parserAllPlaceHolders(path,placeholders));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("---> "+placeholders.keySet());
+		
+	}
+	
+	public String cloneGitApp() {
+		String pathWorkingGitApp = null;
+		try {
 			pathWorkingGitApp = GitController.loadGitApps(selectedProject.getProject_Id());
-			pathWorkingGitAppProject = pathWorkingGitApp+"/"+selectedProject.getProject_Id();
 			System.out.println("Git App project cloned on "+pathWorkingGitApp);
-			
 		} catch (IllegalStateException | GitAPIException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		return pathWorkingGitApp;
+	}
+	
+	public String cloneGitOps() {
+		String pathWorkkingGitOps = null;
+		try {
+			pathWorkkingGitOps = GitController.loadGitOpsApps();
+		} catch (IllegalStateException | GitAPIException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		return pathWorkkingGitOps;
+	}
+	
+	
+	public void updateGitOps() {
+		
+		// clone gitops	
+		String pathWorkkingGitOpsProject = cloneGitOps()+"/"+selectedProject.getProject_Id();					
+		String pathWorkingGitAppProject = cloneGitApp()+"/"+selectedProject.getProject_Id();
 		
 		HashMap<String,HashMap<String,String>> placesH = new HashMap<String, HashMap<String, String>>();
 		for (Environments env:selectedProject.getEnvironments()) {

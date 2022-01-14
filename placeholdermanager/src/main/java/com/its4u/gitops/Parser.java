@@ -32,6 +32,31 @@ public class Parser {
 		}				
 	}
 	
+	public static HashMap<String,String> parserAllPlaceHolders(Path path,HashMap<String,String> placeholders)  {
+		
+		System.out.println(path.getFileName());
+		String read = null;
+		boolean found = false;
+		try {
+			read = Files.readString(path);
+			Pattern pattern = Pattern.compile("\\{\\{(.*)\\}\\}");
+			Matcher matcher = pattern.matcher(read);
+			while(matcher.find()){
+				 found = true;
+				 break;
+			}
+			
+			if (found) {
+				placeholders.put(matcher.group(1),matcher.group(1));
+				
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}				
+		return placeholders;
+	}
+	
 		
 	public static String replacePlaceholder(String read,HashMap<String,String> placeholdersValues) {
 										
