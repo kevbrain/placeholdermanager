@@ -74,7 +74,18 @@ public class PlaceHoldersView {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		HashMap<String, String> keyValues = new HashMap<String, String>();
 		System.out.println("---> "+placeholders.keySet());
+		for (Environments env:selectedProject.getEnvironments()) {			
+			for (PlaceHolders pl:env.getPlaceholders()) {
+				keyValues.put(pl.getPlaceHolderId().getKey(),pl.getValue());
+			}
+		}
+		for (String key:placeholders.keySet()) {
+			if (keyValues.get(key)==null) {
+				System.out.println("New PlaceHolder Dectected : ["+key+"]");
+			}
+		}
 		
 	}
 	
