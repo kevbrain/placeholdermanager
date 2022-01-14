@@ -46,6 +46,8 @@ public class PlaceHoldersView {
 	
 	private String selectedProjectId;
 	
+	private List<String> newPlaceHoldersDetected;
+	
 	@PostConstruct
     public void init()  {
 		refresh();
@@ -84,6 +86,7 @@ public class PlaceHoldersView {
 		for (String key:placeholders.keySet()) {
 			if (keyValues.get(key)==null) {
 				System.out.println("New PlaceHolder Dectected : ["+key+"]");
+				newPlaceHoldersDetected.add(key);
 			}
 		}
 		
@@ -169,6 +172,7 @@ public class PlaceHoldersView {
 	public void onSelectedProject(String projectId) {
 		
 		System.out.println("Selected project : "+projectId);
+		newPlaceHoldersDetected = new ArrayList<String>();
 		selectedProject=myProjects.get(projectId);
 		searchForNewPlaceHolders();
 				
