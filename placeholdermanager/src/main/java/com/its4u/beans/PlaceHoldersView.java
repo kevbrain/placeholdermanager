@@ -46,7 +46,6 @@ public class PlaceHoldersView {
 	
 	@PostConstruct
     public void init()  {
-		//ocp = new OcpExplorerService("sha256~MnctYrw8Vxm812WpkdY4a6LwwYpHZuSRfq-EaH1ZMw0");
 		refresh();
     }
 	
@@ -58,6 +57,7 @@ public class PlaceHoldersView {
 	public void save() {
 		System.out.println("Save project");
 		projectService.createProject(selectedProject);
+		updateGitOps();
 	}
 	
 	public void updateGitOps() {
@@ -109,50 +109,8 @@ public class PlaceHoldersView {
 		
 		System.out.println("Selected project : "+projectId);
 		selectedProject=myProjects.get(projectId);
-		
-		
-	}
-	
-	public void createProject() {
-		//ocp.loadProject();
-		String projectName = "boston";
-		Project project = new Project(projectName, null, "Kevyn");
-		List<Environments> envs =  new ArrayList<>();
-		
-		Environments dev = new Environments(project,projectName+"-dev");
-		Environments tst = new Environments(project,projectName+"-tst");
-		Environments inte = new Environments(project,projectName+"-int");
 				
-		dev.setPlaceholders(createplaceHolders(dev));
-		tst.setPlaceholders(createplaceHolders(tst));
-		inte.setPlaceholders(createplaceHolders(inte));
-		
-		envs.add(dev);
-		envs.add(tst);
-		envs.add(inte);
-				
-		project.setEnvironments(envs);
-		projectService.createProject(project);
-		
-		/*
-		ObjectMapper mapper = new ObjectMapper();
-		try {
-			String json = mapper.writeValueAsString(project);
-			System.out.println(json);
-		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		*/
 	}
 	
-	
-	public List<PlaceHolders> createplaceHolders(Environments env) {
-		List<PlaceHolders> placeHolders = new ArrayList<>();
-		placeHolders.add(new PlaceHolders(new PlaceHolderId(env.getEnvironment(),"welcome.message"),env,"Hello",""));
-		placeHolders.add(new PlaceHolders(new PlaceHolderId(env.getEnvironment(),"ocp.replicas"),env,"2",""));
-		placeHolders.add(new PlaceHolders(new PlaceHolderId(env.getEnvironment(),"application.title"),env,"My application",""));
-		placeHolders.add(new PlaceHolders(new PlaceHolderId(env.getEnvironment(),"database.password"),env,"systempassword","secret"));
-		return placeHolders;
-	}
+
 }
