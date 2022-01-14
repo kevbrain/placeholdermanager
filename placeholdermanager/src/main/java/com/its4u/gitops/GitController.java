@@ -47,7 +47,8 @@ public class GitController {
 					  .call();
 		
 		} catch (Exception e) {
-
+			System.out.println("Git Clone exception");
+			e.printStackTrace();
 			gitApp = Git.init().setDirectory(workingDirectory).call();
 		}	
 		return path;
@@ -71,7 +72,8 @@ public class GitController {
 					  .setDirectory(workingDirectory)
 					  .call();
 		} catch (Exception e) {
-
+			System.out.println("Git Clone exception");
+			e.printStackTrace();
 			gitOpsApp = Git.init().setDirectory(workingDirectory).call();
 		}	
 		return path;
