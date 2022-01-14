@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 
 public class Parser {
 	
-	public static void parser(Path path,HashMap<String,String> placeholdersValues)  {
+	public static HashMap<String,String> parser(Path path,HashMap<String,String> placeholdersValues)  {
 		System.out.println(path.getFileName());
 		String read = null;
 		boolean found = false;
@@ -29,11 +29,12 @@ public class Parser {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}				
+		}			
+		return placeholdersValues;
 	}
 	
-	public static HashMap<String,String> parserAllPlaceHolders(Path path,HashMap<String,String> placeholders)  {
-		
+	public static HashMap<String,String> parserAllPlaceHolders(Path path)  {
+		HashMap<String,String> placeholders = new HashMap<String, String>();
 		System.out.println(path.getFileName());
 		String read = null;
 		boolean found = false;
@@ -47,6 +48,7 @@ public class Parser {
 			}
 			
 			if (found) {
+				System.out.println("founded : "+matcher.group(1));
 				placeholders.put(matcher.group(1),matcher.group(1));
 				
 			}

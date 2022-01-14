@@ -69,7 +69,7 @@ public class PlaceHoldersView {
 		try {
 			Files.walk(Paths.get(pathWorkingGitAppProject+"/src/main/jkube/"))
 			.filter(Files::isRegularFile)
-			.forEach(path -> Parser.parserAllPlaceHolders(path,placeholders));
+			.forEach(path -> placeholders.putAll(Parser.parserAllPlaceHolders(path)));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
