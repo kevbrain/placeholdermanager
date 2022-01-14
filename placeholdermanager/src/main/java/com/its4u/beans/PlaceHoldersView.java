@@ -65,7 +65,7 @@ public class PlaceHoldersView {
 		String pathWorkingGitApp = null;
 		// clone gitops
 		try {
-			pathWorkkingGitOps = GitController.loadGitOpsApps();
+			pathWorkkingGitOps = GitController.loadGitOpsApps(selectedProject.getProject_Id());
 			System.out.println("Git Ops project cloned");
 			pathWorkingGitApp = GitController.loadGitApps(selectedProject.getProject_Id());
 			System.out.println("Git App project cloned");
