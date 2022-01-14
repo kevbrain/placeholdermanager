@@ -31,7 +31,7 @@ public class GitController {
 	public static String loadGitApps(String project) throws IllegalStateException, GitAPIException {
 
 		
-		gitAppsUrl = gitAppsUrl+project+".git";
+		String gitAppsUrlProject = gitAppsUrl+project+".git";
 		UUID uuid = UUID.randomUUID();
 		String path = pathWorkspace+"//"+project+"-"+uuid;
 		
@@ -42,7 +42,7 @@ public class GitController {
 						
 		try {	
 			gitApp = Git.cloneRepository()
-					  .setURI(gitAppsUrl)
+					  .setURI(gitAppsUrlProject)
 					  .setDirectory(workingDirectory)
 					  .call();
 		
