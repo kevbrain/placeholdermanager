@@ -42,16 +42,11 @@ public class Parser {
 			read = Files.readString(path);
 			Pattern pattern = Pattern.compile("\\{\\{(.*)\\}\\}");
 			Matcher matcher = pattern.matcher(read);
-			while(matcher.find()){
-				 found = true;
-				 break;
+			while(matcher.find()){				
+				 System.out.println("founded : "+matcher.group(1));
+				 placeholders.put(matcher.group(1),matcher.group(1));
 			}
 			
-			if (found) {
-				System.out.println("founded : "+matcher.group(1));
-				placeholders.put(matcher.group(1),matcher.group(1));
-				
-			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
