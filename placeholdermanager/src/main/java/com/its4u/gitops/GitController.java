@@ -26,11 +26,6 @@ public class GitController {
 	
 	private static Git gitApp;
 			
-	@Value("${git.user}")
-	private static String gitUser;
-	
-	@Value("${git.password}")
-	private static String gitPassword;
 	
 	public static String loadGitApps(String project) throws IllegalStateException, GitAPIException {
 
@@ -96,7 +91,9 @@ public class GitController {
 
 	    // push to remote:
 	    PushCommand pushCommand = gitOpsApp.push();
-	    pushCommand.setCredentialsProvider(new UsernamePasswordCredentialsProvider(gitUser, gitPassword));
+	    String user = System.getenv("git.user");
+	    String password = System.getenv("git.password");
+	    pushCommand.setCredentialsProvider(new UsernamePasswordCredentialsProvider(user, password));
 	    // you can add more settings here if needed
 	    pushCommand.call();
 	    
