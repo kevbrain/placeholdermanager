@@ -12,6 +12,7 @@ import org.eclipse.jgit.api.errors.NoFilepatternException;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.transport.URIish;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
+import org.springframework.beans.factory.annotation.Value;
 
 public class GitController {
 
@@ -24,11 +25,12 @@ public class GitController {
 	private static Git gitOpsApp;
 	
 	private static Git gitApp;
+			
+	@Value("${git.user}")
+	private static String gitUser;
 	
-	private static String gitUser="kevbrain";
-	
-	private static String gitPassword= "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";
-	
+	@Value("${git.password}")
+	private static String gitPassword;
 	
 	public static String loadGitApps(String project) throws IllegalStateException, GitAPIException {
 
