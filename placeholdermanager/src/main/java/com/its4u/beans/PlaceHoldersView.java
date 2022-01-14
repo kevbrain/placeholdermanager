@@ -101,11 +101,7 @@ public class PlaceHoldersView {
 			e.printStackTrace();
 		}
 		
-		// clean
-		System.out.println("Clean workspace");
-		FileSystemUtils.deleteRecursively(new File("/git-workspace"));
-		System.out.println("Workspace cleaned");
-		
+
 		
 	}
 		
@@ -125,10 +121,9 @@ public class PlaceHoldersView {
 	        .filter(Files::isRegularFile)
 	        .forEach(path -> Parser.parser(path,placesH));
 			
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+		
+		} catch (Exception e) {
+			System.out.println("Unable to synchronize...");
 		}
 			
 	}
