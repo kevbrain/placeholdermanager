@@ -1,5 +1,6 @@
 package com.its4u.beans;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
@@ -16,6 +17,7 @@ import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.api.errors.NoFilepatternException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.FileSystemUtils;
 
 import com.its4u.gitops.CopyDir;
 import com.its4u.gitops.GitController;
@@ -63,11 +65,15 @@ public class PlaceHoldersView {
 	public void updateGitOps() {
 		String pathWorkkingGitOps = null;
 		String pathWorkingGitApp = null;
+		String pathWorkkingGitOpsProject = null;
+		String pathWorkingGitAppProject = null;
 		// clone gitops
 		try {
-			pathWorkkingGitOps = GitController.loadGitOpsApps(selectedProject.getProject_Id());
+			pathWorkkingGitOps = GitController.loadGitOpsApps();
+			pathWorkkingGitOpsProject = pathWorkkingGitOps+"/"+selectedProject.getProject_Id();
 			System.out.println("Git Ops project cloned");
 			pathWorkingGitApp = GitController.loadGitApps(selectedProject.getProject_Id());
+			pathWorkingGitAppProject = pathWorkingGitApp+"/"+selectedProject.getProject_Id();
 			System.out.println("Git App project cloned");
 			
 		} catch (IllegalStateException | GitAPIException e1) {
@@ -81,10 +87,10 @@ public class PlaceHoldersView {
 			for (PlaceHolders pl:env.getPlaceholders()) {
 				keyValues.put(pl.getPlaceHolderId().getKey(),pl.getValue());
 			}
-			updateGitopsPerEnvironment(pathWorkkingGitOps,pathWorkingGitApp,env.getEnvironment(),keyValues);
+			updateGitopsPerEnvironment(pathWorkkingGitOpsProject,pathWorkingGitAppProject,env.getEnvironment(),keyValues);
 		}
 			
-		
+		// commit and push
 		try {
 			GitController.commitAndPush();
 		} catch (NoFilepatternException e) {
@@ -94,6 +100,14 @@ public class PlaceHoldersView {
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 		}
+		
+		// clean
+		System.out.println("Clean workspace");
+		FileSystemUtils.deleteRecursively(new File(pathWorkkingGitOps));
+		FileSystemUtils.deleteRecursively(new File(pathWorkingGitApp));
+		System.out.println("Workspace cleaned");
+		
+		
 	}
 		
 	public void updateGitopsPerEnvironment(String pathWorkkingGitOps,String pathWorkingGitApp,String keyenv, HashMap<String,String> placesH) {

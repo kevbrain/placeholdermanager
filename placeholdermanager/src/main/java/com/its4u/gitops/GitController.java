@@ -48,12 +48,12 @@ public class GitController {
 
 			gitApp = Git.init().setDirectory(workingDirectory).call();
 		}	
-		return path+"//"+project;
+		return path;
 		
 	}
 	
 	
-	public static String loadGitOpsApps(String project) throws IllegalStateException, GitAPIException {
+	public static String loadGitOpsApps() throws IllegalStateException, GitAPIException {
 
 		UUID uuid = UUID.randomUUID();
 		String path = pathWorkspace+"//ocp-gitops-apps-deploy-"+uuid;
@@ -72,7 +72,7 @@ public class GitController {
 
 			gitOpsApp = Git.init().setDirectory(workingDirectory).call();
 		}	
-		return path+"//"+project;
+		return path;
 		
 	}
 	
