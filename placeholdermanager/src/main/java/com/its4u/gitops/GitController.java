@@ -44,6 +44,7 @@ public class GitController {
 					  .setURI(gitAppsUrl)
 					  .setDirectory(workingDirectory)
 					  .call();
+		
 		} catch (Exception e) {
 
 			gitApp = Git.init().setDirectory(workingDirectory).call();
@@ -96,7 +97,8 @@ public class GitController {
 	    pushCommand.setCredentialsProvider(new UsernamePasswordCredentialsProvider(user, password));
 	    // you can add more settings here if needed
 	    pushCommand.call();
-	    
+	    gitApp.shutdown();
+	    gitOpsApp.shutdown();
 	    System.out.println("Project modified and pushed");
 	}
 	
