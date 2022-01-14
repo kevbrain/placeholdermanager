@@ -97,8 +97,8 @@ public class PlaceHoldersView {
 	}
 		
 	public void updateGitopsPerEnvironment(String pathWorkkingGitOps,String pathWorkingGitApp,String keyenv, HashMap<String,String> placesH) {
-		String pathWorkkingGitOpsEnv = pathWorkkingGitOps+"/jkube/"+selectedProject.getProject_Id()+"-"+keyenv;
-		String pathWorkingGitAppEnv = pathWorkingGitApp+"/src/main/jkube/"+selectedProject.getProject_Id()+"-"+keyenv;
+		String pathWorkkingGitOpsEnv = pathWorkkingGitOps+"/jkube/"+keyenv;
+		String pathWorkingGitAppEnv = pathWorkingGitApp+"/src/main/jkube/"+keyenv;
 		try {
 			
 			System.out.println("Sync resource between "+pathWorkingGitAppEnv+ " and "+pathWorkkingGitOpsEnv);
