@@ -159,6 +159,7 @@ public class PlaceHoldersView {
 		
 		System.out.println("Selected project : "+projectId);
 		selectedProject=myProjects.get(projectId);
+		searchForNewPlaceHolders();
 				
 	}
 	
