@@ -20,7 +20,7 @@ public class GitController {
 	
 	private static String gitOpsAppsDeployUrl = "https://github.com/kevbrain/ocp-gitops-apps-deploy.git";
 	
-	private static String pathWorkspace = "/tmp";
+	private static String pathWorkspace = "/git-workspace";
 	
 	private static Git gitOpsApp;
 	
@@ -84,7 +84,9 @@ public class GitController {
 		// Now, we do the commit with a message
 		
 		RevCommit rev =	gitOpsApp.commit().setAuthor("ksc", "ksc@example.com").setMessage("Modified by ITS4U PlaceHolderControler").call();
-	
+		System.out.println("Commit ID = "+rev.getId());
+		System.out.println("Commit Time = "+rev.getCommitTime());
+		
 		RemoteAddCommand remoteAddCommand = gitOpsApp.remoteAdd();
 	    remoteAddCommand.setName("origin");
 	    remoteAddCommand.setUri(new URIish(gitOpsAppsDeployUrl));

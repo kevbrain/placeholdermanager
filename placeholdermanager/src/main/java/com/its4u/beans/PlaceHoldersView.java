@@ -71,10 +71,10 @@ public class PlaceHoldersView {
 		try {
 			pathWorkkingGitOps = GitController.loadGitOpsApps();
 			pathWorkkingGitOpsProject = pathWorkkingGitOps+"/"+selectedProject.getProject_Id();
-			System.out.println("Git Ops project cloned");
+			System.out.println("Git Ops project cloned on "+pathWorkkingGitOps);
 			pathWorkingGitApp = GitController.loadGitApps(selectedProject.getProject_Id());
 			pathWorkingGitAppProject = pathWorkingGitApp+"/"+selectedProject.getProject_Id();
-			System.out.println("Git App project cloned");
+			System.out.println("Git App project cloned on "+pathWorkingGitApp);
 			
 		} catch (IllegalStateException | GitAPIException e1) {
 			// TODO Auto-generated catch block
@@ -103,8 +103,7 @@ public class PlaceHoldersView {
 		
 		// clean
 		System.out.println("Clean workspace");
-		FileSystemUtils.deleteRecursively(new File(pathWorkkingGitOps));
-		FileSystemUtils.deleteRecursively(new File(pathWorkingGitApp));
+		FileSystemUtils.deleteRecursively(new File("/git-workspace"));
 		System.out.println("Workspace cleaned");
 		
 		
