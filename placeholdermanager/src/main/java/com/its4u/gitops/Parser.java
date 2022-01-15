@@ -41,10 +41,13 @@ public class Parser {
 		try {
 			read = Files.readString(path); 
 			Pattern pattern = Pattern.compile("\\{\\{(?:[^{}]|((g<0>)))+\\}\\}");
-			//Pattern pattern = Pattern.compile("\\{\\{(.*)\\}\\}");
+			
+			
+			
 			Matcher matcher = pattern.matcher(read);
 			while(matcher.find()){				
-				 System.out.println("founded : "+matcher);
+				 System.out.println("founded : "+matcher.group());
+				
 				 placeholders.put(matcher.toString(),matcher.toString());
 			}
 			
