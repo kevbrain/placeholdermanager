@@ -76,16 +76,25 @@
 								</p:column>		
 								<p:column  headerText="Value">	
 							        		<p:password  value="#{entry.value}" toggleMask="true" redisplay="true" style="width:400px;"/>
+								</p:column>									
+			    			</p:dataTable>
+			    			<br/>
+			    			<b>New placeHolders detected :</b>
+			    			<p:dataTable value="#{env.newPlaceholders}"  var="entry"  widgetVar="placeHolderTable">
+			    				<p:column  headerText="Key">	
+							        		<h:outputText value="#{entry.placeHolderId.key}" />
 								</p:column>		
-							
+								<p:column  headerText="Action">	
+							        	<h:panelGrid columns="3">
+							        		<p:commandButton value="Add as Clear value"   update="@form" style="margin:10px;background:#003b50;color:white" />
+	   										<p:spacer width="20"></p:spacer>
+	   										<p:commandButton value="Add as Secret value"  update="@form" style="margin:10px;background:#003b50;color:white" />
+							        	</h:panelGrid>
+								</p:column>									
 			    			</p:dataTable>
 			    	</p:tab>
 			</p:tabView>
-			<p:dataTable value="#{placeHoldersView.newPlaceHoldersDetected}" var="newplaceholder">
-						<p:column  headerText="Key">	
-							  	<h:outputText value="#{newplaceholder}" />
-						</p:column>			
-			</p:dataTable>
+		
     	</h:form>
 	</p:panel>
     

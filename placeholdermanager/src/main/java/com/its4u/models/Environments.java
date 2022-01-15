@@ -63,6 +63,10 @@ public class Environments implements Serializable {
 	@Getter
 	public List<PlaceHolders> secretsPlaceholders;
 	
+	@JsonIgnore
+	@Transient
+	public List<PlaceHolders> newPlaceholders;
+	
 	public Environments() {
 		super();
 	}

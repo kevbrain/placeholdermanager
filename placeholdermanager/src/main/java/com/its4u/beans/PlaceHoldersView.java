@@ -46,7 +46,6 @@ public class PlaceHoldersView {
 	
 	private String selectedProjectId;
 	
-	private List<String> newPlaceHoldersDetected;
 	
 	@PostConstruct
     public void init()  {
@@ -67,29 +66,31 @@ public class PlaceHoldersView {
 	public void searchForNewPlaceHolders() {
 		System.out.println("Search for new PlaceHolders...");
 		String pathWorkingGitAppProject = cloneGitApp()+"/"+selectedProject.getProject_Id();
-		HashMap<String,String> placeholders = new HashMap<String, String>();
-		try {
-			Files.walk(Paths.get(pathWorkingGitAppProject+"/src/main/jkube/"))
-			.filter(Files::isRegularFile)
-			.forEach(path -> placeholders.putAll(Parser.parserAllPlaceHolders(path)));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		HashMap<String, String> keyValues = new HashMap<String, String>();
-		System.out.println("---> "+placeholders.keySet());
-		for (Environments env:selectedProject.getEnvironments()) {			
+		
+		
+		for (Environments env:selectedProject.getEnvironments()) {
+			HashMap<String,String> placeholders = new HashMap<String, String>();
+			try {
+				Files.walk(Paths.get(pathWorkingGitAppProject+"/src/main/jkube/"+env.getEnvironment()))
+				.filter(Files::isRegularFile)
+				.forEach(path -> placeholders.putAll(Parser.parserAllPlaceHolders(path)));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			HashMap<String, String> keyValues = new HashMap<String, String>();
 			for (PlaceHolders pl:env.getPlaceholders()) {
 				keyValues.put(pl.getPlaceHolderId().getKey(),pl.getValue());
 			}
-		}
-		for (String key:placeholders.keySet()) {
-			if (keyValues.get(key)==null) {
-				System.out.println("New PlaceHolder Dectected : ["+key+"]");
-				newPlaceHoldersDetected.add(key);
+			List<PlaceHolders> newPlaceHolders = new ArrayList<>();
+			for (String key:placeholders.keySet()) {
+				if (keyValues.get(key)==null) {
+					System.out.println("New PlaceHolder Dectected : ["+key+"]");					
+					newPlaceHolders.add(new PlaceHolders(new PlaceHolderId(env.getEnvironment(),key),env,"",""));
+				}
 			}
-		}
-		
+			env.setNewPlaceholders(newPlaceHolders);
+		}	
 	}
 	
 	public String cloneGitApp() {
@@ -122,7 +123,7 @@ public class PlaceHoldersView {
 		String pathWorkkingGitOpsProject = cloneGitOps()+"/"+selectedProject.getProject_Id();					
 		String pathWorkingGitAppProject = cloneGitApp()+"/"+selectedProject.getProject_Id();
 		
-		HashMap<String,HashMap<String,String>> placesH = new HashMap<String, HashMap<String, String>>();
+		//HashMap<String,HashMap<String,String>> placesH = new HashMap<String, HashMap<String, String>>();
 		for (Environments env:selectedProject.getEnvironments()) {
 			HashMap<String, String> keyValues = new HashMap<String, String>();
 			for (PlaceHolders pl:env.getPlaceholders()) {
@@ -172,7 +173,6 @@ public class PlaceHoldersView {
 	public void onSelectedProject(String projectId) {
 		
 		System.out.println("Selected project : "+projectId);
-		newPlaceHoldersDetected = new ArrayList<String>();
 		selectedProject=myProjects.get(projectId);
 		searchForNewPlaceHolders();
 				
