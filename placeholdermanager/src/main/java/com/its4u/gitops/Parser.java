@@ -44,8 +44,8 @@ public class Parser {
 								
 			Matcher matcher = pattern.matcher(read);
 			while(matcher.find()){				
-				 System.out.println("founded : "+matcher.group().replaceAll("{{", "").replaceAll("}}",""));
-				 String value=matcher.group().replaceAll("{{", "").replaceAll("}}","");
+				 System.out.println("founded : "+matcher.group().replace('{',' ').replace('}',' ').trim());
+				 String value=matcher.group().replace('{',' ').replace('}',' ').trim();
 				 placeholders.put(value,value);
 			}
 			
