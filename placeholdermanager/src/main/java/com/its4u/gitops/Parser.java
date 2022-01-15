@@ -40,7 +40,7 @@ public class Parser {
 		boolean found = false;
 		try {
 			read = Files.readString(path); 
-			Pattern pattern = Pattern.compile("\\{\\{(?:[^{}]|((?R)))+\\}\\}");
+			Pattern pattern = Pattern.compile("\\{\\{(?:[^{}]|((\\g<0>)))+\\}\\}");
 			//Pattern pattern = Pattern.compile("\\{\\{(.*)\\}\\}");
 			Matcher matcher = pattern.matcher(read);
 			while(matcher.find()){				
