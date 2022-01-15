@@ -39,12 +39,13 @@ public class Parser {
 		String read = null;
 		boolean found = false;
 		try {
-			read = Files.readString(path);
-			Pattern pattern = Pattern.compile("\\{\\{(.*)\\}\\}");
+			read = Files.readString(path); 
+			Pattern pattern = Pattern.compile("\\{\\{(?:[^{}]|((?R)))+\\}\\}");
+			//Pattern pattern = Pattern.compile("\\{\\{(.*)\\}\\}");
 			Matcher matcher = pattern.matcher(read);
 			while(matcher.find()){				
-				 System.out.println("founded : "+matcher.group(1));
-				 placeholders.put(matcher.group(1),matcher.group(1));
+				 System.out.println("founded : "+matcher);
+				 placeholders.put(matcher.toString(),matcher.toString());
 			}
 			
 		} catch (IOException e) {
