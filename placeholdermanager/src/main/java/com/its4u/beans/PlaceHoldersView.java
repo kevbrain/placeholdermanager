@@ -46,6 +46,8 @@ public class PlaceHoldersView {
 	
 	private String selectedProjectId;
 	
+	private Environments selectedEnvironment;
+	
 	
 	@PostConstruct
     public void init()  {
@@ -76,7 +78,7 @@ public class PlaceHoldersView {
 				.forEach(path -> placeholders.putAll(Parser.parserAllPlaceHolders(path)));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				//e.printStackTrace();
 			}
 			HashMap<String, String> keyValues = new HashMap<String, String>();
 			for (PlaceHolders pl:env.getPlaceholders()) {
@@ -91,6 +93,11 @@ public class PlaceHoldersView {
 			}
 			env.setNewPlaceholders(newPlaceHolders);
 		}	
+	}
+	
+	public void addNewPlaceHolderAsClearValue(Environments env,PlaceHolders pl) {
+		System.out.println("--->"+env.getEnvironment());
+		System.out.println("--->"+pl.getPlaceHolderId().getKey());
 	}
 	
 	public String cloneGitApp() {
@@ -141,10 +148,7 @@ public class PlaceHoldersView {
 			e.printStackTrace();
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
-		}
-		
-
-		
+		}	
 	}
 		
 	public void updateGitopsPerEnvironment(String pathWorkkingGitOps,String pathWorkingGitApp,String keyenv, HashMap<String,String> placesH) {
@@ -172,7 +176,6 @@ public class PlaceHoldersView {
 	
 	public void onSelectedProject(String projectId) {
 		
-		System.out.println("Selected project : "+projectId);
 		selectedProject=myProjects.get(projectId);
 		searchForNewPlaceHolders();
 				
