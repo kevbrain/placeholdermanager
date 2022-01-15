@@ -87,10 +87,12 @@
 								<p:column  headerText="Action">	
 							        	
 							        		<p:commandButton value="Add as Clear value"  
-							        			actionListener="#{placeHoldersView.addNewPlaceHolderAsClearValue(env,entry)}"
+							        			actionListener="#{placeHoldersView.addNewPlaceHolder(env,entry,false)}"
 							        			update="@form" style="margin:10px;background:#003b50;color:white" />
 	   										
-	   										<p:commandButton value="Add as Secret value"  update="@form" style="margin:10px;background:#003b50;color:white" />
+	   										<p:commandButton value="Add as Secret value"  
+	   											actionListener="#{placeHoldersView.addNewPlaceHolder(env,entry,true)}"
+	   											update="@form" style="margin:10px;background:#003b50;color:white" />
 							        	
 								</p:column>									
 			    			</p:dataTable>

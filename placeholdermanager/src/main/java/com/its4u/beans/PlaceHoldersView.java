@@ -95,9 +95,14 @@ public class PlaceHoldersView {
 		}	
 	}
 	
-	public void addNewPlaceHolderAsClearValue(Environments env,PlaceHolders pl) {
+	public void addNewPlaceHolder(Environments env,PlaceHolders pl,boolean secret) {
 		System.out.println("--->"+env.getEnvironment());
 		System.out.println("--->"+pl.getPlaceHolderId().getKey());
+		env.getNewPlaceholders().remove(pl);
+		if (secret) pl.setType("secret");
+		env.getPlaceholders().add(pl);
+		
+		
 	}
 	
 	public String cloneGitApp() {
