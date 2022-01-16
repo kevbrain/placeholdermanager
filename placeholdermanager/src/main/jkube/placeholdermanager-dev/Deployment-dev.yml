@@ -3,9 +3,8 @@ apiVersion: apps/v1
 metadata:
   namespace: placeholdermanager-dev
   annotations:
+    its4u.placeholders/auto: "true"
     reloader.stakater.com/auto: "true"
-    build-commit: '@git.commit.id.abbrev@'
-    build-date: "@git.build.time@"
   name: placeholdermanager
   labels:
     app: placeholdermanager
@@ -26,6 +25,8 @@ spec:
       volumes:
         - name: emptydirlogs
           emptyDir: {}
+        - name: git-workspace
+          emptyDir: {}
       containers:
         - name: microservice-pod 
           resources:
@@ -41,6 +42,56 @@ spec:
               port: 8080
               scheme: HTTP
           env:
+            - name: app-name
+              valueFrom:
+                configMapKeyRef:
+                  name: placeholdermanager-cm-0
+                  key: app-name
+            - name: cluster-suffix
+              valueFrom:
+                configMapKeyRef:
+                  name: placeholdermanager-cm-0
+                  key: cluster-suffix
+            - name: ocp.environment
+              valueFrom:
+                configMapKeyRef:
+                  name: placeholdermanager-cm-0
+                  key: ocp.environment
+            - name: ocp.replicas
+              valueFrom:
+                configMapKeyRef:
+                  name: placeholdermanager-cm-0
+                  key: ocp.replicas
+            - name: ocp-cluster.registry
+              valueFrom:
+                configMapKeyRef:
+                  name: placeholdermanager-cm-0
+                  key: ocp-cluster.registry
+            - name: ocp-namespace
+              valueFrom:
+                configMapKeyRef:
+                  name: placeholdermanager-cm-0
+                  key: ocp-namespace
+            - name: ocp-namespace
+              valueFrom:
+                configMapKeyRef:
+                  name: placeholdermanager-cm-0
+                  key: ocp-namespace
+            - name: git.user
+              valueFrom:
+                configMapKeyRef:
+                  name: placeholdermanager-cm-0
+                  key: git.user
+            - name: actuator.password
+              valueFrom:
+                secretKeyRef:
+                  name: placeholdermanager-secret-0
+                  key: actuator.password
+            - name: git.password
+              valueFrom:
+                secretKeyRef:
+                  name: placeholdermanager-secret-0
+                  key: git.password
           ports:
             - containerPort: 8080
               protocol: TCP
@@ -49,6 +100,8 @@ spec:
           volumeMounts:
             - name: emptydirlogs
               mountPath: /Logs
+            - name: git-workspaces
+              mountPath: /git-workspace
           image: >-
-            image-registry.openshift-image-registry.svc.cluster.local:5000/placeholdermanager-dev/placeholdermanager:latest
+            {{ocp-cluster.registry}}/{{ocp-namespace}}/placeholdermanager:{{app-version}}
       restartPolicy: Always

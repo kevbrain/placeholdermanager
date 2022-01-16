@@ -16,6 +16,7 @@ import javax.faces.view.ViewScoped;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.api.errors.NoFilepatternException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.FileSystemUtils;
 
@@ -48,10 +49,14 @@ public class PlaceHoldersView {
 	
 	private Environments selectedEnvironment;
 	
+	@Value("${app-name}")
+	private String appName;
+	
 	
 	@PostConstruct
     public void init()  {
 		refresh();
+		System.out.println("AppName :"+appName);
     }
 	
 	public void refresh() {

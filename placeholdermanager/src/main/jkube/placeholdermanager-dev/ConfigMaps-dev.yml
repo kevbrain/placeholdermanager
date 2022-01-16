@@ -5,5 +5,12 @@ metadata:
   name: placeholdermanager-cm-0
   labels:
     app: placeholdermanager
-data:  {} 
+data:
+  cluster-suffix: "{{cluster-suffix}}"
+  ocp.environment: "{{ocp.environment}}"
+  ocp.replicas: "{{ocp.replicas}}"
+  ocp-cluster.registry: "{{ocp-cluster.registry}}"
+  ocp-namespace: "{{ocp-namespace}}"
+  app-name: "{{app-name}}"
+  git-user: "{{git.user}}" 
 ---
