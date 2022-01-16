@@ -49,14 +49,12 @@ public class PlaceHoldersView {
 	
 	private Environments selectedEnvironment;
 	
-	@Value("${app-name}")
-	private String appName;
 	
 	
 	@PostConstruct
     public void init()  {
 		refresh();
-		System.out.println("AppName :"+appName);
+
     }
 	
 	public void refresh() {
