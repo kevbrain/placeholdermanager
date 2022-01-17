@@ -73,7 +73,10 @@ public class PlaceHoldersView {
 		System.out.println("Save project");
 		pollView.log("Save project on DataBase");
 		projectService.createProject(selectedProject);
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Project savec"));
+		
 		updateGitOps();
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Git Synchronized"));
 	}
 	
 	public void searchForNewPlaceHolders() {
