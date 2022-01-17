@@ -36,23 +36,19 @@
 	   		
 	   		<p:commandButton value="Save"  actionListener="#{placeHoldersView.save}" onclick="PF('dlg1').show()" update="@form" style="margin:10px;background:#003b50;color:white" />
    		</div>
-   			<h:panelGrid columns="2">
+   			
 	 			<h:panelGrid columns="2">
 	 				<h:outputText value="My projects :"/>
-	 				 <p:selectOneMenu  value="#{placeHoldersView.selectedProjectId}" >
+	 				 <p:selectOneMenu  value="#{placeHoldersView.selectedProjectId}" onchange="PF('dlg1').show()">
 	 				 	 	<f:selectItem itemLabel="Select One" itemValue=""/>
 	                  	<f:selectItems value="#{placeHoldersView.myProjects}" var="project" itemLabel="#{project}" itemValue="#{project}"/>
-	                  	<p:ajax event="change" update="tabviewenv" listener="#{placeHoldersView.onSelectedProject(placeHoldersView.selectedProjectId)}" />
+	                  	<p:ajax event="change" update="tabviewenv,giturl" listener="#{placeHoldersView.onSelectedProject(placeHoldersView.selectedProjectId)}" />
 	                  	
 	 				 </p:selectOneMenu>
 	 				 <h:outputText value="Git url"/>
-	 				 <h:outputText value="#{placeHoldersView.selectedProject.gitUrl}"/>
+	 				 <h:outputText id="giturl" value="#{placeHoldersView.selectedProject.gitUrl}"/>
 	   			</h:panelGrid>
-	   			<p:scrollPanel style="width:1200px;height:70px">		
-	   					<h:outputText escape="false"  id="txt_count" value="#{pollView.listLogs}"/>									
-						 <p:poll interval="1" listener="#{pollView.increment}" update="txt_count"/>
-				</p:scrollPanel>
-   			</h:panelGrid>
+	   			
    			
    			
 		   			<p:tabView value="#{placeHoldersView.selectedProject.environments}" var="env" id="tabviewenv" >
@@ -112,7 +108,8 @@
 	
 	<p:dialog header="Header" widgetVar="dlg1" minHeight="40" width="350" showEffect="fade">
 		<h:form>
-		
+			<h:outputText escape="false"  id="txt_count" value="#{pollView.listLogs}"/>									
+			<p:poll interval="1" listener="#{pollView.increment}" update="txt_count"/>
 		</h:form>	
 	</p:dialog>
  
