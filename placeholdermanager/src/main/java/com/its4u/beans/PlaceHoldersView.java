@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 
 import org.eclipse.jgit.api.errors.GitAPIException;
@@ -188,7 +190,7 @@ public class PlaceHoldersView {
 		
 		} catch (Exception e) {
 			System.out.println("Unable to synchronize...");
-			pollView.log("Unable to synchronize...");
+			pollView.logError("Unable to synchronize "+keyenv);
 		}
 			
 	}
@@ -196,6 +198,7 @@ public class PlaceHoldersView {
 	public void onSelectedProject(String projectId) {
 		
 		selectedProject=myProjects.get(projectId);
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Load info project"));
 		searchForNewPlaceHolders();
 				
 	}

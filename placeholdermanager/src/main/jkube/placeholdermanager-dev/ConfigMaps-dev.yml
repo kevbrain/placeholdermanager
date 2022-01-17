@@ -12,5 +12,5 @@ data:
   ocp-cluster.registry: "{{ocp-cluster.registry}}"
   ocp-namespace: "{{ocp-namespace}}"
   app-name: "{{app-name}}"
-  git-user: "{{git.user}}" 
+  git.user: "{{git.user}}" 
 ---

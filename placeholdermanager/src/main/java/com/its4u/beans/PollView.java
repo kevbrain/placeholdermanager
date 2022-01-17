@@ -43,6 +43,13 @@ public class PollView implements Serializable {
     			
     }
   
+    public void logError(String log) {    	
+        
+    	String logFormated = "[<span style=\"color:red\"><b>ERROR</b></span>] "+log+"</br>";
+    	logPile.push(logFormated);
+    			
+    }
+    
 	public String getListLogs() {
 		
 		return listLogs;
