@@ -35,15 +35,16 @@
    		<div style="position:relative;margin:auto;text-align:center;">	
 	   		<p:commandButton value="Refresh"  actionListener="#{placeHoldersView.refresh}" update="@form" style="margin:10px;background:#003b50;color:white" />
 	   		
-	   		<p:commandButton value="Save"  actionListener="#{placeHoldersView.save}" onclick="PF('dlg1').show()" update="@form" style="margin:10px;background:#003b50;color:white" />
+	   		<p:commandButton value="Save"  actionListener="#{placeHoldersView.save}" onclick="PF('dlg0').show()" update="@form" style="margin:10px;background:#003b50;color:white" />
    		</div>
    		
 	 			<h:panelGrid columns="2">
 	 				<h:outputText value="My projects :"/>
-	 				 <p:selectOneMenu  value="#{placeHoldersView.selectedProjectId}" onchange="PF('dlg1').show()">
+	 				 <p:selectOneMenu  value="#{placeHoldersView.selectedProjectId}"
+	 				 	 onchange="PF('dlg0').show()">
 	 				 	 	<f:selectItem itemLabel="Select One" itemValue=""/>
 	                  	<f:selectItems value="#{placeHoldersView.myProjects}" var="project" itemLabel="#{project}" itemValue="#{project}"/>
-	                  	<p:ajax event="change" update="tabviewenv,giturl,growl" listener="#{placeHoldersView.onSelectedProject(placeHoldersView.selectedProjectId)}" />
+	                  	<p:ajax  oncomplete="PF('dlg0').hide()"  event="change" update="tabviewenv,giturl,growl" listener="#{placeHoldersView.onSelectedProject(placeHoldersView.selectedProjectId)}" />
 	                  	
 	 				 </p:selectOneMenu>
 	 				 <h:outputText value="Git url"/>
@@ -114,6 +115,11 @@
 		</h:form>	
 	</p:dialog>
  
+ 	<p:dialog header="Logs" widgetVar="dlg0" minHeight="400" width="400" showEffect="fade">
+		<h:form>
+			<p:graphicImage name="loader_seq.gif"  style="background: transparent;"/>
+		</h:form>	
+	</p:dialog>
  
 </h:body>
 </html>
