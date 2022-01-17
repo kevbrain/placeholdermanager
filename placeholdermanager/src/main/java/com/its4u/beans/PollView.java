@@ -26,7 +26,7 @@ public class PollView implements Serializable {
     }
  
 	public void increment() {
-		if (!logPile.isEmpty()) {
+		while (!logPile.isEmpty()) {
 			String mystr = (String)logPile.pop();
 			listLogs=listLogs+mystr;	
 		}	  
@@ -38,7 +38,7 @@ public class PollView implements Serializable {
 
     public void log(String log) {    	
         
-    	String logFormated = log+"[<span \"text-color:green\"><b>Done</b></span>]</br>";
+    	String logFormated = log+"[<span style=\"color:green\"><b>Done</b></span>]</br>";
     	logPile.push(logFormated);
     			
     }

@@ -106,7 +106,7 @@
     	</h:form>
 	</p:panel>
 	
-	<p:dialog header="Header" widgetVar="dlg1" minHeight="40" width="350" showEffect="fade">
+	<p:dialog header="Logs" widgetVar="dlg1" minHeight="500" width="1400" showEffect="fade">
 		<h:form>
 			<h:outputText escape="false"  id="txt_count" value="#{pollView.listLogs}"/>									
 			<p:poll interval="1" listener="#{pollView.increment}" update="txt_count"/>
