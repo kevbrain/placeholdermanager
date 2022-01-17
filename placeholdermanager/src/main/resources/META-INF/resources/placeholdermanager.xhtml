@@ -50,9 +50,9 @@
 	   			</h:panelGrid>
 	   			<p:scrollPanel style="width:800px;height:70px">						
 						 <p:repeat value="#{pollView.listLogs}" var="log" id="pnlogs">
-						 	<h:outputText escape="false" value="#{log}"/><br/>
+						 	<h:outputText  escape="false" value="#{log}"/><br/>
 						 </p:repeat>
-						 <p:poll interval="1" listener="#{pollView.increment}" update="txt_count"/>
+						 <p:poll interval="1" listener="#{pollView.increment}" update="pnlogs"/>
 				</p:scrollPanel>
    			</h:panelGrid>
    			
