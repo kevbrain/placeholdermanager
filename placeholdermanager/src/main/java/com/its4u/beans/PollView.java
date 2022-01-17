@@ -38,7 +38,7 @@ public class PollView implements Serializable {
 
     public void log(String log) {    	
         
-    	String logFormated = log+"\n";
+    	String logFormated = log+"</br>";
     	logPile.push(logFormated);
     			
     }
