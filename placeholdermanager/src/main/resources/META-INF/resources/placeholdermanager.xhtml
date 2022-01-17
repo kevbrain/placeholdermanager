@@ -38,7 +38,7 @@
    		</div>
  			<h:panelGrid columns="2">
  				<h:outputText value="My projects :"/>
- 				 <p:selectOneMenu  value="#{placeHoldersView.selectedProjectId}" >
+ 				 <p:selectOneMenu  value="#{placeHoldersView.selectedProjectId}" onchange="PF('dlg1').show()">
  				 	 	<f:selectItem itemLabel="Select One" itemValue=""/>
                   	<f:selectItems value="#{placeHoldersView.myProjects}" var="project" itemLabel="#{project}" itemValue="#{project}"/>
                   	<p:ajax event="change" update="@form" listener="#{placeHoldersView.onSelectedProject(placeHoldersView.selectedProjectId)}" />
@@ -105,7 +105,10 @@
 	<p:dialog header="Header" widgetVar="dlg1" minHeight="40" width="350" showEffect="fade">
 		<h:form>
 			<h:outputText id="txt_count" value="#{pollView.number}"/>
-			 <p:poll interval="2" listener="#{pollView.increment}" update="txt_count"/>
+			 <p:repeat value="#{pollView.listLogs}" var="log">
+			 	#{log}
+			 </p:repeat>
+			 <p:poll interval="1" listener="#{pollView.increment}" update="@form"/>
 		</h:form>	
 	</p:dialog>
     

@@ -38,6 +38,9 @@ public class PlaceHoldersView {
 
 	@Autowired
 	private ProjectService projectService;
+	
+	@Autowired
+	private PollView pollView;
 
 	private OcpExplorerService ocp;
 	
@@ -51,9 +54,11 @@ public class PlaceHoldersView {
 	
 	
 	
+	
 	@PostConstruct
     public void init()  {
 		refresh();
+		
 
     }
 	
@@ -64,14 +69,16 @@ public class PlaceHoldersView {
 	
 	public void save() {
 		System.out.println("Save project");
+		pollView.log("Save project");
 		projectService.createProject(selectedProject);
 		updateGitOps();
 	}
 	
 	public void searchForNewPlaceHolders() {
 		System.out.println("Search for new PlaceHolders...");
+		pollView.log("Search for new PlaceHolders...");
 		String pathWorkingGitAppProject = cloneGitApp()+"/"+selectedProject.getProject_Id();
-		
+		pollView.log("Clone Git app project...");
 		
 		for (Environments env:selectedProject.getEnvironments()) {
 			HashMap<String,String> placeholders = new HashMap<String, String>();
@@ -90,6 +97,7 @@ public class PlaceHoldersView {
 			List<PlaceHolders> newPlaceHolders = new ArrayList<>();
 			for (String key:placeholders.keySet()) {
 				if (keyValues.get(key)==null) {
+					pollView.log("New PlaceHolder Dectected : ["+key+"]");
 					System.out.println("New PlaceHolder Dectected : ["+key+"]");					
 					newPlaceHolders.add(new PlaceHolders(new PlaceHolderId(env.getEnvironment(),key),env,"",""));
 				}
