@@ -15,7 +15,7 @@ public class PollView implements Serializable {
 	
 	private Stack<String> logPile = new Stack<String>();
 	
-	private List<String> listLogs;
+	private List<String> listLogs = new ArrayList<String>();
 	
 	private int number;
  
@@ -35,6 +35,7 @@ public class PollView implements Serializable {
   
 	public List<String> getListLogs() {
 		listLogs = new ArrayList<String>();
+		listLogs.add("..............");
 		for(int i = 0; i < 5; i++) {
 			String myint = (String)logPile.pop();
 			listLogs.add(myint);
