@@ -198,7 +198,7 @@ public class PlaceHoldersView {
 	public void onSelectedProject(String projectId) {
 		
 		selectedProject=myProjects.get(projectId);
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Load info project"));
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Project loaded"));
 		searchForNewPlaceHolders();
 				
 	}
