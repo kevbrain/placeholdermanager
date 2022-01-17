@@ -36,18 +36,27 @@
 	   		
 	   		<p:commandButton value="Save"  actionListener="#{placeHoldersView.save}" onclick="PF('dlg1').show()" update="@form" style="margin:10px;background:#003b50;color:white" />
    		</div>
- 			<h:panelGrid columns="2">
- 				<h:outputText value="My projects :"/>
- 				 <p:selectOneMenu  value="#{placeHoldersView.selectedProjectId}" onchange="PF('dlg1').show()">
- 				 	 	<f:selectItem itemLabel="Select One" itemValue=""/>
-                  	<f:selectItems value="#{placeHoldersView.myProjects}" var="project" itemLabel="#{project}" itemValue="#{project}"/>
-                  	<p:ajax event="change" update="@form" listener="#{placeHoldersView.onSelectedProject(placeHoldersView.selectedProjectId)}" />
-                  	
- 				 </p:selectOneMenu>
- 				 <h:outputText value="Git url"/>
- 				 <h:outputText value="#{placeHoldersView.selectedProject.gitUrl}"/>
-   			</h:panelGrid>
-   			<h:panelGrid columns="2">
+   			<div style="position:relative;margin:auto;">
+	 			<h:panelGrid columns="2">
+	 				<h:outputText value="My projects :"/>
+	 				 <p:selectOneMenu  value="#{placeHoldersView.selectedProjectId}" >
+	 				 	 	<f:selectItem itemLabel="Select One" itemValue=""/>
+	                  	<f:selectItems value="#{placeHoldersView.myProjects}" var="project" itemLabel="#{project}" itemValue="#{project}"/>
+	                  	<p:ajax event="change" update="@form" listener="#{placeHoldersView.onSelectedProject(placeHoldersView.selectedProjectId)}" />
+	                  	
+	 				 </p:selectOneMenu>
+	 				 <h:outputText value="Git url"/>
+	 				 <h:outputText value="#{placeHoldersView.selectedProject.gitUrl}"/>
+	   			</h:panelGrid>
+	   			<p:panel>
+						<h:outputText id="txt_count" value="#{pollView.number}"/><br/>
+						 <p:repeat value="#{pollView.listLogs}" var="log" id="pnlogs">
+						 	#{log}<br/>
+						 </p:repeat>
+						 <p:poll interval="1" listener="#{pollView.increment}" update="txt_count"/>
+				</p:panel>
+   			</div>
+   			
 		   			<p:tabView value="#{placeHoldersView.selectedProject.environments}" var="env" >
 					    	<p:tab title="#{env.environment}" >
 					    			<div style="position:relative;margin:auto;text-align:center;">	
@@ -98,14 +107,8 @@
 					    			</p:dataTable>
 					    	</p:tab>
 					</p:tabView>
-					<p:panel>
-						<h:outputText id="txt_count" value="#{pollView.number}"/><br/>
-						 <p:repeat value="#{pollView.listLogs}" var="log" id="pnlogs">
-						 	#{log}<br/>
-						 </p:repeat>
-						 <p:poll interval="1" listener="#{pollView.increment}" update="txt_count"/>
-					</p:panel>
-			</h:panelGrid>	
+					
+				
     	</h:form>
 	</p:panel>
 	
