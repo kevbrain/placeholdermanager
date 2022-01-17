@@ -22,14 +22,14 @@
 	</script>
     
 	<p:panel id="panelApp">
-			<f:facet name="header">
-				<h:panelGrid columns="3">
-					<p:graphicImage name="LOGO_ITS4U_Group_Interstate_COLOR.png"  style="background: transparent;width:200px;margin-right:20px;"/>
-					
-					<p:outputLabel value="OCP - GitOps Application Deployer"   style="width:100%;text-align: center;font-size: 40px;color:#003b50"></p:outputLabel>
-					
-				</h:panelGrid>			
-			</f:facet>
+		<f:facet name="header">
+			<h:panelGrid columns="3">
+				<p:graphicImage name="LOGO_ITS4U_Group_Interstate_COLOR.png"  style="background: transparent;width:200px;margin-right:20px;"/>
+				
+				<p:outputLabel value="OCP - GitOps Application Deployer"   style="width:100%;text-align: center;font-size: 40px;color:#003b50"></p:outputLabel>
+				
+			</h:panelGrid>			
+		</f:facet>
    		<h:form id="form" prependId="false">
    		<div style="position:relative;margin:auto;text-align:center;">	
 	   		<p:commandButton value="Refresh"  actionListener="#{placeHoldersView.refresh}" update="@form" style="margin:10px;background:#003b50;color:white" />
@@ -47,71 +47,74 @@
  				 <h:outputText value="Git url"/>
  				 <h:outputText value="#{placeHoldersView.selectedProject.gitUrl}"/>
    			</h:panelGrid>
-   			
-   			<p:tabView value="#{placeHoldersView.selectedProject.environments}" var="env" >
-			    	<p:tab title="#{env.environment}" >
-			    			<div style="position:relative;margin:auto;text-align:center;">	
-			    				<p:commandButton value="Apply And Deploy"  actionListener="#{placeHoldersView.refresh}" update="@form" style="margin:10px;background:#003b50;color:white" />
-	   		
-	   							<p:commandButton value="UnDeploy"  actionListener="#{placeHoldersView.refresh}" update="@form" style="margin:10px;background:#003b50;color:white" />
-	   		
-	   							<p:commandButton value="Rollback"  actionListener="#{placeHoldersView.refresh}" update="@form" style="margin:10px;background:#003b50;color:white" />
-	   						</div>
-			    			<b>Clear Values :</b>
-			    			<p:dataTable value="#{env.clearPlaceholders}"  var="entry"  widgetVar="placeHolderTable">
-			    				<p:column  headerText="Key">	
-							        		<h:outputText value="#{entry.placeHolderId.key}"/>
-								</p:column>		
-								<p:column  headerText="Value">	
-							        		<p:inputText value="#{entry.value}" style="width:600px;"/>
-								</p:column>		
-								
-								
-			    			</p:dataTable>
-			    			<br/>
-			    			<b>Encrypted Values :</b>
-			    			<p:dataTable value="#{env.secretsPlaceholders}"  var="entry"  widgetVar="placeHolderTable">
-			    				<p:column  headerText="Key">	
-							        		<h:outputText value="#{entry.placeHolderId.key}" />
-								</p:column>		
-								<p:column  headerText="Value">	
-							        		<p:password  value="#{entry.value}" toggleMask="true" redisplay="true" style="width:400px;"/>
-								</p:column>									
-			    			</p:dataTable>
-			    			<br/>
-			    			<b>New placeHolders detected :</b>
-			    			<p:dataTable value="#{env.newPlaceholders}"  var="entry"  widgetVar="placeHolderTable">
-			    				<p:column  headerText="Key">	
-							        		<h:outputText value="#{entry.placeHolderId.key}" />
-								</p:column>		
-								<p:column  headerText="Action">	
-							        	
-							        		<p:commandButton value="Add as Clear value"  
-							        			actionListener="#{placeHoldersView.addNewPlaceHolder(env,entry,false)}"
-							        			update="@form" style="margin:10px;background:#003b50;color:white" />
-	   										
-	   										<p:commandButton value="Add as Secret value"  
-	   											actionListener="#{placeHoldersView.addNewPlaceHolder(env,entry,true)}"
-	   											update="@form" style="margin:10px;background:#003b50;color:white" />
-							        	
-								</p:column>									
-			    			</p:dataTable>
-			    	</p:tab>
-			</p:tabView>
-		
+   			<h:panelGrid columns="2">
+		   			<p:tabView value="#{placeHoldersView.selectedProject.environments}" var="env" >
+					    	<p:tab title="#{env.environment}" >
+					    			<div style="position:relative;margin:auto;text-align:center;">	
+					    				<p:commandButton value="Apply And Deploy"  actionListener="#{placeHoldersView.refresh}" update="@form" style="margin:10px;background:#003b50;color:white" />
+			   		
+			   							<p:commandButton value="UnDeploy"  actionListener="#{placeHoldersView.refresh}" update="@form" style="margin:10px;background:#003b50;color:white" />
+			   		
+			   							<p:commandButton value="Rollback"  actionListener="#{placeHoldersView.refresh}" update="@form" style="margin:10px;background:#003b50;color:white" />
+			   						</div>
+					    			<b>Clear Values :</b>
+					    			<p:dataTable value="#{env.clearPlaceholders}"  var="entry"  widgetVar="placeHolderTable">
+					    				<p:column  headerText="Key">	
+									        		<h:outputText value="#{entry.placeHolderId.key}"/>
+										</p:column>		
+										<p:column  headerText="Value">	
+									        		<p:inputText value="#{entry.value}" style="width:600px;"/>
+										</p:column>		
+										
+										
+					    			</p:dataTable>
+					    			<br/>
+					    			<b>Encrypted Values :</b>
+					    			<p:dataTable value="#{env.secretsPlaceholders}"  var="entry"  widgetVar="placeHolderTable">
+					    				<p:column  headerText="Key">	
+									        		<h:outputText value="#{entry.placeHolderId.key}" />
+										</p:column>		
+										<p:column  headerText="Value">	
+									        		<p:password  value="#{entry.value}" toggleMask="true" redisplay="true" style="width:400px;"/>
+										</p:column>									
+					    			</p:dataTable>
+					    			<br/>
+					    			<b>New placeHolders detected :</b>
+					    			<p:dataTable value="#{env.newPlaceholders}"  var="entry"  widgetVar="placeHolderTable">
+					    				<p:column  headerText="Key">	
+									        		<h:outputText value="#{entry.placeHolderId.key}" />
+										</p:column>		
+										<p:column  headerText="Action">	
+									        	
+									        		<p:commandButton value="Add as Clear value"  
+									        			actionListener="#{placeHoldersView.addNewPlaceHolder(env,entry,false)}"
+									        			update="@form" style="margin:10px;background:#003b50;color:white" />
+			   										
+			   										<p:commandButton value="Add as Secret value"  
+			   											actionListener="#{placeHoldersView.addNewPlaceHolder(env,entry,true)}"
+			   											update="@form" style="margin:10px;background:#003b50;color:white" />
+									        	
+										</p:column>									
+					    			</p:dataTable>
+					    	</p:tab>
+					</p:tabView>
+					<p:panel>
+						<h:outputText id="txt_count" value="#{pollView.number}"/><br/>
+						 <p:repeat value="#{pollView.listLogs}" var="log" id="pnlogs">
+						 	#{log}<br/>
+						 </p:repeat>
+						 <p:poll interval="1" listener="#{pollView.increment}" update="txt_count"/>
+					</p:panel>
+			</h:panelGrid>	
     	</h:form>
 	</p:panel>
 	
 	<p:dialog header="Header" widgetVar="dlg1" minHeight="40" width="350" showEffect="fade">
 		<h:form>
-			<h:outputText id="txt_count" value="#{pollView.number}"/><br/>
-			 <p:repeat value="#{pollView.listLogs}" var="log">
-			 	#{log}<br/>
-			 </p:repeat>
-			 <p:poll interval="1" listener="#{pollView.increment}" update="@form"/>
+		
 		</h:form>	
 	</p:dialog>
-    
+ 
  
 </h:body>
 </html>
