@@ -69,7 +69,7 @@ public class PlaceHoldersView {
 	
 	public void save() {
 		System.out.println("Save project");
-		pollView.log("Save project");
+		pollView.log("Save project on DataBase");
 		projectService.createProject(selectedProject);
 		updateGitOps();
 	}
@@ -183,7 +183,7 @@ public class PlaceHoldersView {
 			
 			Files.walk(Paths.get(pathWorkkingGitOpsEnv))
 	        .filter(Files::isRegularFile)
-	        .forEach(path -> Parser.parser(path,placesH));
+	        .forEach(path -> Parser.parser(path,placesH,pollView));
 			
 		
 		} catch (Exception e) {

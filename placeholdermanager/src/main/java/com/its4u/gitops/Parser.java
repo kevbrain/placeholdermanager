@@ -7,10 +7,13 @@ import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.its4u.beans.PollView;
+
 public class Parser {
 	
-	public static HashMap<String,String> parser(Path path,HashMap<String,String> placeholdersValues)  {
+	public static HashMap<String,String> parser(Path path,HashMap<String,String> placeholdersValues, PollView pollView)  {
 		System.out.println(path.getFileName());
+		pollView.log("sync "+path.getFileName());
 		String read = null;
 		boolean found = false;
 		try {
