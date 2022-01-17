@@ -16,18 +16,20 @@ public class PollView implements Serializable {
 	
 	private Stack<String> logPile = new Stack<String>();
 	
-	private List<String> listLogs = new ArrayList<String>();
+	private String listLogs;
 	
 	private int number;
 	
 	@PostConstruct
     public void init()  {
-		listLogs = new ArrayList<String>();
+		listLogs = "";
     }
  
 	public void increment() {
-        number++;
-        System.out.println(number);
+		if (!logPile.isEmpty()) {
+			String mystr = (String)logPile.pop();
+			listLogs=listLogs+mystr;	
+		}	  
     }
 	
 	public int getNumber() {
@@ -36,23 +38,17 @@ public class PollView implements Serializable {
 
     public void log(String log) {    	
         
-    	String logFormated = log+"[OK]";
+    	String logFormated = log+"\n";
     	logPile.push(logFormated);
     			
     }
   
-	public List<String> getListLogs() {
+	public String getListLogs() {
 		
-		//for(int i = 0; i < 5; i++) {
-			if (!logPile.isEmpty()) {
-				String myint = (String)logPile.pop();
-				listLogs.add(myint);	
-			}				
-		//}
 		return listLogs;
 	}
 
-	public void setListLogs(List<String> listLogs) {
+	public void setListLogs(String listLogs) {
 		this.listLogs = listLogs;
 	}
     
