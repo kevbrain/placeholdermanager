@@ -35,7 +35,7 @@ public class PollView implements Serializable {
 
     public void log(String log) {    	
         
-    	String logFormated = log+"[<p style=\"color:green\">OK</p>]<br/>";
+    	String logFormated = log+"[OK]";
     	logPile.push(logFormated);
     			
     }
