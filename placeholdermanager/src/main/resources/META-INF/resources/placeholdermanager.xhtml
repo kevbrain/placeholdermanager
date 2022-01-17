@@ -48,8 +48,7 @@
 	 				 <h:outputText value="Git url"/>
 	 				 <h:outputText value="#{placeHoldersView.selectedProject.gitUrl}"/>
 	   			</h:panelGrid>
-	   			<p:scrollPanel style="width:800px;height:70px">
-						<h:outputText id="txt_count" value="#{pollView.number}"/><br/>
+	   			<p:scrollPanel style="width:800px;height:70px">						
 						 <p:repeat value="#{pollView.listLogs}" var="log" id="pnlogs">
 						 	<h:outputText escape="false" value="#{log}"/><br/>
 						 </p:repeat>
