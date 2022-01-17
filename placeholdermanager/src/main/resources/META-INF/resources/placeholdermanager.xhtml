@@ -34,7 +34,7 @@
    		 <p:growl id="growl" showDetail="true" />
    		<div style="position:relative;margin:auto;text-align:center;">	
 	   		<p:commandButton value="Refresh"  actionListener="#{placeHoldersView.refresh}" update="@form" style="margin:10px;background:#003b50;color:white" />
-	   		
+	   		<p:commandButton value="Logs" onclick="PF('dlg1').show()"/>
 	   		<p:commandButton value="Save"  actionListener="#{placeHoldersView.save}" onclick="PF('dlg0').show()" update="@form" style="margin:10px;background:#003b50;color:white" />
    		</div>
    		
@@ -115,7 +115,7 @@
 		</h:form>	
 	</p:dialog>
  
- 	<p:dialog header="Logs" widgetVar="dlg0" minHeight="400" width="400" showEffect="fade">
+ 	<p:dialog header="Logs" widgetVar="dlg0" minHeight="400" width="500" showEffect="fade">
 		<h:form>
 			<p:graphicImage name="loader_seq.gif"  style="background: transparent;"/>
 		</h:form>	
