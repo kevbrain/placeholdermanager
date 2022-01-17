@@ -49,7 +49,7 @@
 	 				 <h:outputText value="#{placeHoldersView.selectedProject.gitUrl}"/>
 	   			</h:panelGrid>
 	   			<p:scrollPanel style="width:800px;height:70px">		
-	   					<h:outputText escape="false"  id="txt_count" value="#{pollView.listLogs}"/>									
+	   					<h:outputText escape="true"  id="txt_count" value="#{pollView.listLogs}"/>									
 						 <p:poll interval="1" listener="#{pollView.increment}" update="txt_count"/>
 				</p:scrollPanel>
    			</h:panelGrid>
