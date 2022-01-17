@@ -37,7 +37,7 @@ public class PollView implements Serializable {
 
     public void log(String log) {    	
         
-    	logPile.push(log);
+    	logPile.push(log+" [OK]");
     }
 
   
