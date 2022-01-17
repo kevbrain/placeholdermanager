@@ -43,12 +43,12 @@ public class PollView implements Serializable {
   
 	public List<String> getListLogs() {
 		
-		for(int i = 0; i < 5; i++) {
+		//for(int i = 0; i < 5; i++) {
 			if (!logPile.isEmpty()) {
 				String myint = (String)logPile.pop();
 				listLogs.add(myint);	
 			}				
-		}
+		//}
 		return listLogs;
 	}
 

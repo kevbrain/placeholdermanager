@@ -104,9 +104,9 @@
 	
 	<p:dialog header="Header" widgetVar="dlg1" minHeight="40" width="350" showEffect="fade">
 		<h:form>
-			<h:outputText id="txt_count" value="#{pollView.number}"/>
+			<h:outputText id="txt_count" value="#{pollView.number}"/><br/>
 			 <p:repeat value="#{pollView.listLogs}" var="log">
-			 	#{log}
+			 	#{log}<br/>
 			 </p:repeat>
 			 <p:poll interval="1" listener="#{pollView.increment}" update="@form"/>
 		</h:form>	
