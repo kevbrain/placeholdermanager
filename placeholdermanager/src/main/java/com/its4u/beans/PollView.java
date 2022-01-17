@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
+import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 
 import org.springframework.stereotype.Component;
@@ -18,6 +19,13 @@ public class PollView implements Serializable {
 	private List<String> listLogs = new ArrayList<String>();
 	
 	private int number;
+	
+	@PostConstruct
+    public void init()  {
+		listLogs = new ArrayList<String>();
+		listLogs.add("....Init Logs....");
+
+    }
  
 	public void increment() {
         number++;
@@ -34,11 +42,12 @@ public class PollView implements Serializable {
 
   
 	public List<String> getListLogs() {
-		listLogs = new ArrayList<String>();
-		listLogs.add("..............");
+		
 		for(int i = 0; i < 5; i++) {
-			String myint = (String)logPile.pop();
-			listLogs.add(myint);
+			if (!logPile.isEmpty()) {
+				String myint = (String)logPile.pop();
+				listLogs.add(myint);	
+			}				
 		}
 		return listLogs;
 	}
