@@ -23,8 +23,6 @@ public class PollView implements Serializable {
 	@PostConstruct
     public void init()  {
 		listLogs = new ArrayList<String>();
-		listLogs.add("....Init Logs....");
-
     }
  
 	public void increment() {
