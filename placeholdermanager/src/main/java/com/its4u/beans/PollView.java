@@ -27,6 +27,7 @@ public class PollView implements Serializable {
  
 	public void increment() {
         number++;
+        System.out.println(number);
     }
 	
 	public int getNumber() {

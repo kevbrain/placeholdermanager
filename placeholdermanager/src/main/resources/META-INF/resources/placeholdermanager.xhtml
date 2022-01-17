@@ -48,11 +48,12 @@
 	 				 <h:outputText value="Git url"/>
 	 				 <h:outputText value="#{placeHoldersView.selectedProject.gitUrl}"/>
 	   			</h:panelGrid>
-	   			<p:scrollPanel style="width:800px;height:70px">						
-						 <p:repeat value="#{pollView.listLogs}" var="log" id="pnlogs">
+	   			<p:scrollPanel style="width:800px;height:70px">		
+	   					<h:outputText id="txt_count" value="#{pollView.number}"/>				
+						 <p:repeat value="#{pollView.listLogs}" var="log" >
 						 	<h:outputText value="#{log}"/><br/>
 						 </p:repeat>
-						 <p:poll interval="1" listener="#{pollView.increment}" update="pnlogs"/>
+						 <p:poll interval="1" listener="#{pollView.increment}" update="txt_count"/>
 				</p:scrollPanel>
    			</h:panelGrid>
    			

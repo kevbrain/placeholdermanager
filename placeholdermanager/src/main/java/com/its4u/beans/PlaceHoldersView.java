@@ -75,11 +75,12 @@ public class PlaceHoldersView {
 	}
 	
 	public void searchForNewPlaceHolders() {
-		System.out.println("Search for new PlaceHolders...");
-		pollView.log("Search for new PlaceHolders...");
-		String pathWorkingGitAppProject = cloneGitApp()+"/"+selectedProject.getProject_Id();
-		pollView.log("Clone Git app project...");
 		
+		
+		pollView.log("Start Clone "+selectedProject.getProject_Id()+"Git app project...");
+		String pathWorkingGitAppProject = cloneGitApp()+"/"+selectedProject.getProject_Id();
+		
+		pollView.log("Search for new PlaceHolders...");
 		for (Environments env:selectedProject.getEnvironments()) {
 			HashMap<String,String> placeholders = new HashMap<String, String>();
 			try {
@@ -120,6 +121,7 @@ public class PlaceHoldersView {
 		String pathWorkingGitApp = null;
 		try {
 			pathWorkingGitApp = GitController.loadGitApps(selectedProject.getProject_Id());
+			pollView.log("Git App project cloned on "+pathWorkingGitApp);
 			System.out.println("Git App project cloned on "+pathWorkingGitApp);
 		} catch (IllegalStateException | GitAPIException e1) {
 			// TODO Auto-generated catch block
@@ -171,7 +173,7 @@ public class PlaceHoldersView {
 		String pathWorkkingGitOpsEnv = pathWorkkingGitOps+"/jkube/"+keyenv;
 		String pathWorkingGitAppEnv = pathWorkingGitApp+"/src/main/jkube/"+keyenv;
 		try {
-			
+			pollView.log("Sync resource between "+pathWorkingGitAppEnv+ " and "+pathWorkkingGitOpsEnv);
 			System.out.println("Sync resource between "+pathWorkingGitAppEnv+ " and "+pathWorkkingGitOpsEnv);
 			
 			Path source = Paths.get(pathWorkingGitAppEnv);
@@ -186,6 +188,7 @@ public class PlaceHoldersView {
 		
 		} catch (Exception e) {
 			System.out.println("Unable to synchronize...");
+			pollView.log("Unable to synchronize...");
 		}
 			
 	}
