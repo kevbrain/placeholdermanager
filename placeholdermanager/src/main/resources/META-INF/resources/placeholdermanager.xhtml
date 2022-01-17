@@ -42,19 +42,20 @@
 	 				 <p:selectOneMenu  value="#{placeHoldersView.selectedProjectId}" >
 	 				 	 	<f:selectItem itemLabel="Select One" itemValue=""/>
 	                  	<f:selectItems value="#{placeHoldersView.myProjects}" var="project" itemLabel="#{project}" itemValue="#{project}"/>
-	                  	<p:ajax event="change" update="@form" listener="#{placeHoldersView.onSelectedProject(placeHoldersView.selectedProjectId)}" />
+	                  	<p:ajax event="change" update="tabviewenv" listener="#{placeHoldersView.onSelectedProject(placeHoldersView.selectedProjectId)}" />
 	                  	
 	 				 </p:selectOneMenu>
 	 				 <h:outputText value="Git url"/>
 	 				 <h:outputText value="#{placeHoldersView.selectedProject.gitUrl}"/>
 	   			</h:panelGrid>
-	   			<p:scrollPanel style="width:800px;height:70px">		
+	   			<p:scrollPanel style="width:1200px;height:70px">		
 	   					<h:outputText escape="false"  id="txt_count" value="#{pollView.listLogs}"/>									
 						 <p:poll interval="1" listener="#{pollView.increment}" update="txt_count"/>
 				</p:scrollPanel>
    			</h:panelGrid>
    			
-		   			<p:tabView value="#{placeHoldersView.selectedProject.environments}" var="env" >
+   			
+		   			<p:tabView value="#{placeHoldersView.selectedProject.environments}" var="env" id="tabviewenv" >
 					    	<p:tab title="#{env.environment}" >
 					    			<div style="position:relative;margin:auto;text-align:center;">	
 					    				<p:commandButton value="Apply And Deploy"  actionListener="#{placeHoldersView.refresh}" update="@form" style="margin:10px;background:#003b50;color:white" />
