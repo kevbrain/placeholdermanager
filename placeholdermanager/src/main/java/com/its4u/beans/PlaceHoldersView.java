@@ -73,7 +73,7 @@ public class PlaceHoldersView {
 		System.out.println("Save project");
 		pollView.log("Save project on DataBase");
 		projectService.createProject(selectedProject);
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Project savec"));
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Project saved"));
 		
 		updateGitOps();
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Git Synchronized"));
@@ -82,7 +82,7 @@ public class PlaceHoldersView {
 	public void searchForNewPlaceHolders() {
 		
 		
-		pollView.log("Start Clone "+selectedProject.getProject_Id()+"Git app project...");
+		pollView.log("Start Git Clone "+selectedProject.getProject_Id()+" project...");
 		String pathWorkingGitAppProject = cloneGitApp()+"/"+selectedProject.getProject_Id();
 		
 		pollView.log("Search for new PlaceHolders...");
