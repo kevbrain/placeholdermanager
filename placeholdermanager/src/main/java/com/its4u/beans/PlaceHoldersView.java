@@ -44,6 +44,9 @@ public class PlaceHoldersView {
 	@Autowired
 	private PollView pollView;
 
+	@Autowired
+	private ArgoInitializerBean argoInitializerBean;
+	
 	private OcpExplorerService ocp;
 	
 	private HashMap<String,Project> myProjects;
@@ -204,6 +207,10 @@ public class PlaceHoldersView {
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Project loaded"));
 		searchForNewPlaceHolders();
 				
+	}
+	
+	public void deploy() {
+		argoInitializerBean.testConnection();
 	}
 	
 

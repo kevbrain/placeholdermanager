@@ -82,6 +82,11 @@ spec:
                 configMapKeyRef:
                   name: placeholdermanager-cm-0
                   key: git.user
+            - name: argo.user
+              valueFrom:
+                configMapKeyRef:
+                  name: placeholdermanager-cm-0
+                  key: argo.user
             - name: actuator.password
               valueFrom:
                 secretKeyRef:
@@ -92,6 +97,11 @@ spec:
                 secretKeyRef:
                   name: placeholdermanager-secret-0
                   key: git.password
+            - name: argo.password
+              valueFrom:
+                secretKeyRef:
+                  name: placeholdermanager-secret-0
+                  key: argo.password
           ports:
             - containerPort: 8080
               protocol: TCP
