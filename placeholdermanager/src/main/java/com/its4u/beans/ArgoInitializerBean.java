@@ -88,7 +88,7 @@ public class ArgoInitializerBean {
 		
 		HttpClient creepyClient = getClient();
         Unirest.setHttpClient(creepyClient);
-		Unirest.setTimeouts(0, 0);
+		//Unirest.setTimeouts(0, 0);
 		String token="";
 		
 		try {
