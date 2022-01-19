@@ -49,8 +49,16 @@ public class ArgoInitializerBean {
 	    		pb.redirectErrorStream(true);
 	    	    Process p = pb.start();
 	    	    InputStream is = p.getInputStream();
-	    	    BufferedInputStream bis = new BufferedInputStream(is);
-	    	    System.out.println(bis);
+	     	    	   	    
+	    	    BufferedReader br = new BufferedReader(new InputStreamReader((is)));
+
+	    		String output;
+	    		System.out.println("Output from Server .... \n");
+	    		while ((output = br.readLine()) != null) {
+	    			System.out.println(output);
+	    		}
+	    	  
+
 	    		
 	    }
 	    catch (Exception e)
