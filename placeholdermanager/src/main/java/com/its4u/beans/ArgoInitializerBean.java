@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.its4u.models.ArgoAuthToken;
 
 import lombok.Data;
@@ -36,7 +37,7 @@ public class ArgoInitializerBean {
 		System.out.println("argo user : "+argoUser);
 		System.out.println("argo password : "+argoPassword);
 		
-		getToken();
+		System.out.println("Token = "+getToken());
 		
 				
 	}
@@ -61,12 +62,12 @@ public class ArgoInitializerBean {
 	    		System.out.println("Output from Server .... \n");
 	    		StringBuilder sb = new StringBuilder();
 	    		while ((readline = br.readLine()) != null) {
-	    			sb.append(readline);
-	    			sb.append(System.getProperty("line.separator"));
-	    		}
-	    		
-	    		System.out.println("["+sb.toString()+"]");
-	    		
+	    			
+	    		}	    		
+	    		System.out.println(readline);
+	    		ObjectMapper objectMapper = new ObjectMapper();
+	    		ArgoAuthToken argoAuthToken = objectMapper.readValue(readline, ArgoAuthToken.class);
+	    		token = argoAuthToken.getToken();
 	    	
 	    		
 	    }
