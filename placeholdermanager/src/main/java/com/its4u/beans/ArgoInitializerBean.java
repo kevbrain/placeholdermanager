@@ -39,7 +39,7 @@ public class ArgoInitializerBean {
 	public String getToken() {
 		
 			    
-	    String command = "curl -kv -L -X POST -d --data '{\"password\": \"IYkn7CE8ULgFcMhpePRxuSqDwy216vZT\", \"username\": \"admin\"}' https://openshift-gitops-server-openshift-gitops.apps.ocp-lab.its4u.eu/api/v1/session ";
+	    String command = "curl -kv -L -X POST -H \"Content-Type: application/json\" -d '{\"password\": \"IYkn7CE8ULgFcMhpePRxuSqDwy216vZT\", \"username\": \"admin\"}' https://openshift-gitops-server-openshift-gitops.apps.ocp-lab.its4u.eu/api/v1/session ";
 	    System.out.println(command);
 	    
 	   
