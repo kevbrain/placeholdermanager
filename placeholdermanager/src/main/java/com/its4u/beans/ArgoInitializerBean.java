@@ -34,10 +34,23 @@ public class ArgoInitializerBean {
 		System.out.println("argo server : "+argoServer);
 		System.out.println("argo user : "+argoUser);
 		System.out.println("argo password : "+argoPassword);
+		try {
+			String token = getToken();
+			if (!token.isEmpty()) {
+				System.out.println("Success , token = "+token);
+			} else {
+				System.out.println("Unable to connect ! ");
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
-	public void synchronise(String project) throws IOException {
+	public String getToken() throws IOException {
 		
+		String token="";
 		Unirest.setTimeouts(0, 0);
 		try {
 			HttpResponse<String> response = Unirest.post(argoServer+"/api/v1/session")
@@ -45,10 +58,11 @@ public class ArgoInitializerBean {
 			  .body("{\r\n  \"password\": \""+argoPassword+"\",\r\n  \"username\": \""+argoUser+"\"\r\n}")
 			  .asString();
 			System.out.println(response.getBody());
+			token=response.getBody();
 		} catch (UnirestException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		return token;
 	}
 }
