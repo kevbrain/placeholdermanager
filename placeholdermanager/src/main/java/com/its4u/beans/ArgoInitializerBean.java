@@ -1,47 +1,12 @@
 package com.its4u.beans;
 
 import java.io.BufferedReader;
-import java.security.KeyManagementException;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-
-import javax.net.ssl.SSLContext;
-import javax.security.cert.CertificateException;
-import javax.security.cert.X509Certificate;
-
-import org.apache.http.client.HttpClient;
-import org.apache.http.conn.ssl.NoopHostnameVerifier;
-import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.ssl.SSLContextBuilder;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
-import org.apache.http.client.HttpClient;
-import org.primefaces.model.TreeNode;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.its4u.models.ArgoIdentification;
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.JsonNode;
-import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.exceptions.UnirestException;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.net.URL;
-import java.net.URLConnection;
- 
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
 import lombok.Data;
 
 @Data
@@ -57,123 +22,50 @@ public class ArgoInitializerBean {
 	@Value("${argo.password}")
 	private String argoPassword;
 	
-	private static HttpClient unsafeHttpClient;
-
-    static {
-        try {
-            SSLContext sslContext = new SSLContextBuilder().loadTrustMaterial(null, new TrustSelfSignedStrategy() {
-                public boolean isTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-                    return true;
-                }
-            }).build();
-
-            unsafeHttpClient = HttpClients.custom().setSSLContext(sslContext)
-                    .setSSLHostnameVerifier(new NoopHostnameVerifier()).build();
-
-        } catch (KeyManagementException | NoSuchAlgorithmException | KeyStoreException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static HttpClient getClient() {
-        return unsafeHttpClient;
-    }
-	
+		
 	public void testConnection() {
 		System.out.println("argo server : "+argoServer);
 		System.out.println("argo user : "+argoUser);
 		System.out.println("argo password : "+argoPassword);
-		try {
-			String token = getToken();
-			if (!token.isEmpty()) {
-				System.out.println("Success , token = "+token);
-			} else {
-				System.out.println("Unable to connect ! ");
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (KeyManagementException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
+		String token = getToken();
+		if (!token.isEmpty()) {
+			System.out.println("Success , token = "+token);
+		} else {
+			System.out.println("Unable to connect ! ");
+		}
+				
 	}
 	
-	public String getToken() throws IOException, NoSuchAlgorithmException, KeyManagementException {
+	public String getToken() {
 		
-		// Create a trust manager that does not validate certificate chains
-        TrustManager[] trustAllCerts = new TrustManager[] {new X509TrustManager() {
-                public java.security.cert.X509Certificate[] getAcceptedIssuers() {
-                    return null;
-                }
-                public void checkClientTrusted(X509Certificate[] certs, String authType) {
-                }
-                public void checkServerTrusted(X509Certificate[] certs, String authType) {
-                }
-				@Override
-				public void checkClientTrusted(java.security.cert.X509Certificate[] arg0, String arg1)
-						throws java.security.cert.CertificateException {
-					// TODO Auto-generated method stub
-					
-				}
-				@Override
-				public void checkServerTrusted(java.security.cert.X509Certificate[] arg0, String arg1)
-						throws java.security.cert.CertificateException {
-					// TODO Auto-generated method stub
-					
-				}
-            }
-        };
- 
-        // Install the all-trusting trust manager
-        SSLContext sc = SSLContext.getInstance("SSL");
-        sc.init(null, trustAllCerts, new java.security.SecureRandom());
-        HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
- 
-        // Create all-trusting host name verifier
-        HostnameVerifier allHostsValid = new HostnameVerifier() {
-            public boolean verify(String hostname, SSLSession session) {
-                return true;
-            }
-        };
- 
-        // Install the all-trusting host verifier
-        HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
+			    
+	    String command = "curl -k --location --request POST 'http://openshift-gitops-server.openshift-gitops.svc.cluster.local:80/api/v1/session' --header 'Content-Type: text/plain' --data '{  \"password\": \"IYkn7CE8ULgFcMhpePRxuSqDwy216vZT\", \"username\": \"admin\"}'";
+	   
+	   
+	    try
+	    {
+	    	 Process process = Runtime.getRuntime().exec(command);   
+	         BufferedReader reader =  new BufferedReader(new InputStreamReader(process.getInputStream()));
+	            StringBuilder builder = new StringBuilder();
+	            String line = null;
+	            while ( (line = reader.readLine()) != null) {
+	                    builder.append(line);
+	                    builder.append(System.getProperty("line.separator"));
+	            }
+	            String result = builder.toString();
+	            System.out.print(result);
+
+	    }
+	    catch (IOException e)
+	    {   System.out.print("error");
+	        e.printStackTrace();
+	    }
 		
         
 		String token="";
 		
-		URL url = new URL(argoServer+"/api/v1/session");
-		HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
-		
-		System.out.println("Connection to "+url);
-		conn.setDoOutput(true);
-		
-		conn.setRequestMethod("POST");
-		conn.setRequestProperty("Content-Type", "application/json");
 
-		ArgoIdentification argoIdentification = new ArgoIdentification(argoPassword,argoUser);
-		ObjectMapper mapper = new ObjectMapper();
-		String jsonIdent = mapper.writeValueAsString(argoIdentification);
-		System.out.println(jsonIdent);
-		OutputStream os = conn.getOutputStream();
-		os.write(jsonIdent.getBytes());
-		os.flush();
-
-		BufferedReader br = new BufferedReader(new InputStreamReader(
-				(conn.getInputStream())));
-
-		String output;
-		System.out.println("Output from Server .... \n");
-		while ((output = br.readLine()) != null) {
-			System.out.println(output);
-		}
-
-		conn.disconnect();
 		
 		
 		return token;
