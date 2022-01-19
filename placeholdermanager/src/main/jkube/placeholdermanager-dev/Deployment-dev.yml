@@ -87,6 +87,11 @@ spec:
                 configMapKeyRef:
                   name: placeholdermanager-cm-0
                   key: argo.user
+            - name: argo.server
+              valueFrom:
+                configMapKeyRef:
+                  name: placeholdermanager-cm-0
+                  key: argo.server
             - name: actuator.password
               valueFrom:
                 secretKeyRef:
