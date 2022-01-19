@@ -62,9 +62,10 @@ public class ArgoInitializerBean {
 	    		System.out.println("Output from Server .... \n");
 	    		StringBuilder sb = new StringBuilder();
 	    		while ((readline = br.readLine()) != null) {
-	    			
+	    			System.out.println(readline);
+	    			if (readline.startsWith("{\"token\":")) break;
 	    		}	    		
-	    		System.out.println(readline);
+	    		
 	    		ObjectMapper objectMapper = new ObjectMapper();
 	    		ArgoAuthToken argoAuthToken = objectMapper.readValue(readline, ArgoAuthToken.class);
 	    		token = argoAuthToken.getToken();
