@@ -39,7 +39,7 @@ public class ArgoInitializerBean {
 	public String getToken() {
 		
 			    
-	    String command = "curl -kv --location -x POST https://openshift-gitops-server-openshift-gitops.apps.ocp-lab.its4u.eu/api/v1/session ";
+	    String command = "curl -kv -L -X POST https://openshift-gitops-server-openshift-gitops.apps.ocp-lab.its4u.eu/api/v1/session ";
 	    System.out.println(command);
 	    
 	   
