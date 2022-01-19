@@ -26,6 +26,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
@@ -90,12 +91,12 @@ public class ArgoInitializerBean {
 		String token="";
 		
 		try {
-			HttpResponse<String> response = Unirest.post("http://openshift-gitops-server.openshift-gitops.svc.cluster.local:80/api/v1/session")
+			HttpResponse<JsonNode> response = Unirest.post("http://openshift-gitops-server.openshift-gitops.svc.cluster.local:80/api/v1/session")
 			  .header("Content-Type", "text/plain")			  
 			  .body("{\r\n  \"password\": \""+argoPassword+"\",\r\n  \"username\": \""+argoUser+"\"\r\n}")
-			  .asString();
-			System.out.println(response);
-			token=response.getBody();
+			  .asJson();
+			System.out.println(response.toString());
+			
 		} catch (UnirestException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
