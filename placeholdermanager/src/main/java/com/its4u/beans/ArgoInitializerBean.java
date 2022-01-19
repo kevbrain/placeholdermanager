@@ -62,6 +62,7 @@ public class ArgoInitializerBean {
 	    		StringBuilder sb = new StringBuilder();
 	    		while ((readline = br.readLine()) != null) {
 	    			sb.append(readline);
+	    			sb.append(System.getProperty("line.separator"));
 	    		}
 	    		
 	    		System.out.println("["+sb.toString()+"]");
