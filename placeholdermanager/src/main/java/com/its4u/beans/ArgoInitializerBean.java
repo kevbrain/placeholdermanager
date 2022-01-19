@@ -64,7 +64,7 @@ public class ArgoInitializerBean {
 	    			sb.append(readline);
 	    		}
 	    		
-	    		
+	    		System.out.println(sb.toString());
 	    		sb.toString().replace("{\"token\":\"","");
 	    		System.out.println(sb.toString());
 	    	
