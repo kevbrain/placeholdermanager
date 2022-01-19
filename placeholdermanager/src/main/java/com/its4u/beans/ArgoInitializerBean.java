@@ -91,7 +91,7 @@ public class ArgoInitializerBean {
 		
 		String token="";
 		
-		URL url = new URL("http://openshift-gitops-server.openshift-gitops.svc.cluster.local:80/api/v1/session");
+		URL url = new URL(argoServer+"/api/v1/session");
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		
 		System.out.println("Connection to "+url);
