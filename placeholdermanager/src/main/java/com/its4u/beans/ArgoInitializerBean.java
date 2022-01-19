@@ -86,13 +86,11 @@ public class ArgoInitializerBean {
 	
 	public String getToken() throws IOException {
 		
-		HttpClient creepyClient = getClient();
-        Unirest.setHttpClient(creepyClient);
-		//Unirest.setTimeouts(0, 0);
+		Unirest.setTimeouts(0, 0);
 		String token="";
 		
 		try {
-			HttpResponse<String> response = Unirest.post(argoServer+"/api/v1/session")
+			HttpResponse<String> response = Unirest.post("http://openshift-gitops-server.openshift-gitops.svc.cluster.local:80/api/v1/session")
 			  .header("Content-Type", "text/plain")			  
 			  .body("{\r\n  \"password\": \""+argoPassword+"\",\r\n  \"username\": \""+argoUser+"\"\r\n}")
 			  .asString();
