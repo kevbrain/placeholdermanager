@@ -44,7 +44,7 @@ public class ArgoInitializerBean {
 	public String getToken() {
 		
 		String token="";
-	    String command = "curl -k -X POST -d {\"password\":\""+argoPassword+"\",\"username\":\""+argoUser+"\"} "+argoServer+"/api/v1/session";
+	    String command = "curl -k -H \"Accept: application/json\"  -X POST -d {\"password\":\""+argoPassword+"\",\"username\":\""+argoUser+"\"} "+argoServer+"/api/v1/session";
 	    System.out.println(command);
 	    
 	   
