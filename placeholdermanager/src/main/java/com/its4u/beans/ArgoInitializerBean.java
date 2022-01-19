@@ -25,6 +25,8 @@ import org.primefaces.model.TreeNode;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.its4u.models.ArgoIdentification;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
@@ -87,21 +89,37 @@ public class ArgoInitializerBean {
 	
 	public String getToken() throws IOException {
 		
-		Unirest.setTimeouts(0, 0);
 		String token="";
 		
-		try {
-			HttpResponse<JsonNode> response = Unirest.post("http://openshift-gitops-server.openshift-gitops.svc.cluster.local:80/api/v1/session")
-			  .header("Content-Type", "text/plain")			  
-			  .body("{\r\n  \"password\": \""+argoPassword+"\",\r\n  \"username\": \""+argoUser+"\"\r\n}")
-			  .asJson();
-			System.out.println(response.getStatus());
-			System.out.println(response.getBody());
-			
-		} catch (UnirestException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		URL url = new URL("http://openshift-gitops-server.openshift-gitops.svc.cluster.local:80/api/v1/session");
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		
+		System.out.println("Connection to "+url);
+		conn.setDoOutput(true);
+		
+		conn.setRequestMethod("POST");
+		conn.setRequestProperty("Content-Type", "application/json");
+
+		ArgoIdentification argoIdentification = new ArgoIdentification(argoPassword,argoUser);
+		ObjectMapper mapper = new ObjectMapper();
+		String jsonIdent = mapper.writeValueAsString(argoIdentification);
+		System.out.println(jsonIdent);
+		OutputStream os = conn.getOutputStream();
+		os.write(jsonIdent.getBytes());
+		os.flush();
+
+		BufferedReader br = new BufferedReader(new InputStreamReader(
+				(conn.getInputStream())));
+
+		String output;
+		System.out.println("Output from Server .... \n");
+		while ((output = br.readLine()) != null) {
+			System.out.println(output);
 		}
+
+		conn.disconnect();
+		
+		
 		return token;
 	}
 }
