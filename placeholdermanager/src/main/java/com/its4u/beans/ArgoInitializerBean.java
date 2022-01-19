@@ -1,5 +1,6 @@
 package com.its4u.beans;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -38,29 +39,21 @@ public class ArgoInitializerBean {
 	public String getToken() {
 		
 			    
-	    String command = "curl -k --location --request POST 'http://openshift-gitops-server.openshift-gitops.svc.cluster.local:80/api/v1/session' --header 'Content-Type: text/plain' --data '{  \"password\": \"IYkn7CE8ULgFcMhpePRxuSqDwy216vZT\", \"username\": \"admin\"}'";
+	    String command = "curl -kv --location --request POST 'http://openshift-gitops-server.openshift-gitops.svc.cluster.local:80/api/v1/session' --header 'Content-Type: text/plain' --data '{  \"password\": \"IYkn7CE8ULgFcMhpePRxuSqDwy216vZT\", \"username\": \"admin\"}'";
 	    System.out.println(command);
 	    
 	   
 	    try
 	    {
-	    		ProcessBuilder processBuilder = new ProcessBuilder(command.split(" "));
-	    		processBuilder.directory(new File("/tmp/"));
-	    		Process process = processBuilder.start();
-	    		InputStream inputStream = process.getInputStream();
+	    		ProcessBuilder pb = new ProcessBuilder(command.split(" "));
+	    		pb.redirectErrorStream(true);
+	    	    Process p = pb.start();
+	    	    InputStream is = p.getInputStream();
+	    	    BufferedInputStream bis = new BufferedInputStream(is);
+	    	    System.out.println(bis);
 	    		
-	    	 	BufferedReader reader =  new BufferedReader(new InputStreamReader(inputStream));
-	            StringBuilder builder = new StringBuilder();
-	            String line = null;
-	            while ( (line = reader.readLine()) != null) {
-	                    builder.append(line);
-	                    builder.append(System.getProperty("line.separator"));
-	            }
-	            String result = builder.toString();
-	            System.out.print(result);
-
 	    }
-	    catch (IOException e)
+	    catch (Exception e)
 	    {   System.out.print("error");
 	        e.printStackTrace();
 	    }
