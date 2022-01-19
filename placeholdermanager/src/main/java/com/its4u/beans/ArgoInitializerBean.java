@@ -31,7 +31,17 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
-
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.net.URL;
+import java.net.URLConnection;
+ 
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 import lombok.Data;
 
 @Data
@@ -83,16 +93,62 @@ public class ArgoInitializerBean {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (KeyManagementException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 	}
 	
-	public String getToken() throws IOException {
+	public String getToken() throws IOException, NoSuchAlgorithmException, KeyManagementException {
 		
+		// Create a trust manager that does not validate certificate chains
+        TrustManager[] trustAllCerts = new TrustManager[] {new X509TrustManager() {
+                public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+                    return null;
+                }
+                public void checkClientTrusted(X509Certificate[] certs, String authType) {
+                }
+                public void checkServerTrusted(X509Certificate[] certs, String authType) {
+                }
+				@Override
+				public void checkClientTrusted(java.security.cert.X509Certificate[] arg0, String arg1)
+						throws java.security.cert.CertificateException {
+					// TODO Auto-generated method stub
+					
+				}
+				@Override
+				public void checkServerTrusted(java.security.cert.X509Certificate[] arg0, String arg1)
+						throws java.security.cert.CertificateException {
+					// TODO Auto-generated method stub
+					
+				}
+            }
+        };
+ 
+        // Install the all-trusting trust manager
+        SSLContext sc = SSLContext.getInstance("SSL");
+        sc.init(null, trustAllCerts, new java.security.SecureRandom());
+        HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+ 
+        // Create all-trusting host name verifier
+        HostnameVerifier allHostsValid = new HostnameVerifier() {
+            public boolean verify(String hostname, SSLSession session) {
+                return true;
+            }
+        };
+ 
+        // Install the all-trusting host verifier
+        HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
+		
+        
 		String token="";
 		
 		URL url = new URL(argoServer+"/api/v1/session");
-		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
 		
 		System.out.println("Connection to "+url);
 		conn.setDoOutput(true);
