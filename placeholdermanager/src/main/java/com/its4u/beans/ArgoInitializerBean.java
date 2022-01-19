@@ -74,6 +74,12 @@ public class ArgoInitializerBean {
 			process2 = Runtime.getRuntime().exec(command);
 			InputStream is2 = process2.getInputStream();
 			
+			
+			System.out.println(process2.info().command());
+			System.out.println(process2.info().arguments());
+			System.out.println(process2.info().commandLine());
+			
+			
 			BufferedReader br2 = new BufferedReader(new InputStreamReader((is2)));
 
 			String output2;
