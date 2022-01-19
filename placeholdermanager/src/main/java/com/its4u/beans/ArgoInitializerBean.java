@@ -1,7 +1,9 @@
 package com.its4u.beans;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -28,12 +30,8 @@ public class ArgoInitializerBean {
 		System.out.println("argo user : "+argoUser);
 		System.out.println("argo password : "+argoPassword);
 		
-		String token = getToken();
-		if (!token.isEmpty()) {
-			System.out.println("Success , token = "+token);
-		} else {
-			System.out.println("Unable to connect ! ");
-		}
+		getToken();
+		
 				
 	}
 	
@@ -41,12 +39,17 @@ public class ArgoInitializerBean {
 		
 			    
 	    String command = "curl -k --location --request POST 'http://openshift-gitops-server.openshift-gitops.svc.cluster.local:80/api/v1/session' --header 'Content-Type: text/plain' --data '{  \"password\": \"IYkn7CE8ULgFcMhpePRxuSqDwy216vZT\", \"username\": \"admin\"}'";
-	   
+	    System.out.println(command);
+	    
 	   
 	    try
 	    {
-	    	 Process process = Runtime.getRuntime().exec(command);   
-	         BufferedReader reader =  new BufferedReader(new InputStreamReader(process.getInputStream()));
+	    		ProcessBuilder processBuilder = new ProcessBuilder(command.split(" "));
+	    		processBuilder.directory(new File("/tmp/"));
+	    		Process process = processBuilder.start();
+	    		InputStream inputStream = process.getInputStream();
+	    		
+	    	 	BufferedReader reader =  new BufferedReader(new InputStreamReader(inputStream));
 	            StringBuilder builder = new StringBuilder();
 	            String line = null;
 	            while ( (line = reader.readLine()) != null) {
