@@ -94,7 +94,7 @@ public class ArgoInitializerBean {
 			  .header("Content-Type", "text/plain")			  
 			  .body("{\r\n  \"password\": \""+argoPassword+"\",\r\n  \"username\": \""+argoUser+"\"\r\n}")
 			  .asString();
-			System.out.println(response.getBody());
+			System.out.println(response);
 			token=response.getBody();
 		} catch (UnirestException e) {
 			// TODO Auto-generated catch block
