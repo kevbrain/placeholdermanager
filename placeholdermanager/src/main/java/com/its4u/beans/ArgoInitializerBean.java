@@ -77,6 +77,10 @@ public class ArgoInitializerBean {
 			
 			System.out.println(process2.info().command());
 			System.out.println(process2.info().arguments());
+			
+			for (String str: process2.info().arguments().get()) {
+				System.out.println(str);
+			}
 			System.out.println(process2.info().commandLine());
 			
 			
