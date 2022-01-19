@@ -7,8 +7,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.Data;
 
@@ -38,8 +42,8 @@ public class ArgoInitializerBean {
 	
 	public String getToken() {
 		
-			    
-	    String command = "curl -kv -L -X POST -d {\"password\":\"IYkn7CE8ULgFcMhpePRxuSqDwy216vZT\",\"username\":\"admin\"} https://openshift-gitops-server-openshift-gitops.apps.ocp-lab.its4u.eu/api/v1/session";
+		String token="";
+	    String command = "curl -k -L -X POST -d {\"password\":\""+argoPassword+"\",\"username\":\""+argoUser+"\"} "+argoServer+"/api/v1/session";
 	    System.out.println(command);
 	    
 	   
@@ -52,56 +56,23 @@ public class ArgoInitializerBean {
 	     	    	   	    
 	    	    BufferedReader br = new BufferedReader(new InputStreamReader((is)));
 
-	    		String output;
+	    		String readline;
 	    		System.out.println("Output from Server .... \n");
-	    		while ((output = br.readLine()) != null) {
-	    			System.out.println(output);
+	    		StringBuilder sb = new StringBuilder();
+	    		while ((readline = br.readLine()) != null) {
+	    			sb.append(readline);
 	    		}
-	    	  
-	    		
-	    		
+	    		ObjectMapper mapper = new ObjectMapper();
+	    	    JsonNode actualObj = mapper.readTree(sb.toString());
+	    	    JsonNode jsonNode1 = actualObj.get("token");
+	    	    token=jsonNode1.textValue();
 	    		
 	    }
 	    catch (Exception e)
 	    {   System.out.print("error");
 	        e.printStackTrace();
 	    }
-		
-	    System.out.println("**************** Methode 2 ***********************");
-	    
-	    Process process2;
-		try {
-			process2 = Runtime.getRuntime().exec(command);
-			InputStream is2 = process2.getInputStream();
-			
-			
-			System.out.println(process2.info().command());
-			System.out.println(process2.info().arguments());
-			
-			for (String str: process2.info().arguments().get()) {
-				System.out.println(str);
-			}
-			System.out.println(process2.info().commandLine());
-			
-			
-			BufferedReader br2 = new BufferedReader(new InputStreamReader((is2)));
-
-			String output2;
-			System.out.println("Output from Server .... \n");
-			while ((output2 = br2.readLine()) != null) {
-				System.out.println(output2);
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-        
-		String token="";
-		
-
-		
-		
+		      
 		return token;
 	}
 }
