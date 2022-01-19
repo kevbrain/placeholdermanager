@@ -58,23 +58,33 @@ public class ArgoInitializerBean {
 	    			System.out.println(output);
 	    		}
 	    	  
-	    		System.out.println("**************** Methode 2 ***********************");
-	    		Process process2 = Runtime.getRuntime().exec(command);
-	    		InputStream is2 = process2.getInputStream();
 	    		
-	    		BufferedReader br2 = new BufferedReader(new InputStreamReader((is)));
-
-	    		String output2;
-	    		System.out.println("Output from Server .... \n");
-	    		while ((output2 = br2.readLine()) != null) {
-	    			System.out.println(output2);
-	    		}
+	    		
 	    		
 	    }
 	    catch (Exception e)
 	    {   System.out.print("error");
 	        e.printStackTrace();
 	    }
+		
+	    System.out.println("**************** Methode 2 ***********************");
+	    
+	    Process process2;
+		try {
+			process2 = Runtime.getRuntime().exec(command);
+			InputStream is2 = process2.getInputStream();
+			
+			BufferedReader br2 = new BufferedReader(new InputStreamReader((is2)));
+
+			String output2;
+			System.out.println("Output from Server .... \n");
+			while ((output2 = br2.readLine()) != null) {
+				System.out.println(output2);
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
         
 		String token="";
