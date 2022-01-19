@@ -44,7 +44,7 @@ public class ArgoInitializerBean {
 	public String getToken() {
 		
 		String token="";
-	    String command = "curl -k -L -X POST -d {\"password\":\""+argoPassword+"\",\"username\":\""+argoUser+"\"} "+argoServer+"/api/v1/session";
+	    String command = "curl -k -X POST -d {\"password\":\""+argoPassword+"\",\"username\":\""+argoUser+"\"} "+argoServer+"/api/v1/session";
 	    System.out.println(command);
 	    
 	   
@@ -64,9 +64,8 @@ public class ArgoInitializerBean {
 	    			sb.append(readline);
 	    		}
 	    		
-	    		System.out.println(sb.toString());
-	    		sb.toString().replace("{\"token\":\"","");
-	    		System.out.println(sb.toString());
+	    		System.out.println("["+sb.toString()+"]");
+	    		
 	    	
 	    		
 	    }
