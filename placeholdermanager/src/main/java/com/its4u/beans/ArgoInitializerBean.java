@@ -41,37 +41,13 @@ public class ArgoInitializerBean {
 	public void synchronise(String project) {
 		
 		pollView.log("Try to synchronise "+project);
-				
-		String command = "curl -kv -H 'Authorization: Bearer "+getToken()+"'"
-				+" -X POST "
-				+argoServer+"/api/v1/applications/"+project+"/sync";
-		System.out.println(command);
 		
-		try
-	    {
-				Process process = Runtime.getRuntime().exec(command);						
-	    		InputStream is = process.getInputStream();
-	     	    	   	    
-	    	    BufferedReader br = new BufferedReader(new InputStreamReader((is)));
-
-	    		String readline;	    			    		
-	    		while ((readline = br.readLine()) != null) {
-	    			System.out.println(readline);
-	    		}	    		
-	    		process.destroy();
-	    }
-	    catch (Exception e)
-	    {   System.out.print("error");
-	        e.printStackTrace();
-	    }
-		
-		System.out.println("UNIREST METHOD");
 
 		Unirest.setTimeouts(0, 0);
 		try {
-			HttpResponse<String> response = Unirest.post("https://openshift-gitops-server-openshift-gitops.apps.ocp-lab.its4u.eu/api/v1/applications/test-toto/sync")
+			HttpResponse<String> response = Unirest.post("https://openshift-gitops-server-openshift-gitops.apps.ocp-lab.its4u.eu/api/v1/applications/"+project+"/sync")
 			  .header("Authorization", "Bearer "+getToken())
-			  .body("")
+			  .body("{\r\n  \"dryRun\": false\r\n\r\n}")
 			  .asString();
 			System.out.println(response.getStatus());
 			System.out.println(response.getBody());
