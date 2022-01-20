@@ -60,7 +60,7 @@ public class ArgoInitializerBean {
 				
 	}
 	
-	public void getStatusAndHealth(String project) {
+	public void statusAndHealth(String project) {
 		Unirest.setTimeouts(0, 0);
 		try {
 			HttpResponse<JsonNode> response = Unirest.get("https://openshift-gitops-server-openshift-gitops.apps.ocp-lab.its4u.eu/api/v1/applications/"+project)
