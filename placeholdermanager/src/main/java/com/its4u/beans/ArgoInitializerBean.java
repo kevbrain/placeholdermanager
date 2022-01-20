@@ -38,7 +38,7 @@ public class ArgoInitializerBean {
 		
 	public void synchronise(String project) {
 		
-		pollView.log("Try to synchronise ");
+		pollView.log("Try to synchronise "+project);
 				
 		String command = "curl -k -H \"Accept: application/json\" -H \"Authorization: Bearer "+getToken()
 			+"\" -X POST -d {\"dryRun\": false} "

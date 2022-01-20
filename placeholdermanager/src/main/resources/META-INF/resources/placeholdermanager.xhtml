@@ -58,7 +58,7 @@
 		   			<p:tabView value="#{placeHoldersView.selectedProject.environments}" var="env" id="tabviewenv" >
 					    	<p:tab title="#{env.environment}" >
 					    			<div style="position:relative;margin:auto;text-align:center;">	
-					    				<p:commandButton value="Apply And Deploy Configuration"  actionListener="#{placeHoldersView.deploy}" update="@form" style="margin:10px;background:#003b50;color:white" />
+					    				<p:commandButton value="Apply And Deploy Configuration"  actionListener="#{argoInitializerBean.synchronise(env.projectId)}" update="@form" style="margin:10px;background:#003b50;color:white" />
 			   		
 			   							<p:commandButton value="UnDeploy Configuration"  actionListener="#{placeHoldersView.refresh}" update="@form" style="margin:10px;background:#003b50;color:white" />
 			   		
