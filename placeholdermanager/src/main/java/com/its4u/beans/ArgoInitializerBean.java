@@ -44,6 +44,25 @@ public class ArgoInitializerBean {
 			+"\" -X POST -d {\"dryRun\": false} "
 			+argoServer+"/api/v1/applications/"+project+"/sync";
 		System.out.println(command);
+		
+		try
+	    {
+	    		ProcessBuilder pb = new ProcessBuilder(command.split(" "));
+	    		pb.redirectErrorStream(true);
+	    	    Process p = pb.start();
+	    	    InputStream is = p.getInputStream();
+	     	    	   	    
+	    	    BufferedReader br = new BufferedReader(new InputStreamReader((is)));
+
+	    		String readline;	    			    		
+	    		while ((readline = br.readLine()) != null) {
+	    			System.out.println(readline);
+	    		}	    			    			    		
+	    }
+	    catch (Exception e)
+	    {   System.out.print("error");
+	        e.printStackTrace();
+	    }
 				
 	}
 	
