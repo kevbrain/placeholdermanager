@@ -61,7 +61,7 @@
 					    				<p:commandButton value="Apply And Deploy Configuration" 
 					    					oncomplete="PF('dlg0').hide()"
 	   										onclick="PF('dlg0').show()"
-					    				 actionListener="#{argoInitializerBean.synchronise(env.projectId)}" update="growl" style="margin:10px;background:#003b50;color:white" />
+					    				 actionListener="#{placeHoldersView.synchronise(env.projectId)}" update="growl" style="margin:10px;background:#003b50;color:white" />
 			   		
 			   							<p:commandButton value="UnDeploy Configuration"  actionListener="#{placeHoldersView.refresh}" update="@form" style="margin:10px;background:#003b50;color:white" />
 			   		
