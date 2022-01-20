@@ -210,7 +210,7 @@ public class PlaceHoldersView {
 	}
 	
 	public void deploy() {
-		argoInitializerBean.testConnection();
+		argoInitializerBean.synchronise(selectedProject.getProject_Id());
 	}
 	
 

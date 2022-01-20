@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -22,6 +23,9 @@ import lombok.Data;
 @Component
 public class ArgoInitializerBean {
 	
+	@Autowired
+	private PollView pollView;
+	
 	@Value("${argo.server}")
 	private String argoServer;
 
@@ -32,23 +36,22 @@ public class ArgoInitializerBean {
 	private String argoPassword;
 	
 		
-	public void testConnection() {
-		System.out.println("argo server : "+argoServer);
-		System.out.println("argo user : "+argoUser);
-		System.out.println("argo password : "+argoPassword);
+	public void synchronise(String project) {
 		
-		System.out.println("Token = "+getToken());
-		
+		pollView.log("Try to synchronise ");
+				
+		String command = "curl -k -H \"Accept: application/json\" -H \"Authorization: Bearer "+getToken()
+			+"\" -X POST -d {\"dryRun\": false} "
+			+argoServer+"/api/v1/applications/"+project+"/sync";
+		System.out.println(command);
 				
 	}
 	
 	public String getToken() {
-		
+		pollView.log("Request a new Token access for ArgoCD");
 		String token="";
 	    String command = "curl -k -H \"Accept: application/json\"  -X POST -d {\"password\":\""+argoPassword+"\",\"username\":\""+argoUser+"\"} "+argoServer+"/api/v1/session";
-	    System.out.println(command);
-	    
-	   
+	    	   
 	    try
 	    {
 	    		ProcessBuilder pb = new ProcessBuilder(command.split(" "));
@@ -58,19 +61,14 @@ public class ArgoInitializerBean {
 	     	    	   	    
 	    	    BufferedReader br = new BufferedReader(new InputStreamReader((is)));
 
-	    		String readline;
-	    		System.out.println("Output from Server .... \n");
-	    		StringBuilder sb = new StringBuilder();
+	    		String readline;	    			    		
 	    		while ((readline = br.readLine()) != null) {
-	    			System.out.println(readline);
 	    			if (readline.startsWith("{\"token\":")) break;
 	    		}	    		
 	    		
 	    		ObjectMapper objectMapper = new ObjectMapper();
 	    		ArgoAuthToken argoAuthToken = objectMapper.readValue(readline, ArgoAuthToken.class);
-	    		token = argoAuthToken.getToken();
-	    	
-	    		
+	    		token = argoAuthToken.getToken();	    		    		
 	    }
 	    catch (Exception e)
 	    {   System.out.print("error");
