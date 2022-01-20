@@ -213,7 +213,9 @@ public class PlaceHoldersView {
 	}
 	
 	public void refreshStatusProject() {
-		appStatus = argoInitialier.statusAndHealth(selectedProject.getProject_Id());
+		if (selectedProject !=null && selectedProjectId!=null) {
+			appStatus = argoInitialier.statusAndHealth(selectedProject.getProject_Id());
+		}
 	}
 	
 	public void synchronise(String project) {
