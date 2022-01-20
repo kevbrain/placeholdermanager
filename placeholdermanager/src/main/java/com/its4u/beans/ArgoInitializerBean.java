@@ -47,17 +47,16 @@ public class ArgoInitializerBean {
 		
 		try
 	    {
-	    		ProcessBuilder pb = new ProcessBuilder(command.split(" "));
-	    		pb.redirectErrorStream(true);
-	    	    Process p = pb.start();
-	    	    InputStream is = p.getInputStream();
+				Process process = Runtime.getRuntime().exec(command);
+	    		InputStream is = process.getInputStream();
 	     	    	   	    
 	    	    BufferedReader br = new BufferedReader(new InputStreamReader((is)));
 
 	    		String readline;	    			    		
 	    		while ((readline = br.readLine()) != null) {
 	    			System.out.println(readline);
-	    		}	    			    			    		
+	    		}	    		
+	    		process.destroy();
 	    }
 	    catch (Exception e)
 	    {   System.out.print("error");
@@ -73,10 +72,8 @@ public class ArgoInitializerBean {
 	    	   
 	    try
 	    {
-	    		ProcessBuilder pb = new ProcessBuilder(command.split(" "));
-	    		pb.redirectErrorStream(true);
-	    	    Process p = pb.start();
-	    	    InputStream is = p.getInputStream();
+	    		Process process = Runtime.getRuntime().exec(command);
+	    		InputStream is = process.getInputStream();
 	     	    	   	    
 	    	    BufferedReader br = new BufferedReader(new InputStreamReader((is)));
 
@@ -87,7 +84,9 @@ public class ArgoInitializerBean {
 	    		
 	    		ObjectMapper objectMapper = new ObjectMapper();
 	    		ArgoAuthToken argoAuthToken = objectMapper.readValue(readline, ArgoAuthToken.class);
-	    		token = argoAuthToken.getToken();	    		    		
+	    		token = argoAuthToken.getToken();	
+	    		process.destroy();
+	    		
 	    }
 	    catch (Exception e)
 	    {   System.out.print("error");
