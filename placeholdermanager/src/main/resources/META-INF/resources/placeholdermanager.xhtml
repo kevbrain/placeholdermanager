@@ -66,6 +66,8 @@
 			   							<p:commandButton value="UnDeploy Configuration"  actionListener="#{placeHoldersView.refresh}" update="@form" style="margin:10px;background:#003b50;color:white" />
 			   		
 			   							<p:commandButton value="Rollback"  actionListener="#{placeHoldersView.refresh}" update="@form" style="margin:10px;background:#003b50;color:white" />
+			   							
+			   							<p:commandButton value="Status"  actionListener="#{argoInitializerBean.getStatusAndHealth}" update="@form" style="margin:10px;background:#003b50;color:white" />
 			   						</div>
 					    			<b>Clear Values :</b>
 					    			<p:dataTable value="#{env.clearPlaceholders}"  var="entry"  widgetVar="placeHolderTable">

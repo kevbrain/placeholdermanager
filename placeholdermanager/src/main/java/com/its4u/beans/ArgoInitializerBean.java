@@ -7,6 +7,8 @@ import java.io.InputStreamReader;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
+import org.json.JSONObject;
+import org.sonarsource.scanner.api.internal.shaded.minimaljson.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.its4u.models.ArgoAuthToken;
 import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
@@ -40,9 +43,7 @@ public class ArgoInitializerBean {
 		
 	public void synchronise(String project) {
 		
-		pollView.log("Try to synchronise "+project);
-		
-
+		pollView.log("Try to synchronise "+project);		
 		Unirest.setTimeouts(0, 0);
 		try {
 			HttpResponse<String> response = Unirest.post("https://openshift-gitops-server-openshift-gitops.apps.ocp-lab.its4u.eu/api/v1/applications/"+project+"/sync")
@@ -57,6 +58,26 @@ public class ArgoInitializerBean {
 			e.printStackTrace();
 		}
 				
+	}
+	
+	public void getStatusAndHealth(String project) {
+		Unirest.setTimeouts(0, 0);
+		try {
+			HttpResponse<JsonNode> response = Unirest.get("https://openshift-gitops-server-openshift-gitops.apps.ocp-lab.its4u.eu/api/v1/applications/"+project)
+			  .header("Authorization", "Bearer "+getToken())			  
+			  .asJson();
+			System.out.println(response.getStatus());
+			System.out.println(response.getBody());
+						
+			JsonNode princ = response.getBody();
+			JSONObject jsonObject = princ.getObject();
+			String status = jsonObject.getJSONObject("status").getJSONObject("sync").getString("status");
+			System.out.println("status sync : "+status);
+			
+		} catch (UnirestException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public String getToken() {
