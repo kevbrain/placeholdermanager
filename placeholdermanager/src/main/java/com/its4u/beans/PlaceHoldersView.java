@@ -25,6 +25,7 @@ import org.springframework.util.FileSystemUtils;
 import com.its4u.gitops.CopyDir;
 import com.its4u.gitops.GitController;
 import com.its4u.gitops.Parser;
+import com.its4u.models.ArgoAppStatus;
 import com.its4u.models.Environments;
 import com.its4u.models.PlaceHolderId;
 import com.its4u.models.PlaceHolders;
@@ -57,7 +58,7 @@ public class PlaceHoldersView {
 	
 	private Environments selectedEnvironment;
 	
-	
+	private ArgoAppStatus appStatus;
 	
 	
 	@PostConstruct
@@ -205,13 +206,13 @@ public class PlaceHoldersView {
 		
 		selectedProject=myProjects.get(projectId);
 		searchForNewPlaceHolders();
-		selectedProject.setStatus(argoInitialier.statusAndHealth(projectId));
+		appStatus = argoInitialier.statusAndHealth(selectedProject.getProject_Id());
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Project loaded"));
 						
 	}
 	
 	public void refreshStatusProject() {
-		selectedProject.setStatus(argoInitialier.statusAndHealth(selectedProject.getProject_Id()));
+		appStatus = argoInitialier.statusAndHealth(selectedProject.getProject_Id());
 	}
 	
 	public void synchronise(String project) {

@@ -36,9 +36,7 @@ public class Project implements Serializable{
 	@Column(name = "OWNER")
 	private String owner;
 	
-	@Transient
-	private ArgoAppStatus status;
-
+	
 	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER)	
     @JoinColumn(name="PROJECT_ID", referencedColumnName = "PROJECT_ID")  
 	private List<Environments> environments;
