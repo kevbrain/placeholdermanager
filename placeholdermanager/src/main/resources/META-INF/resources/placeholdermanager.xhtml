@@ -55,12 +55,15 @@
 	 				 <h:outputText id="giturl" value="#{placeHoldersView.selectedProject.gitUrl}"/>
 	 				 
 	 				 <h:outputText value="Sync"/>
-	 				 	<h:panelGrid columns="2">
-	 				 			<h:outputText id="syncstatus" value="#{placeHoldersView.appStatus.sync}"/>
-	 				 			<p:graphicImage name="health_#{placeHoldersView.appStatus.sync}.png"  style="background: transparent;width:10px"/>
-	 				 	</h:panelGrid>
+ 				 	<h:panelGrid columns="2">
+ 				 			<h:outputText id="syncstatus" value="#{placeHoldersView.appStatus.sync}"/>
+ 				 			
+ 				 	</h:panelGrid>
 	 				 <h:outputText value="Health"/>
-	 				 <h:outputText id="healthstatus" value="#{placeHoldersView.appStatus.health}"/>
+	 				 <h:panelGrid columns="2">
+	 				 	<h:outputText id="healthstatus" value="#{placeHoldersView.appStatus.health}"/>
+	 				 	<p:graphicImage name="health_#{placeHoldersView.appStatus.sync}.png"  style="background: transparent;width:10px"/>
+	 				 </h:panelGrid>
 	   			</h:panelGrid>
 	   			
    			
