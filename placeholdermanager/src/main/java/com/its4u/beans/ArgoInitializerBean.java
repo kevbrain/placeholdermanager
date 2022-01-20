@@ -3,19 +3,7 @@ package com.its4u.beans;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.security.KeyManagementException;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.cert.CertificateException;
-import java.security.cert.X509Certificate;
 
-import javax.net.ssl.SSLContext;
-
-import org.apache.http.client.HttpClient;
-import org.apache.http.conn.ssl.NoopHostnameVerifier;
-import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.ssl.SSLContextBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -25,6 +13,20 @@ import com.its4u.models.ArgoAuthToken;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.Socket;
+import java.net.URL;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.X509Certificate;
+
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLEngine;
+import javax.net.ssl.SSLHandshakeException;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509ExtendedTrustManager;
 
 import lombok.Data;
 
@@ -45,28 +47,7 @@ public class ArgoInitializerBean {
 	private String argoPassword;
 	
 	
-	private static HttpClient unsafeHttpClient;
-
-    static {
-        try {
-            SSLContext sslContext = new SSLContextBuilder().loadTrustMaterial(null, new TrustSelfSignedStrategy() {
-                public boolean isTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-                    return true;
-                }
-            }).build();
-
-            unsafeHttpClient = HttpClients.custom().setSSLContext(sslContext)
-            		
-                    .setSSLHostnameVerifier(new NoopHostnameVerifier()).build();
-
-        } catch (KeyManagementException | NoSuchAlgorithmException | KeyStoreException e) {
-            e.printStackTrace();
-        }
-    }
-    
-    public static HttpClient getClient() {
-        return unsafeHttpClient;
-    }
+	
 		
 	public void synchronise(String project) {
 		
@@ -96,9 +77,9 @@ public class ArgoInitializerBean {
 	    }
 		
 		System.out.println("UNIREST METHOD");
-		HttpClient creepyClient = getClient();
-        Unirest.setHttpClient(creepyClient);
-		//Unirest.setTimeouts(0, 0);
+
+		disableSSLVerification ();
+		Unirest.setTimeouts(0, 0);
 		try {
 			HttpResponse<String> response = Unirest.post("https://openshift-gitops-server-openshift-gitops.apps.ocp-lab.its4u.eu/api/v1/applications/test-toto/sync")
 			  .header("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDI3NTgxMDMsImp0aSI6ImFhZDkwZWViLTVmN2EtNGQ0Mi04ZDIzLWFlMWE1NmU5MTI0OSIsImlhdCI6MTY0MjY3MTcwMywiaXNzIjoiYXJnb2NkIiwibmJmIjoxNjQyNjcxNzAzLCJzdWIiOiJhZG1pbjpsb2dpbiJ9.0OaFJz2iHtrVD5K5woMFHvMZqiM8gdsz8usOvIlmCuY")
@@ -144,6 +125,53 @@ public class ArgoInitializerBean {
 		return token;
 	}
 	
-	 // trusting all certificate 
+	// Method used for bypassing SSL verification
+	   public static void disableSSLVerification () {
+
+	      TrustManager [] trustAllCerts = new TrustManager [] {new X509ExtendedTrustManager () {
+	         @Override
+	         public void checkClientTrusted (X509Certificate [] chain, String authType, Socket socket) {
+
+	         }
+
+	         @Override
+	         public void checkServerTrusted (X509Certificate [] chain, String authType, Socket socket) {
+
+	         }
+
+	         @Override
+	         public void checkClientTrusted (X509Certificate [] chain, String authType, SSLEngine engine) {
+
+	         }
+
+	         @Override
+	         public void checkServerTrusted (X509Certificate [] chain, String authType, SSLEngine engine) {
+
+	         }
+
+	         @Override
+	         public java.security.cert.X509Certificate [] getAcceptedIssuers () {
+	            return null;
+	         }
+
+	         @Override
+	         public void checkClientTrusted (X509Certificate [] certs, String authType) {
+	         }
+
+	         @Override
+	         public void checkServerTrusted (X509Certificate [] certs, String authType) {
+	         }
+
+	      }};
+
+	      SSLContext sc = null;
+	      try {
+	         sc = SSLContext.getInstance ("SSL");
+	         sc.init (null, trustAllCerts, new java.security.SecureRandom ());
+	      } catch (KeyManagementException | NoSuchAlgorithmException e) {
+	         e.printStackTrace ();
+	      }
+	      HttpsURLConnection.setDefaultSSLSocketFactory (sc.getSocketFactory ());
+	   }
 
 }
