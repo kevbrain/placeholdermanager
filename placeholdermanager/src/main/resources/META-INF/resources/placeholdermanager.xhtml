@@ -40,7 +40,7 @@
 	   			onclick="PF('dlg0').show()" update="growl" style="margin:10px;background:#003b50;color:white" />
    		</div>
    		
-   		<p:poll interval="4" listener="#{placeHoldersView.refreshStatusProject}" update="syncstatus,healthstatus"/>
+   		<p:poll interval="4" listener="#{placeHoldersView.refreshStatusProject}" update="syncstatus,healthstatus,healthstatusImg"/>
    		
 	 			<h:panelGrid columns="2">
 	 				<h:outputText value="My projects :"/>
@@ -48,22 +48,18 @@
 	 				 	 onchange="PF('dlg0').show()">
 	 				 	 	<f:selectItem itemLabel="Select One" itemValue=""/>
 	                  	<f:selectItems value="#{placeHoldersView.myProjects}" var="project" itemLabel="#{project}" itemValue="#{project}"/>
-	                  	<p:ajax  oncomplete="PF('dlg0').hide()"  event="change" update="healthstatusImg,tabviewenv,giturl,growl,syncstatus,healthstatus" listener="#{placeHoldersView.onSelectedProject(placeHoldersView.selectedProjectId)}" />
-	                  	
+	                  	<p:ajax  oncomplete="PF('dlg0').hide()"  event="change" update="healthstatusImg,tabviewenv,giturl,growl,syncstatus,healthstatus" listener="#{placeHoldersView.onSelectedProject(placeHoldersView.selectedProjectId)}" />	                  	
 	 				 </p:selectOneMenu>
+	 				 
 	 				 <h:outputText value="Git url"/>
 	 				 <h:outputText id="giturl" value="#{placeHoldersView.selectedProject.gitUrl}"/>
 	 				 
-	 				 <h:outputText value="Sync"/>
- 				 	<h:panelGrid columns="2">
- 				 			<h:outputText id="syncstatus" value="#{placeHoldersView.appStatus.sync}"/>
- 				 			
- 				 	</h:panelGrid>
-	 				 <h:outputText value="Health"/>
-	 				 <h:panelGrid columns="2">
-	 				 	<h:outputText id="healthstatus" value="#{placeHoldersView.appStatus.health}"/>
-	 				 	<p:graphicImage id="healthstatusImg" name="health_#{placeHoldersView.appStatus.sync}.png" />
-	 				 </h:panelGrid>
+	 				 <h:outputText value="Sync"/> 				 	 
+ 				 	 <h:outputText id="syncstatus" value="#{placeHoldersView.appStatus.sync}"/>
+ 				 						 				 	 
+	 				 <h:outputText value="Health"/>	 				 
+	 				 <p:graphicImage id="healthstatusImg" name="health_#{placeHoldersView.appStatus.sync}.png" />
+	 				 
 	   			</h:panelGrid>
 	   			
    			
