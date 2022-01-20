@@ -207,6 +207,7 @@ public class PlaceHoldersView {
 		selectedProject=myProjects.get(projectId);
 		searchForNewPlaceHolders();
 		appStatus = argoInitialier.statusAndHealth(selectedProject.getProject_Id());
+		System.out.println("--->"+appStatus.toString());
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Project loaded"));
 						
 	}
