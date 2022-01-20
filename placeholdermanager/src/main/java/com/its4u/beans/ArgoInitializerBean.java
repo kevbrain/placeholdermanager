@@ -81,11 +81,10 @@ public class ArgoInitializerBean {
 		
 		System.out.println("UNIREST METHOD");
 
-		disableSSLVerification ();
 		Unirest.setTimeouts(0, 0);
 		try {
 			HttpResponse<String> response = Unirest.post("https://openshift-gitops-server-openshift-gitops.apps.ocp-lab.its4u.eu/api/v1/applications/test-toto/sync")
-			  .header("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDI3NTgxMDMsImp0aSI6ImFhZDkwZWViLTVmN2EtNGQ0Mi04ZDIzLWFlMWE1NmU5MTI0OSIsImlhdCI6MTY0MjY3MTcwMywiaXNzIjoiYXJnb2NkIiwibmJmIjoxNjQyNjcxNzAzLCJzdWIiOiJhZG1pbjpsb2dpbiJ9.0OaFJz2iHtrVD5K5woMFHvMZqiM8gdsz8usOvIlmCuY")
+			  .header("Authorization", "Bearer "+getToken())
 			  .body("")
 			  .asString();
 			System.out.println(response.getStatus());
