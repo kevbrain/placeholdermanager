@@ -40,9 +40,9 @@ public class ArgoInitializerBean {
 		
 		pollView.log("Try to synchronise "+project);
 				
-		String command = "curl -k -H \"Accept: application/json\" -H \"Authorization: Bearer "+getToken()
-			+"\" -X POST -d {\"dryRun\": false} "
-			+argoServer+"/api/v1/applications/"+project+"/sync";
+		String command = "curl -k -H \"Accept: application/json\" -H \"Authorization: Bearer "+getToken()+"\""
+				+" -X POST "
+				+argoServer+"/api/v1/applications/"+project+"/sync";
 		System.out.println(command);
 		
 		try
