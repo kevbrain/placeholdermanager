@@ -40,16 +40,14 @@ public class ArgoInitializerBean {
 		
 		pollView.log("Try to synchronise "+project);
 				
-		String command = "curl -kv -H \"Authorization: Bearer "+getToken()+"\""
+		String command = "curl -kv -H 'Authorization: Bearer "+getToken()+"'"
 				+" -X POST "
 				+argoServer+"/api/v1/applications/"+project+"/sync";
 		System.out.println(command);
 		
 		try
 	    {
-				Process process = Runtime.getRuntime().exec(command);
-				
-				
+				Process process = Runtime.getRuntime().exec(command);						
 	    		InputStream is = process.getInputStream();
 	     	    	   	    
 	    	    BufferedReader br = new BufferedReader(new InputStreamReader((is)));
