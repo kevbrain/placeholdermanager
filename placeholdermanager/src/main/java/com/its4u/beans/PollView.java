@@ -11,7 +11,6 @@ import javax.faces.view.ViewScoped;
 import org.springframework.stereotype.Component;
 
 @Component
-@ViewScoped
 public class PollView implements Serializable {
 	
 	private Stack<String> logPile = new Stack<String>();
