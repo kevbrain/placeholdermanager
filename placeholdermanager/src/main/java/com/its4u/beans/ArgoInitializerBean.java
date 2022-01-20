@@ -43,8 +43,7 @@ public class ArgoInitializerBean {
 	
 		
 	public void synchronise(String project) {
-		
-		pollView.log("Try to synchronise "+project);		
+					
 		Unirest.setTimeouts(0, 0);
 		try {
 			HttpResponse<String> response = Unirest.post("https://openshift-gitops-server-openshift-gitops.apps.ocp-lab.its4u.eu/api/v1/applications/"+project+"/sync")
@@ -65,17 +64,14 @@ public class ArgoInitializerBean {
 		Unirest.setTimeouts(0, 0);
 		ArgoAppStatus argoAppStatus = null;
 		try {
-			HttpResponse<JsonNode> response = Unirest.get("https://openshift-gitops-server-openshift-gitops.apps.ocp-lab.its4u.eu/api/v1/applications/"+project)
+			HttpResponse<JsonNode> response = Unirest.get("https://openshift-gitops-server-openshift-gitops.apps.ocp-lab.its4u.eu/api/v1/applications/"+project+"?refresh=true")
 			  .header("Authorization", "Bearer "+getToken())			  
 			  .asJson();
-			System.out.println(response.getStatus());
-								
+											
 			JsonNode princ = response.getBody();
 			JSONObject jsonObject = princ.getObject();
 			String sync = jsonObject.getJSONObject("status").getJSONObject("sync").getString("status");
-			String healthy = jsonObject.getJSONObject("status").getJSONObject("health").getString("status");
-			System.out.println("status sync : "+sync);
-			System.out.println("status health : "+healthy);
+			String healthy = jsonObject.getJSONObject("status").getJSONObject("health").getString("status");	
 			argoAppStatus = new  ArgoAppStatus(sync, healthy);
 			
 		} catch (UnirestException e) {
