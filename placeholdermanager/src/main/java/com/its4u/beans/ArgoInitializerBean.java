@@ -21,12 +21,15 @@ import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
 
+import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLEngine;
 import javax.net.ssl.SSLHandshakeException;
+import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509ExtendedTrustManager;
+import javax.net.ssl.X509TrustManager;
 
 import lombok.Data;
 
@@ -125,53 +128,40 @@ public class ArgoInitializerBean {
 		return token;
 	}
 	
-	// Method used for bypassing SSL verification
-	   public static void disableSSLVerification () {
+    public static void disableSSLVerification() {
 
-	      TrustManager [] trustAllCerts = new TrustManager [] {new X509ExtendedTrustManager () {
-	         @Override
-	         public void checkClientTrusted (X509Certificate [] chain, String authType, Socket socket) {
+        TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
+            public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+                return null;
+            }
 
-	         }
+            public void checkClientTrusted(X509Certificate[] certs, String authType) {
+            }
 
-	         @Override
-	         public void checkServerTrusted (X509Certificate [] chain, String authType, Socket socket) {
+            public void checkServerTrusted(X509Certificate[] certs, String authType) {
+            }
 
-	         }
+        } };
 
-	         @Override
-	         public void checkClientTrusted (X509Certificate [] chain, String authType, SSLEngine engine) {
+        SSLContext sc = null;
+        try {
+            sc = SSLContext.getInstance("SSL");
+            sc.init(null, trustAllCerts, new java.security.SecureRandom());
+        } catch (KeyManagementException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
 
-	         }
-
-	         @Override
-	         public void checkServerTrusted (X509Certificate [] chain, String authType, SSLEngine engine) {
-
-	         }
-
-	         @Override
-	         public java.security.cert.X509Certificate [] getAcceptedIssuers () {
-	            return null;
-	         }
-
-	         @Override
-	         public void checkClientTrusted (X509Certificate [] certs, String authType) {
-	         }
-
-	         @Override
-	         public void checkServerTrusted (X509Certificate [] certs, String authType) {
-	         }
-
-	      }};
-
-	      SSLContext sc = null;
-	      try {
-	         sc = SSLContext.getInstance ("SSL");
-	         sc.init (null, trustAllCerts, new java.security.SecureRandom ());
-	      } catch (KeyManagementException | NoSuchAlgorithmException e) {
-	         e.printStackTrace ();
-	      }
-	      HttpsURLConnection.setDefaultSSLSocketFactory (sc.getSocketFactory ());
-	   }
-
+        HostnameVerifier allHostsValid = new HostnameVerifier() {
+        	
+       		@Override
+			public boolean verify(String arg0, SSLSession arg1) {
+				// TODO Auto-generated method stub
+				return true;
+			}
+        };      
+        HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);           
+    }
 }
