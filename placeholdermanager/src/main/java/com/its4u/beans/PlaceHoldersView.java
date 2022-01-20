@@ -204,9 +204,14 @@ public class PlaceHoldersView {
 	public void onSelectedProject(String projectId) {
 		
 		selectedProject=myProjects.get(projectId);
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Project loaded"));
 		searchForNewPlaceHolders();
-				
+		selectedProject.setStatus(argoInitialier.statusAndHealth(projectId));
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Project loaded"));
+						
+	}
+	
+	public void refreshStatusProject() {
+		selectedProject.setStatus(argoInitialier.statusAndHealth(selectedProject.getProject_Id()));
 	}
 	
 	public void synchronise(String project) {

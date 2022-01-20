@@ -13,7 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
+import javax.persistence.Transient;
 
 import lombok.Data;
 import lombok.ToString;
@@ -35,6 +35,9 @@ public class Project implements Serializable{
 	
 	@Column(name = "OWNER")
 	private String owner;
+	
+	@Transient
+	private ArgoAppStatus status;
 
 	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER)	
     @JoinColumn(name="PROJECT_ID", referencedColumnName = "PROJECT_ID")  
