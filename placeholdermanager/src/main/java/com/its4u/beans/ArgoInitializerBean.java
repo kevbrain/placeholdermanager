@@ -46,6 +46,7 @@ public class ArgoInitializerBean {
 	
 	public List<ArgoResource> argoResources;
 	
+	private String reconciliateDate;
 		
 	public void synchronise(String project) {
 					
@@ -78,6 +79,7 @@ public class ArgoInitializerBean {
 			String sync = jsonObject.getJSONObject("status").getJSONObject("sync").getString("status");
 			String healthy = jsonObject.getJSONObject("status").getJSONObject("health").getString("status");	
 			argoAppStatus = new  ArgoAppStatus(sync, healthy);
+			this.reconciliateDate = jsonObject.getJSONObject("status").getString("reconciledAt");
 			
 			JSONArray  resources = jsonObject.getJSONObject("status").getJSONObject("operationState").getJSONObject("syncResult").getJSONArray("resources");
 			ObjectMapper objectMapper = new ObjectMapper();
@@ -177,7 +179,15 @@ public class ArgoInitializerBean {
 	public void setArgoResources(List<ArgoResource> argoResources) {
 		this.argoResources = argoResources;
 	}
-	
 
+	public String getReconciliateDate() {
+		return reconciliateDate;
+	}
+
+	public void setReconciliateDate(String reconciliateDate) {
+		this.reconciliateDate = reconciliateDate;
+	}
+	
+	
 	
 }

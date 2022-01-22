@@ -124,6 +124,10 @@
 							
 				<p:dialog header="Resources" widgetVar="dlgStatus" minHeight="500" width="1400" showEffect="fade"  id="dialogresources">
 		
+					<p:panelGrid columns="2">
+						<h:outputLabel value="Reconcile At "/>
+						<h:outputText id="fieldReconcileAt" value="#{argoInitializerBean.reconciliateDate}"/>
+					</p:panelGrid>
 					<p:dataTable value="#{argoInitializerBean.argoResources}"  var="res" id="tableResources">
 					
 						<p:column  headerText="Version">	
@@ -149,7 +153,7 @@
 						</p:column>
 					
 					</p:dataTable>						
-					<p:poll interval="4"  update="tableResources"/>
+					<p:poll interval="4"  update="tableResources,fieldReconcileAt"/>
 			</p:dialog>
     	</h:form>
 	</p:panel>
