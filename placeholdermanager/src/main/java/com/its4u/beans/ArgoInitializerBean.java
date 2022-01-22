@@ -109,7 +109,7 @@ public class ArgoInitializerBean {
 	}
 	
 	public String getToken() {
-		pollView.log("Request a new Token access for ArgoCD");
+		
 		String token="";
 	    String command = "curl -k -H \"Accept: application/json\"  -X POST -d {\"password\":\""+argoPassword+"\",\"username\":\""+argoUser+"\"} "+argoServer+"/api/v1/session";
 	    	   

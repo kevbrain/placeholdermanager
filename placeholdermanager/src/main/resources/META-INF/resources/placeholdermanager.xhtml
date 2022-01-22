@@ -55,8 +55,11 @@
 	 				 <h:outputText id="giturl" value="#{placeHoldersView.selectedProject.gitUrl}"/>
 	 				 
 	 				 <h:outputText value="Sync"/>
-	 				 <h:outputText id="syncstatus" value="#{placeHoldersView.appStatus.sync}"/>
-	 				 
+	 				 <h:panelGroup>
+	 				 	<h:outputText id="syncstatus" value="#{placeHoldersView.appStatus.sync}"/>
+	 				 	<p:commandButton value="Details"  					   			
+					   			onclick="PF('dlgStatus').show()" style="margin:10px;background:#003b50;color:white" />
+	 				 </h:panelGroup>
 	 				 <h:outputText value="Health"/>
 	 				 <h:outputText id="healthstatus" value="#{placeHoldersView.appStatus.health}"/>
 	   			</h:panelGrid>
@@ -134,6 +137,36 @@
 		<h:form>
 			<p:graphicImage name="loader_seq.gif"  style="background: transparent;"/>
 		</h:form>	
+	</p:dialog>
+	
+	<p:dialog header="Logs" widgetVar="dlgStatus" minHeight="500" width="1400" showEffect="fade">
+		<h:form>
+			<p:dataTable value="#{argoInitializerBean.argoResources}"  var="resource" id="tableResources">
+				<p:column  headerText="Group">	
+					<h:outputText value="#{resource.group}"/>
+				</p:column>	
+				<p:column  headerText="Version">	
+					<h:outputText value="#{resource.version}"/>
+				</p:column>
+				<p:column  headerText="Kind">	
+					<h:outputText value="#{resource.kind}"/>
+				</p:column>
+				<p:column  headerText="Name">	
+					<h:outputText value="#{resource.name}"/>
+				</p:column>
+				<p:column  headerText="Status">	
+					<h:outputText value="#{resource.status}"/>
+				</p:column>
+				<p:column  headerText="HookPhase">	
+					<h:outputText value="#{resource.hookPhase}"/>
+				</p:column>
+				<p:column  headerText="SyncPhase">	
+					<h:outputText value="#{resource.syncPhase}"/>
+				</p:column>
+			
+			</p:dataTable>			
+			<p:poll interval="1"  update="tableResources"/>
+		</h:form>
 	</p:dialog>
  
 </h:body>
