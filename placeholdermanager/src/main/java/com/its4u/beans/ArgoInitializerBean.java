@@ -79,26 +79,30 @@ public class ArgoInitializerBean {
 			String sync = jsonObject.getJSONObject("status").getJSONObject("sync").getString("status");
 			String healthy = jsonObject.getJSONObject("status").getJSONObject("health").getString("status");	
 			argoAppStatus = new  ArgoAppStatus(sync, healthy);
-			this.reconciliateDate = jsonObject.getJSONObject("status").getString("reconciledAt");
 			
-			JSONArray  resources = jsonObject.getJSONObject("status").getJSONObject("operationState").getJSONObject("syncResult").getJSONArray("resources");
-			ObjectMapper objectMapper = new ObjectMapper();
-			
-			this.argoResources = new ArrayList<ArgoResource>();
-			for (Object resobj:resources) {
-				JSONObject resJson = (JSONObject) resobj;				
-				try {
-					ArgoResource argoResource = objectMapper.readValue(resobj.toString(), ArgoResource.class);
-					this.argoResources.add(argoResource);
-				} catch (JsonMappingException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (JsonProcessingException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+			if (jsonObject.getJSONObject("status")!=null && jsonObject.getJSONObject("status").getString("reconciledAt")!=null) {
+				this.reconciliateDate = jsonObject.getJSONObject("status").getString("reconciledAt");
 			}
-			System.out.println(argoResources);
+			if (jsonObject.getJSONObject("status")!=null && jsonObject.getJSONObject("status").getJSONObject("operationState")!=null) {
+				JSONArray  resources = jsonObject.getJSONObject("status").getJSONObject("operationState").getJSONObject("syncResult").getJSONArray("resources");
+				ObjectMapper objectMapper = new ObjectMapper();
+				this.argoResources = new ArrayList<ArgoResource>();
+				for (Object resobj:resources) {
+					JSONObject resJson = (JSONObject) resobj;				
+					try {
+						ArgoResource argoResource = objectMapper.readValue(resobj.toString(), ArgoResource.class);
+						this.argoResources.add(argoResource);
+					} catch (JsonMappingException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (JsonProcessingException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				System.out.println(argoResources);
+			}
+			
 						
 			
 			
