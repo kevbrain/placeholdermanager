@@ -29,7 +29,6 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 
 import lombok.Data;
 
-@Data
 @Component
 public class ArgoInitializerBean {
 	
@@ -83,12 +82,12 @@ public class ArgoInitializerBean {
 			JSONArray  resources = jsonObject.getJSONObject("status").getJSONObject("operationState").getJSONObject("syncResult").getJSONArray("resources");
 			ObjectMapper objectMapper = new ObjectMapper();
 			
-			argoResources = new ArrayList<ArgoResource>();
+			this.argoResources = new ArrayList<ArgoResource>();
 			for (Object resobj:resources) {
 				JSONObject resJson = (JSONObject) resobj;				
 				try {
 					ArgoResource argoResource = objectMapper.readValue(resobj.toString(), ArgoResource.class);
-					argoResources.add(argoResource);
+					this.argoResources.add(argoResource);
 				} catch (JsonMappingException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -138,6 +137,47 @@ public class ArgoInitializerBean {
 		      
 		return token;
 	}
+
+	public PollView getPollView() {
+		return pollView;
+	}
+
+	public void setPollView(PollView pollView) {
+		this.pollView = pollView;
+	}
+
+	public String getArgoServer() {
+		return argoServer;
+	}
+
+	public void setArgoServer(String argoServer) {
+		this.argoServer = argoServer;
+	}
+
+	public String getArgoUser() {
+		return argoUser;
+	}
+
+	public void setArgoUser(String argoUser) {
+		this.argoUser = argoUser;
+	}
+
+	public String getArgoPassword() {
+		return argoPassword;
+	}
+
+	public void setArgoPassword(String argoPassword) {
+		this.argoPassword = argoPassword;
+	}
+
+	public List<ArgoResource> getArgoResources() {
+		return argoResources;
+	}
+
+	public void setArgoResources(List<ArgoResource> argoResources) {
+		this.argoResources = argoResources;
+	}
 	
 
+	
 }

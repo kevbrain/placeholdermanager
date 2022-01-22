@@ -48,7 +48,7 @@
 	 				 	 onchange="PF('dlg0').show()">
 	 				 	 	<f:selectItem itemLabel="Select One" itemValue=""/>
 	                  	<f:selectItems value="#{placeHoldersView.myProjects}" var="project" itemLabel="#{project}" itemValue="#{project}"/>
-	                  	<p:ajax  oncomplete="PF('dlg0').hide()"  event="change" update="tabviewenv,giturl,growl,syncstatus,healthstatus" listener="#{placeHoldersView.onSelectedProject(placeHoldersView.selectedProjectId)}" />
+	                  	<p:ajax  oncomplete="PF('dlg0').hide()"  event="change" update="tabviewenv,giturl,growl,syncstatus,healthstatus,tableResources" listener="#{placeHoldersView.onSelectedProject(placeHoldersView.selectedProjectId)}" />
 	                  	
 	 				 </p:selectOneMenu>
 	 				 <h:outputText value="Git url"/>
@@ -124,27 +124,27 @@
 							
 				<p:dialog header="Resources" widgetVar="dlgStatus" minHeight="500" width="1400" showEffect="fade"  id="dialogresources">
 		
-					<p:dataTable value="#{argoInitializerBean.argoResources}"  var="resource" id="tableResources">
+					<p:dataTable value="#{argoInitializerBean.argoResources}"  var="res" id="tableResources">
 						<p:column  headerText="Group">	
-							<h:outputText value="#{resource.group}"/>
+							<h:outputText value="#{res.group}"/>
 						</p:column>	
 						<p:column  headerText="Version">	
-							<h:outputText value="#{resource.version}"/>
+							<h:outputText value="#{res.version}"/>
 						</p:column>
 						<p:column  headerText="Kind">	
-							<h:outputText value="#{resource.kind}"/>
+							<h:outputText value="#{res.kind}"/>
 						</p:column>
 						<p:column  headerText="Name">	
-							<h:outputText value="#{resource.name}"/>
+							<h:outputText value="#{res.name}"/>
 						</p:column>
 						<p:column  headerText="Status">	
-							<h:outputText value="#{resource.status}"/>
+							<h:outputText value="#{res.status}"/>
 						</p:column>
 						<p:column  headerText="HookPhase">	
-							<h:outputText value="#{resource.hookPhase}"/>
+							<h:outputText value="#{res.hookPhase}"/>
 						</p:column>
 						<p:column  headerText="SyncPhase">	
-							<h:outputText value="#{resource.syncPhase}"/>
+							<h:outputText value="#{res.syncPhase}"/>
 						</p:column>
 					
 					</p:dataTable>						
