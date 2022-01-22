@@ -80,7 +80,7 @@ public class ArgoInitializerBean {
 			String healthy = jsonObject.getJSONObject("status").getJSONObject("health").getString("status");	
 			argoAppStatus = new  ArgoAppStatus(sync, healthy);
 			
-			JSONArray  resources = jsonObject.getJSONObject("status").getJSONArray("resources");
+			JSONArray  resources = jsonObject.getJSONObject("status").getJSONObject("operationState").getJSONObject("syncResult").getJSONArray("resources");
 			ObjectMapper objectMapper = new ObjectMapper();
 			
 			argoResources = new ArrayList<ArgoResource>();
