@@ -45,7 +45,7 @@ public class ArgoInitializerBean {
 	@Value("${argo.password}")
 	private String argoPassword;
 	
-	private List<ArgoResource> argoResources;
+	public List<ArgoResource> argoResources;
 	
 		
 	public void synchronise(String project) {
@@ -88,7 +88,6 @@ public class ArgoInitializerBean {
 				JSONObject resJson = (JSONObject) resobj;				
 				try {
 					ArgoResource argoResource = objectMapper.readValue(resobj.toString(), ArgoResource.class);
-					System.out.println(argoResource);
 					argoResources.add(argoResource);
 				} catch (JsonMappingException e) {
 					// TODO Auto-generated catch block
@@ -98,6 +97,7 @@ public class ArgoInitializerBean {
 					e.printStackTrace();
 				}
 			}
+			System.out.println(argoResources);
 						
 			
 			
