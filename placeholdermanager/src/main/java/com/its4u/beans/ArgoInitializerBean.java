@@ -3,19 +3,25 @@ package com.its4u.beans;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.sonarsource.scanner.api.internal.shaded.minimaljson.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.its4u.models.ArgoAppStatus;
 import com.its4u.models.ArgoAuthToken;
+import com.its4u.models.ArgoResource;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
@@ -39,7 +45,7 @@ public class ArgoInitializerBean {
 	@Value("${argo.password}")
 	private String argoPassword;
 	
-	
+	private List<ArgoResource> argoResources;
 	
 		
 	public void synchronise(String project) {
@@ -73,6 +79,27 @@ public class ArgoInitializerBean {
 			String sync = jsonObject.getJSONObject("status").getJSONObject("sync").getString("status");
 			String healthy = jsonObject.getJSONObject("status").getJSONObject("health").getString("status");	
 			argoAppStatus = new  ArgoAppStatus(sync, healthy);
+			
+			JSONArray  resources = jsonObject.getJSONObject("status").getJSONArray("resources");
+			ObjectMapper objectMapper = new ObjectMapper();
+			
+			argoResources = new ArrayList<ArgoResource>();
+			for (Object resobj:resources) {
+				JSONObject resJson = (JSONObject) resobj;				
+				try {
+					ArgoResource argoResource = objectMapper.readValue(resobj.toString(), ArgoResource.class);
+					System.out.println(argoResource);
+					argoResources.add(argoResource);
+				} catch (JsonMappingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (JsonProcessingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+						
+			
 			
 		} catch (UnirestException e) {
 			// TODO Auto-generated catch block
