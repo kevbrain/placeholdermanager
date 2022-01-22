@@ -39,6 +39,8 @@ public class PlaceHoldersController {
 		return service.findProject(projectName);
 	}
 	
+	
+	
 	@RequestMapping(value = "/sync/{projectName}")
 	public @ResponseBody String synchronize(@PathVariable("projectName") String projectName) {
 		return service.synchronize(projectName);

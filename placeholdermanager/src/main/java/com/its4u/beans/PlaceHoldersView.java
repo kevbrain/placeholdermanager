@@ -79,7 +79,7 @@ public class PlaceHoldersView {
 		projectService.createProject(selectedProject);
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Project saved"));
 		
-		updateGitOps();
+		projectService.updateGitOps(selectedProject);
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Git Synchronized"));
 	}
 	
@@ -192,7 +192,7 @@ public class PlaceHoldersView {
 			
 			Files.walk(Paths.get(pathWorkkingGitOpsEnv))
 	        .filter(Files::isRegularFile)
-	        .forEach(path -> Parser.parser(path,placesH,pollView));
+	        .forEach(path -> Parser.parser(path,placesH));
 			
 		
 		} catch (Exception e) {

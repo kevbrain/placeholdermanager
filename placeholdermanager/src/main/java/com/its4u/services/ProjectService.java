@@ -19,4 +19,6 @@ public interface ProjectService {
 	
 	ArgoAppStatus statusAndHealth(String projectName);
 	
+	void updateGitOps(Project project);
+	
 }
