@@ -7,21 +7,21 @@ import lombok.Data;
 @Data
 public class ArgoResource implements Serializable{
 
-	private String group;
+	public String group;
 	
-	private String version;
+	public String version;
 	
-	private String kind;
+	public String kind;
 	
-	private String namespace;
+	public String namespace;
 	
-	private String name;
+	public String name;
 	
-	private String status;
+	public String status;
 	
-	private String message;
+	public String message;
 	
-	private String hookPhase;
+	public String hookPhase;
 	
-	private String syncPhase;
+	public String syncPhase;
 }
