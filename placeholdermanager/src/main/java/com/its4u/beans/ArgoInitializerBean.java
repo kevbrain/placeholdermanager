@@ -101,7 +101,7 @@ public class ArgoInitializerBean {
 								e.printStackTrace();
 							}
 						}
-						System.out.println(argoResources);
+						//System.out.println(argoResources);
 					}
 			} catch (Exception e) {
 				// nothing
