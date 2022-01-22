@@ -73,44 +73,47 @@ public class ArgoInitializerBean {
 			HttpResponse<JsonNode> response = Unirest.get("https://openshift-gitops-server-openshift-gitops.apps.ocp-lab.its4u.eu/api/v1/applications/"+project+"?refresh=true")
 			  .header("Authorization", "Bearer "+getToken())			  
 			  .asJson();
-											
-			JsonNode princ = response.getBody();
-			JSONObject jsonObject = princ.getObject();
-			String sync = jsonObject.getJSONObject("status").getJSONObject("sync").getString("status");
-			String healthy = jsonObject.getJSONObject("status").getJSONObject("health").getString("status");	
-			argoAppStatus = new  ArgoAppStatus(sync, healthy);
-			
-			if (jsonObject.getJSONObject("status")!=null && jsonObject.getJSONObject("status").getString("reconciledAt")!=null) {
-				this.reconciliateDate = jsonObject.getJSONObject("status").getString("reconciledAt");
-			}
-			if (jsonObject.getJSONObject("status")!=null && jsonObject.getJSONObject("status").getJSONObject("operationState")!=null) {
-				JSONArray  resources = jsonObject.getJSONObject("status").getJSONObject("operationState").getJSONObject("syncResult").getJSONArray("resources");
-				ObjectMapper objectMapper = new ObjectMapper();
-				this.argoResources = new ArrayList<ArgoResource>();
-				for (Object resobj:resources) {
-					JSONObject resJson = (JSONObject) resobj;				
-					try {
-						ArgoResource argoResource = objectMapper.readValue(resobj.toString(), ArgoResource.class);
-						this.argoResources.add(argoResource);
-					} catch (JsonMappingException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (JsonProcessingException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				System.out.println(argoResources);
-			}
-			
 						
-			
-			
+			try {
+					JsonNode princ = response.getBody();
+					JSONObject jsonObject = princ.getObject();
+					String sync = jsonObject.getJSONObject("status").getJSONObject("sync").getString("status");
+					String healthy = jsonObject.getJSONObject("status").getJSONObject("health").getString("status");	
+					argoAppStatus = new  ArgoAppStatus(sync, healthy);
+					
+					if (jsonObject.getJSONObject("status")!=null && jsonObject.getJSONObject("status").getString("reconciledAt")!=null) {
+						this.reconciliateDate = jsonObject.getJSONObject("status").getString("reconciledAt");
+					}
+					if (jsonObject.getJSONObject("status")!=null && jsonObject.getJSONObject("status").getJSONObject("operationState")!=null) {
+						JSONArray  resources = jsonObject.getJSONObject("status").getJSONObject("operationState").getJSONObject("syncResult").getJSONArray("resources");
+						ObjectMapper objectMapper = new ObjectMapper();
+						this.argoResources = new ArrayList<ArgoResource>();
+						for (Object resobj:resources) {
+							JSONObject resJson = (JSONObject) resobj;				
+							try {
+								ArgoResource argoResource = objectMapper.readValue(resobj.toString(), ArgoResource.class);
+								this.argoResources.add(argoResource);
+							} catch (JsonMappingException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} catch (JsonProcessingException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+						System.out.println(argoResources);
+					}
+			} catch (Exception e) {
+				// nothing
+			}
+														
 		} catch (UnirestException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			return argoAppStatus;
 		}
-		return argoAppStatus;
+		
 	}
 	
 	public String getToken() {
