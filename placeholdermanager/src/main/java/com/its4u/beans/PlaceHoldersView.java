@@ -64,8 +64,6 @@ public class PlaceHoldersView {
 	@PostConstruct
     public void init()  {
 		refresh();
-		
-
     }
 	
 	public void refresh() {
@@ -74,11 +72,12 @@ public class PlaceHoldersView {
 	}
 	
 	public void save() {
-		System.out.println("Save project");
+
 		pollView.log("Save project on DataBase");
 		projectService.createProject(selectedProject);
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Project saved"));
 		
+		pollView.log("Update GitOps");
 		projectService.updateGitOps(selectedProject);
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Git Synchronized"));
 	}
@@ -87,8 +86,9 @@ public class PlaceHoldersView {
 		
 		
 		pollView.log("Start Git Clone "+selectedProject.getProject_Id()+" project...");
-		String pathWorkingGitAppProject = cloneGitApp()+"/"+selectedProject.getProject_Id();
 		
+		String pathWorkingGitAppProject = projectService.cloneGitApp(selectedProject)+"/"+selectedProject.getProject_Id();
+			
 		pollView.log("Search for new PlaceHolders...");
 		for (Environments env:selectedProject.getEnvironments()) {
 			HashMap<String,String> placeholders = new HashMap<String, String>();
@@ -117,89 +117,12 @@ public class PlaceHoldersView {
 	}
 	
 	public void addNewPlaceHolder(Environments env,PlaceHolders pl,boolean secret) {
-		System.out.println("--->"+env.getEnvironment());
-		System.out.println("--->"+pl.getPlaceHolderId().getKey());
+	
 		env.getNewPlaceholders().remove(pl);
 		if (secret) pl.setType("secret");
 		env.getPlaceholders().add(pl);
 		
 		
-	}
-	
-	public String cloneGitApp() {
-		String pathWorkingGitApp = null;
-		try {
-			pathWorkingGitApp = GitController.loadGitApps(selectedProject.getProject_Id());
-			pollView.log("Git App project cloned on "+pathWorkingGitApp);
-			System.out.println("Git App project cloned on "+pathWorkingGitApp);
-		} catch (IllegalStateException | GitAPIException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		return pathWorkingGitApp;
-	}
-	
-	public String cloneGitOps() {
-		String pathWorkkingGitOps = null;
-		try {
-			pathWorkkingGitOps = GitController.loadGitOpsApps();
-		} catch (IllegalStateException | GitAPIException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		return pathWorkkingGitOps;
-	}
-	
-	
-	public void updateGitOps() {
-		
-		// clone gitops	
-		String pathWorkkingGitOpsProject = cloneGitOps()+"/"+selectedProject.getProject_Id();					
-		String pathWorkingGitAppProject = cloneGitApp()+"/"+selectedProject.getProject_Id();
-		
-		//HashMap<String,HashMap<String,String>> placesH = new HashMap<String, HashMap<String, String>>();
-		for (Environments env:selectedProject.getEnvironments()) {
-			HashMap<String, String> keyValues = new HashMap<String, String>();
-			for (PlaceHolders pl:env.getPlaceholders()) {
-				keyValues.put(pl.getPlaceHolderId().getKey(),pl.getValue());
-			}
-			updateGitopsPerEnvironment(pathWorkkingGitOpsProject,pathWorkingGitAppProject,env.getEnvironment(),keyValues);
-		}
-			
-		// commit and push
-		try {
-			GitController.commitAndPush();
-		} catch (NoFilepatternException e) {
-			e.printStackTrace();
-		} catch (GitAPIException e) {
-			e.printStackTrace();
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-		}	
-	}
-		
-	public void updateGitopsPerEnvironment(String pathWorkkingGitOps,String pathWorkingGitApp,String keyenv, HashMap<String,String> placesH) {
-		String pathWorkkingGitOpsEnv = pathWorkkingGitOps+"/jkube/"+keyenv;
-		String pathWorkingGitAppEnv = pathWorkingGitApp+"/src/main/jkube/"+keyenv;
-		try {
-			pollView.log("Sync resource between "+pathWorkingGitAppEnv+ " and "+pathWorkkingGitOpsEnv);
-			System.out.println("Sync resource between "+pathWorkingGitAppEnv+ " and "+pathWorkkingGitOpsEnv);
-			
-			Path source = Paths.get(pathWorkingGitAppEnv);
-			Path dest = Paths.get(pathWorkkingGitOpsEnv);
-			Files.walkFileTree(source, new CopyDir(source, dest));	
-			System.out.println("Replace PlaceHolders by values");
-			
-			Files.walk(Paths.get(pathWorkkingGitOpsEnv))
-	        .filter(Files::isRegularFile)
-	        .forEach(path -> Parser.parser(path,placesH));
-			
-		
-		} catch (Exception e) {
-			System.out.println("Unable to synchronize...");
-			pollView.logError("Unable to synchronize "+keyenv);
-		}
-			
 	}
 	
 	public void onSelectedProject(String projectId) {

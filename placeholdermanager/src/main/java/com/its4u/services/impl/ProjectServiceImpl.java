@@ -212,6 +212,7 @@ public class ProjectServiceImpl implements ProjectService {
 		return pathWorkkingGitOps;
 	}
 	
+	@Override
 	public String cloneGitApp(Project project) {
 		String pathWorkingGitApp = null;
 		try {
@@ -244,5 +245,13 @@ public class ProjectServiceImpl implements ProjectService {
 			System.out.println("Unable to synchronize...");
 		}
 			
+	}
+
+	@Override
+	public String applyConf(String projectName) {
+		// TODO Auto-generated method stub
+		Project project= findProject(projectName);
+		updateGitOps(project);
+		return synchronize(projectName);
 	}
 }

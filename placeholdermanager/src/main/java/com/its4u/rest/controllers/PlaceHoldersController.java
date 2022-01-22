@@ -39,7 +39,10 @@ public class PlaceHoldersController {
 		return service.findProject(projectName);
 	}
 	
-	
+	@RequestMapping(value = "/apply-conf/{projectName}")
+	public @ResponseBody String applyconf(@PathVariable("projectName") String projectName) {
+		return service.applyConf(projectName);
+	}
 	
 	@RequestMapping(value = "/sync/{projectName}")
 	public @ResponseBody String synchronize(@PathVariable("projectName") String projectName) {

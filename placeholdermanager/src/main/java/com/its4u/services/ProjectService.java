@@ -20,5 +20,9 @@ public interface ProjectService {
 	ArgoAppStatus statusAndHealth(String projectName);
 	
 	void updateGitOps(Project project);
+
+	String cloneGitApp(Project project);
+	
+	String applyConf(String projectName);
 	
 }
