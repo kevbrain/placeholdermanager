@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
+import com.its4u.models.ArgoAppStatus;
 import com.its4u.models.Project;
 
 public interface ProjectService {
@@ -13,5 +14,9 @@ public interface ProjectService {
 	HashMap<String,Project> findAll();
 	
 	Project findProject(String projectName);
+	
+	String synchronize(String projectName);
+	
+	ArgoAppStatus statusAndHealth(String projectName);
 	
 }

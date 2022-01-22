@@ -126,9 +126,9 @@
 		
 					<h:panelGrid columns="2">
 						<h:outputLabel value="Reconcile At "/>
-						<h:outputText id="fieldReconcileAt" value="#{argoInitializerBean.reconciliateDate}"/>
+						<h:outputText id="fieldReconcileAt" value="#{placeHoldersView.appStatus.reconcileAt}"/>
 					</h:panelGrid>
-					<p:dataTable value="#{argoInitializerBean.argoResources}"  var="res" id="tableResources">
+					<p:dataTable value="#{placeHoldersView.appStatus.argoResources}"  var="res" id="tableResources">
 					
 						<p:column  headerText="Version">	
 							<h:outputText value="#{res.group}/#{res.version}"/>
