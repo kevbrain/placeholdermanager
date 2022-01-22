@@ -125,11 +125,9 @@
 				<p:dialog header="Resources" widgetVar="dlgStatus" minHeight="500" width="1400" showEffect="fade"  id="dialogresources">
 		
 					<p:dataTable value="#{argoInitializerBean.argoResources}"  var="res" id="tableResources">
-						<p:column  headerText="Group">	
-							<h:outputText value="#{res.group}"/>
-						</p:column>	
+					
 						<p:column  headerText="Version">	
-							<h:outputText value="#{res.version}"/>
+							<h:outputText value="#{res.group}/#{res.version}"/>
 						</p:column>
 						<p:column  headerText="Kind">	
 							<h:outputText value="#{res.kind}"/>
@@ -145,6 +143,9 @@
 						</p:column>
 						<p:column  headerText="SyncPhase">	
 							<h:outputText value="#{res.syncPhase}"/>
+						</p:column>
+						<p:column  headerText="message">	
+							<h:outputText value="#{res.message}"/>
 						</p:column>
 					
 					</p:dataTable>						
