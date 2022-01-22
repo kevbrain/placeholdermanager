@@ -40,7 +40,7 @@
 	   			onclick="PF('dlg0').show()" update="growl" style="margin:10px;background:#003b50;color:white" />
    		</div>
    		
-   		<p:poll interval="4" listener="#{placeHoldersView.refreshStatusProject}" update="syncstatus,healthstatus"/>
+   		<p:poll interval="4" listener="#{placeHoldersView.refreshStatusProject}" update="syncstatus,healthstatus,dialogresources"/>
    		
 	 			<h:panelGrid columns="2">
 	 				<h:outputText value="My projects :"/>
@@ -122,25 +122,8 @@
 					    	</p:tab>
 					</p:tabView>
 					
-				
-    	</h:form>
-	</p:panel>
-	
-	<p:dialog header="Logs" widgetVar="dlg1" minHeight="500" width="1400" showEffect="fade">
-		<h:form>
-			<h:outputText escape="false"  id="txt_count" value="#{pollView.listLogs}"/>									
-			<p:poll interval="1" listener="#{pollView.increment}" update="txt_count"/>
-		</h:form>	
-	</p:dialog>
- 
- 	<p:dialog  widgetVar="dlg0"  showEffect="fade">
-		<h:form>
-			<p:graphicImage name="loader_seq.gif"  style="background: transparent;"/>
-		</h:form>	
-	</p:dialog>
-	
-	<p:dialog header="Logs" widgetVar="dlgStatus" minHeight="500" width="1400" showEffect="fade">
-		<h:form>
+		<p:dialog header="Resources" widgetVar="dlgStatus" minHeight="500" width="1400" showEffect="fade"  id="dialogresources">
+		
 			<p:dataTable value="#{argoInitializerBean.argoResources}"  var="resource" id="tableResources">
 				<p:column  headerText="Group">	
 					<h:outputText value="#{resource.group}"/>
@@ -164,10 +147,27 @@
 					<h:outputText value="#{resource.syncPhase}"/>
 				</p:column>
 			
-			</p:dataTable>			
-			<p:poll interval="1"  update="tableResources"/>
-		</h:form>
+			</p:dataTable>						
+		
 	</p:dialog>
+				
+    	</h:form>
+	</p:panel>
+	
+	<p:dialog header="Logs" widgetVar="dlg1" minHeight="500" width="1400" showEffect="fade">
+		<h:form>
+			<h:outputText escape="false"  id="txt_count" value="#{pollView.listLogs}"/>									
+			<p:poll interval="1" listener="#{pollView.increment}" update="txt_count"/>
+		</h:form>	
+	</p:dialog>
+ 
+ 	<p:dialog  widgetVar="dlg0"  showEffect="fade">
+		<h:form>
+			<p:graphicImage name="loader_seq.gif"  style="background: transparent;"/>
+		</h:form>	
+	</p:dialog>
+	
+	
  
 </h:body>
 </html>
