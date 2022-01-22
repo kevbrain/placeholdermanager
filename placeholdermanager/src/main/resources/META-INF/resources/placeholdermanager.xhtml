@@ -40,7 +40,7 @@
 	   			onclick="PF('dlg0').show()" update="growl" style="margin:10px;background:#003b50;color:white" />
    		</div>
    		
-   		<p:poll interval="4" listener="#{placeHoldersView.refreshStatusProject}" update="syncstatus,healthstatus,:dialogresources"/>
+   		<p:poll interval="4" listener="#{placeHoldersView.refreshStatusProject}" update="syncstatus,healthstatus"/>
    		
 	 			<h:panelGrid columns="2">
 	 				<h:outputText value="My projects :"/>
@@ -122,38 +122,38 @@
 					    	</p:tab>
 					</p:tabView>
 							
-				
+				<p:dialog header="Resources" widgetVar="dlgStatus" minHeight="500" width="1400" showEffect="fade"  id="dialogresources">
+		
+					<p:dataTable value="#{argoInitializerBean.argoResources}"  var="resource" id="tableResources">
+						<p:column  headerText="Group">	
+							<h:outputText value="#{resource.group}"/>
+						</p:column>	
+						<p:column  headerText="Version">	
+							<h:outputText value="#{resource.version}"/>
+						</p:column>
+						<p:column  headerText="Kind">	
+							<h:outputText value="#{resource.kind}"/>
+						</p:column>
+						<p:column  headerText="Name">	
+							<h:outputText value="#{resource.name}"/>
+						</p:column>
+						<p:column  headerText="Status">	
+							<h:outputText value="#{resource.status}"/>
+						</p:column>
+						<p:column  headerText="HookPhase">	
+							<h:outputText value="#{resource.hookPhase}"/>
+						</p:column>
+						<p:column  headerText="SyncPhase">	
+							<h:outputText value="#{resource.syncPhase}"/>
+						</p:column>
+					
+					</p:dataTable>						
+					<p:poll interval="4"  update="tableResources"/>
+			</p:dialog>
     	</h:form>
 	</p:panel>
 	
-	<p:dialog header="Resources" widgetVar="dlgStatus" minHeight="500" width="1400" showEffect="fade"  id="dialogresources">
-		<h:form>
-			<p:dataTable value="#{argoInitializerBean.argoResources}"  var="resource" id="tableResources">
-				<p:column  headerText="Group">	
-					<h:outputText value="#{resource.group}"/>
-				</p:column>	
-				<p:column  headerText="Version">	
-					<h:outputText value="#{resource.version}"/>
-				</p:column>
-				<p:column  headerText="Kind">	
-					<h:outputText value="#{resource.kind}"/>
-				</p:column>
-				<p:column  headerText="Name">	
-					<h:outputText value="#{resource.name}"/>
-				</p:column>
-				<p:column  headerText="Status">	
-					<h:outputText value="#{resource.status}"/>
-				</p:column>
-				<p:column  headerText="HookPhase">	
-					<h:outputText value="#{resource.hookPhase}"/>
-				</p:column>
-				<p:column  headerText="SyncPhase">	
-					<h:outputText value="#{resource.syncPhase}"/>
-				</p:column>
-			
-			</p:dataTable>						
-		</h:form>
-	</p:dialog>
+
 	
 	<p:dialog header="Logs" widgetVar="dlg1" minHeight="500" width="1400" showEffect="fade">
 		<h:form>
