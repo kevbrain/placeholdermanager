@@ -10,6 +10,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.api.errors.NoFilepatternException;
@@ -28,6 +29,7 @@ import com.its4u.models.ArgoAppStatus;
 import com.its4u.models.ArgoAuthToken;
 import com.its4u.models.ArgoResource;
 import com.its4u.models.Environments;
+import com.its4u.models.PlaceHolderId;
 import com.its4u.models.PlaceHolders;
 import com.its4u.models.Project;
 import com.its4u.repositories.EnvironmentRepository;
@@ -275,7 +277,10 @@ public class ProjectServiceImpl implements ProjectService {
 
 	@Override
 	public void deletePlaceHolder(PlaceHolders placeHolder) {
-		placeHolderRepository.deleteById(placeHolder.getPlaceHolderId());
+		
+		System.out.println("PlaceHolderId = "+placeHolder.getPlaceHolderId().toString());
+		Optional<PlaceHolders> placeHolderToDelete = placeHolderRepository.findById(placeHolder.getPlaceHolderId());		
+		placeHolderRepository.delete(placeHolderToDelete.get());
 		
 	}
 }

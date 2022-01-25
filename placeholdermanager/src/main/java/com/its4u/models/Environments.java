@@ -38,7 +38,6 @@ public class Environments implements Serializable {
 	
 	@Transient
 	@Setter
-	@Getter
 	private String projectId;
 	
 	@JsonIgnore
