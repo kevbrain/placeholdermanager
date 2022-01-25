@@ -15,6 +15,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
@@ -45,7 +48,8 @@ public class Environments implements Serializable {
     private Project project;
 	
 
-	@OneToMany(cascade = CascadeType.REMOVE,fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name="environment", referencedColumnName = "environment") 
 	public List<PlaceHolders> placeholders;
 	
