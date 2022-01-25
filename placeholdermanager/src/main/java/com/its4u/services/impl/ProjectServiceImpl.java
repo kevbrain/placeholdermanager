@@ -269,13 +269,14 @@ public class ProjectServiceImpl implements ProjectService {
 			System.out.println(env);
 			for (PlaceHolders pl:env.getPlaceholders()) {
 				System.out.println(pl);
+				System.out.println(pl.get_environment());
 				System.out.println(pl.getPlaceHolderId().getEnvironment());
 				System.out.println(pl.getPlaceHolderId().getKey());
 				//placeHolderRepository.delete(pl);
 			}			
 		}
 			
-		//repository.delete(project);
+		repository.delete(project);
 		
 	}
 
