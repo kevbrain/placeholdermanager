@@ -32,7 +32,7 @@ public class Project implements Serializable{
 	private String owner;
 	
 	
-	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER)	
+	@OneToMany(cascade = CascadeType.REMOVE,fetch=FetchType.EAGER)	
     @JoinColumn(name="PROJECT_ID", referencedColumnName = "PROJECT_ID")  
 	private List<Environments> environments;
 

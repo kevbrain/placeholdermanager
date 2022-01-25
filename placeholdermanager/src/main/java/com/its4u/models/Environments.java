@@ -45,7 +45,7 @@ public class Environments implements Serializable {
     private Project project;
 	
 
-	@OneToMany(cascade=CascadeType.ALL,fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.REMOVE,fetch = FetchType.EAGER)
 	@JoinColumn(name="environment", referencedColumnName = "environment") 
 	public List<PlaceHolders> placeholders;
 	
