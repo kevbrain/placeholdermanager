@@ -95,19 +95,26 @@
 									        		<p:inputText value="#{entry.value}" style="width:600px;"/>
 										</p:column>		
 										<p:column  headerText="">	
-									        		<p:commandButton value="Delete" actionListener="#{placeHoldersView.deletePlaceHolder(entry)}" update="tablePlaceHolders"/>
+									        		<p:commandButton value="Delete" actionListener="#{placeHoldersView.deletePlaceHolder(entry)}" update="@form"/>
 										</p:column>		
 										
 					    			</p:dataTable>
 					    			<br/>
 					    			<b>Encrypted Values :</b>
 					    			<p:dataTable value="#{env.secretsPlaceholders}"  var="entry"  widgetVar="placeHolderTable">
+					    				<p:column  headerText="Env">	
+									        		<h:outputText value="#{entry.placeHolderId.environment}"/>
+										</p:column>
 					    				<p:column  headerText="Key">	
 									        		<h:outputText value="#{entry.placeHolderId.key}" />
 										</p:column>		
 										<p:column  headerText="Value">	
 									        		<p:password  value="#{entry.value}" toggleMask="true" redisplay="true" style="width:400px;"/>
-										</p:column>									
+										</p:column>		
+										<p:column  headerText="">	
+									        		<p:commandButton value="Delete" actionListener="#{placeHoldersView.deletePlaceHolder(entry)}" update="@form"/>
+										</p:column>
+																	
 					    			</p:dataTable>
 					    			<br/>
 					    			<b>New placeHolders detected :</b>
