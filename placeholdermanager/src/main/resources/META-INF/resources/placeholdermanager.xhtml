@@ -39,8 +39,8 @@
 	   			oncomplete="PF('dlg0').hide()"
 	   			onclick="PF('dlg0').show()" update="growl" style="margin:10px;background:#003b50;color:white" />
 	   		<p:commandButton value="Delete" style="margin:10px;background:red;color:white" 
-	   			oncomplete="PF('dlg0').hide()" update="@form" immediate="true"
-	   			onclick="PF('dlg0').show()" actionListener="#{placeHoldersView.deleteProject}"/>
+	   			update="growl" immediate="true"
+	   			actionListener="#{placeHoldersView.deleteProject}"/>
    		</div>
    		
    		<p:poll interval="4" listener="#{placeHoldersView.refreshStatusProject}" update="syncstatus,healthstatus"/>
@@ -72,12 +72,12 @@
 		   			<p:tabView value="#{placeHoldersView.selectedProject.environments}" var="env" id="tabviewenv" >
 					    	<p:tab title="#{env.environment}" >
 					    			<div style="position:relative;margin:auto;text-align:center;">	
-					    				<p:commandButton value="Apply And Deploy Configuration" 
+					    				<p:commandButton value="Apply And Deploy Project" 
 					    					oncomplete="PF('dlg0').hide()"
 	   										onclick="PF('dlg0').show()"
 					    				 actionListener="#{placeHoldersView.synchronise(env.projectId)}" update="growl" style="margin:10px;background:#003b50;color:white" />
 			   		
-			   							<p:commandButton value="UnDeploy Configuration"  actionListener="#{placeHoldersView.refresh}" update="@form" style="margin:10px;background:#003b50;color:white" />
+			   							<p:commandButton value="UnDeploy Project"  actionListener="#{placeHoldersView.refresh}" update="@form" style="margin:10px;background:#003b50;color:white" />
 			   		
 			   							<p:commandButton value="Rollback"  actionListener="#{placeHoldersView.refresh}" update="@form" style="margin:10px;background:#003b50;color:white" />
 			   							
