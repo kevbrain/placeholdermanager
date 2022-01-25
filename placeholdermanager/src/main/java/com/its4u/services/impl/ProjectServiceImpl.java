@@ -266,13 +266,7 @@ public class ProjectServiceImpl implements ProjectService {
 
 	@Override
 	public void deleteProject(Project project) {
-		System.out.println("Delete project "+project.getProject_Id());
-		for (Environments env: project.getEnvironments()) {
-			for (PlaceHolders pl: env.getPlaceholders()) {
-				deletePlaceHolder(pl);
-			}
-			deleteEnvironment(env);
-		}		
+		System.out.println("Delete project "+project.getProject_Id());		
 		repository.delete(project);
 		
 	}
