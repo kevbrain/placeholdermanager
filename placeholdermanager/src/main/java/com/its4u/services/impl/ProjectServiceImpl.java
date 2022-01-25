@@ -275,16 +275,16 @@ public class ProjectServiceImpl implements ProjectService {
 				System.out.println(pl.getPlaceHolderId().getKey());
 				//placeHolderRepository.delete(pl);
 			}	*/
-			environmentRepository.delete(env);
+			environmentRepository.deleteById(env.getEnvironment());
 		}
 			
-		repository.delete(project);
+		//repository.delete(project);
 		
 	}
 
 	@Override
 	public void deletePlaceHolder(PlaceHolders placeHolder) {
-		placeHolderRepository.delete(placeHolder);
+		placeHolderRepository.deleteById(placeHolder.getPlaceHolderId());
 		
 	}
 }

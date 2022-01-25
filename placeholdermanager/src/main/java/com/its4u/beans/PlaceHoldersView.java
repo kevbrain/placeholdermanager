@@ -75,6 +75,8 @@ public class PlaceHoldersView {
 	
 	public void deletePlaceHolder(PlaceHolders pl,List<PlaceHolders> lst) {
 		System.out.println("Delete placeHolder");
+		System.out.println(lst);
+		System.out.println(pl);
 		projectService.deletePlaceHolder(pl);
 		lst.remove(pl);
 		
