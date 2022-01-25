@@ -30,6 +30,9 @@ public class PlaceHolders implements Serializable {
     @JoinColumn(name = "environment",insertable = false, updatable = false)
 	private Environments _environment;
 	
+	@Column(name = "ENVIRONMENT")
+	private String envid;
+	
 	@Column(name = "VALUE")
 	private String value;
 		
