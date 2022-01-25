@@ -30,6 +30,8 @@ import com.its4u.models.ArgoResource;
 import com.its4u.models.Environments;
 import com.its4u.models.PlaceHolders;
 import com.its4u.models.Project;
+import com.its4u.repositories.EnvironmentRepository;
+import com.its4u.repositories.PlaceHoldersRepository;
 import com.its4u.repositories.ProjectRepository;
 import com.its4u.services.ProjectService;
 import com.mashape.unirest.http.HttpResponse;
@@ -42,6 +44,12 @@ public class ProjectServiceImpl implements ProjectService {
 
 	@Autowired
 	private ProjectRepository repository;
+	
+	@Autowired
+	private PlaceHoldersRepository placeHolderRepository;
+	
+	@Autowired 
+	private EnvironmentRepository environmentRepository;
 	
 	@Override
 	public Project createProject(Project project) {
@@ -256,7 +264,14 @@ public class ProjectServiceImpl implements ProjectService {
 
 	@Override
 	public void deleteProject(Project project) {
-
+		
+		for (Environments env: project.getEnvironments()) {
+			for (PlaceHolders pl:env.getPlaceholders()) {
+				placeHolderRepository.delete(pl);
+			}
+			environmentRepository.delete(env);
+		}
+			
 		repository.delete(project);
 		
 	}
