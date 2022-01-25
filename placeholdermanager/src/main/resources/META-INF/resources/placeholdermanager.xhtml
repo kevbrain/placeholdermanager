@@ -95,7 +95,7 @@
 									        		<p:inputText value="#{entry.value}" style="width:600px;"/>
 										</p:column>		
 										<p:column  headerText="">	
-									        		<p:commandButton value="Delete" actionListener="#{placeHoldersView.deletePlaceHolder(entry)}" update="@form"/>
+									        		<p:commandButton value="Delete" actionListener="#{placeHoldersView.deletePlaceHolder(entry)}" update="@form" immediate="true"/>
 										</p:column>		
 										
 					    			</p:dataTable>
@@ -112,7 +112,7 @@
 									        		<p:password  value="#{entry.value}" toggleMask="true" redisplay="true" style="width:400px;"/>
 										</p:column>		
 										<p:column  headerText="">	
-									        		<p:commandButton value="Delete" actionListener="#{placeHoldersView.deletePlaceHolder(entry)}" update="@form"/>
+									        		<p:commandButton value="Delete" actionListener="#{placeHoldersView.deletePlaceHolder(entry)}" update="@form" immediate="true"/>
 										</p:column>
 																	
 					    			</p:dataTable>
