@@ -271,7 +271,7 @@ public class ProjectServiceImpl implements ProjectService {
 			}			
 		}
 			
-		//repository.delete(project);
+		repository.delete(project);
 		
 	}
 
