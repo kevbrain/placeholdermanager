@@ -32,7 +32,7 @@ public class Project implements Serializable{
 	private String owner;
 	
 	
-	@OneToMany( mappedBy = "project", cascade = { CascadeType.PERSIST, CascadeType.MERGE },orphanRemoval = true)	
+	@OneToMany( mappedBy = "project", cascade = { CascadeType.ALL },orphanRemoval = true)	
    	private List<Environments> environments;
 
 	public Project() {
