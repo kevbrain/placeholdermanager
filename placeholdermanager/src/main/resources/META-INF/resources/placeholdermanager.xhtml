@@ -84,7 +84,7 @@
 			   							<p:commandButton value="Status"  actionListener="#{argoInitializerBean.statusAndHealth(env.projectId)}" update="@form" style="margin:10px;background:#003b50;color:white" />
 			   						</div>
 					    			<b>Clear Values :</b>
-					    			<p:dataTable value="#{env.clearPlaceholders}"  var="entry"  widgetVar="placeHolderTable">
+					    			<p:dataTable value="#{env.clearPlaceholders}"  var="entry"  widgetVar="placeHolderTable" id="tablePlaceHolders">
 					    				<p:column  headerText="Env">	
 									        		<h:outputText value="#{entry.placeHolderId.environment}"/>
 										</p:column>	
@@ -94,7 +94,9 @@
 										<p:column  headerText="Value">	
 									        		<p:inputText value="#{entry.value}" style="width:600px;"/>
 										</p:column>		
-										
+										<p:column  headerText="">	
+									        		<p:commandButton value="Delete" actionListener="#{placeHoldersView.deletePlaceHolder(entry)}" update="tablePlaceHolders"/>
+										</p:column>		
 										
 					    			</p:dataTable>
 					    			<br/>

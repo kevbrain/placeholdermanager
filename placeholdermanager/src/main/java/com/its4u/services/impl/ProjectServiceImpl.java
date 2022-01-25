@@ -275,4 +275,10 @@ public class ProjectServiceImpl implements ProjectService {
 		repository.delete(project);
 		
 	}
+
+	@Override
+	public void deletePlaceHolder(PlaceHolders placeHolder) {
+		placeHolderRepository.delete(placeHolder);
+		
+	}
 }

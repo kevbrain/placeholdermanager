@@ -3,6 +3,7 @@ package com.its4u.services;
 import java.util.HashMap;
 
 import com.its4u.models.ArgoAppStatus;
+import com.its4u.models.PlaceHolders;
 import com.its4u.models.Project;
 
 public interface ProjectService {
@@ -24,5 +25,7 @@ public interface ProjectService {
 	String cloneGitApp(Project project);
 	
 	String applyConf(String projectName);
+	
+	void deletePlaceHolder(PlaceHolders placeHolder);
 	
 }
