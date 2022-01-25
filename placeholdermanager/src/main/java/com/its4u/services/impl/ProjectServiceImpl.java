@@ -264,13 +264,13 @@ public class ProjectServiceImpl implements ProjectService {
 
 	@Override
 	public void deleteProject(Project project) {
-		
+		/*
 		for (Environments env: project.getEnvironments()) {
 			for (PlaceHolders pl:env.getPlaceholders()) {
 				placeHolderRepository.delete(pl);
 			}
 			environmentRepository.delete(env);
-		}
+		}*/
 			
 		repository.delete(project);
 		

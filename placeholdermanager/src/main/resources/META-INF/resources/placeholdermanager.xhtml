@@ -85,6 +85,9 @@
 			   						</div>
 					    			<b>Clear Values :</b>
 					    			<p:dataTable value="#{env.clearPlaceholders}"  var="entry"  widgetVar="placeHolderTable">
+					    				<p:column  headerText="Env">	
+									        		<h:outputText value="#{entry.placeHolderId.environment}"/>
+										</p:column>	
 					    				<p:column  headerText="Key">	
 									        		<h:outputText value="#{entry.placeHolderId.key}"/>
 										</p:column>		
