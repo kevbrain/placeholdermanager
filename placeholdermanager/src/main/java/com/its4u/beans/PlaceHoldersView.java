@@ -75,6 +75,7 @@ public class PlaceHoldersView {
 	
 	
 	public void delete() {
+		System.out.println("Delete project "+selectedProject.getProject_Id());
 		projectService.deleteProject(selectedProject);
 		selectedProject = null;
 		refresh();

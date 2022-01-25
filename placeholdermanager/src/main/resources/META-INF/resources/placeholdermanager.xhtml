@@ -38,7 +38,9 @@
 	   		<p:commandButton value="Save Configuration"  actionListener="#{placeHoldersView.save}" 
 	   			oncomplete="PF('dlg0').hide()"
 	   			onclick="PF('dlg0').show()" update="growl" style="margin:10px;background:#003b50;color:white" />
-	   		<p:commandButton value="Delete" style="margin:10px;background:red;color:white" actionListener="#{placeHoldersView.delete}"/>
+	   		<p:commandButton value="Delete" style="margin:10px;background:red;color:white" 
+	   			oncomplete="PF('dlg0').hide()"
+	   			onclick="PF('dlg0').show()"actionListener="#{placeHoldersView.delete}"/>
    		</div>
    		
    		<p:poll interval="4" listener="#{placeHoldersView.refreshStatusProject}" update="syncstatus,healthstatus"/>
