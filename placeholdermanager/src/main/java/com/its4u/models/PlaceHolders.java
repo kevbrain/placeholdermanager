@@ -27,7 +27,7 @@ public class PlaceHolders implements Serializable {
 	
 	@JsonIgnore
 	@ManyToOne
-    @JoinColumn(name = "environment")
+    @JoinColumn(name = "environment",insertable = false, updatable = false)
 	private Environments _environment;
 	
 	@Column(name = "VALUE")

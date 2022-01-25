@@ -11,7 +11,7 @@ import lombok.Data;
 @Embeddable
 public class PlaceHolderId implements Serializable {
 	
-	@Column(name = "ENVIRONMENT",insertable = false, updatable = false)
+	@Column(name = "ENVIRONMENT")
 	private String environment;
 	
 	@Column(name = "KEY")
