@@ -32,9 +32,8 @@ public class Project implements Serializable{
 	private String owner;
 	
 	
-	@OneToMany(cascade = CascadeType.ALL,fetch=FetchType.LAZY,orphanRemoval = true)	
-    @JoinColumn(name="PROJECT_ID", referencedColumnName = "PROJECT_ID")  
-	private List<Environments> environments;
+	@OneToMany( mappedBy = "project", cascade = { CascadeType.PERSIST, CascadeType.MERGE },orphanRemoval = true)	
+   	private List<Environments> environments;
 
 	public Project() {
 		super();
