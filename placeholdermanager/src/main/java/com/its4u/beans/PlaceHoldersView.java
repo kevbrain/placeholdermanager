@@ -73,8 +73,10 @@ public class PlaceHoldersView {
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Git Synchronized"));
 	}
 	
-	public void deletePlaceHolder(PlaceHolders pl) {
+	public void deletePlaceHolder(PlaceHolders pl,List<PlaceHolders> lst) {
 		projectService.deletePlaceHolder(pl);
+		lst.remove(pl);
+		
 	}
 	
 	public void deleteProject() {
