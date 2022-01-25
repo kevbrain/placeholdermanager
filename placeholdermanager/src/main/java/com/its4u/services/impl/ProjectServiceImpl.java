@@ -253,4 +253,11 @@ public class ProjectServiceImpl implements ProjectService {
 		}
 		return synchronize(projectName);
 	}
+
+	@Override
+	public void deleteProject(Project project) {
+
+		repository.delete(project);
+		
+	}
 }

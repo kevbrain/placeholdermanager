@@ -75,7 +75,10 @@ public class PlaceHoldersView {
 	
 	
 	public void delete() {
-		
+		projectService.deleteProject(selectedProject);
+		selectedProject = null;
+		refresh();
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Project deleted"));
 	}
 	
 	public void searchForNewPlaceHolders() {

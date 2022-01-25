@@ -9,6 +9,8 @@ public interface ProjectService {
 	
 	Project createProject(Project project);
 	
+	void deleteProject(Project project);
+	
 	HashMap<String,Project> findAll();
 	
 	Project findProject(String projectName);
