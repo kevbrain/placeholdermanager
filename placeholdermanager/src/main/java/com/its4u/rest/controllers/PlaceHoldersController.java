@@ -34,8 +34,8 @@ public class PlaceHoldersController {
 			}
 		}
 		
-		return null;
-		//return service.createProject(project);
+		//return null;
+		return service.createProject(project);
 	}
 	
 	@RequestMapping(value = "/projects/list", produces = "application/json")
