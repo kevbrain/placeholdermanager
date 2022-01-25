@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.its4u.models.Environments;
+import com.its4u.models.PlaceHolders;
 import com.its4u.models.Project;
 import com.its4u.services.ProjectService;
 
@@ -24,6 +26,13 @@ public class PlaceHoldersController {
 	public Project createProject(@RequestBody Project project) {
 		System.out.println("****** Creation project ***** ");
 		System.out.println(project.getProject_Id());
+		for (Environments env: project.getEnvironments()) {
+			System.out.print(env.getProjectId()+"#"+env.getEnvironment());
+			System.out.print(env);
+			for (PlaceHolders pl:env.getPlaceholders()) {
+				System.out.println(pl);
+			}
+		}
 		
 		return null;
 		//return service.createProject(project);
