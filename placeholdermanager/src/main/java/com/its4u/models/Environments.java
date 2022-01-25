@@ -41,7 +41,7 @@ public class Environments implements Serializable {
 	
 	@JsonIgnore
 	@ManyToOne
-    @JoinColumn(name = "project_Id")
+    @JoinColumn(name = "project_Id",insertable = false, updatable = false)
     private Project project;
 	
 
