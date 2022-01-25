@@ -278,7 +278,7 @@ public class ProjectServiceImpl implements ProjectService {
 			environmentRepository.delete(env);
 		}
 			
-		//repository.delete(project);
+		repository.delete(project);
 		
 	}
 
