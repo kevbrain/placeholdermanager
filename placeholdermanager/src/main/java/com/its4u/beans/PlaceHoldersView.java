@@ -78,6 +78,7 @@ public class PlaceHoldersView {
 		System.out.println("Delete project "+selectedProject.getProject_Id());
 		projectService.deleteProject(selectedProject);
 		selectedProject = null;
+		pollView.log("Project "+selectedProject.getProject_Id()+" deleted");
 		refresh();
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Project deleted"));
 	}
