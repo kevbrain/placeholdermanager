@@ -84,7 +84,7 @@
 			   							<p:commandButton value="Status"  actionListener="#{argoInitializerBean.statusAndHealth(env.projectId)}" update="@form" style="margin:10px;background:#003b50;color:white" />
 			   						</div>
 					    			<b>Clear Values :</b>
-					    			<p:dataTable value="#{env.clearPlaceholders}"  var="entry"  widgetVar="placeHolderTable" id="tablePlaceHolders">
+					    			<p:dataTable value="#{env.clearPlaceholders}"  var="entry"  widgetVar="placeHolderTable" id="configmaptable">
 					    				<p:column  headerText="Env">	
 									        		<h:outputText value="#{entry.placeHolderId.environment}"/>
 										</p:column>	
@@ -95,13 +95,13 @@
 									        		<p:inputText value="#{entry.value}" style="width:600px;"/>
 										</p:column>		
 										<p:column  headerText="">	
-									        		<p:commandButton value="Delete" actionListener="#{placeHoldersView.deletePlaceHolder(entry,env.clearPlaceholders)}" update="@form" immediate="true"/>
+									        		<p:commandButton value="Delete" actionListener="#{placeHoldersView.deletePlaceHolder(entry,env.clearPlaceholders)}" update="configmaptable,growl" />
 										</p:column>		
 										
 					    			</p:dataTable>
 					    			<br/>
 					    			<b>Encrypted Values :</b>
-					    			<p:dataTable value="#{env.secretsPlaceholders}"  var="entry"  widgetVar="placeHolderTable">
+					    			<p:dataTable value="#{env.secretsPlaceholders}"  var="entry"  widgetVar="placeHolderTable" id="secretstable">
 					    				<p:column  headerText="Env">	
 									        		<h:outputText value="#{entry.placeHolderId.environment}"/>
 										</p:column>
@@ -112,7 +112,7 @@
 									        		<p:password  value="#{entry.value}" toggleMask="true" redisplay="true" style="width:400px;"/>
 										</p:column>		
 										<p:column  headerText="">	
-									        		<p:commandButton value="Delete" actionListener="#{placeHoldersView.deletePlaceHolder(entry,env.secretsPlaceholders)}" update="@form,growl" immediate="true"/>
+									        		<p:commandButton value="Delete" actionListener="#{placeHoldersView.deletePlaceHolder(entry,env.secretsPlaceholders)}" update="secretstable,growl" />
 										</p:column>
 																	
 					    			</p:dataTable>
