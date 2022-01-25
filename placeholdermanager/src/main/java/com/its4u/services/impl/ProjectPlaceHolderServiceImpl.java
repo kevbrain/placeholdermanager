@@ -1,8 +1,8 @@
 package com.its4u.services.impl;
 
 import java.util.List;
-import org.apache.commons.collections4.IterableUtils;
 
+import org.apache.commons.collections4.IterableUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

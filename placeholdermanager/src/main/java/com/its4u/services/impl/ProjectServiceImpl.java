@@ -10,12 +10,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-
-import org.apache.commons.collections4.IterableUtils;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.api.errors.NoFilepatternException;
 import org.json.JSONArray;
@@ -35,15 +30,12 @@ import com.its4u.models.ArgoResource;
 import com.its4u.models.Environments;
 import com.its4u.models.PlaceHolders;
 import com.its4u.models.Project;
-
 import com.its4u.repositories.ProjectRepository;
 import com.its4u.services.ProjectService;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
-
-import lombok.var;
 
 @Service
 public class ProjectServiceImpl implements ProjectService {

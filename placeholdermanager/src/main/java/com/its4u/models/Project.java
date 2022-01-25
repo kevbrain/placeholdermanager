@@ -1,9 +1,7 @@
 package com.its4u.models;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,13 +11,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import lombok.Data;
-import lombok.ToString;
 
 @Data
-@ToString
 @Entity
 @Table(name = "PROJECT")
 public class Project implements Serializable{

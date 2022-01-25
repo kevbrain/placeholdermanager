@@ -2,10 +2,10 @@ package com.its4u.models;
 
 import java.io.Serializable;
 
-import lombok.Data;
 
-
-public class ArgoResource implements Serializable{
+public class ArgoResource implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 
 	public String group;
 	

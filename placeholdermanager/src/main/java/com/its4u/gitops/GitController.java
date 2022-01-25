@@ -12,7 +12,6 @@ import org.eclipse.jgit.api.errors.NoFilepatternException;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.transport.URIish;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.FileSystemUtils;
 
 public class GitController {

@@ -7,8 +7,6 @@ import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.its4u.beans.PollView;
-
 public class Parser {
 	
 	public static HashMap<String,String> parser(Path path,HashMap<String,String> placeholdersValues)  {
@@ -40,14 +38,12 @@ public class Parser {
 		HashMap<String,String> placeholders = new HashMap<String, String>();
 		System.out.println(path.getFileName());
 		String read = null;
-		boolean found = false;
 		try {
 			read = Files.readString(path); 
 			Pattern pattern = Pattern.compile("\\{\\{(?:[^{}]|((g<0>)))+\\}\\}");
 								
 			Matcher matcher = pattern.matcher(read);
-			while(matcher.find()){				
-				 System.out.println("founded : "+matcher.group().replace('{',' ').replace('}',' ').trim());
+			while(matcher.find()){								
 				 String value=matcher.group().replace('{',' ').replace('}',' ').trim();
 				 placeholders.put(value,value);
 			}

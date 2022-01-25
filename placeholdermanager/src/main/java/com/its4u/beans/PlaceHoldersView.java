@@ -1,10 +1,7 @@
 package com.its4u.beans;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,15 +12,9 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 
-import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.api.errors.NoFilepatternException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.util.FileSystemUtils;
 
-import com.its4u.gitops.CopyDir;
-import com.its4u.gitops.GitController;
 import com.its4u.gitops.Parser;
 import com.its4u.models.ArgoAppStatus;
 import com.its4u.models.Environments;
@@ -80,6 +71,11 @@ public class PlaceHoldersView {
 		pollView.log("Update GitOps");
 		projectService.updateGitOps(selectedProject);
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Git Synchronized"));
+	}
+	
+	
+	public void delete() {
+		
 	}
 	
 	public void searchForNewPlaceHolders() {
