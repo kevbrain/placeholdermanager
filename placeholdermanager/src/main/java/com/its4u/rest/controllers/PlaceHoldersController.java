@@ -22,10 +22,11 @@ public class PlaceHoldersController {
 	@ResponseBody
 	@PostMapping(value= "/createProject", consumes = "application/json", produces = "application/json")
 	public Project createProject(@RequestBody Project project) {
+		System.out.println("****** Creation project ***** ");
+		System.out.println(project.getProject_Id());
 		
-		System.out.println(project);
-		
-		return service.createProject(project);
+		return null;
+		//return service.createProject(project);
 	}
 	
 	@RequestMapping(value = "/projects/list", produces = "application/json")
