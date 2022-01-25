@@ -36,8 +36,7 @@ public class Environments implements Serializable {
 	@Column(name = "ENVIRONMENT")
 	private String environment;
 	
-	@Transient
-	@Setter
+	@Column(name = "PROJECT_ID")
 	private String projectId;
 	
 	@JsonIgnore
