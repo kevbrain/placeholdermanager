@@ -9,6 +9,4 @@ import com.its4u.models.PlaceHolders;
 
 public interface PlaceHoldersRepository extends CrudRepository<PlaceHolders,PlaceHolderId>{
 
-	@Transactional
-	void deletePlaceHolder(PlaceHolders pl);
 }
