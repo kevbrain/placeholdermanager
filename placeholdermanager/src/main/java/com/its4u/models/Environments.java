@@ -53,17 +53,19 @@ public class Environments implements Serializable {
 	
 	@JsonIgnore
 	@Transient
-	@Getter
 	public List<PlaceHolders> clearPlaceholders;
 	
 	@JsonIgnore
 	@Transient
-	@Getter
 	public List<PlaceHolders> secretsPlaceholders;
 	
 	@JsonIgnore
 	@Transient
 	public List<PlaceHolders> newPlaceholders;
+	
+	@JsonIgnore
+	@Transient
+	public boolean dev;
 	
 	public Environments() {
 		super();
@@ -111,6 +113,10 @@ public class Environments implements Serializable {
 		return clears;
 	}
 
+	public boolean isDev() {
+		return environment.endsWith("-dev");
+	}
+	
 	@Override
 	public String toString() {
 		return "Environments [environment=" + environment + "]";

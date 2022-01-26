@@ -6,6 +6,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -52,7 +53,7 @@ public class PlaceHoldersView {
 	
 	private ArgoAppStatus appStatus;
 	
-	private HashMap<String,String> tags;
+	private Map<String,String> tags;
 	
 	
 	@PostConstruct

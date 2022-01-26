@@ -71,8 +71,8 @@
    			
 		   			<p:tabView value="#{placeHoldersView.selectedProject.environments}" var="env" id="tabviewenv" >
 					    	<p:tab title="#{env.environment}" >
-					    			<h:panelGrid columns="2">
-					    				<p:outputLabel value="Release : "/>
+					    			<h:panelGrid columns="2" rendered="#{!env.dev}">
+					    				<p:outputLabel value="Release (mandatory) : "/>
 					    				 <p:selectOneMenu id="releaseTag" value="#{env.releaseTag}">
 					    				 	 <f:selectItem itemLabel="Select One" itemValue=""/>
 					    				 	 <f:selectItems value="#{placeHoldersView.tags}"/>
