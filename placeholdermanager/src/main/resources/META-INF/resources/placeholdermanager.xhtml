@@ -71,6 +71,14 @@
    			
 		   			<p:tabView value="#{placeHoldersView.selectedProject.environments}" var="env" id="tabviewenv" >
 					    	<p:tab title="#{env.environment}" >
+					    			<h:panelGrid columns="2">
+					    				<p:outputLabel value="Release : "/>
+					    				 <p:selectOneMenu id="releaseTag" value="#{env.releaseTag}">
+					    				 	 <f:selectItem itemLabel="Select One" itemValue=""/>
+					    				 	 <f:selectItems value="#{placeHoldersView.tags}"/>
+					    				 </p:selectOneMenu>
+					    			</h:panelGrid>
+					    	
 					    			<div style="position:relative;margin:auto;text-align:center;">	
 					    				<p:commandButton value="Apply And Deploy Project" 
 					    					oncomplete="PF('dlg0').hide()"
@@ -81,7 +89,7 @@
 			   		
 			   							<p:commandButton value="Rollback"  actionListener="#{placeHoldersView.refresh}" update="@form" style="margin:10px;background:#003b50;color:white" />
 			   							
-			   							<p:commandButton value="Status"  actionListener="#{argoInitializerBean.statusAndHealth(env.projectId)}" update="@form" style="margin:10px;background:#003b50;color:white" />
+			   							<p:commandButton value="Promote >>>>"  actionListener="#{placeHoldersView.promote(env)}" update="@form" style="margin:10px;background:blue;color:white" />
 			   						</div>
 					    			<b>Clear Values :</b>
 					    			<p:dataTable value="#{env.clearPlaceholders}"  var="entry"  widgetVar="placeHolderTable" id="configmaptable">

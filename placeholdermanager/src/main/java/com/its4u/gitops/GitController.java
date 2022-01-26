@@ -2,6 +2,9 @@ package com.its4u.gitops;
 
 import java.io.File;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.eclipse.jgit.api.Git;
@@ -9,6 +12,7 @@ import org.eclipse.jgit.api.PushCommand;
 import org.eclipse.jgit.api.RemoteAddCommand;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.api.errors.NoFilepatternException;
+import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.transport.URIish;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
@@ -27,6 +31,7 @@ public class GitController {
 	private static Git gitApp;
 			
 	
+	@SuppressWarnings("deprecation")
 	public static String loadGitApps(String project) throws IllegalStateException, GitAPIException {
 
 		
@@ -50,10 +55,20 @@ public class GitController {
 			e.printStackTrace();
 			gitApp = Git.init().setDirectory(workingDirectory).call();
 		}	
+		
 		return path;
 		
 	}
 	
+	public static List<String> searchTagsGitApps() {
+		List<String> tags = new ArrayList<String>();
+		Map<String,Ref> tagsList = gitApp.getRepository().getTags();
+		for (String tag:tagsList.keySet()) {
+			System.out.println("--> "+tag);
+			tags.add(tag);
+		}
+		return tags;
+	}
 	
 	public static String loadGitOpsApps() throws IllegalStateException, GitAPIException {
 
@@ -101,12 +116,6 @@ public class GitController {
 	    pushCommand.setCredentialsProvider(new UsernamePasswordCredentialsProvider(user, password));
 	    // you can add more settings here if needed
 	    pushCommand.call();
-	    /*
-	    gitApp.close();
-	    gitApp.shutdown();
-	    gitOpsApp.close();
-	    gitOpsApp.shutdown();
-	    */
 	    System.out.println("Project modified and pushed");
 	    
 		// clean

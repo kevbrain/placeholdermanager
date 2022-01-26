@@ -152,6 +152,9 @@ public class PlaceHoldersView {
 		argoInitialier.synchronise(project);
 	}
 	
+	public void promote(Environments env) {
+		System.out.println("¨Promote "+env.getEnvironment()+" to another environment");
+	}
 	
 	
 

@@ -39,6 +39,9 @@ public class Environments implements Serializable {
 	@Column(name = "PROJECT_ID")
 	private String projectId;
 	
+	@Column(name = "RELEASE_TAG")
+	private String releaseTag;
+	
 	@JsonIgnore
 	@ManyToOne
     @JoinColumn(name = "project_Id",insertable = false, updatable = false)
