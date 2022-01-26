@@ -24,17 +24,7 @@ public class PlaceHoldersController {
 	@ResponseBody
 	@PostMapping(value= "/createProject", consumes = "application/json", produces = "application/json")
 	public Project createProject(@RequestBody Project project) {
-		System.out.println("****** Creation project ***** ");
-		System.out.println(project.getProject_Id());
-		for (Environments env: project.getEnvironments()) {
-			System.out.print(env.getProjectId()+"#"+env.getEnvironment());
-			System.out.print(env);
-			for (PlaceHolders pl:env.getPlaceholders()) {
-				System.out.println(pl);
-			}
-		}
-		
-		//return null;
+		System.out.println("****** Creation project "+project.getProject_Id()+"***** ");		
 		return service.createProject(project);
 	}
 	
