@@ -15,6 +15,7 @@ import javax.faces.view.ViewScoped;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.its4u.gitops.GitController;
 import com.its4u.gitops.Parser;
 import com.its4u.models.ArgoAppStatus;
 import com.its4u.models.Environments;
@@ -50,6 +51,8 @@ public class PlaceHoldersView {
 	private Environments selectedEnvironment;
 	
 	private ArgoAppStatus appStatus;
+	
+	private HashMap<String,String> tags;
 	
 	
 	@PostConstruct
@@ -120,7 +123,12 @@ public class PlaceHoldersView {
 				}
 			}
 			env.setNewPlaceholders(newPlaceHolders);
-		}	
+		}
+		
+		this.tags = new HashMap<String, String>();
+		for (String tag:GitController.searchTagsGitApps()) {
+			this.tags.put(tag,tag);
+		}
 	}
 	
 	public void addNewPlaceHolder(Environments env,PlaceHolders pl,boolean secret) {
