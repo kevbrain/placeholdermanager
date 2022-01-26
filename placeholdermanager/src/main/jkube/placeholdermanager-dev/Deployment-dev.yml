@@ -31,15 +31,15 @@ spec:
         - name: microservice-pod 
           resources:
             requests:
-              memory: 250Mi
-              cpu : 200m
+              memory: {{app-request.memory}}
+              cpu : {{app-request.cpu}}
             limits:
-              memory: 750Mi
-              cpu : 500m
+              memory: {{app-limit.memory}}
+              cpu : {{app-limit.cpu}}
           readinessProbe:
             httpGet:
               path: actuator/health
-              port: 8080
+              port: {{app-actuator.port}}
               scheme: HTTP
           env:
             - name: app-name
@@ -108,7 +108,7 @@ spec:
                   name: placeholdermanager-secret-0
                   key: argo.password
           ports:
-            - containerPort: 8080
+            - containerPort: {{app-container.port}}
               protocol: TCP
               name: http
           imagePullPolicy: Always
