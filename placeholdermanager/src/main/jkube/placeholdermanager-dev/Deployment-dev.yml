@@ -9,7 +9,7 @@ metadata:
   labels:
     app: placeholdermanager
 spec:
-  replicas: 1
+  replicas: {{ocp.replicas}}
   selector:
     matchLabels:
       app: placeholdermanager
