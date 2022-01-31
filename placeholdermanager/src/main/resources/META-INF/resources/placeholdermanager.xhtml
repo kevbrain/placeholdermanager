@@ -39,7 +39,7 @@
 	   			oncomplete="PF('dlg0').hide()"
 	   			onclick="PF('dlg0').show()" update="growl" style="margin:10px;background:#003b50;color:white" />
 	   		<p:commandButton value="Delete" style="margin:10px;background:red;color:white" 
-	   			update="growl" immediate="true"
+	   			update="growl,@form" immediate="true"
 	   			actionListener="#{placeHoldersView.deleteProject}"/>
    		</div>
    		

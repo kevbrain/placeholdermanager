@@ -75,11 +75,27 @@ public class ProjectServiceImpl implements ProjectService {
 
 	@Override
 	public String synchronize(String projectName) {
-		// TODO Auto-generated method stub
+		
 		String responseArgo="";
 		Unirest.setTimeouts(0, 0);
 		try {
 			HttpResponse<String> response = Unirest.post("https://openshift-gitops-server-openshift-gitops.apps.ocp-lab.its4u.eu/api/v1/applications/"+projectName+"/sync")
+			  .header("Authorization", "Bearer "+getToken())
+			  .body("{\r\n  \"dryRun\": false\r\n\r\n}")
+			  .asString();		
+			responseArgo = response.getBody();
+		} catch (UnirestException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return responseArgo;
+	}
+	
+	public String deleteArgoApplication(String projectName) {
+		String responseArgo="";
+		Unirest.setTimeouts(0, 0);
+		try {
+			HttpResponse<String> response = Unirest.delete("https://openshift-gitops-server-openshift-gitops.apps.ocp-lab.its4u.eu/api/v1/applications/"+projectName+"?cascade=true")
 			  .header("Authorization", "Bearer "+getToken())
 			  .body("{\r\n  \"dryRun\": false\r\n\r\n}")
 			  .asString();		
@@ -180,7 +196,8 @@ public class ProjectServiceImpl implements ProjectService {
 		
 		// clone gitops	
 		String pathWorkkingGitOpsProject = cloneGitOps()+"/"+project.getProject_Id();					
-		String pathWorkingGitAppProject = cloneGitApp(project)+"/"+project.getProject_Id();
+		//String pathWorkingGitAppProject = cloneGitApp(project)+"/"+project.getProject_Id();
+		String pathWorkingGitAppProject = cloneGitApp(project);
 		
 		//HashMap<String,HashMap<String,String>> placesH = new HashMap<String, HashMap<String, String>>();
 		for (Environments env:project.getEnvironments()) {
