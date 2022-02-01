@@ -36,6 +36,7 @@ import com.its4u.models.Versions;
 import com.its4u.repositories.EnvironmentRepository;
 import com.its4u.repositories.PlaceHoldersRepository;
 import com.its4u.repositories.ProjectRepository;
+import com.its4u.repositories.VersionRepository;
 import com.its4u.services.ProjectService;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
@@ -53,6 +54,9 @@ public class ProjectServiceImpl implements ProjectService {
 	
 	@Autowired 
 	private EnvironmentRepository environmentRepository;
+	
+	@Autowired
+	private VersionRepository versionRepository;
 	
 	@Override
 	public Project createProject(Project project) {
@@ -315,5 +319,10 @@ public class ProjectServiceImpl implements ProjectService {
 		versions.add(new Versions(version,proj.getProject_Id()));
 		return createProject(proj);
 		
+	}
+	
+	@Override
+	public List<Versions> getVersionsByProject(String projectId) {
+		return versionRepository.findAllByProject(projectId);
 	}
 }

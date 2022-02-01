@@ -135,7 +135,8 @@ public class PlaceHoldersView {
 		}
 		
 		this.versions = new HashMap<String, String>();
-		for (Versions ver:selectedProject.getVersions()) {
+		List<Versions> vers = projectService.getVersionsByProject(selectedProject.getProject_Id());
+		for (Versions ver:vers) {
 			versions.put(ver.getVersion(), ver.getVersion());
 		}
 	}
