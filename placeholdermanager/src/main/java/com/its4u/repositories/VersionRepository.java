@@ -8,5 +8,5 @@ import com.its4u.models.Versions;
 
 public interface VersionRepository extends CrudRepository<Versions,String>{
 
-	List<Versions> findAllByProject(String projectId);
+	List<Versions> findAllByProjectId(String projectId);
 }

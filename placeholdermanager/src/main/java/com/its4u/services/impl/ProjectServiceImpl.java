@@ -323,6 +323,6 @@ public class ProjectServiceImpl implements ProjectService {
 	
 	@Override
 	public List<Versions> getVersionsByProject(String projectId) {
-		return versionRepository.findAllByProject(projectId);
+		return versionRepository.findAllByProjectId(projectId);
 	}
 }
