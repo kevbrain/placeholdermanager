@@ -99,17 +99,17 @@
 					    				<p:column  headerText="Key">	
 									        		<h:outputText value="#{entry.placeHolderId.key}"/>
 										</p:column>		
-										<p:column  headerText="Value">	
-									        		<p:inputText value="#{entry.value}" style="width:600px;"/>
+										<p:column  headerText="Value" >	
+									        		<p:inputText value="#{entry.value}" style="width:600px;" id="iptxt_placeholderValue"/>
 										</p:column>		
 										<p:column  headerText="">	
-									        		<p:commandButton value="Delete" actionListener="#{placeHoldersView.deletePlaceHolder(entry,env)}" update="@form,growl" />
-									        		Replace by 
-									        		<p:selectOneMenu rendered="#{entry.version}">
-									        			<f:selectItem itemLabel="Select One" itemValue=""/>
+									        		<p:commandButton value="Delete" actionListener="#{placeHoldersView.deletePlaceHolder(entry,env)}" update="@form,growl"  rendered="#{!entry.version}"/>
+									        		<p:commandButton value="Replace by : " rendered="#{entry.version}"/> 
+									        		<p:selectOneMenu rendered="#{entry.version}" value="#{entry.value}">
+									        			 <f:selectItem itemLabel="Select One" itemValue=""/>
 									        			 <f:selectItems value="#{placeHoldersView.versions}"/>
-									        		</p:selectOneMenu>
-									        		<p:commandButton value="Replace"/>
+									        			 <p:ajax  event="change" update="iptxt_placeholderValue"/>
+									        		</p:selectOneMenu>									        		
 										</p:column>		
 										
 					    			</p:dataTable>
