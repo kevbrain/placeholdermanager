@@ -104,6 +104,9 @@
 										</p:column>		
 										<p:column  headerText="">	
 									        		<p:commandButton value="Delete" actionListener="#{placeHoldersView.deletePlaceHolder(entry,env)}" update="@form,growl" />
+									        		<p:selectOneMenu rendered="#{entry.version}">
+									        			<f:selectItem itemLabel="Select One" itemValue=""/>
+									        		</p:selectOneMenu>
 										</p:column>		
 										
 					    			</p:dataTable>
@@ -120,7 +123,7 @@
 									        		<p:password  value="#{entry.value}" toggleMask="true" redisplay="true" style="width:400px;"/>
 										</p:column>		
 										<p:column  headerText="">	
-									        		<p:commandButton value="Delete" actionListener="#{placeHoldersView.deletePlaceHolder(entry,env)}" update="@form,growl" />
+									        		<p:commandButton value="Delete" actionListener="#{placeHoldersView.deletePlaceHolder(entry,env)}" update="@form,growl" />									        		
 										</p:column>
 																	
 					    			</p:dataTable>

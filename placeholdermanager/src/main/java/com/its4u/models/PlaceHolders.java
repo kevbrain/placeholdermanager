@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -36,6 +37,10 @@ public class PlaceHolders implements Serializable {
 	@Column(name = "TYPE")
 	private String type;
 	
+	@JsonIgnore
+	@Transient
+	private boolean version;
+	
 	public PlaceHolders() {
 		super();
 	}
@@ -51,6 +56,10 @@ public class PlaceHolders implements Serializable {
 	@Override
 	public String toString() {
 		return "PlaceHolders [placeHolderId=" + placeHolderId + "]";
+	}
+	
+	public boolean isVersion() {
+		return placeHolderId.getKey().equalsIgnoreCase("app-version");
 	}
 	
 
