@@ -35,7 +35,7 @@ public class Project implements Serializable{
 	@OneToMany( mappedBy = "project", cascade = { CascadeType.ALL },fetch = FetchType.EAGER,orphanRemoval = true)	
    	private List<Environments> environments;
 	
-	@OneToMany( mappedBy = "project", cascade = { CascadeType.ALL },orphanRemoval = true)	
+	@OneToMany( mappedBy = "project", cascade = { CascadeType.ALL },fetch = FetchType.LAZY ,orphanRemoval = true)	
    	private List<Versions> versions;
 
 	public Project() {
