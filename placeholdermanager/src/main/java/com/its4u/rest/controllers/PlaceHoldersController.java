@@ -46,4 +46,9 @@ public class PlaceHoldersController {
 	public @ResponseBody String synchronize(@PathVariable("projectName") String projectName) {
 		return service.synchronize(projectName);
 	}
+	
+	@RequestMapping(value = "/Projects/{projectName}/create-version/{version}")
+	public @ResponseBody Project createVersion(@PathVariable("projectName") String projectName, @PathVariable("version") String version) {
+		return service.createVersion(projectName,version);
+	}
 }

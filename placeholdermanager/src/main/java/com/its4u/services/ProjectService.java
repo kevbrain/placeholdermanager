@@ -29,5 +29,7 @@ public interface ProjectService {
 	void deletePlaceHolder(PlaceHolders placeHolder);
 	
 	String deleteArgoApplication(String projectName);
+
+	Project createVersion(String projectName, String version);
 	
 }

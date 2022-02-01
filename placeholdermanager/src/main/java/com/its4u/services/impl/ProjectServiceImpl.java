@@ -32,6 +32,7 @@ import com.its4u.models.Environments;
 import com.its4u.models.PlaceHolderId;
 import com.its4u.models.PlaceHolders;
 import com.its4u.models.Project;
+import com.its4u.models.Versions;
 import com.its4u.repositories.EnvironmentRepository;
 import com.its4u.repositories.PlaceHoldersRepository;
 import com.its4u.repositories.ProjectRepository;
@@ -299,5 +300,20 @@ public class ProjectServiceImpl implements ProjectService {
 	public void deleteEnvironment(Environments env) {
 		Optional<Environments> envToDelete = environmentRepository.findById(env.getEnvironment());
 		environmentRepository.delete(envToDelete.get());
+	}
+
+	@Override
+	public Project createVersion(String projectName, String version) {
+		Project proj = findProject(projectName);
+		List<Versions> versions;
+		if (proj.getVersions()== null) {
+			versions = new ArrayList<Versions>();
+			proj.setVersions(versions);
+		} else {
+			versions = proj.getVersions();
+		}
+		versions.add(new Versions(version,proj.getProject_Id()));
+		return createProject(proj);
+		
 	}
 }
