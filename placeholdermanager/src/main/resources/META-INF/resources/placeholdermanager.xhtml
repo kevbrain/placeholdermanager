@@ -104,9 +104,12 @@
 										</p:column>		
 										<p:column  headerText="">	
 									        		<p:commandButton value="Delete" actionListener="#{placeHoldersView.deletePlaceHolder(entry,env)}" update="@form,growl" />
+									        		Replace by 
 									        		<p:selectOneMenu rendered="#{entry.version}">
 									        			<f:selectItem itemLabel="Select One" itemValue=""/>
+									        			 <f:selectItems value="#{placeHoldersView.versions}"/>
 									        		</p:selectOneMenu>
+									        		<p:commandButton value="Replace"/>
 										</p:column>		
 										
 					    			</p:dataTable>

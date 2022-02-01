@@ -23,6 +23,7 @@ import com.its4u.models.Environments;
 import com.its4u.models.PlaceHolderId;
 import com.its4u.models.PlaceHolders;
 import com.its4u.models.Project;
+import com.its4u.models.Versions;
 import com.its4u.services.OcpExplorerService;
 import com.its4u.services.ProjectService;
 
@@ -54,6 +55,8 @@ public class PlaceHoldersView {
 	private ArgoAppStatus appStatus;
 	
 	private Map<String,String> tags;
+	
+	private Map<String,String> versions;
 	
 	
 	@PostConstruct
@@ -129,6 +132,11 @@ public class PlaceHoldersView {
 		this.tags = new HashMap<String, String>();
 		for (String tag:GitController.searchTagsGitApps()) {
 			this.tags.put(tag,tag);
+		}
+		
+		this.versions = new HashMap<String, String>();
+		for (Versions ver:selectedProject.getVersions()) {
+			versions.put(ver.getVersion(), ver.getVersion());
 		}
 	}
 	
