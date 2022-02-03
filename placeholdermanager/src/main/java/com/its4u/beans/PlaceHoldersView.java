@@ -74,15 +74,16 @@ public class PlaceHoldersView {
 		envplaceHolders = new HashMap<String,HashMap<String,String>>();
 		
 		for (Project proj:myProjects.values()) {
-			//projectMap.put(proj.getProject_Id(), createMapEnvironment(proj));
+			
 			HashMap<String,Environments> envByProject = createMapEnvironment(proj);
 			for (Environments env:proj.getEnvironments()) {								
 				envplaceHolders.put(env.getEnvironment(),createMapPlaceHoldersFromEnv(env));
 			}
 			System.out.println(proj.getProject_Id()+ "  -->  "+envByProject);
+			proj.setMapenvs(envByProject);
 		}					
 		
-		//System.out.println(projectMap);
+		
 		System.out.println(envplaceHolders);
 		
 		

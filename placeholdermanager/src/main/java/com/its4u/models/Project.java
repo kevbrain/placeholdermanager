@@ -33,14 +33,16 @@ public class Project implements Serializable{
 	
 	@Column(name = "OWNER")
 	private String owner;
-	
-	
-		
+			
 	@OneToMany( mappedBy = "project", cascade = { CascadeType.ALL },fetch = FetchType.EAGER,orphanRemoval = true)	
    	private List<Environments> environments;
 	
 	@OneToMany( mappedBy = "project", cascade = { CascadeType.ALL },fetch = FetchType.LAZY ,orphanRemoval = true)	
    	private List<Versions> versions;
+	
+	@Transient
+	@JsonIgnore
+	private HashMap<String,Environments> mapenvs;
 
 	public Project() {
 		super();
