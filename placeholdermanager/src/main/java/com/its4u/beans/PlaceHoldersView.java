@@ -58,7 +58,7 @@ public class PlaceHoldersView {
 	
 	private Map<String,String> versions;
 	
-	private HashMap<String,HashMap<String,Environments>> projectMap;
+	private HashMap<String,HashMap<String,String>> projectMap;
 	
 	private HashMap<String,HashMap<String,String>> envplaceHolders;
 	
@@ -70,12 +70,12 @@ public class PlaceHoldersView {
 	
 	public void refresh() {
 		myProjects = projectService.findAll();
-		projectMap = new HashMap<String,HashMap<String,Environments>>();
+		projectMap = new HashMap<String,HashMap<String,String>>();
 		envplaceHolders = new HashMap<String,HashMap<String,String>>();
 		
 		for (Project proj:myProjects.values()) {
 			
-			HashMap<String,Environments> envByProject = createMapEnvironment(proj);
+			HashMap<String,String> envByProject = createMapEnvironment(proj);
 			for (Environments env:proj.getEnvironments()) {								
 				envplaceHolders.put(env.getEnvironment(),createMapPlaceHoldersFromEnv(env));
 			}
@@ -89,11 +89,11 @@ public class PlaceHoldersView {
 		
 	}
 	
-	public HashMap<String,Environments> createMapEnvironment(Project project) {
-		HashMap<String,Environments> environmentMap = new HashMap<String,Environments>() ;
+	public HashMap<String,String> createMapEnvironment(Project project) {
+		HashMap<String,String> environmentMap = new HashMap<String,String>() ;
 		for (Environments env:project.getEnvironments()) {
 			String envsuffix = env.getEnvironment().substring(env.getEnvironment().length() - 3);
-			environmentMap.put(envsuffix, env);
+			environmentMap.put(envsuffix, env.getEnvironment());
 		}
 		System.out.println(environmentMap);
 		return environmentMap;

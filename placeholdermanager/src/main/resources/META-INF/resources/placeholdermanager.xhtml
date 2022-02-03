@@ -40,7 +40,9 @@
 			<p:column  headerText="Git url">	
 				<h:outputText value="#{proj.gitUrl}"/>
 			</p:column>
-		
+			<p:column  headerText="Dev">	
+				<h:outputText value="#{proj.mapenvs['dev']}"/>
+			</p:column>
    		</p:dataTable>
    		
    		<div style="position:relative;margin:auto;text-align:center;">	

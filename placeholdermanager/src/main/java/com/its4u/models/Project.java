@@ -42,7 +42,7 @@ public class Project implements Serializable{
 	
 	@Transient
 	@JsonIgnore
-	private HashMap<String,Environments> mapenvs;
+	private HashMap<String,String> mapenvs;
 
 	public Project() {
 		super();
