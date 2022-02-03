@@ -60,9 +60,6 @@ public class Environments implements Serializable {
 	public List<PlaceHolders> newPlaceholders;
 	
 	
-	@JsonIgnore
-	@Transient
-	public boolean dev;
 	
 		
 	public Environments() {
@@ -112,10 +109,6 @@ public class Environments implements Serializable {
 	}
 	
 
-
-	public boolean isDev() {
-		return environment.endsWith("-dev");
-	}
 	
 	@Override
 	public String toString() {
