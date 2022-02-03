@@ -62,13 +62,15 @@ public class Project implements Serializable{
 	}
 	
 	public HashMap<String,Environments> getEnvironmentMap() {
-		HashMap<String,Environments> envmap = new HashMap<String,Environments>() ;
-		for (Environments env:environments) {
-			String envsuffix = env.getEnvironment().substring(env.getEnvironment().length() - 3);
-			envmap.put(envsuffix, env);
-		}
-		System.out.println(envmap);
-		return envmap;
+		if (environmentMap==null) {
+			environmentMap = new HashMap<String,Environments>() ;
+			for (Environments env:environments) {
+				String envsuffix = env.getEnvironment().substring(env.getEnvironment().length() - 3);
+				environmentMap.put(envsuffix, env);
+			}
+		}		
+		System.out.println(environmentMap);
+		return environmentMap;
 	}
 	
 	
