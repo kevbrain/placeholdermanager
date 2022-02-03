@@ -1,6 +1,7 @@
 package com.its4u.models;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -10,6 +11,9 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 
@@ -30,7 +34,11 @@ public class Project implements Serializable{
 	@Column(name = "OWNER")
 	private String owner;
 	
+	@JsonIgnore
+	@Transient
+	private HashMap<String,Environments> environmentMap;
 	
+		
 	@OneToMany( mappedBy = "project", cascade = { CascadeType.ALL },fetch = FetchType.EAGER,orphanRemoval = true)	
    	private List<Environments> environments;
 	
@@ -53,7 +61,15 @@ public class Project implements Serializable{
 		return project_Id ;
 	}
 	
-	
+	public HashMap<String,Environments> getEnvironmentMap() {
+		HashMap<String,Environments> envmap = new HashMap<String,Environments>() ;
+		for (Environments env:environments) {
+			String envsuffix = env.getEnvironment().substring(env.getEnvironment().length() - 3);
+			envmap.put(envsuffix, env);
+		}
+		System.out.println(envmap);
+		return envmap;
+	}
 	
 	
 	

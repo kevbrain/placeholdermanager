@@ -2,6 +2,7 @@ package com.its4u.models;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -60,7 +61,19 @@ public class Environments implements Serializable {
 	
 	@JsonIgnore
 	@Transient
+	public HashMap<String,String> placeholdersMap;
+	
+	@JsonIgnore
+	@Transient
 	public boolean dev;
+	
+	@JsonIgnore
+	@Transient
+	public boolean deployed;
+	
+	@JsonIgnore
+	@Transient
+	public String versionToDeploy;
 	
 	public Environments() {
 		super();
@@ -107,6 +120,14 @@ public class Environments implements Serializable {
 		}
 		return clears;
 	}
+	
+	public HashMap<String,String> getPlaceholdersMap() {
+		HashMap<String,String> hm = new HashMap<String, String>();
+		for (PlaceHolders pl:placeholders) {
+			hm.put(pl.getPlaceHolderId().getKey(), pl.getValue());
+		}
+		return hm;
+	}
 
 	public boolean isDev() {
 		return environment.endsWith("-dev");
@@ -117,6 +138,13 @@ public class Environments implements Serializable {
 		return "Environments [environment=" + environment + "]";
 	}
 
-	
+	public String  getVersionToDeploy() {
+		String version="";
+		HashMap<String,String> hm = getPlaceholdersMap();
+		if (hm!=null && hm.get("app-version")!=null) {
+			version = hm.get("app-version");
+		}
+		return version;
+	}
 	
 }

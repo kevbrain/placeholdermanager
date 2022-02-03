@@ -37,6 +37,16 @@
    			<p:column  headerText="Project">	
 				<h:outputText value="#{proj.project_Id}"/>
 			</p:column>
+			<p:column  headerText="Git url">	
+				<h:outputText value="#{proj.gitUrl}"/>
+			</p:column>
+			<p:column  headerText="DEV">
+				<p:commandButton value="#{proj.environmentMap['dev'].versionToDeploy}"/>
+			</p:column>
+			<p:column  headerText="TEST">
+			</p:column>
+			<p:column  headerText="INTEGRATION">
+			</p:column>
    		</p:dataTable>
    		
    		<div style="position:relative;margin:auto;text-align:center;">	
