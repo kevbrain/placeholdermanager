@@ -41,7 +41,7 @@
 				<h:outputText value="#{proj.gitUrl}"/>
 			</p:column>
 			<p:column  headerText="Dev">	
-				<h:outputText value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]}"/>
+				<h:outputText value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['app-version']}"/>
 			</p:column>
 			<p:column  headerText="Test">	
 				<h:outputText value="#{proj.mapenvs['tst']}"/>
