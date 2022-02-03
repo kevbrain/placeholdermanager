@@ -40,14 +40,15 @@
 			<p:column  headerText="Git url">	
 				<h:outputText value="#{proj.gitUrl}"/>
 			</p:column>
-			<p:column  headerText="Dev">	
+			<p:column  headerText="DEV">	
 				<p:commandButton value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['app-version']}" style="margin:10px;background:green;color:white"/>
+				<p:commandButton value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['ocp-namespace']}" style="margin:10px"/>
 			</p:column>
-			<p:column  headerText="Test">	
-				<h:outputText value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['tst']]['app-version']}"/>
+			<p:column  headerText="TST">	
+				<p:commandButton value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['tst']]['app-version']}"/>
 			</p:column>
-			<p:column  headerText="Integration">	
-				<h:outputText value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['int']]['app-version']}"/>
+			<p:column  headerText="INT">	
+				<p:commandButton value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['int']]['app-version']}"/>
 			</p:column>
    		</p:dataTable>
    		
