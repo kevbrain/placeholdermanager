@@ -81,6 +81,7 @@ public class PlaceHoldersView {
 			}
 			System.out.println(proj.getProject_Id()+ "  -->  "+envByProject);
 			proj.setMapenvs(envByProject);
+			proj.setMapPlaceHoldersByEnv(envplaceHolders);
 		}					
 		
 		
