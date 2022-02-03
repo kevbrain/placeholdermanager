@@ -156,6 +156,7 @@ public class PlaceHoldersView {
 		
 		selectedProject=myProjects.get(projectId);
 		searchForNewPlaceHolders();
+		createMapEnvironment(selectedProject);
 		appStatus = argoInitialier.statusAndHealth(selectedProject.getProject_Id());
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Project loaded"));
 						
@@ -167,6 +168,7 @@ public class PlaceHoldersView {
 			String envsuffix = env.getEnvironment().substring(env.getEnvironment().length() - 3);
 			environmentMap.put(envsuffix, env);
 		}
+		System.out.println(environmentMap);
 	}
 	
 	public void refreshStatusProject() {
