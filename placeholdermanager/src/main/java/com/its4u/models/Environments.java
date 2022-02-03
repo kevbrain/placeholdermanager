@@ -64,14 +64,7 @@ public class Environments implements Serializable {
 	@Transient
 	public boolean dev;
 	
-	@JsonIgnore
-	@Transient
-	public boolean deployed;
-	
-	@JsonIgnore
-	@Transient
-	public String versionToDeploy;
-	
+		
 	public Environments() {
 		super();
 	}

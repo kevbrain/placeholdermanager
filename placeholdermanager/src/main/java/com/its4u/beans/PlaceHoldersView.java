@@ -60,6 +60,8 @@ public class PlaceHoldersView {
 	
 	private HashMap<String,HashMap<String,Environments>> projectMap;
 	
+	private HashMap<String,HashMap<String,String>> envplaceHolders;
+	
 	
 	@PostConstruct
     public void init()  {
@@ -69,10 +71,25 @@ public class PlaceHoldersView {
 	public void refresh() {
 		myProjects = projectService.findAll();
 		projectMap = new HashMap<String,HashMap<String,Environments>>();
+		envplaceHolders = new HashMap<String,HashMap<String,String>>();
 		for (Project proj:myProjects.values()) {
 			projectMap.put(proj.getProject_Id(), createMapEnvironment(proj));
-		}
+			for (Environments env:proj.getEnvironments()) {
+				envplaceHolders.put(env.getEnvironment(),createMapPlaceHoldersFromEnv(env));
+			}
+		}					
 		
+		System.out.println(projectMap);
+		System.out.println(envplaceHolders);
+		
+	}
+	
+	public HashMap<String,String> createMapPlaceHoldersFromEnv(Environments env) {
+		HashMap<String,String> keyvalue = new HashMap<String,String>();
+		for (PlaceHolders pl:env.getPlaceholders()) {
+			keyvalue.put(pl.getPlaceHolderId().getKey(), pl.getValue());
+		}
+		return keyvalue;
 	}
 	
 	public void save() {
