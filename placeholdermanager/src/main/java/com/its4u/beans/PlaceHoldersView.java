@@ -58,7 +58,7 @@ public class PlaceHoldersView {
 	
 	private Map<String,String> versions;
 	
-	private HashMap<String,Environments> environmentMap;
+	private HashMap<String,HashMap<String,Environments>> projectMap;
 	
 	
 	@PostConstruct
@@ -68,6 +68,10 @@ public class PlaceHoldersView {
 	
 	public void refresh() {
 		myProjects = projectService.findAll();
+		projectMap = new HashMap<String,HashMap<String,Environments>>();
+		for (Project proj:myProjects.values()) {
+			projectMap.put(proj.getProject_Id(), createMapEnvironment(proj));
+		}
 		
 	}
 	
@@ -155,20 +159,20 @@ public class PlaceHoldersView {
 	public void onSelectedProject(String projectId) {
 		
 		selectedProject=myProjects.get(projectId);
-		searchForNewPlaceHolders();
-		createMapEnvironment(selectedProject);
+		searchForNewPlaceHolders();		
 		appStatus = argoInitialier.statusAndHealth(selectedProject.getProject_Id());
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Project loaded"));
 						
 	}
 	
-	public void createMapEnvironment(Project project) {
-		environmentMap = new HashMap<String,Environments>() ;
+	public HashMap<String,Environments> createMapEnvironment(Project project) {
+		HashMap<String,Environments> environmentMap = new HashMap<String,Environments>() ;
 		for (Environments env:project.getEnvironments()) {
 			String envsuffix = env.getEnvironment().substring(env.getEnvironment().length() - 3);
 			environmentMap.put(envsuffix, env);
 		}
 		System.out.println(environmentMap);
+		return environmentMap;
 	}
 	
 	public void refreshStatusProject() {
