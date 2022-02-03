@@ -59,9 +59,6 @@ public class Environments implements Serializable {
 	@Transient
 	public List<PlaceHolders> newPlaceholders;
 	
-	@JsonIgnore
-	@Transient
-	public HashMap<String,String> placeholdersMap;
 	
 	@JsonIgnore
 	@Transient
@@ -121,14 +118,7 @@ public class Environments implements Serializable {
 		return clears;
 	}
 	
-	public HashMap<String,String> getPlaceholdersMap() {		
-			placeholdersMap = new HashMap<String, String>();
-			for (PlaceHolders pl:placeholders) {
-				placeholdersMap.put(pl.getPlaceHolderId().getKey(), pl.getValue());
-			}
-				
-		return placeholdersMap;
-	}
+
 
 	public boolean isDev() {
 		return environment.endsWith("-dev");
@@ -139,5 +129,6 @@ public class Environments implements Serializable {
 		return "Environments [environment=" + environment + "]";
 	}
 
-		
+	
+	
 }
