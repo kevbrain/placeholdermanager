@@ -58,6 +58,8 @@ public class PlaceHoldersView {
 	
 	private Map<String,String> versions;
 	
+	private HashMap<String,Environments> environmentMap;
+	
 	
 	@PostConstruct
     public void init()  {
@@ -157,6 +159,14 @@ public class PlaceHoldersView {
 		appStatus = argoInitialier.statusAndHealth(selectedProject.getProject_Id());
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Project loaded"));
 						
+	}
+	
+	public void createMapEnvironment(Project project) {
+		environmentMap = new HashMap<String,Environments>() ;
+		for (Environments env:project.getEnvironments()) {
+			String envsuffix = env.getEnvironment().substring(env.getEnvironment().length() - 3);
+			environmentMap.put(envsuffix, env);
+		}
 	}
 	
 	public void refreshStatusProject() {
