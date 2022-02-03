@@ -34,9 +34,6 @@ public class Project implements Serializable{
 	@Column(name = "OWNER")
 	private String owner;
 	
-	@JsonIgnore
-	@Transient
-	private HashMap<String,Environments> environmentMap;
 	
 		
 	@OneToMany( mappedBy = "project", cascade = { CascadeType.ALL },fetch = FetchType.EAGER,orphanRemoval = true)	
@@ -61,17 +58,7 @@ public class Project implements Serializable{
 		return project_Id ;
 	}
 	
-	public HashMap<String,Environments> getEnvironmentMap() {
-		if (environmentMap==null) {
-			environmentMap = new HashMap<String,Environments>() ;
-			for (Environments env:environments) {
-				String envsuffix = env.getEnvironment().substring(env.getEnvironment().length() - 3);
-				environmentMap.put(envsuffix, env);
-			}
-		}		
-		System.out.println(environmentMap);
-		return environmentMap;
-	}
+	
 	
 	
 	
