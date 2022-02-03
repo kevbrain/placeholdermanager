@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.its4u.models.Environments;
-import com.its4u.models.PlaceHolders;
 import com.its4u.models.Project;
 import com.its4u.services.ProjectService;
 

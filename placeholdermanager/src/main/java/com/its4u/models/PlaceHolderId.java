@@ -11,6 +11,9 @@ import lombok.Data;
 @Embeddable
 public class PlaceHolderId implements Serializable {
 	
+
+	private static final long serialVersionUID = 1L;
+
 	@Column(name = "ENVIRONMENT")
 	private String environment;
 	

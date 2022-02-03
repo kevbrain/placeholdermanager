@@ -174,6 +174,8 @@ public class PlaceHoldersView {
 		System.out.println("¨Promote "+env.getEnvironment()+" to another environment");
 	}
 	
-	
+	public List<Project> getProjectList() {
+		return new ArrayList(myProjects.values());
+	}
 
 }

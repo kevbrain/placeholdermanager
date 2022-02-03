@@ -29,7 +29,6 @@ import com.its4u.models.ArgoAppStatus;
 import com.its4u.models.ArgoAuthToken;
 import com.its4u.models.ArgoResource;
 import com.its4u.models.Environments;
-import com.its4u.models.PlaceHolderId;
 import com.its4u.models.PlaceHolders;
 import com.its4u.models.Project;
 import com.its4u.models.Versions;
@@ -170,7 +169,7 @@ public class ProjectServiceImpl implements ProjectService {
 						ObjectMapper objectMapper = new ObjectMapper();
 						List<ArgoResource> argoResources= new ArrayList<ArgoResource>();
 						for (Object resobj:resources) {
-							JSONObject resJson = (JSONObject) resobj;				
+											
 							try {
 								ArgoResource argoResource = objectMapper.readValue(resobj.toString(), ArgoResource.class);
 								argoResources.add(argoResource);
