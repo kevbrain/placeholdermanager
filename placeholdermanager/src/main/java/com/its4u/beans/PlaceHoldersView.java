@@ -75,18 +75,27 @@ public class PlaceHoldersView {
 		
 		for (Project proj:myProjects.values()) {
 			//projectMap.put(proj.getProject_Id(), createMapEnvironment(proj));
-			createMapEnvironment(proj);
-			for (Environments env:proj.getEnvironments()) {
-				System.out.println(env);				
+			HashMap<String,Environments> envByProject = createMapEnvironment(proj);
+			for (Environments env:proj.getEnvironments()) {								
 				envplaceHolders.put(env.getEnvironment(),createMapPlaceHoldersFromEnv(env));
 			}
-			
+			projectMap.put(proj.getProject_Id(), envByProject);
 		}					
 		
-		//System.out.println(projectMap);
+		System.out.println(projectMap);
 		System.out.println(envplaceHolders);
 		
 		
+	}
+	
+	public HashMap<String,Environments> createMapEnvironment(Project project) {
+		HashMap<String,Environments> environmentMap = new HashMap<String,Environments>() ;
+		for (Environments env:project.getEnvironments()) {
+			String envsuffix = env.getEnvironment().substring(env.getEnvironment().length() - 3);
+			environmentMap.put(envsuffix, env);
+		}
+		System.out.println(environmentMap);
+		return environmentMap;
 	}
 	
 	public HashMap<String,String> createMapPlaceHoldersFromEnv(Environments env) {
@@ -187,15 +196,7 @@ public class PlaceHoldersView {
 						
 	}
 	
-	public HashMap<String,Environments> createMapEnvironment(Project project) {
-		HashMap<String,Environments> environmentMap = new HashMap<String,Environments>() ;
-		for (Environments env:project.getEnvironments()) {
-			String envsuffix = env.getEnvironment().substring(env.getEnvironment().length() - 3);
-			environmentMap.put(envsuffix, env);
-		}
-		System.out.println(environmentMap);
-		return environmentMap;
-	}
+
 	
 	public void refreshStatusProject() {
 		if (selectedProject !=null && selectedProjectId!=null) {
