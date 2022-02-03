@@ -122,11 +122,14 @@ public class Environments implements Serializable {
 	}
 	
 	public HashMap<String,String> getPlaceholdersMap() {
-		HashMap<String,String> hm = new HashMap<String, String>();
-		for (PlaceHolders pl:placeholders) {
-			hm.put(pl.getPlaceHolderId().getKey(), pl.getValue());
-		}
-		return hm;
+		
+		if (placeholdersMap==null) {
+			placeholdersMap = new HashMap<String, String>();
+			for (PlaceHolders pl:placeholders) {
+				placeholdersMap.put(pl.getPlaceHolderId().getKey(), pl.getValue());
+			}
+		}		
+		return placeholdersMap;
 	}
 
 	public boolean isDev() {
