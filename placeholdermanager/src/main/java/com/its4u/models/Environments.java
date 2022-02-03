@@ -121,14 +121,12 @@ public class Environments implements Serializable {
 		return clears;
 	}
 	
-	public HashMap<String,String> getPlaceholdersMap() {
-		
-		if (placeholdersMap==null) {
+	public HashMap<String,String> getPlaceholdersMap() {		
 			placeholdersMap = new HashMap<String, String>();
 			for (PlaceHolders pl:placeholders) {
 				placeholdersMap.put(pl.getPlaceHolderId().getKey(), pl.getValue());
 			}
-		}		
+				
 		return placeholdersMap;
 	}
 
@@ -141,13 +139,5 @@ public class Environments implements Serializable {
 		return "Environments [environment=" + environment + "]";
 	}
 
-	public String  getVersionToDeploy() {
-		String version="";
-		HashMap<String,String> hm = getPlaceholdersMap();
-		if (hm!=null && hm.get("app-version")!=null) {
-			version = hm.get("app-version");
-		}
-		return version;
-	}
-	
+		
 }
