@@ -79,10 +79,10 @@ public class PlaceHoldersView {
 			for (Environments env:proj.getEnvironments()) {								
 				envplaceHolders.put(env.getEnvironment(),createMapPlaceHoldersFromEnv(env));
 			}
-			projectMap.put(proj.getProject_Id(), envByProject);
+			System.out.println(proj.getProject_Id()+ "  -->  "+envByProject);
 		}					
 		
-		System.out.println(projectMap);
+		//System.out.println(projectMap);
 		System.out.println(envplaceHolders);
 		
 		
