@@ -88,6 +88,7 @@ public class PlaceHoldersView {
 		onSelectedProject(projet.getProject_Id());
 	}
 	
+		
 	public void save() {
 
 		pollView.log("Save project on DataBase");
