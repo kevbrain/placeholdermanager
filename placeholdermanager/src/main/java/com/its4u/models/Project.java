@@ -51,6 +51,10 @@ public class Project implements Serializable{
 	@Transient
 	@JsonIgnore
 	private ArgoAppStatus appstatus;
+	
+	@Transient
+	@JsonIgnore
+	private boolean synchrone;
 
 	public Project() {
 		super();

@@ -74,6 +74,7 @@ public class PlaceHoldersView {
 			projectService.enrichProject(proj);
 			ArgoAppStatus appStatus = argoInitialier.statusAndHealth(proj.getProject_Id());
 			proj.setAppstatus(appStatus);
+			proj.setSynchrone(appStatus.getSync().equalsIgnoreCase("synced"));
 		}					
 						
 	}
