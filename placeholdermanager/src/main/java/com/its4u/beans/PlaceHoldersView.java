@@ -62,6 +62,8 @@ public class PlaceHoldersView {
 	
 	private HashMap<String,HashMap<String,String>> envplaceHolders;
 	
+	private boolean applicationSelected;
+	
 	
 	@PostConstruct
     public void init()  {
@@ -69,6 +71,7 @@ public class PlaceHoldersView {
     }
 	
 	public void refresh() {
+		applicationSelected=false;
 		myProjects = projectService.findAll();		
 		for (Project proj:myProjects.values()) {			
 			projectService.enrichProject(proj);
@@ -79,21 +82,10 @@ public class PlaceHoldersView {
 						
 	}
 	
-	public HashMap<String,String> createMapEnvironment(Project project) {
-		HashMap<String,String> environmentMap = new HashMap<String,String>() ;
-		for (Environments env:project.getEnvironments()) {
-			String envsuffix = env.getEnvironment().substring(env.getEnvironment().length() - 3);
-			environmentMap.put(envsuffix, env.getEnvironment());
-		}		
-		return environmentMap;
-	}
-	
-	public HashMap<String,String> createMapPlaceHoldersFromEnv(Environments env) {
-		HashMap<String,String> keyvalue = new HashMap<String,String>();
-		for (PlaceHolders pl:env.getPlaceholders()) {
-			keyvalue.put(pl.getPlaceHolderId().getKey(), pl.getValue());
-		}
-		return keyvalue;
+	public void loadDetailApp(Project projet) {
+		selectedProject=projet;
+		applicationSelected=true;
+		onSelectedProject(projet.getProject_Id());
 	}
 	
 	public void save() {
