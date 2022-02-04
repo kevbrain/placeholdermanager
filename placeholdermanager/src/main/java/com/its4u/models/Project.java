@@ -47,6 +47,10 @@ public class Project implements Serializable{
 	@Transient
 	@JsonIgnore
 	private HashMap<String,HashMap<String,String>> mapPlaceHoldersByEnv;
+	
+	@Transient
+	@JsonIgnore
+	private ArgoAppStatus appstatus;
 
 	public Project() {
 		super();

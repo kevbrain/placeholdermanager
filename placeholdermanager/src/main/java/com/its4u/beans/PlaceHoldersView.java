@@ -72,6 +72,8 @@ public class PlaceHoldersView {
 		myProjects = projectService.findAll();		
 		for (Project proj:myProjects.values()) {			
 			projectService.enrichProject(proj);
+			ArgoAppStatus appStatus = argoInitialier.statusAndHealth(proj.getProject_Id());
+			proj.setAppstatus(appStatus);
 		}					
 						
 	}

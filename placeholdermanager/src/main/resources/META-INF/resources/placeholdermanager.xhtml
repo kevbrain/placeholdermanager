@@ -41,6 +41,7 @@
 				<p:commandButton value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['app-version']}" style="margin:10px;background:green;color:white"/>
 				<p:commandButton value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['ocp-namespace']}" style="margin:10px" 
 						rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['ocp-namespace']!=null}"/>
+				<p:commandButton value="#{proj.appstatus.sync}"/>
 			</p:column>
 			<p:column  headerText="TST">	
 				<p:commandButton value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['tst']]['app-version']}"
