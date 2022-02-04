@@ -52,6 +52,21 @@
 			</p:column>
    		</p:dataTable>
    		
+   		 <p:ajaxExceptionHandler type="javax.faces.application.ViewExpiredException"
+                                update="exceptionDialog"
+                                onexception="PF('exceptionDialog').show()" />
+                                
+         <p:dialog id="exceptionDialog" header="Exception '#{pfExceptionHandler.type}' occured!"
+                  widgetVar="exceptionDialog"
+                  height="500px">
+            Message: #{pfExceptionHandler.message} <br/>
+            StackTrace: <h:outputText value="#{pfExceptionHandler.formattedStackTrace}" escape="false"/> <br/>
+
+            <p:button onclick="document.location.href = document.location.href;"
+                      value="Reload!"
+                      rendered="#{pfExceptionHandler.type == 'javax.faces.application.ViewExpiredException'}"/>
+        </p:dialog>
+   		
    		<div style="position:relative;margin:auto;text-align:center;">	
 	   		<p:commandButton value="Refresh"  actionListener="#{placeHoldersView.refresh}" update="@form" style="margin:10px;background:#003b50;color:white" />
 	   		<p:commandButton value="Logs" onclick="PF('dlg1').show()"/>
