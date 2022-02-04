@@ -324,4 +324,51 @@ public class ProjectServiceImpl implements ProjectService {
 	public List<Versions> getVersionsByProject(String projectId) {
 		return versionRepository.findAllByProjectId(projectId);
 	}
+
+	@Override
+	public String getDevVersion(String projectName) {
+		String version="not found";
+		Project project = findProject(projectName);
+		enrichProject(project);
+		String envDevID = project.getMapenvs().get("dev");
+		try {
+			version = project.getMapPlaceHoldersByEnv().get(envDevID).get("app-version");
+		} catch (Exception e) {
+			
+		}
+		
+		return version;
+	}
+	
+
+	@Override
+	public void enrichProject(Project project) {
+		HashMap<String,HashMap<String,String>> envplaceHolders = new HashMap<String,HashMap<String,String>>();
+		HashMap<String,String> envByProject = createMapEnvironment(project);
+		for (Environments env:project.getEnvironments()) {								
+			envplaceHolders.put(env.getEnvironment(),createMapPlaceHoldersFromEnv(env));
+		}
+		
+		project.setMapenvs(envByProject);
+		project.setMapPlaceHoldersByEnv(envplaceHolders);
+	}
+	
+	@Override	
+	public HashMap<String,String> createMapEnvironment(Project project) {
+		HashMap<String,String> environmentMap = new HashMap<String,String>() ;
+		for (Environments env:project.getEnvironments()) {
+			String envsuffix = env.getEnvironment().substring(env.getEnvironment().length() - 3);
+			environmentMap.put(envsuffix, env.getEnvironment());
+		}		
+		return environmentMap;
+	}
+	
+	@Override
+	public HashMap<String,String> createMapPlaceHoldersFromEnv(Environments env) {
+		HashMap<String,String> keyvalue = new HashMap<String,String>();
+		for (PlaceHolders pl:env.getPlaceholders()) {
+			keyvalue.put(pl.getPlaceHolderId().getKey(), pl.getValue());
+		}
+		return keyvalue;
+	}
 }

@@ -35,6 +35,11 @@ public class PlaceHoldersController {
 		return service.findProject(projectName);
 	}
 	
+	@RequestMapping(value = "/projects/checkDevVersion/{projectName}", produces = "application/json")
+	public @ResponseBody String checkDevVersion(@PathVariable("projectName") String projectName) {
+		return service.getDevVersion(projectName);
+	}
+	
 	@RequestMapping(value = "/apply-conf/{projectName}")
 	public @ResponseBody String applyconf(@PathVariable("projectName") String projectName) {
 		return service.applyConf(projectName);
