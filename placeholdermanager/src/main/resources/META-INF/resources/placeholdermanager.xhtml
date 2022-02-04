@@ -35,11 +35,10 @@
    		
    		<p:dataTable value="#{placeHoldersView.projectList}"  var="proj"  widgetVar="projectsTable" id="projectstable">
    			<p:column  headerText="APPLICATION DEPLOYED">	
-				<h:outputText value="#{proj.project_Id}"/>
-				<p:commandButton value="#{proj.appstatus.sync}" style="margin:10px;background:#{proj.synchrone?'green':'orange'};color:white"/>
+				<p:commandButton value="#{proj.project_Id}" style="margin:10px;background:#{proj.synchrone?'green':'orange'};color:white"/>
 			</p:column>		
 			<p:column  headerText="DEV">	
-				<p:commandButton value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['app-version']}" style="margin:10px;background:green;color:white"/>
+				<p:commandButton value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['app-version']}" />
 				<p:commandButton value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['ocp-namespace']}" style="margin:10px" 
 						rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['ocp-namespace']!=null}"/>
 				
