@@ -36,19 +36,19 @@
    		<p:dataTable value="#{placeHoldersView.projectList}"  var="proj"  widgetVar="projectsTable" id="projectstable">
    			<p:column  headerText="Project">	
 				<h:outputText value="#{proj.project_Id}"/>
-			</p:column>
-			<p:column  headerText="Git url">	
-				<h:outputText value="#{proj.gitUrl}"/>
-			</p:column>
+			</p:column>		
 			<p:column  headerText="DEV">	
 				<p:commandButton value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['app-version']}" style="margin:10px;background:green;color:white"/>
-				<p:commandButton value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['ocp-namespace']}" style="margin:10px"/>
+				<p:commandButton value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['ocp-namespace']}" style="margin:10px" 
+						rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['ocp-namespace']!=null}"/>
 			</p:column>
 			<p:column  headerText="TST">	
-				<p:commandButton value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['tst']]['app-version']}"/>
+				<p:commandButton value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['tst']]['app-version']}"
+						rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['tst']]['app-version']!=null}"/>
 			</p:column>
 			<p:column  headerText="INT">	
-				<p:commandButton value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['int']]['app-version']}"/>
+				<p:commandButton value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['int']]['app-version']}"
+					rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['int']]['app-version']!=null}"/>
 			</p:column>
    		</p:dataTable>
    		
