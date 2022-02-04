@@ -86,6 +86,7 @@ public class PlaceHoldersView {
 		selectedProject=projet;
 		applicationSelected=true;
 		onSelectedProject(projet.getProject_Id());
+		selectedProjectId=projet.getProject_Id();
 	}
 	
 		
