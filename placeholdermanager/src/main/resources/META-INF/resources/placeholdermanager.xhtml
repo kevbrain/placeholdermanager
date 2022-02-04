@@ -33,25 +33,27 @@
    		<h:form id="form" prependId="false">
    		<p:growl id="growl" showDetail="true" />
    		
-   		<p:dataTable value="#{placeHoldersView.projectList}"  var="proj"  widgetVar="projectsTable" id="projectstable">
-   			<p:column  headerText="APPLICATION DEPLOYED">	
-				<p:commandButton value="#{proj.project_Id}" style="margin:10px;background:#{proj.synchrone?'green':'orange'};color:white"/>
-			</p:column>		
-			<p:column  headerText="DEV">	
-				<p:commandButton value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['app-version']}" />
-				<p:commandButton value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['ocp-namespace']}" style="margin:10px" 
-						rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['ocp-namespace']!=null}"/>
-				
-			</p:column>
-			<p:column  headerText="TST">	
-				<p:commandButton value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['tst']]['app-version']}"
-						rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['tst']]['app-version']!=null}"/>
-			</p:column>
-			<p:column  headerText="INT">	
-				<p:commandButton value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['int']]['app-version']}"
-					rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['int']]['app-version']!=null}"/>
-			</p:column>
-   		</p:dataTable>
+   		<p:panel id="dashboard">
+	   		<p:dataTable value="#{placeHoldersView.projectList}"  var="proj"  widgetVar="projectsTable" id="projectstable">
+	   			<p:column  headerText="APPLICATION DEPLOYED">	
+					<p:commandButton value="#{proj.project_Id}" style="margin:10px;background:#{proj.synchrone?'green':'orange'};color:white"/>
+				</p:column>		
+				<p:column  headerText="DEV">	
+					<p:commandButton value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['app-version']}" />
+					<p:commandButton value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['ocp-namespace']}" style="margin:10px" 
+							rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['ocp-namespace']!=null}"/>
+					
+				</p:column>
+				<p:column  headerText="TST">	
+					<p:commandButton value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['tst']]['app-version']}"
+							rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['tst']]['app-version']!=null}"/>
+				</p:column>
+				<p:column  headerText="INT">	
+					<p:commandButton value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['int']]['app-version']}"
+						rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['int']]['app-version']!=null}"/>
+				</p:column>
+	   		</p:dataTable>
+   		</p:panel>
    		
    		 <p:ajaxExceptionHandler type="javax.faces.application.ViewExpiredException"
                                 update="exceptionDialog"
@@ -68,19 +70,21 @@
                       rendered="#{pfExceptionHandler.type == 'javax.faces.application.ViewExpiredException'}"/>
         </p:dialog>
    		
-   		<div style="position:relative;margin:auto;text-align:center;">	
-	   		<p:commandButton value="Refresh"  actionListener="#{placeHoldersView.refresh}" update="@form" style="margin:10px;background:#003b50;color:white" />
-	   		<p:commandButton value="Logs" onclick="PF('dlg1').show()"/>
-	   		<p:commandButton value="Save Configuration"  actionListener="#{placeHoldersView.save}" 
-	   			oncomplete="PF('dlg0').hide()"
-	   			onclick="PF('dlg0').show()" update="growl" style="margin:10px;background:#003b50;color:white" />
-	   		<p:commandButton value="Delete" style="margin:10px;background:red;color:white" 
-	   			update="growl,@form" immediate="true"
-	   			actionListener="#{placeHoldersView.deleteProject}"/>
-   		</div>
-   		
    		<p:poll interval="4" listener="#{placeHoldersView.refreshStatusProject}" update="syncstatus,healthstatus"/>
    		
+   		<p:panel>
+   		
+		   		<div style="position:relative;margin:auto;text-align:center;">	
+			   		<p:commandButton value="Refresh"  actionListener="#{placeHoldersView.refresh}" update="@form" style="margin:10px;background:#003b50;color:white" />
+			   		<p:commandButton value="Logs" onclick="PF('dlg1').show()"/>
+			   		<p:commandButton value="Save Configuration"  actionListener="#{placeHoldersView.save}" 
+			   			oncomplete="PF('dlg0').hide()"
+			   			onclick="PF('dlg0').show()" update="growl" style="margin:10px;background:#003b50;color:white" />
+			   		<p:commandButton value="Delete" style="margin:10px;background:red;color:white" 
+			   			update="growl,@form" immediate="true"
+			   			actionListener="#{placeHoldersView.deleteProject}"/>
+		   		</div>
+		   		 	   		
 	 			<h:panelGrid columns="2">
 	 				<h:outputText value="My projects :"/>
 	 				 <p:selectOneMenu  value="#{placeHoldersView.selectedProjectId}"
@@ -186,39 +190,41 @@
 					    			</p:dataTable>
 					    	</p:tab>
 					</p:tabView>
+					
+				</p:panel>	
 							
-				<p:dialog header="Resources" widgetVar="dlgStatus" minHeight="500" width="1400" showEffect="fade"  id="dialogresources">
-		
-					<h:panelGrid columns="2">
-						<h:outputLabel value="Reconcile At "/>
-						<h:outputText id="fieldReconcileAt" value="#{placeHoldersView.appStatus.reconcileAt}"/>
-					</h:panelGrid>
-					<p:dataTable value="#{placeHoldersView.appStatus.argoResources}"  var="res" id="tableResources">
-					
-						<p:column  headerText="Version">	
-							<h:outputText value="#{res.group}/#{res.version}"/>
-						</p:column>
-						<p:column  headerText="Kind">	
-							<h:outputText value="#{res.kind}"/>
-						</p:column>
-						<p:column  headerText="Name">	
-							<h:outputText value="#{res.name}"/>
-						</p:column>
-						<p:column  headerText="Status">	
-							<h:outputText value="#{res.status}"/>
-						</p:column>
-						<p:column  headerText="HookPhase">	
-							<h:outputText value="#{res.hookPhase}"/>
-						</p:column>
-						<p:column  headerText="SyncPhase">	
-							<h:outputText value="#{res.syncPhase}"/>
-						</p:column>
-						<p:column  headerText="message">	
-							<h:outputText value="#{res.message}"/>
-						</p:column>
-					
-					</p:dataTable>						
-					<p:poll interval="4"  update="tableResources,fieldReconcileAt"/>
+			<p:dialog header="Resources" widgetVar="dlgStatus" minHeight="500" width="1400" showEffect="fade"  id="dialogresources">
+	
+				<h:panelGrid columns="2">
+					<h:outputLabel value="Reconcile At "/>
+					<h:outputText id="fieldReconcileAt" value="#{placeHoldersView.appStatus.reconcileAt}"/>
+				</h:panelGrid>
+				<p:dataTable value="#{placeHoldersView.appStatus.argoResources}"  var="res" id="tableResources">
+				
+					<p:column  headerText="Version">	
+						<h:outputText value="#{res.group}/#{res.version}"/>
+					</p:column>
+					<p:column  headerText="Kind">	
+						<h:outputText value="#{res.kind}"/>
+					</p:column>
+					<p:column  headerText="Name">	
+						<h:outputText value="#{res.name}"/>
+					</p:column>
+					<p:column  headerText="Status">	
+						<h:outputText value="#{res.status}"/>
+					</p:column>
+					<p:column  headerText="HookPhase">	
+						<h:outputText value="#{res.hookPhase}"/>
+					</p:column>
+					<p:column  headerText="SyncPhase">	
+						<h:outputText value="#{res.syncPhase}"/>
+					</p:column>
+					<p:column  headerText="message">	
+						<h:outputText value="#{res.message}"/>
+					</p:column>
+				
+				</p:dataTable>						
+				<p:poll interval="4"  update="tableResources,fieldReconcileAt"/>
 			</p:dialog>
     	</h:form>
 	</p:panel>
