@@ -200,11 +200,10 @@ public class ProjectServiceImpl implements ProjectService {
 	public void updateGitOps(Project project) {
 		
 		// clone gitops	
-		String pathWorkkingGitOpsProject = cloneGitOps()+"/"+project.getProject_Id();					
-		//String pathWorkingGitAppProject = cloneGitApp(project)+"/"+project.getProject_Id();
+		String pathWorkkingGitOpsProject = cloneGitOps()+"/"+project.getProject_Id();							
 		String pathWorkingGitAppProject = cloneGitApp(project);
 		
-		//HashMap<String,HashMap<String,String>> placesH = new HashMap<String, HashMap<String, String>>();
+		
 		for (Environments env:project.getEnvironments()) {
 			HashMap<String, String> keyValues = new HashMap<String, String>();
 			for (PlaceHolders pl:env.getPlaceholders()) {

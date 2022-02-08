@@ -38,6 +38,12 @@ public class Environments implements Serializable {
 	@Column(name = "RELEASE_TAG")
 	private String releaseTag;
 	
+	@Column(name = "GITOPS_REPO")
+	private String gitOpsRepo;
+	
+	@Column(name = "GITOPS_APPS_REPO")
+	private String gitOpsAppsRepo;
+	
 	@JsonIgnore
 	@ManyToOne
     @JoinColumn(name = "project_Id",insertable = false, updatable = false)

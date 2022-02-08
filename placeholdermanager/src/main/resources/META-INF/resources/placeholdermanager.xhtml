@@ -148,6 +148,15 @@
 					    				 	 <f:selectItems value="#{placeHoldersView.tags}"/>
 					    				 </p:selectOneMenu>
 					    			 -->
+					    			<h:panelGrid columns="2">
+					    				<h:outputLabel value="GitOps url"/>
+					    				<p:inputText value="#{env.gitOpsRepo}"/>
+					    				
+					    				<h:outputLabel value="GitOpsApp url"/>
+					    				<p:inputText value="#{env.gitOpsAppsRepo}"/>
+					    				
+					    			</h:panelGrid>
+					    	
 					    	
 					    			<div style="position:relative;margin:auto;text-align:center;">	
 					    				<p:commandButton value="Apply And Deploy Project" 
