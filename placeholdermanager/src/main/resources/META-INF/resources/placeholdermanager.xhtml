@@ -47,10 +47,24 @@
 							rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['ocp-namespace']!=null}"/>
 					
 				</p:column>
+				<p:column>
+					<p:commandButton value=">>"  
+		   				oncomplete="PF('dlg0').hide()"
+			   			onclick="PF('dlg0').show()"
+		   				update="@form" style="margin:10px;background:#003b50;color:white" />
+				</p:column>
 				<p:column  headerText="TST">	
 					<p:commandButton value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['tst']]['app-version']}"
 							rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['tst']]['app-version']!=null}"/>
 				</p:column>
+				
+				<p:column>
+					<p:commandButton value=">>"  
+		   				oncomplete="PF('dlg0').hide()"
+			   			onclick="PF('dlg0').show()"
+		   				update="@form" style="margin:10px;background:#003b50;color:white" />
+				</p:column>
+				
 				<p:column  headerText="INT">	
 					<p:commandButton value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['int']]['app-version']}"
 						rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['int']]['app-version']!=null}"/>
