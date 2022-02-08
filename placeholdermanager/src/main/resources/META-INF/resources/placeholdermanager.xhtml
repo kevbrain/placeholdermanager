@@ -55,7 +55,7 @@
 						rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]!=null and !proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['app-version'].snapshot}"
 		   				oncomplete="PF('dlg0').hide()"
 			   			onclick="PF('dlg0').show()"
-		   				update="@form" style="background:#003b50;color:white" />
+		   				update="@form" style="background:#003b50;color:white; margin:3px;" />
 				</p:column>
 				<p:column  headerText="TST"  >	
 					<p:commandButton value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['tst']]['app-version'].value}"
@@ -65,10 +65,12 @@
 				
 				<p:column width="40px;">
 					<p:commandButton value=">>" title="promote"
-						rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['tst']]!=null and !proj.mapPlaceHoldersByEnv[proj.mapenvs['tst']]['app-version'].snapshot}"
+						rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['tst']]!=null
+						 and proj.mapPlaceHoldersByEnv[proj.mapenvs['tst']]['app-version']!=null
+						 and !proj.mapPlaceHoldersByEnv[proj.mapenvs['tst']]['app-version'].snapshot}"
 		   				oncomplete="PF('dlg0').hide()"
 			   			onclick="PF('dlg0').show()"
-		   				update="@form" style="background:#003b50;color:white" />
+		   				update="@form" style="background:#003b50;color:white;margin:3px;" />
 				</p:column>
 				
 				<p:column  headerText="INT">	
