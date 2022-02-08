@@ -40,8 +40,8 @@ public class PlaceHoldersController {
 		return service.getDevVersion(projectName);
 	}
 	
-	@RequestMapping(value = "/apply-conf/{projectName}")
-	public @ResponseBody String applyconf(@PathVariable("projectName") String projectName) {
+	@RequestMapping(value = "/apply-conf/{projectName}/{env}")
+	public @ResponseBody String applyconf(@PathVariable("projectName") String projectName,@PathVariable("env") String env) {
 		return service.applyConf(projectName);
 	}
 	

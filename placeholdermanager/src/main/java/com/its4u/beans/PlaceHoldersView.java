@@ -90,14 +90,14 @@ public class PlaceHoldersView {
 	}
 	
 		
-	public void save() {
+	public void save(Environments env) {
 
 		pollView.log("Save project on DataBase");
 		projectService.createProject(selectedProject);
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Project saved"));
 		
 		pollView.log("Update GitOps");
-		projectService.updateGitOps(selectedProject);
+		projectService.updateGitOps(env);
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Git Synchronized"));
 	}
 	
@@ -188,9 +188,9 @@ public class PlaceHoldersView {
 		}
 	}
 	
-	public void synchronise(String project) {
-		save();
-		argoInitialier.synchronise(project);
+	public void synchronise(Environments env) {
+		save(env);
+		argoInitialier.synchronise(env.getProjectId());
 	}
 	
 	public void promote(Environments env) {

@@ -150,10 +150,10 @@
 					    			 -->
 					    			<h:panelGrid columns="2">
 					    				<h:outputLabel value="GitOps url"/>
-					    				<p:inputText value="#{env.gitOpsRepo}"/>
+					    				<p:inputText value="#{env.gitOpsRepo}" style="width:800px;"/>
 					    				
 					    				<h:outputLabel value="GitOpsApp url"/>
-					    				<p:inputText value="#{env.gitOpsAppsRepo}"/>
+					    				<p:inputText value="#{env.gitOpsAppsRepo}" style="width:800px;"/>
 					    				
 					    			</h:panelGrid>
 					    	
@@ -162,7 +162,7 @@
 					    				<p:commandButton value="Apply And Deploy Project" 
 					    					oncomplete="PF('dlg0').hide()"
 	   										onclick="PF('dlg0').show()"
-					    				 actionListener="#{placeHoldersView.synchronise(env.projectId)}" update="growl" style="margin:10px;background:#003b50;color:white" />
+					    				 actionListener="#{placeHoldersView.synchronise(env)}" update="growl" style="margin:10px;background:#003b50;color:white" />
 			   		
 			   							<p:commandButton value="UnDeploy Project"  actionListener="#{placeHoldersView.refresh}" update="@form" style="margin:10px;background:#003b50;color:white" />
 			   		

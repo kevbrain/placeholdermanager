@@ -197,20 +197,20 @@ public class ProjectServiceImpl implements ProjectService {
 		}
 	}
 	
-	public void updateGitOps(Project project) {
+	public void updateGitOps(Environments env) {
 		
 		// clone gitops	
-		String pathWorkkingGitOpsProject = cloneGitOps()+"/"+project.getProject_Id();							
-		String pathWorkingGitAppProject = cloneGitApp(project);
+		String pathWorkkingGitOpsProject = cloneGitOps(env)+"/"+env.getProjectId();							
+		String pathWorkingGitAppProject = cloneGitApp(env.getProject());
 		
 		
-		for (Environments env:project.getEnvironments()) {
+		//for (Environments env:project.getEnvironments()) {
 			HashMap<String, String> keyValues = new HashMap<String, String>();
 			for (PlaceHolders pl:env.getPlaceholders()) {
 				keyValues.put(pl.getPlaceHolderId().getKey(),pl.getValue());
 			}
 			updateGitopsPerEnvironment(pathWorkkingGitOpsProject,pathWorkingGitAppProject,env.getEnvironment(),keyValues);
-		}
+		//}
 			
 		// commit and push
 		try {
@@ -224,10 +224,10 @@ public class ProjectServiceImpl implements ProjectService {
 		}	
 	}
 	
-	public String cloneGitOps() {
+	public String cloneGitOps(Environments env) {
 		String pathWorkkingGitOps = null;
 		try {
-			pathWorkkingGitOps = GitController.loadGitOpsApps();
+			pathWorkkingGitOps = GitController.loadGitOpsApps(env.getGitOpsAppsRepo());
 		} catch (IllegalStateException | GitAPIException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -274,7 +274,9 @@ public class ProjectServiceImpl implements ProjectService {
 	public String applyConf(String projectName) {
 		// TODO Auto-generated method stub
 		Project project= findProject(projectName);
-		updateGitOps(project);
+		for (Environments env: project.getEnvironments()) {
+			updateGitOps(env);
+		}		
 		synchronize("cluster-configs");
 		try {
 			Thread.sleep(1500);

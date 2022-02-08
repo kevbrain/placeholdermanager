@@ -70,7 +70,7 @@ public class GitController {
 		return tags;
 	}
 	
-	public static String loadGitOpsApps() throws IllegalStateException, GitAPIException {
+	public static String loadGitOpsApps(String gitOpsAppsRepoUrl) throws IllegalStateException, GitAPIException {
 
 		UUID uuid = UUID.randomUUID();
 		String path = pathWorkspace+"//ocp-gitops-apps-deploy-"+uuid;
@@ -82,7 +82,7 @@ public class GitController {
 						
 		try {	
 			gitOpsApp = Git.cloneRepository()
-					  .setURI(gitOpsAppsDeployUrl)
+					  .setURI(gitOpsAppsRepoUrl)
 					  .setDirectory(workingDirectory)
 					  .call();
 		} catch (Exception e) {
