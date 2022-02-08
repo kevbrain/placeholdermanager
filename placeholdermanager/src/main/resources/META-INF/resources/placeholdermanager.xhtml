@@ -36,7 +36,7 @@
    		<p:panel id="dashboard" rendered="#{!placeHoldersView.applicationSelected}">
 	   		<p:dataTable value="#{placeHoldersView.projectList}"  var="proj"  widgetVar="projectsTable" id="projectstable">
 	   			<p:column  headerText="APPLICATION DEPLOYED">	
-					<p:commandButton value="#{proj.project_Id}" style="margin:10px;background:#{proj.synchrone?'green':'orange'};color:white"
+					<p:commandButton value="#{proj.project_Id}" style="margin:10px;background-color: transparent;border-color:#{proj.synchrone?'green':'orange'};color:#{proj.synchrone?'green':'orange'}"
 						actionListener="#{placeHoldersView.loadDetailApp(proj)}"
 						oncomplete="PF('dlg0').hide()"
 			   			onclick="PF('dlg0').show()" update="@form,growl"/>
