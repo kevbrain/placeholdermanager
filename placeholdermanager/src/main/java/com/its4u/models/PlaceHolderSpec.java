@@ -7,7 +7,7 @@ public class PlaceHolderSpec {
 	
 	private String value;
 	
-	private boolean snapshot;
+	private boolean snapshot=false;
 
 	public PlaceHolderSpec(String value, boolean snapshot) {
 		super();
