@@ -41,7 +41,7 @@ public interface ProjectService {
 
 	HashMap<String, String> createMapEnvironment(Project project);
 
-	HashMap<String, String> createMapPlaceHoldersFromEnv(Environments env);
+	HashMap<String, PlaceHolders> createMapPlaceHoldersFromEnv(Environments env);
 
 	void enrichProject(Project project);
 	

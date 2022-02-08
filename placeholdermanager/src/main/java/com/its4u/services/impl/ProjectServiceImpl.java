@@ -332,7 +332,7 @@ public class ProjectServiceImpl implements ProjectService {
 		enrichProject(project);
 		String envDevID = project.getMapenvs().get("dev");
 		try {
-			version = project.getMapPlaceHoldersByEnv().get(envDevID).get("app-version");
+			version = project.getMapPlaceHoldersByEnv().get(envDevID).get("app-version").getValue();
 		} catch (Exception e) {
 			
 		}
@@ -343,7 +343,7 @@ public class ProjectServiceImpl implements ProjectService {
 
 	@Override
 	public void enrichProject(Project project) {
-		HashMap<String,HashMap<String,String>> envplaceHolders = new HashMap<String,HashMap<String,String>>();
+		HashMap<String,HashMap<String,PlaceHolders>> envplaceHolders = new HashMap<String,HashMap<String,PlaceHolders>>();
 		HashMap<String,String> envByProject = createMapEnvironment(project);
 		for (Environments env:project.getEnvironments()) {								
 			envplaceHolders.put(env.getEnvironment(),createMapPlaceHoldersFromEnv(env));
@@ -364,10 +364,10 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 	
 	@Override
-	public HashMap<String,String> createMapPlaceHoldersFromEnv(Environments env) {
-		HashMap<String,String> keyvalue = new HashMap<String,String>();
+	public HashMap<String,PlaceHolders> createMapPlaceHoldersFromEnv(Environments env) {
+		HashMap<String,PlaceHolders> keyvalue = new HashMap<String,PlaceHolders>();
 		for (PlaceHolders pl:env.getPlaceholders()) {
-			keyvalue.put(pl.getPlaceHolderId().getKey(), pl.getValue());
+			keyvalue.put(pl.getPlaceHolderId().getKey(), pl);
 		}
 		return keyvalue;
 	}
