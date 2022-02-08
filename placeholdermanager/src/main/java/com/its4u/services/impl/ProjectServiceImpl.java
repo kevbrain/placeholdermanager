@@ -29,6 +29,7 @@ import com.its4u.models.ArgoAppStatus;
 import com.its4u.models.ArgoAuthToken;
 import com.its4u.models.ArgoResource;
 import com.its4u.models.Environments;
+import com.its4u.models.PlaceHolderSpec;
 import com.its4u.models.PlaceHolders;
 import com.its4u.models.Project;
 import com.its4u.models.Versions;
@@ -343,7 +344,7 @@ public class ProjectServiceImpl implements ProjectService {
 
 	@Override
 	public void enrichProject(Project project) {
-		HashMap<String,HashMap<String,PlaceHolders>> envplaceHolders = new HashMap<String,HashMap<String,PlaceHolders>>();
+		HashMap<String,HashMap<String,PlaceHolderSpec>> envplaceHolders = new HashMap<String,HashMap<String,PlaceHolderSpec>>();
 		HashMap<String,String> envByProject = createMapEnvironment(project);
 		for (Environments env:project.getEnvironments()) {								
 			envplaceHolders.put(env.getEnvironment(),createMapPlaceHoldersFromEnv(env));
@@ -364,10 +365,10 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 	
 	@Override
-	public HashMap<String,PlaceHolders> createMapPlaceHoldersFromEnv(Environments env) {
-		HashMap<String,PlaceHolders> keyvalue = new HashMap<String,PlaceHolders>();
+	public HashMap<String,PlaceHolderSpec> createMapPlaceHoldersFromEnv(Environments env) {
+		HashMap<String,PlaceHolderSpec> keyvalue = new HashMap<String,PlaceHolderSpec>();
 		for (PlaceHolders pl:env.getPlaceholders()) {
-			keyvalue.put(pl.getPlaceHolderId().getKey(), pl);
+			keyvalue.put(pl.getPlaceHolderId().getKey(), new PlaceHolderSpec(pl.getValue(),false));
 		}
 		return keyvalue;
 	}

@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.its4u.models.ArgoAppStatus;
 import com.its4u.models.Environments;
+import com.its4u.models.PlaceHolderSpec;
 import com.its4u.models.PlaceHolders;
 import com.its4u.models.Project;
 import com.its4u.models.Versions;
@@ -41,7 +42,7 @@ public interface ProjectService {
 
 	HashMap<String, String> createMapEnvironment(Project project);
 
-	HashMap<String, PlaceHolders> createMapPlaceHoldersFromEnv(Environments env);
+	HashMap<String, PlaceHolderSpec> createMapPlaceHoldersFromEnv(Environments env);
 
 	void enrichProject(Project project);
 	

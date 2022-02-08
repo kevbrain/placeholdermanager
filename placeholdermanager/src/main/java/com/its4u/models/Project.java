@@ -46,7 +46,7 @@ public class Project implements Serializable{
 	
 	@Transient
 	@JsonIgnore
-	private HashMap<String,HashMap<String,PlaceHolders>> mapPlaceHoldersByEnv;
+	private HashMap<String,HashMap<String,PlaceHolderSpec>> mapPlaceHoldersByEnv;
 	
 	@Transient
 	@JsonIgnore

@@ -42,7 +42,7 @@
 			   			onclick="PF('dlg0').show()" update="@form,growl"/>
 				</p:column>		
 				<p:column  headerText="DEV">	
-					<p:commandButton value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['app-version']}" />
+					<p:commandButton value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['app-version'].value}" />
 					<p:commandButton value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['ocp-namespace']}" style="margin:10px" 
 							rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['ocp-namespace']!=null}"/>
 					
