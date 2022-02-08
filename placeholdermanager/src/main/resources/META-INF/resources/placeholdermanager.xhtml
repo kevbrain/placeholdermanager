@@ -52,7 +52,7 @@
 				</p:column>
 				<p:column width="40px;">
 					<p:commandButton value=">>"   title="promote"
-						rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]!=null && !proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['app-version'].snapshot}"
+						rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]!=null and !proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['app-version'].snapshot}"
 		   				oncomplete="PF('dlg0').hide()"
 			   			onclick="PF('dlg0').show()"
 		   				update="@form" style="background:#003b50;color:white" />
@@ -65,7 +65,7 @@
 				
 				<p:column width="40px;">
 					<p:commandButton value=">>" title="promote"
-						rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['tst']]!=null && !proj.mapPlaceHoldersByEnv[proj.mapenvs['tst']]['app-version'].snapshot}"
+						rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['tst']]!=null and !proj.mapPlaceHoldersByEnv[proj.mapenvs['tst']]['app-version'].snapshot}"
 		   				oncomplete="PF('dlg0').hide()"
 			   			onclick="PF('dlg0').show()"
 		   				update="@form" style="background:#003b50;color:white" />
