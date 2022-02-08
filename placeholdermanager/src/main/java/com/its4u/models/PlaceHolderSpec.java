@@ -15,6 +15,8 @@ public class PlaceHolderSpec {
 		this.snapshot = snapshot;
 	}
 	
-	
+	public boolean isSnapshot() {
+		return value.endsWith("-SNAPSHOT");
+	}
 
 }
