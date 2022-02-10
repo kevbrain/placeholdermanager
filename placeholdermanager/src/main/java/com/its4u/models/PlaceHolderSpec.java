@@ -16,7 +16,11 @@ public class PlaceHolderSpec {
 	}
 	
 	public boolean isSnapshot() {
-		return value.endsWith("-SNAPSHOT");
+		snapshot= false;
+		if (value!=null &&  value.endsWith("-SNAPSHOT")) {
+			snapshot = true;
+		}
+		return snapshot;
 	}
 
 }
