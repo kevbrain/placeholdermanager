@@ -107,9 +107,6 @@
 		   				update="@form" style="margin:10px;background:#003b50;color:white" />
 			   		<p:commandButton value="Refresh"  actionListener="#{placeHoldersView.refresh}" update="@form" style="margin:10px;background:#003b50;color:white" />
 			   		<p:commandButton value="Logs" onclick="PF('dlg1').show()"/>
-			   		<p:commandButton value="Save Configuration"  actionListener="#{placeHoldersView.save}" 
-			   			oncomplete="PF('dlg0').hide()"
-			   			onclick="PF('dlg0').show()" update="growl" style="margin:10px;background:#003b50;color:white" />
 			   		<p:commandButton value="Delete" style="margin:10px;background:red;color:white" 
 			   			update="growl,@form" immediate="true"
 			   			actionListener="#{placeHoldersView.deleteProject}"/>
@@ -166,6 +163,10 @@
 	   										onclick="PF('dlg0').show()"
 					    				 actionListener="#{placeHoldersView.synchronise(env)}" update="growl" style="margin:10px;background:#003b50;color:white" />
 			   		
+						   		 		<p:commandButton value="Save Configuration"  actionListener="#{placeHoldersView.save(env)}" 
+						   							oncomplete="PF('dlg0').hide()"
+						   							onclick="PF('dlg0').show()" update="growl" style="margin:10px;background:#003b50;color:white" />
+						  
 			   							<p:commandButton value="UnDeploy Project"  actionListener="#{placeHoldersView.refresh}" update="@form" style="margin:10px;background:#003b50;color:white" />
 			   		
 			   							<p:commandButton value="Rollback"  actionListener="#{placeHoldersView.refresh}" update="@form" style="margin:10px;background:#003b50;color:white" />
