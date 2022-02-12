@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -15,6 +16,7 @@ public class ArgoEnvironment implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	@Id
 	@Column(name = "ARGO_ENV_ID")
 	private String argoEnvId;
 
