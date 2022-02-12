@@ -38,4 +38,8 @@ public class ArgoEnvironment implements Serializable {
 	@Column(name = "GITOPS_APPS_REPO")
 	private String gitOpsAppsRepo;
 	
+	public String toString() {
+		return argoEnvId ;
+	}
+	
 }
