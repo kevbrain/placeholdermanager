@@ -35,7 +35,7 @@
    		
    		<p:panel id="dashboard" rendered="#{!placeHoldersView.applicationSelected}">
 	   		<p:dataTable value="#{placeHoldersView.projectList}"  var="proj"  widgetVar="projectsTable" id="projectstable">
-	   			<p:column  headerText="APPLICATION DEPLOYED">	
+	   			<p:column  headerText="APPLICATIONS">	
 					<p:commandButton value="#{proj.project_Id}"
 					    style="margin:10px;background-color: transparent;border-color:#{proj.synchrone?'green':'orange'};color:#{proj.synchrone?'green':'orange'}"
 						actionListener="#{placeHoldersView.loadDetailApp(proj)}"
@@ -149,6 +149,12 @@
 					    			
 					    				<h:outputLabel value="Argo Server url"/>
 					    				<p:inputText value="#{env.argoServer}" style="width:800px;"/>
+					    				
+					    				<h:outputLabel value="Argo user"/>
+					    				<p:inputText value="#{env.argoUser}" style="width:200px;"/>
+					    				
+					    				<h:outputLabel value="Argo passord"/>
+					    				<p:inputText value="#{env.argoPassword}" style="width:200px;"/>
 					    				
 					    				<h:outputLabel value="Argo GitOps url"/>
 					    				<p:inputText value="#{env.gitOpsRepo}" style="width:800px;"/>

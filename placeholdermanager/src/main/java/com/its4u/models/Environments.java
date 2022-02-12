@@ -41,6 +41,12 @@ public class Environments implements Serializable {
 	@Column(name = "ARGO_SERVER")
 	private String argoServer;
 	
+	@Column(name = "ARGO_USER")
+	private String argoUser;
+		
+	@Column(name = "ARGO_PASSWORD")
+	private String argoPassword;
+	
 	@Column(name = "ARGO_PROJ")
 	private String argoProj;
 	
