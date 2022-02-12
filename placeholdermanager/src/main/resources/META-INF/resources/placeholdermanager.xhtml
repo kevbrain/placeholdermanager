@@ -118,7 +118,8 @@
 	 				 	 onchange="PF('dlg0').show()">
 	 				 	 	<f:selectItem itemLabel="Select One" itemValue=""/>
 	                  	<f:selectItems value="#{placeHoldersView.myProjects}" var="project" itemLabel="#{project}" itemValue="#{project}"/>
-	                  	<p:ajax  oncomplete="PF('dlg0').hide()"  event="change" update="tabviewenv,giturl,growl,syncstatus,healthstatus,tableResources" listener="#{placeHoldersView.onSelectedProject(placeHoldersView.selectedProjectId)}" />
+	                  	<p:ajax  oncomplete="PF('dlg0').hide()"  event="change" update="tabviewenv,giturl,growl,syncstatus,healthstatus,tableResources"
+	                  	 listener="#{placeHoldersView.onSelectedProject(placeHoldersView.selectedProjectId)}" />
 	                  	
 	 				 </p:selectOneMenu>
 	 				 <h:outputText value="Git url"/>
@@ -145,8 +146,21 @@
 					    				 	 <f:selectItems value="#{placeHoldersView.tags}"/>
 					    				 </p:selectOneMenu>
 					    			 -->
-					    			<h:panelGrid columns="2">
+					    			<h:panelGrid columns="3">
 					    			
+					    				<h:outputLabel value="Argo Environment"/>
+					    				<p:selectOneMenu  value="#{argoInitializerBean.selectedArgoEnId}"
+						 				 	 onchange="PF('dlg0').show()">
+						 				 	<f:selectItem itemLabel="Select One" itemValue=""/>
+						                  	<f:selectItems value="#{argoInitializerBean.myArgoEnv}" var="envArgo" itemLabel="#{envArgo}" itemValue="#{envArgo}"/>
+						                  	<p:ajax  oncomplete="PF('dlg0').hide()"  event="change" update="@form" 
+						                  		listener="#{argoInitializerBean.onSelectedArgoEnvId(argoInitializerBean.selectedArgoEnId)}" />						                  	
+	 									</p:selectOneMenu>
+	 									<p:commandButton value="+"  					   			
+					   						onclick="PF('dlgArgoEnvironment').show()" style="margin:10px;background:#003b50;color:white" />
+	 									
+					    				
+					    				<!-- 
 					    				<h:outputLabel value="Argo Server url"/>
 					    				<p:inputText value="#{env.argoServer}" style="width:800px;"/>
 					    				
@@ -164,6 +178,8 @@
 					    				
 					    				<h:outputLabel value="Argo Projet (Environment)"/>
 					    				<p:inputText value="#{env.argoProj}" style="width:300px;"/>
+					    				
+					    				-->
 					    			</h:panelGrid>
 					    	
 					    	
@@ -296,6 +312,50 @@
 		</h:form>	
 	</p:dialog>
 	
+	<p:dialog widgetVar="dlgArgoEnvironment" showEffect="fade">
+		<h:form>
+		
+		 	<p:selectOneMenu  value="#{argoInitializerBean.selectedArgoEnId}"
+	 				 	 onchange="PF('dlg0').show()">
+	 				 	 	<f:selectItem itemLabel="Select One" itemValue=""/>
+	                  	<f:selectItems value="#{argoInitializerBean.myArgoEnv}" var="envArgo" itemLabel="#{envArgo}" itemValue="#{envArgo}"/>
+	                  	<p:ajax  oncomplete="PF('dlg0').hide()"  event="change" update="@form" 
+	                  		listener="#{argoInitializerBean.onSelectedArgoEnvId(argoInitializerBean.selectedArgoEnId)}" />
+	                  	
+	 		</p:selectOneMenu>
+			
+			<h:panelGrid columns="2">
+			
+				<h:outputLabel value="Argo Env ID"/>
+   				<p:inputText value="#{argoInitializerBean.argoEnvironmentSelected.argoEnvId}" style="width:800px;"/>
+					    			
+   				<h:outputLabel value="Argo Server url"/>
+   				<p:inputText value="#{argoInitializerBean.argoEnvironmentSelected.argoServer}" style="width:800px;"/>
+   				
+   				<h:outputLabel value="Argo user"/>
+   				<p:inputText value="#{argoInitializerBean.argoEnvironmentSelected.argoUser}" style="width:200px;"/>
+   				
+   				<h:outputLabel value="Argo passord"/>
+   				<p:password value="#{argoInitializerBean.argoEnvironmentSelected.argoPassword}" toggleMask="true" redisplay="true" style="width:400px;"/>
+   				
+   				<h:outputLabel value="Argo GitOps url"/>
+   				<p:inputText value="#{argoInitializerBean.argoEnvironmentSelected.gitOpsRepo}" style="width:800px;"/>
+   				
+   				<h:outputLabel value="Argo GitOpsApp url"/>
+   				<p:inputText value="#{argoInitializerBean.argoEnvironmentSelected.gitOpsAppsRepo}" style="width:800px;"/>
+   				
+   				<h:outputLabel value="Argo Projet (Environment)"/>
+   				<p:inputText value="#{argoInitializerBean.argoEnvironmentSelected.argoProj}" style="width:300px;"/>
+   			</h:panelGrid>
+   			
+   			<p:commandButton value="Save"  
+       			actionListener="#{argoInitializerBean.save(argoInitializerBean.argoEnvironmentSelected)}"
+       			update="@form" style="margin:10px;background:#003b50;color:white" />
+			   										
+   			
+		</h:form>
+		
+	</p:dialog>
 	
  
 </h:body>

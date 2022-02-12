@@ -1,14 +1,19 @@
 package com.its4u.beans;
 
+import java.util.HashMap;
 import java.util.List;
+
+import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.its4u.models.ArgoAppStatus;
+import com.its4u.models.ArgoEnvironment;
 import com.its4u.models.ArgoResource;
 import com.its4u.models.Environments;
+import com.its4u.services.ArgoService;
 import com.its4u.services.ProjectService;
 
 @Component
@@ -19,6 +24,9 @@ public class ArgoInitializerBean {
 	
 	@Autowired
 	private ProjectService service;
+	
+	@Autowired
+	private ArgoService argoService;
 	
 	@Value("${argo.server}")
 	private String argoServer;
@@ -32,7 +40,30 @@ public class ArgoInitializerBean {
 	public List<ArgoResource> argoResources;
 	
 	private String reconciliateDate;
+	
+	private ArgoEnvironment argoEnvironmentSelected;
+	
+	private List<ArgoEnvironment> availableArgoEnvironment;
+	
+	private HashMap<String,ArgoEnvironment> myArgoEnv;
+	
+	private String selectedArgoEnId;
 
+	@PostConstruct
+    public void init()  {
+		myArgoEnv = argoService.findAll();
+		availableArgoEnvironment = argoService.loadAllArgoEnvs();
+		selectedArgoEnId = "";
+		argoEnvironmentSelected = new ArgoEnvironment();
+    }
+	
+	public void save() {
+		argoEnvironmentSelected = argoService.createArgoEnv(argoEnvironmentSelected);
+	}
+		
+	public void onSelectedArgoEnvId(String argoEnvId) {
+		argoEnvironmentSelected = myArgoEnv.get(argoEnvId);
+	}
 	
 	public void synchronise(Environments env) {
 					
@@ -93,6 +124,32 @@ public class ArgoInitializerBean {
 	public void setReconciliateDate(String reconciliateDate) {
 		this.reconciliateDate = reconciliateDate;
 	}
+
+	public ArgoEnvironment getArgoEnvironmentSelected() {
+		return argoEnvironmentSelected;
+	}
+
+	public void setArgoEnvironmentSelected(ArgoEnvironment argoEnvironmentSelected) {
+		this.argoEnvironmentSelected = argoEnvironmentSelected;
+	}
+
+	public List<ArgoEnvironment> getAvailableArgoEnvironment() {
+		return availableArgoEnvironment;
+	}
+
+	public void setAvailableArgoEnvironment(List<ArgoEnvironment> availableArgoEnvironment) {
+		this.availableArgoEnvironment = availableArgoEnvironment;
+	}
+
+	public HashMap<String, ArgoEnvironment> getMyArgoEnv() {
+		return myArgoEnv;
+	}
+
+	public void setMyArgoEnv(HashMap<String, ArgoEnvironment> myArgoEnv) {
+		this.myArgoEnv = myArgoEnv;
+	}
+	
+	
 	
 	
 	
