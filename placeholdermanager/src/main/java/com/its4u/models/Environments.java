@@ -63,12 +63,7 @@ public class Environments implements Serializable {
 	@ManyToOne
     @JoinColumn(name = "project_Id",insertable = false, updatable = false)
     private Project project;
-	
-	@JsonIgnore
-	@ManyToOne
-    @JoinColumn(name = "argoEnvId",insertable = false, updatable = false)
-    private ArgoEnvironment argoEnvironment;
-	
+		
 
 	@OneToMany(mappedBy = "_environment", cascade =  { CascadeType.ALL }, fetch = FetchType.EAGER,orphanRemoval = true)	
 	public List<PlaceHolders> placeholders;
