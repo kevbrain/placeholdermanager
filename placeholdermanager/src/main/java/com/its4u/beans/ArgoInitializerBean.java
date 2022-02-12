@@ -48,6 +48,10 @@ public class ArgoInitializerBean {
 	private HashMap<String,ArgoEnvironment> myArgoEnv;
 	
 	private String selectedArgoEnId;
+	
+	private Environments env;
+	
+	private boolean newEnv;
 
 	@PostConstruct
     public void init()  {
@@ -59,10 +63,13 @@ public class ArgoInitializerBean {
 	
 	public void save() {
 		argoEnvironmentSelected = argoService.createArgoEnv(argoEnvironmentSelected);
+		env.setArgoEnvId(argoEnvironmentSelected.getArgoEnvId());
+		newEnv=false;
 		init();
 	}
 		
 	public void onSelectedArgoEnvId(String argoEnvId,Environments env) {
+		this.env=env;
 		if (argoEnvId.equalsIgnoreCase("")) {
 			argoEnvironmentSelected = new ArgoEnvironment();
 		} else {
@@ -164,6 +171,14 @@ public class ArgoInitializerBean {
 
 	public void setSelectedArgoEnId(String selectedArgoEnId) {
 		this.selectedArgoEnId = selectedArgoEnId;
+	}
+
+	public boolean isNewEnv() {
+		return newEnv;
+	}
+
+	public void setNewEnv(boolean newEnv) {
+		this.newEnv = newEnv;
 	}
 	
 	

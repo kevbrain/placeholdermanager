@@ -65,6 +65,8 @@ public class PlaceHoldersView {
 	private boolean applicationSelected;
 	
 	
+	
+	
 	@PostConstruct
     public void init()  {
 		refresh();
@@ -87,6 +89,10 @@ public class PlaceHoldersView {
 		applicationSelected=true;
 		onSelectedProject(projet.getProject_Id());
 		selectedProjectId=projet.getProject_Id();
+	}
+	
+	public void onNewArgoEnv() {
+		argoInitialier.setNewEnv(true);
 	}
 	
 		

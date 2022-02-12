@@ -155,9 +155,39 @@
 						                  	<p:ajax  event="change" update="@form" 
 						                  		listener="#{argoInitializerBean.onSelectedArgoEnvId(argoInitializerBean.selectedArgoEnId,env)}" />						                  	
 	 									</p:selectOneMenu>
-	 									<p:commandButton value="+"  					   			
-					   						onclick="PF('dlgArgoEnvironment').show()" style="margin:10px;background:#003b50;color:white" />
+	 									<p:commandButton value="+" listener="#{placeHoldersView.onNewArgoEnv}" update="newEnv"
+					   						 style="margin:10px;background:#003b50;color:white" />
 	 									
+					    				<p:panel id="newEnv" rendered="#{argoInitializerBean.newEnv}">
+					    						<h:panelGrid columns="2" id="gridArgo">
+												
+													<h:outputLabel value="Argo Env ID"/>
+									   				<p:inputText value="#{argoInitializerBean.argoEnvironmentSelected.argoEnvId}" style="width:800px;"/>
+														    			
+									   				<h:outputLabel value="Argo Server url"/>
+									   				<p:inputText value="#{argoInitializerBean.argoEnvironmentSelected.argoServer}" style="width:800px;"/>
+									   				
+									   				<h:outputLabel value="Argo user"/>
+									   				<p:inputText value="#{argoInitializerBean.argoEnvironmentSelected.argoUser}" style="width:200px;"/>
+									   				
+									   				<h:outputLabel value="Argo passord"/>
+									   				<p:password value="#{argoInitializerBean.argoEnvironmentSelected.argoPassword}" toggleMask="true" redisplay="true" style="width:400px;"/>
+									   				
+									   				<h:outputLabel value="Argo GitOps url"/>
+									   				<p:inputText value="#{argoInitializerBean.argoEnvironmentSelected.gitOpsRepo}" style="width:800px;"/>
+									   				
+									   				<h:outputLabel value="Argo GitOpsApp url"/>
+									   				<p:inputText value="#{argoInitializerBean.argoEnvironmentSelected.gitOpsAppsRepo}" style="width:800px;"/>
+									   				
+									   				<h:outputLabel value="Argo Projet (Environment)"/>
+									   				<p:inputText value="#{argoInitializerBean.argoEnvironmentSelected.argoProj}" style="width:300px;"/>
+									   			</h:panelGrid>
+									   			
+									   			<p:commandButton value="Save"  
+									       			actionListener="#{argoInitializerBean.save()}"
+									       			onclick="PF('dlgArgoEnvironment').hide()"
+									       			update="@form" style="margin:10px;background:#003b50;color:white" />
+					    				</p:panel>
 					    				
 					    				<!-- 
 					    				<h:outputLabel value="Argo Server url"/>
@@ -313,43 +343,8 @@
 	
 	<p:dialog widgetVar="dlgArgoEnvironment" showEffect="fade">
 		<h:form>
-		
-		 	<p:selectOneMenu  value="#{argoInitializerBean.selectedArgoEnId}">
-	 				 	 	<f:selectItem itemLabel="Select One" itemValue=""/>
-	                  	<f:selectItems value="#{argoInitializerBean.myArgoEnv}" var="envArgo" itemLabel="#{envArgo}" itemValue="#{envArgo}"/>
-	                  	<p:ajax  oncomplete="PF('dlg0').hide()"  event="change" update="gridArgo" 
-	                  		listener="#{argoInitializerBean.onSelectedArgoEnvId(argoInitializerBean.selectedArgoEnId)}" />
-	                  	
-	 		</p:selectOneMenu>
-			
-			<h:panelGrid columns="2" id="gridArgo">
-			
-				<h:outputLabel value="Argo Env ID"/>
-   				<p:inputText value="#{argoInitializerBean.argoEnvironmentSelected.argoEnvId}" style="width:800px;"/>
-					    			
-   				<h:outputLabel value="Argo Server url"/>
-   				<p:inputText value="#{argoInitializerBean.argoEnvironmentSelected.argoServer}" style="width:800px;"/>
-   				
-   				<h:outputLabel value="Argo user"/>
-   				<p:inputText value="#{argoInitializerBean.argoEnvironmentSelected.argoUser}" style="width:200px;"/>
-   				
-   				<h:outputLabel value="Argo passord"/>
-   				<p:password value="#{argoInitializerBean.argoEnvironmentSelected.argoPassword}" toggleMask="true" redisplay="true" style="width:400px;"/>
-   				
-   				<h:outputLabel value="Argo GitOps url"/>
-   				<p:inputText value="#{argoInitializerBean.argoEnvironmentSelected.gitOpsRepo}" style="width:800px;"/>
-   				
-   				<h:outputLabel value="Argo GitOpsApp url"/>
-   				<p:inputText value="#{argoInitializerBean.argoEnvironmentSelected.gitOpsAppsRepo}" style="width:800px;"/>
-   				
-   				<h:outputLabel value="Argo Projet (Environment)"/>
-   				<p:inputText value="#{argoInitializerBean.argoEnvironmentSelected.argoProj}" style="width:300px;"/>
-   			</h:panelGrid>
-   			
-   			<p:commandButton value="Save"  
-       			actionListener="#{argoInitializerBean.save()}"
-       			onclick="PF('dlgArgoEnvironment').hide()"
-       			update="@form" style="margin:10px;background:#003b50;color:white" />
+					
+	
 			   										
    			
 		</h:form>
