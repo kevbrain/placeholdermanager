@@ -79,12 +79,12 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	@Override
-	public String synchronize(String projectName) {
+	public String synchronize(Environments env) {
 		
 		String responseArgo="";
 		Unirest.setTimeouts(0, 0);
 		try {
-			HttpResponse<String> response = Unirest.post("https://openshift-gitops-server-openshift-gitops.apps.ocp-lab.its4u.eu/api/v1/applications/"+projectName+"/sync")
+			HttpResponse<String> response = Unirest.post(env.getArgoServer()+"/api/v1/applications/"+env.getProjectId()+"/sync")
 			  .header("Authorization", "Bearer "+getToken())
 			  .body("{\r\n  \"dryRun\": false\r\n\r\n}")
 			  .asString();		
@@ -96,11 +96,66 @@ public class ProjectServiceImpl implements ProjectService {
 		return responseArgo;
 	}
 	
-	public String deleteArgoApplication(String projectName) {
+	
+	@Override
+	public String synchronize(String projectName,String env) {
+		
+		Project proj = findProject(projectName);
+		enrichProject(proj);
+		String envID = proj.getMapenvs().get(env);
+		Environments envconcerned = null ;
+		for (Environments envi: proj.getEnvironments()) {
+			if (envi.getEnvironment().equalsIgnoreCase(envID)) {
+				envconcerned = envi;
+			}
+		}
+		
 		String responseArgo="";
 		Unirest.setTimeouts(0, 0);
 		try {
-			HttpResponse<String> response = Unirest.delete("https://openshift-gitops-server-openshift-gitops.apps.ocp-lab.its4u.eu/api/v1/applications/"+projectName+"?cascade=true")
+			HttpResponse<String> response = Unirest.post(envconcerned.getArgoServer()+"/api/v1/applications/"+projectName+"/sync")
+			  .header("Authorization", "Bearer "+getToken())
+			  .body("{\r\n  \"dryRun\": false\r\n\r\n}")
+			  .asString();		
+			responseArgo = response.getBody();
+		} catch (UnirestException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return responseArgo;
+	}
+	
+	@Override
+	public String synchronize(String projectName,Environments env) {
+		String responseArgo="";
+		Unirest.setTimeouts(0, 0);
+		try {
+			HttpResponse<String> response = Unirest.post(env.getArgoServer()+"/api/v1/applications/"+projectName+"/sync")
+			  .header("Authorization", "Bearer "+getToken())
+			  .body("{\r\n  \"dryRun\": false\r\n\r\n}")
+			  .asString();		
+			responseArgo = response.getBody();
+		} catch (UnirestException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return responseArgo;
+	}
+	
+	public String deleteArgoApplication(String projectName,String env) {
+		Project proj = findProject(projectName);
+		enrichProject(proj);
+		String envID = proj.getMapenvs().get(env);
+		Environments envconcerned = null ;
+		for (Environments envi: proj.getEnvironments()) {
+			if (envi.getEnvironment().equalsIgnoreCase(envID)) {
+				envconcerned = envi;
+			}
+		}
+		String responseArgo="";
+		Unirest.setTimeouts(0, 0);
+		try {
+			HttpResponse<String> response = Unirest.delete(envconcerned.getArgoServer()+"/api/v1/applications/"+projectName+"?cascade=true")
 			  .header("Authorization", "Bearer "+getToken())
 			  .body("{\r\n  \"dryRun\": false\r\n\r\n}")
 			  .asString();		
@@ -271,20 +326,28 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	@Override
-	public String applyConf(String projectName) {
+	public String applyConf(String projectName,String env) {
 		// TODO Auto-generated method stub
 		Project project= findProject(projectName);
-		for (Environments env: project.getEnvironments()) {
-			updateGitOps(env);
+		enrichProject(project);
+		String envID = project.getMapenvs().get(env);
+		Environments envconcerned = null ;
+		for (Environments envi: project.getEnvironments()) {
+			if (envi.getEnvironment().equalsIgnoreCase(envID)) {
+				envconcerned = envi;
+				updateGitOps(envconcerned);
+			}
 		}		
-		synchronize("cluster-configs");
+		
+		if (envconcerned!=null) synchronize("cluster-configs",envconcerned);
+		
 		try {
 			Thread.sleep(1500);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return synchronize(projectName);
+		return synchronize(projectName,envconcerned);
 	}
 
 	@Override
@@ -373,4 +436,6 @@ public class ProjectServiceImpl implements ProjectService {
 		}
 		return keyvalue;
 	}
+
+	
 }

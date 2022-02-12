@@ -20,7 +20,11 @@ public interface ProjectService {
 	
 	Project findProject(String projectName);
 	
-	String synchronize(String projectName);
+	String synchronize(Environments env);
+	
+	String synchronize(String projectName,String env);
+	
+	String synchronize(String projectName,Environments env);
 	
 	ArgoAppStatus statusAndHealth(String projectName);
 	
@@ -28,11 +32,11 @@ public interface ProjectService {
 
 	String cloneGitApp(Project project);
 	
-	String applyConf(String projectName);
+	String applyConf(String projectName,String env);
 	
 	void deletePlaceHolder(PlaceHolders placeHolder);
 	
-	String deleteArgoApplication(String projectName);
+	String deleteArgoApplication(String projectName,String env);
 
 	Project createVersion(String projectName, String version);
 

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.its4u.models.ArgoAppStatus;
 import com.its4u.models.ArgoResource;
+import com.its4u.models.Environments;
 import com.its4u.services.ProjectService;
 
 @Component
@@ -33,9 +34,9 @@ public class ArgoInitializerBean {
 	private String reconciliateDate;
 
 	
-	public void synchronise(String project) {
+	public void synchronise(Environments env) {
 					
-		service.synchronize(project);
+		service.synchronize(env.getProjectId(),env);
 				
 	}
 	

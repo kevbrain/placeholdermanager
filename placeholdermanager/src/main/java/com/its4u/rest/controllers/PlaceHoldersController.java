@@ -42,12 +42,12 @@ public class PlaceHoldersController {
 	
 	@RequestMapping(value = "/apply-conf/{projectName}/{env}")
 	public @ResponseBody String applyconf(@PathVariable("projectName") String projectName,@PathVariable("env") String env) {
-		return service.applyConf(projectName);
+		return service.applyConf(projectName,env);
 	}
 	
-	@RequestMapping(value = "/sync/{projectName}")
-	public @ResponseBody String synchronize(@PathVariable("projectName") String projectName) {
-		return service.synchronize(projectName);
+	@RequestMapping(value = "/sync/{projectName}/{env}")
+	public @ResponseBody String synchronize(@PathVariable("projectName") String projectName,@PathVariable("env") String env) {
+		return service.synchronize(projectName,env);
 	}
 	
 	@RequestMapping(value = "/projects/{projectName}/create-version/{version}")

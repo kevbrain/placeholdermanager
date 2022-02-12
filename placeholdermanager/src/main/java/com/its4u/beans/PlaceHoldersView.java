@@ -190,7 +190,7 @@ public class PlaceHoldersView {
 	
 	public void synchronise(Environments env) {
 		save(env);
-		argoInitialier.synchronise(env.getProjectId());
+		argoInitialier.synchronise(env);
 	}
 	
 	public void promote(Environments env) {
