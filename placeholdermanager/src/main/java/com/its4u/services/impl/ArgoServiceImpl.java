@@ -5,12 +5,13 @@ import java.util.List;
 
 import org.apache.commons.collections4.IterableUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.its4u.models.ArgoEnvironment;
-import com.its4u.models.Project;
 import com.its4u.repositories.ArgoEnvironmentRepository;
 import com.its4u.services.ArgoService;
 
+@Service
 public class ArgoServiceImpl implements ArgoService {
 	
 	@Autowired
