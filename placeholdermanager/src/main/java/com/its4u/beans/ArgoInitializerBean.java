@@ -59,6 +59,7 @@ public class ArgoInitializerBean {
 	
 	public void save() {
 		argoEnvironmentSelected = argoService.createArgoEnv(argoEnvironmentSelected);
+		init();
 	}
 		
 	public void onSelectedArgoEnvId(String argoEnvId) {
