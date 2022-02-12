@@ -148,6 +148,14 @@ public class ArgoInitializerBean {
 	public void setMyArgoEnv(HashMap<String, ArgoEnvironment> myArgoEnv) {
 		this.myArgoEnv = myArgoEnv;
 	}
+
+	public String getSelectedArgoEnId() {
+		return selectedArgoEnId;
+	}
+
+	public void setSelectedArgoEnId(String selectedArgoEnId) {
+		this.selectedArgoEnId = selectedArgoEnId;
+	}
 	
 	
 	
