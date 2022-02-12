@@ -62,8 +62,9 @@ public class ArgoInitializerBean {
 		init();
 	}
 		
-	public void onSelectedArgoEnvId(String argoEnvId) {
+	public void onSelectedArgoEnvId(String argoEnvId,Environments env) {
 		argoEnvironmentSelected = myArgoEnv.get(argoEnvId);
+		env.setArgoEnvironment(argoEnvironmentSelected);
 	}
 	
 	public void synchronise(Environments env) {

@@ -149,12 +149,11 @@
 					    			<h:panelGrid columns="3">
 					    			
 					    				<h:outputLabel value="Argo Environment"/>
-					    				<p:selectOneMenu  value="#{argoInitializerBean.selectedArgoEnId}"
-						 				 	 onchange="PF('dlg0').show()">
+					    				<p:selectOneMenu  value="#{env.argoEnvId}">
 						 				 	<f:selectItem itemLabel="Select One" itemValue=""/>
 						                  	<f:selectItems value="#{argoInitializerBean.myArgoEnv}" var="envArgo" itemLabel="#{envArgo}" itemValue="#{envArgo}"/>
-						                  	<p:ajax  oncomplete="PF('dlg0').hide()"  event="change" update="@form" 
-						                  		listener="#{argoInitializerBean.onSelectedArgoEnvId(argoInitializerBean.selectedArgoEnId)}" />						                  	
+						                  	<p:ajax  event="change" update="@form" 
+						                  		listener="#{argoInitializerBean.onSelectedArgoEnvId(argoInitializerBean.selectedArgoEnId,env)}" />						                  	
 	 									</p:selectOneMenu>
 	 									<p:commandButton value="+"  					   			
 					   						onclick="PF('dlgArgoEnvironment').show()" style="margin:10px;background:#003b50;color:white" />
@@ -315,8 +314,7 @@
 	<p:dialog widgetVar="dlgArgoEnvironment" showEffect="fade">
 		<h:form>
 		
-		 	<p:selectOneMenu  value="#{argoInitializerBean.selectedArgoEnId}"
-	 				 	 onchange="PF('dlg0').show()">
+		 	<p:selectOneMenu  value="#{argoInitializerBean.selectedArgoEnId}">
 	 				 	 	<f:selectItem itemLabel="Select One" itemValue=""/>
 	                  	<f:selectItems value="#{argoInitializerBean.myArgoEnv}" var="envArgo" itemLabel="#{envArgo}" itemValue="#{envArgo}"/>
 	                  	<p:ajax  oncomplete="PF('dlg0').hide()"  event="change" update="@form" 

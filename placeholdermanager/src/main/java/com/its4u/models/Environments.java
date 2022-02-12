@@ -35,6 +35,9 @@ public class Environments implements Serializable {
 	@Column(name = "PROJECT_ID")
 	private String projectId;
 	
+	@Column(name = "ARGO_ENV_ID")
+	private String argoEnvId;
+	
 	@Column(name = "RELEASE_TAG")
 	private String releaseTag;
 	
@@ -60,6 +63,11 @@ public class Environments implements Serializable {
 	@ManyToOne
     @JoinColumn(name = "project_Id",insertable = false, updatable = false)
     private Project project;
+	
+	@JsonIgnore
+	@ManyToOne
+    @JoinColumn(name = "argoEnvId",insertable = false, updatable = false)
+    private ArgoEnvironment argoEnvironment;
 	
 
 	@OneToMany(mappedBy = "_environment", cascade =  { CascadeType.ALL }, fetch = FetchType.EAGER,orphanRemoval = true)	
