@@ -38,6 +38,9 @@ public class Environments implements Serializable {
 	@Column(name = "RELEASE_TAG")
 	private String releaseTag;
 	
+	@Column(name = "ARGO_SERVER")
+	private String argoServer;
+	
 	@Column(name = "ARGO_PROJ")
 	private String argoProj;
 	
