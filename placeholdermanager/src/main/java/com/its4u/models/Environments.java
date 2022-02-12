@@ -36,7 +36,7 @@ public class Environments implements Serializable {
 	private String projectId;
 	
 	@Column(name = "ARGO_ENV_ID")
-	private String argo_env_Id;
+	private String argoEnvId;
 	
 	@Column(name = "RELEASE_TAG")
 	private String releaseTag;
