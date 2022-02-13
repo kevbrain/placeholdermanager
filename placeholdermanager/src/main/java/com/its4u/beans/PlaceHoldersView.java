@@ -80,7 +80,8 @@ public class PlaceHoldersView {
 			ArgoAppStatus appStatus = argoInitialier.statusAndHealth(proj.getProject_Id());
 			proj.setAppstatus(appStatus);
 			proj.setSynchrone(appStatus.getSync().equalsIgnoreCase("synced"));
-		}					
+		}				
+		argoInitialier.setNewEnv(false);
 						
 	}
 	
@@ -92,6 +93,7 @@ public class PlaceHoldersView {
 	}
 	
 	public void onNewArgoEnv() {
+		System.out.println("set new env as true");
 		argoInitialier.setNewEnv(true);
 	}
 	

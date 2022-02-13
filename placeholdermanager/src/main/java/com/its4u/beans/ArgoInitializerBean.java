@@ -80,8 +80,7 @@ public class ArgoInitializerBean {
 			env.setArgoEnvId(argoEnvId);
 			selectedArgoEnId=argoEnvId;
 		}
-		this.newEnv=true;
-		
+				
 	}
 	
 	public void synchronise(Environments env) {
