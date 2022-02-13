@@ -69,6 +69,8 @@ public class ArgoInitializerBean {
 	}
 		
 	public void onSelectedArgoEnvId(String argoEnvId,Environments env) {
+		
+		System.out.println("selected argoenv = "+argoEnvId);
 		this.env=env;
 		if (argoEnvId.equalsIgnoreCase("")) {
 			argoEnvironmentSelected = new ArgoEnvironment();
@@ -78,6 +80,7 @@ public class ArgoInitializerBean {
 			env.setArgoEnvId(argoEnvId);
 			selectedArgoEnId=argoEnvId;
 		}
+		this.newEnv=true;
 		
 	}
 	
