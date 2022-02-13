@@ -153,7 +153,7 @@
 						 				 	<f:selectItem itemLabel="Select One" itemValue=""/>
 						                  	<f:selectItems value="#{argoInitializerBean.myArgoEnv}" var="envArgo" itemLabel="#{envArgo}" itemValue="#{envArgo}"/>
 						                  	<p:ajax  event="change" update="@form" 
-						                  		listener="#{argoInitializerBean.onSelectedArgoEnvId(argoInitializerBean.selectedArgoEnId,env)}" />						                  	
+						                  		listener="#{argoInitializerBean.onSelectedArgoEnvId(env.argoEnvId,env)}" />						                  	
 	 									</p:selectOneMenu>
 	 									<p:commandButton value="+" actionListener="#{placeHoldersView.onNewArgoEnv}" update="@form"
 					   						 style="margin:10px;background:#003b50;color:white" />
