@@ -156,36 +156,36 @@
 						                  	<p:ajax  event="change" update="@form" 
 						                  		listener="#{placeHoldersView.onSelectedArgoEnvId(env.argoEnvId,env)}" />						                  	
 	 									</p:selectOneMenu>
-	 									<p:commandButton value="+" actionListener="#{placeHoldersView.addNewEnv}" update="@form"
+	 									<p:commandButton value="+" actionListener="#{placeHoldersView.addNewEnv(env)}" update="@form"
 					   						 style="margin:10px;background:#003b50;color:white" />
 	 								</h:panelGrid>
 					    				<p:panel id="newEnv" rendered="#{argoInitializerBean.newEnv}">
 					    						<h:panelGrid columns="2" id="gridArgo">
 												
 													<h:outputLabel value="Argo Env ID"/>
-									   				<p:inputText value="#{placeHoldersView.argoEnvironment.argoEnvId}" style="width:800px;"/>
+									   				<p:inputText value="#{env.argoEnv.argoEnvId}" style="width:800px;"/>
 														    			
 									   				<h:outputLabel value="Argo Server url"/>
-									   				<p:inputText value="#{placeHoldersView.argoEnvironment.argoServer}" style="width:800px;"/>
+									   				<p:inputText value="#{env.argoEnv.argoServer}" style="width:800px;"/>
 									   				
 									   				<h:outputLabel value="Argo user"/>
-									   				<p:inputText value="#{placeHoldersView.argoEnvironment.argoUser}" style="width:200px;"/>
+									   				<p:inputText value="#{env.argoEnv.argoUser}" style="width:200px;"/>
 									   				
 									   				<h:outputLabel value="Argo passord"/>
-									   				<p:inputText value="#{placeHoldersView.argoEnvironment.argoPassword}" style="width:400px;"/>
+									   				<p:inputText value="#{env.argoEnv.argoPassword}" style="width:400px;"/>
 									   				
 									   				<h:outputLabel value="Argo GitOps url"/>
-									   				<p:inputText value="#{placeHoldersView.argoEnvironment.gitOpsRepo}" style="width:800px;"/>
+									   				<p:inputText value="#{env.argoEnv.gitOpsRepo}" style="width:800px;"/>
 									   				
 									   				<h:outputLabel value="Argo GitOpsApp url"/>
-									   				<p:inputText value="#{placeHoldersView.argoEnvironment.gitOpsAppsRepo}" style="width:800px;"/>
+									   				<p:inputText value="#{env.argoEnv.gitOpsAppsRepo}" style="width:800px;"/>
 									   				
 									   				<h:outputLabel value="Argo Projet (Environment)"/>
-									   				<p:inputText value="#{placeHoldersView.argoEnvironment.argoProj}" style="width:300px;"/>
+									   				<p:inputText value="#{env.argoEnv.argoProj}" style="width:300px;"/>
 									   			</h:panelGrid>
 									   			
 									   			<p:commandButton value="Save"  
-									       			actionListener="#{placeHoldersView.saveArgoEnv(placeHoldersView.argoEnvironment,env)}"
+									       			actionListener="#{placeHoldersView.saveArgoEnv(env.argoEnv)}"
 									       			update="@form" style="margin:10px;background:#003b50;color:white" />
 									       			
 									       		<p:commandButton value="Cancel"  

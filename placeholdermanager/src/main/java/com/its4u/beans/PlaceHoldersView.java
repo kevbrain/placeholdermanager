@@ -98,9 +98,11 @@ public class PlaceHoldersView {
 		selectedProjectId=projet.getProject_Id();
 	}
 	
-	public void addNewEnv() {
+	public void addNewEnv(Environments env) {
 		argoEnvironment = new ArgoEnvironment();
 		argoEnvironment.setArgoEnvId("new-env");
+		env.setArgoEnv(argoEnvironment);
+		
 		argoInitialier.setNewEnv(true);
 
 	}
@@ -114,10 +116,10 @@ public class PlaceHoldersView {
 			
 	}
 	
-	public void saveArgoEnv(ArgoEnvironment argoEnv,Environments env) {
+	public void saveArgoEnv(ArgoEnvironment argoEnv) {
 		
 		System.out.println("*** Save "+argoEnv.getArgoEnvId());
-		System.out.println("for env = "+env.getEnvironment());
+		//System.out.println("for env = "+env.getEnvironment());
 		System.out.println("* "+argoEnv.getGitOpsRepo());
 		System.out.println("* "+argoEnv.getGitOpsAppsRepo());
 		System.out.println("* "+argoEnv.getArgoUser());
@@ -125,7 +127,6 @@ public class PlaceHoldersView {
 		System.out.println("* "+argoEnv.getArgoProj());
 		
 		argoEnvironment = argoService.createArgoEnv(argoEnv);
-		env.setArgoEnvId(argoEnv.getArgoEnvId());
 		argoInitialier.setNewEnv(false);
 		
 	}	
