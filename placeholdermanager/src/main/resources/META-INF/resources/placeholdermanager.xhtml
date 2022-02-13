@@ -138,6 +138,7 @@
    			
    			
 		   			<p:tabView value="#{placeHoldersView.selectedProject.environments}" var="env" id="tabviewenv" >
+		   				<p:ajax event="tabChange"  update="@form" process="@form" listener="#{placeHoldersView.closeArgoDetails}"/>
 					    	<p:tab title="#{env.environment}" >
 					    			<!-- 
 					    				<p:outputLabel value="Release (mandatory) : "/>
@@ -189,7 +190,7 @@
 									       			update="@form" style="margin:10px;background:#003b50;color:white" />
 									       			
 									       		<p:commandButton value="Cancel"  
-									       			onclick="PF('dlgArgoEnvironment').hide()"
+									       			actionListener="#{placeHoldersView.closeArgoDetails}"
 									       			update="@form" style="margin:10px;background:#003b50;color:white" />
 					    				</p:panel>
 					    				

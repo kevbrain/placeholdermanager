@@ -97,6 +97,10 @@ public class PlaceHoldersView {
 		argoInitialier.setNewEnv(true);
 	}
 	
+	public void closeArgoDetails() {
+		argoInitialier.setNewEnv(false);
+	}
+	
 		
 	public void save(Environments env) {
 
