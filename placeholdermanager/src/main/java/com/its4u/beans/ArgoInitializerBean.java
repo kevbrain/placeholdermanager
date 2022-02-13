@@ -61,17 +61,18 @@ public class ArgoInitializerBean {
 		argoEnvironmentSelected = null;
     }
 	
-	public void save(ArgoEnvironment argoEnv) {
+	public void save(ArgoEnvironment argoEnv,Environments env) {
 		
-		System.out.println("Save "+argoEnv.getArgoEnvId());
-		System.out.println(argoEnv.getGitOpsRepo());
-		System.out.println(argoEnv.getGitOpsAppsRepo());
-		System.out.println(argoEnv.getArgoUser());
-		System.out.println(argoEnv.getArgoPassword());
-		System.out.println(argoEnv.getArgoProj());
+		System.out.println("*** Save "+argoEnv.getArgoEnvId());
+		System.out.println("for env = "+env.getEnvironment());
+		System.out.println("* "+argoEnv.getGitOpsRepo());
+		System.out.println("* "+argoEnv.getGitOpsAppsRepo());
+		System.out.println("* "+argoEnv.getArgoUser());
+		System.out.println("* "+argoEnv.getArgoPassword());
+		System.out.println("* "+argoEnv.getArgoProj());
 		
-		//argoEnvironmentSelected = argoService.createArgoEnv(argoEnvironmentSelected);
-		env.setArgoEnvId(argoEnvironmentSelected.getArgoEnvId());
+		argoEnvironmentSelected = argoService.createArgoEnv(argoEnv);
+		env.setArgoEnvId(argoEnv.getArgoEnvId());
 		newEnv=false;
 		init();
 	}
