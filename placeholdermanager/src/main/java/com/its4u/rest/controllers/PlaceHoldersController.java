@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.its4u.models.ArgoEnvironment;
 import com.its4u.models.Project;
+import com.its4u.services.ArgoService;
 import com.its4u.services.ProjectService;
 
 @RestController
@@ -18,6 +20,9 @@ public class PlaceHoldersController {
 
 	@Autowired
 	private ProjectService service;
+	
+	@Autowired
+	private ArgoService argoService;
 	
 	@ResponseBody
 	@PostMapping(value= "/createProject", consumes = "application/json", produces = "application/json")
@@ -28,6 +33,11 @@ public class PlaceHoldersController {
 	@RequestMapping(value = "/projects/list", produces = "application/json")
 	public @ResponseBody Collection<Project> getAllProjects() {
 		return service.findAll().values();
+	}
+	
+	@RequestMapping(value = "/argo-environment/list", produces = "application/json")
+	public @ResponseBody Collection<ArgoEnvironment> getAllArogoEnvironment() {
+		return argoService.findAll().values();
 	}
 	
 	@RequestMapping(value = "/projects/get/{projectName}", produces = "application/json")
