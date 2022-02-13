@@ -155,7 +155,7 @@
 						                  	<p:ajax  event="change" update="@form" 
 						                  		listener="#{argoInitializerBean.onSelectedArgoEnvId(argoInitializerBean.selectedArgoEnId,env)}" />						                  	
 	 									</p:selectOneMenu>
-	 									<p:commandButton value="+" listener="#{placeHoldersView.onNewArgoEnv}" update="@form"
+	 									<p:commandButton value="+" actionListener="#{placeHoldersView.onNewArgoEnv}" update="@form"
 					   						 style="margin:10px;background:#003b50;color:white" />
 	 								</h:panelGrid>
 					    				<p:panel id="newEnv" rendered="#{argoInitializerBean.newEnv}">
