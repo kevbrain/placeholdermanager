@@ -70,6 +70,10 @@ public class Environments implements Serializable {
 	
 	@JsonIgnore
 	@Transient
+	public ArgoEnvironment argoEnv;
+	
+	@JsonIgnore
+	@Transient
 	public List<PlaceHolders> clearPlaceholders;
 	
 	@JsonIgnore

@@ -19,11 +19,13 @@ import org.springframework.stereotype.Component;
 import com.its4u.gitops.GitController;
 import com.its4u.gitops.Parser;
 import com.its4u.models.ArgoAppStatus;
+import com.its4u.models.ArgoEnvironment;
 import com.its4u.models.Environments;
 import com.its4u.models.PlaceHolderId;
 import com.its4u.models.PlaceHolders;
 import com.its4u.models.Project;
 import com.its4u.models.Versions;
+import com.its4u.services.ArgoService;
 import com.its4u.services.OcpExplorerService;
 import com.its4u.services.ProjectService;
 
@@ -35,6 +37,9 @@ public class PlaceHoldersView {
 
 	@Autowired
 	private ProjectService projectService;
+	
+	@Autowired
+	private ArgoService argoService;
 	
 	@Autowired
 	private ArgoInitializerBean argoInitialier;
@@ -64,6 +69,7 @@ public class PlaceHoldersView {
 	
 	private boolean applicationSelected;
 	
+	private ArgoEnvironment argoEnvironment;
 	
 	
 	
@@ -92,10 +98,37 @@ public class PlaceHoldersView {
 		selectedProjectId=projet.getProject_Id();
 	}
 	
-	public void onNewArgoEnv() {
-		System.out.println("set new env as true");
+	public void addNewEnv() {
+		argoEnvironment = new ArgoEnvironment();
+		argoEnvironment.setArgoEnvId("new-env");
 		argoInitialier.setNewEnv(true);
+
 	}
+	
+	public void onSelectedArgoEnvId(String argoEnvId,Environments env) {
+		
+		System.out.println("selected argoenv = "+argoEnvId);
+		System.out.println("for env = "+env.getEnvironment());
+		argoEnvironment = argoInitialier.getMyArgoEnv().get(argoEnvId);
+		env.setArgoEnvId(argoEnvId);
+			
+	}
+	
+	public void saveArgoEnv(ArgoEnvironment argoEnv,Environments env) {
+		
+		System.out.println("*** Save "+argoEnv.getArgoEnvId());
+		System.out.println("for env = "+env.getEnvironment());
+		System.out.println("* "+argoEnv.getGitOpsRepo());
+		System.out.println("* "+argoEnv.getGitOpsAppsRepo());
+		System.out.println("* "+argoEnv.getArgoUser());
+		System.out.println("* "+argoEnv.getArgoPassword());
+		System.out.println("* "+argoEnv.getArgoProj());
+		
+		argoEnvironment = argoService.createArgoEnv(argoEnv);
+		env.setArgoEnvId(argoEnv.getArgoEnvId());
+		argoInitialier.setNewEnv(false);
+		
+	}	
 	
 	public void closeArgoDetails() {
 		argoInitialier.setNewEnv(false);
