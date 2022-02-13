@@ -2,6 +2,7 @@ package com.its4u.services.impl;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.commons.collections4.IterableUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,13 @@ public class ArgoServiceImpl implements ArgoService {
 			argoEnvs.put(argoenv.getArgoEnvId(), argoenv);
 		}
 		return argoEnvs;
+	}
+
+	@Override
+	public void delete(String argoIdenv) {
+		Optional<ArgoEnvironment> envToDelete = argoRepository.findById(argoIdenv);
+		argoRepository.delete(envToDelete.get());
+		
 	}
 
 }

@@ -35,6 +35,11 @@ public class PlaceHoldersController {
 		return service.findAll().values();
 	}
 	
+	@PostMapping(value ="/argo-environment/delete/{envId}")
+	public void deleteArgoEnv(@PathVariable("envId") String envId) {
+		argoService.delete(envId);
+	}
+	
 	@RequestMapping(value = "/argo-environment/list", produces = "application/json")
 	public @ResponseBody Collection<ArgoEnvironment> getAllArogoEnvironment() {
 		return argoService.findAll().values();

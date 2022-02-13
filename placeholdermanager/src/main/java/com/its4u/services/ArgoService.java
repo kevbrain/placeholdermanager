@@ -12,5 +12,7 @@ public interface ArgoService {
 	HashMap<String,ArgoEnvironment> findAll();
 	
 	ArgoEnvironment createArgoEnv(ArgoEnvironment argoEnvironment);
+	
+	void delete(String argoIdenv);
 
 }
