@@ -151,12 +151,12 @@
 					    			
 					    				<h:outputLabel value="Argo Environment"/>
 					    				<p:selectOneMenu  value="#{env.argoEnvId}">
-						 				 	<f:selectItem itemLabel="Select One" itemValue=""/>
+						 				 	<f:selectItem itemLabel="Select One" itemValue="${null}"/>
 						                  	<f:selectItems value="#{argoInitializerBean.myArgoEnv}" var="envArgo" itemLabel="#{envArgo}" itemValue="#{envArgo}"/>
 						                  	<p:ajax  event="change" update="@form" 
 						                  		listener="#{argoInitializerBean.onSelectedArgoEnvId(env.argoEnvId,env)}" />						                  	
 	 									</p:selectOneMenu>
-	 									<p:commandButton value="+" actionListener="#{placeHoldersView.onNewArgoEnv}" update="@form"
+	 									<p:commandButton value="+" actionListener="#{argoInitializerBean.addNewEnv}" update="@form"
 					   						 style="margin:10px;background:#003b50;color:white" />
 	 								</h:panelGrid>
 					    				<p:panel id="newEnv" rendered="#{argoInitializerBean.newEnv}">
@@ -185,8 +185,8 @@
 									   			</h:panelGrid>
 									   			
 									   			<p:commandButton value="Save"  
-									       			actionListener="#{argoInitializerBean.save(argoInitializerBean.argoEnvironmentSelected,env)}"
-									       			onclick="PF('dlgArgoEnvironment').hide()" immediate="true"
+									       			actionListener="#{argoInitializerBean.save(argoInitializerBean.argoEnvironmentSelected)}"
+									       			onclick="PF('dlgArgoEnvironment').hide()" 
 									       			update="@form" style="margin:10px;background:#003b50;color:white" />
 									       			
 									       		<p:commandButton value="Cancel"  

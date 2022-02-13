@@ -3,6 +3,7 @@ package com.its4u.rest.controllers;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,8 +36,9 @@ public class PlaceHoldersController {
 		return service.findAll().values();
 	}
 	
-	@PostMapping(value ="/argo-environment/delete/{envId}")
+	@DeleteMapping(value ="/argo-environment/delete/{envId}")
 	public void deleteArgoEnv(@PathVariable("envId") String envId) {
+		if (envId==null) envId="";
 		argoService.delete(envId);
 	}
 	

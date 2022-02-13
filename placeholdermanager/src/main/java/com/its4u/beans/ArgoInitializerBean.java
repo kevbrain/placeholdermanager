@@ -57,11 +57,11 @@ public class ArgoInitializerBean {
     public void init()  {
 		myArgoEnv = argoService.findAll();
 		availableArgoEnvironment = argoService.loadAllArgoEnvs();
-		selectedArgoEnId = "";
-		argoEnvironmentSelected = new ArgoEnvironment();
+		selectedArgoEnId = null;
+		argoEnvironmentSelected = null;
     }
 	
-	public void save(ArgoEnvironment argoEnv,Environments env) {
+	public void save(ArgoEnvironment argoEnv) {
 		
 		System.out.println("Save "+argoEnv.getArgoEnvId());
 		System.out.println(argoEnv.getGitOpsRepo());
@@ -75,19 +75,23 @@ public class ArgoInitializerBean {
 		newEnv=false;
 		init();
 	}
+	
+	public void addNewEnv() {
+		argoEnvironmentSelected = new ArgoEnvironment();
+		argoEnvironmentSelected.setArgoEnvId("new env");
+		newEnv=true;
+	}
 		
 	public void onSelectedArgoEnvId(String argoEnvId,Environments env) {
 		
 		System.out.println("selected argoenv = "+argoEnvId);
-		this.env=env;
-		if (argoEnvId.equalsIgnoreCase("")) {
-			argoEnvironmentSelected = new ArgoEnvironment();
-		} else {
-			selectedArgoEnId=argoEnvId;
-			argoEnvironmentSelected = myArgoEnv.get(argoEnvId);
-			env.setArgoEnvId(argoEnvId);
-			selectedArgoEnId=argoEnvId;
-		}
+		System.out.println("for env = "+env.getEnvironment());
+		this.env=env;	
+		selectedArgoEnId=argoEnvId;
+		argoEnvironmentSelected = myArgoEnv.get(argoEnvId);
+		env.setArgoEnvId(argoEnvId);
+		selectedArgoEnId=argoEnvId;
+	
 				
 	}
 	
