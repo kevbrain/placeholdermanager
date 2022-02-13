@@ -186,7 +186,7 @@
 									   			
 									   			<p:commandButton value="Save"  
 									       			actionListener="#{argoInitializerBean.save(argoInitializerBean.argoEnvironmentSelected,env)}"
-									       			onclick="PF('dlgArgoEnvironment').hide()" 
+									       			onclick="PF('dlgArgoEnvironment').hide()" immediate="true"
 									       			update="@form" style="margin:10px;background:#003b50;color:white" />
 									       			
 									       		<p:commandButton value="Cancel"  

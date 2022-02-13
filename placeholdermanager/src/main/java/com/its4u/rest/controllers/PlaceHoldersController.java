@@ -39,6 +39,7 @@ public class PlaceHoldersController {
 	@DeleteMapping(value ="/argo-environment/delete/{envId}")
 	public void deleteArgoEnv(@PathVariable("envId") String envId) {
 		if (envId=="null") envId="";
+		System.out.println("To delete ["+"]");
 		argoService.delete(envId);
 	}
 	
