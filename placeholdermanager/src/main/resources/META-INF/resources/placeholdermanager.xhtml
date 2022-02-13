@@ -185,7 +185,7 @@
 									   			</h:panelGrid>
 									   			
 									   			<p:commandButton value="Save"  
-									       			actionListener="#{argoInitializerBean.save()}"
+									       			actionListener="#{argoInitializerBean.save(argoInitializerBean.argoEnvironmentSelected,env)}"
 									       			onclick="PF('dlgArgoEnvironment').hide()"
 									       			update="@form" style="margin:10px;background:#003b50;color:white" />
 									       			
@@ -193,29 +193,7 @@
 									       			actionListener="#{placeHoldersView.closeArgoDetails}"
 									       			update="@form" style="margin:10px;background:#003b50;color:white" />
 					    				</p:panel>
-					    				
-					    				<!-- 
-					    				<h:outputLabel value="Argo Server url"/>
-					    				<p:inputText value="#{env.argoServer}" style="width:800px;"/>
-					    				
-					    				<h:outputLabel value="Argo user"/>
-					    				<p:inputText value="#{env.argoUser}" style="width:200px;"/>
-					    				
-					    				<h:outputLabel value="Argo passord"/>
-					    				<p:password value="#{env.argoPassword}" toggleMask="true" redisplay="true" style="width:400px;"/>
-					    				
-					    				<h:outputLabel value="Argo GitOps url"/>
-					    				<p:inputText value="#{env.gitOpsRepo}" style="width:800px;"/>
-					    				
-					    				<h:outputLabel value="Argo GitOpsApp url"/>
-					    				<p:inputText value="#{env.gitOpsAppsRepo}" style="width:800px;"/>
-					    				
-					    				<h:outputLabel value="Argo Projet (Environment)"/>
-					    				<p:inputText value="#{env.argoProj}" style="width:300px;"/>
-					    				
-					    				-->
-					    			
-					    	
+					    		
 					    	
 					    			<div style="position:relative;margin:auto;text-align:center;">	
 					    				<p:commandButton value="Apply And Deploy Project" 

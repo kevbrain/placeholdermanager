@@ -61,8 +61,16 @@ public class ArgoInitializerBean {
 		argoEnvironmentSelected = new ArgoEnvironment();
     }
 	
-	public void save() {
-		argoEnvironmentSelected = argoService.createArgoEnv(argoEnvironmentSelected);
+	public void save(ArgoEnvironment argoEnv,Environments env) {
+		
+		System.out.println("Save "+argoEnv.getArgoEnvId());
+		System.out.println(argoEnv.getGitOpsRepo());
+		System.out.println(argoEnv.getGitOpsAppsRepo());
+		System.out.println(argoEnv.getArgoUser());
+		System.out.println(argoEnv.getArgoPassword());
+		System.out.println(argoEnv.getArgoProj());
+		
+		//argoEnvironmentSelected = argoService.createArgoEnv(argoEnvironmentSelected);
 		env.setArgoEnvId(argoEnvironmentSelected.getArgoEnvId());
 		newEnv=false;
 		init();
