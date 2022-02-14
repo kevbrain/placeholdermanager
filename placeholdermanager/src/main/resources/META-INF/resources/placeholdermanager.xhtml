@@ -159,29 +159,43 @@
 	 									<p:commandButton value="+" actionListener="#{placeHoldersView.addNewEnv(env)}" update="@form"
 					   						 style="margin:10px;background:#003b50;color:white" />
 	 								</h:panelGrid>
-					    				<p:panel id="newEnv" rendered="#{argoInitializerBean.newEnv}">
+					    				<p:panel id="newEnvGrid" rendered="#{argoInitializerBean.newEnv}">
 					    						<h:panelGrid columns="2" id="gridArgo">
 												
 													<h:outputLabel value="Argo Env ID"/>
-									   				<p:inputText value="#{env.argoEnv.argoEnvId}" style="width:800px;"/>
+									   				<p:inputText value="#{env.argoEnv.argoEnvId}" style="width:800px;">
+									   					<p:ajax event="change"   update="@form" immediate="true" />
+									   				</p:inputText>
 														    			
 									   				<h:outputLabel value="Argo Server url"/>
-									   				<p:inputText value="#{env.argoEnv.argoServer}" style="width:800px;"/>
+									   				<p:inputText value="#{env.argoEnv.argoServer}" style="width:800px;">
+									   					<p:ajax event="change"   update="@form" immediate="true" />
+									   				</p:inputText>
 									   				
 									   				<h:outputLabel value="Argo user"/>
-									   				<p:inputText value="#{env.argoEnv.argoUser}" style="width:200px;"/>
+									   				<p:inputText value="#{env.argoEnv.argoUser}" style="width:200px;">
+									   					<p:ajax event="change"   update="@form" immediate="true" />
+									   				</p:inputText>
 									   				
 									   				<h:outputLabel value="Argo passord"/>
-									   				<p:inputText value="#{env.argoEnv.argoPassword}" style="width:400px;"/>
+									   				<p:inputText value="#{env.argoEnv.argoPassword}" style="width:400px;">
+									   					<p:ajax event="change"   update="@form" immediate="true" />
+									   				</p:inputText>
 									   				
 									   				<h:outputLabel value="Argo GitOps url"/>
-									   				<p:inputText value="#{env.argoEnv.gitOpsRepo}" style="width:800px;"/>
+									   				<p:inputText value="#{env.argoEnv.gitOpsRepo}" style="width:800px;">
+									   					<p:ajax event="change"   update="@form" immediate="true" />
+									   				</p:inputText>
 									   				
 									   				<h:outputLabel value="Argo GitOpsApp url"/>
-									   				<p:inputText value="#{env.argoEnv.gitOpsAppsRepo}" style="width:800px;"/>
+									   				<p:inputText value="#{env.argoEnv.gitOpsAppsRepo}" style="width:800px;">
+									   					<p:ajax event="change"   update="@form" immediate="true" />
+									   				</p:inputText>
 									   				
 									   				<h:outputLabel value="Argo Projet (Environment)"/>
-									   				<p:inputText value="#{env.argoEnv.argoProj}" style="width:300px;"/>
+									   				<p:inputText value="#{env.argoEnv.argoProj}" style="width:300px;">
+									   					<p:ajax event="change"   update="@form" immediate="true" />
+									   				</p:inputText>
 									   			</h:panelGrid>
 									   			
 									   			<p:commandButton value="Save"  
