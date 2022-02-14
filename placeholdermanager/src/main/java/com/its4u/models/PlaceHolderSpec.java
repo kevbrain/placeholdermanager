@@ -14,6 +14,7 @@ public class PlaceHolderSpec {
 	public PlaceHolderSpec(String value, String type, boolean snapshot) {
 		super();
 		this.value = value;
+		this.type = type;
 		this.snapshot = snapshot;
 	}
 	
