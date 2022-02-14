@@ -452,7 +452,7 @@ public class ProjectServiceImpl implements ProjectService {
 	public HashMap<String,PlaceHolderSpec> createMapPlaceHoldersFromEnv(Environments env) {
 		HashMap<String,PlaceHolderSpec> keyvalue = new HashMap<String,PlaceHolderSpec>();
 		for (PlaceHolders pl:env.getPlaceholders()) {
-			keyvalue.put(pl.getPlaceHolderId().getKey(), new PlaceHolderSpec(pl.getValue(),false));
+			keyvalue.put(pl.getPlaceHolderId().getKey(), new PlaceHolderSpec(pl.getValue(),pl.getType(),false));
 		}
 		return keyvalue;
 	}

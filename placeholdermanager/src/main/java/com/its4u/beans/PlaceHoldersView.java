@@ -22,6 +22,7 @@ import com.its4u.models.ArgoAppStatus;
 import com.its4u.models.ArgoEnvironment;
 import com.its4u.models.Environments;
 import com.its4u.models.PlaceHolderId;
+import com.its4u.models.PlaceHolderSpec;
 import com.its4u.models.PlaceHolders;
 import com.its4u.models.Project;
 import com.its4u.models.Versions;
@@ -224,6 +225,34 @@ public class PlaceHoldersView {
 		Environments destinationEnv = environmentService.getEnvById(iddestinationEnvironment);
 		
 		System.out.println("Destination Environment = "+destinationEnv.getEnvironment());
+		
+		destinationEnv = mergePlaceHolders(env, destinationEnv);
+		environmentService.save(destinationEnv);
+		
+		refresh();
+		
+	}
+	
+	public Environments mergePlaceHolders(Environments envSource,Environments envDest) {
+		HashMap<String,PlaceHolderSpec> keyplaceHolderSource = selectedProject.getMapPlaceHoldersByEnv().get(envSource.getEnvironment());
+		HashMap<String,PlaceHolderSpec> keyplaceHolderDest = selectedProject.getMapPlaceHoldersByEnv().get(envDest.getEnvironment());
+		
+		List<PlaceHolders> plholDest = envDest.getPlaceholders();
+		if (plholDest==null) {
+			plholDest = new ArrayList<PlaceHolders>();
+		}
+		
+		for (String keySource : keyplaceHolderSource.keySet()) {
+			if (keyplaceHolderDest!=null && keyplaceHolderDest.get(keySource)!=null) {
+				// key already exists
+			} else {
+				PlaceHolderId plId = new PlaceHolderId(envDest.getEnvironment(), keySource);
+				PlaceHolders pl = new PlaceHolders(plId,envDest,keyplaceHolderSource.get(keySource).getValue(),keyplaceHolderSource.get(keySource).getType());
+				plholDest.add(pl);
+			}
+		}
+		envDest.setPlaceholders(plholDest);
+		return envDest;
 		
 	}
 	

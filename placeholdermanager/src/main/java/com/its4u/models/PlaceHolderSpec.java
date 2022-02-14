@@ -7,9 +7,11 @@ public class PlaceHolderSpec {
 	
 	private String value;
 	
+	private String type;
+	
 	private boolean snapshot=false;
 
-	public PlaceHolderSpec(String value, boolean snapshot) {
+	public PlaceHolderSpec(String value, String type, boolean snapshot) {
 		super();
 		this.value = value;
 		this.snapshot = snapshot;

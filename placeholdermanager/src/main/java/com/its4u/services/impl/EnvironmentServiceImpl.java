@@ -19,4 +19,9 @@ public class EnvironmentServiceImpl implements EnvironmentService{
 		return environmentRepository.findById(envId).get();
 	}
 
+	@Override
+	public Environments save(Environments env) {
+		return environmentRepository.save(env);
+	}
+
 }
