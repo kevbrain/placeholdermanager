@@ -42,10 +42,6 @@ public class Project implements Serializable{
 	
 	@Transient
 	@JsonIgnore
-	private HashMap<String,Environments> mapEagerEnv;
-	
-	@Transient
-	@JsonIgnore
 	private HashMap<String,String> mapenvs;
 	
 	@Transient
