@@ -15,4 +15,6 @@ public interface ArgoService {
 	
 	void delete(String argoIdenv);
 
+	void delete(ArgoEnvironment argoEnv);
+
 }
