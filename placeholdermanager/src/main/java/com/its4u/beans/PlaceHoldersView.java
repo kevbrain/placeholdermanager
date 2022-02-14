@@ -26,6 +26,7 @@ import com.its4u.models.PlaceHolders;
 import com.its4u.models.Project;
 import com.its4u.models.Versions;
 import com.its4u.services.ArgoService;
+import com.its4u.services.EnvironmentService;
 import com.its4u.services.OcpExplorerService;
 import com.its4u.services.ProjectService;
 
@@ -40,6 +41,9 @@ public class PlaceHoldersView {
 	
 	@Autowired
 	private ArgoService argoService;
+	
+	@Autowired
+	private EnvironmentService environmentService;
 	
 	@Autowired
 	private ArgoInitializerBean argoInitialier;
@@ -207,6 +211,20 @@ public class PlaceHoldersView {
 	
 	public void promote(Environments env) {
 		System.out.println("¨Promote "+env.getEnvironment()+" to another environment");
+		String envsuffix = env.getEnvironment().substring(env.getEnvironment().length() - 3);
+		System.out.println("Environment to promote = "+envsuffix);
+		String destinationEnvironment=null;
+		if (envsuffix.equalsIgnoreCase("dev")) {
+			destinationEnvironment= "tst";
+		}
+		if (envsuffix.equalsIgnoreCase("tst")) {
+			destinationEnvironment= "int";
+		}
+		String  iddestinationEnvironment = selectedProject.getMapenvs().get(destinationEnvironment);
+		Environments destinationEnv = environmentService.getEnvById(iddestinationEnvironment);
+		
+		System.out.println("Destination Environment = "+destinationEnv.getEnvironment());
+		
 	}
 	
 	public List<Project> getProjectList() {
