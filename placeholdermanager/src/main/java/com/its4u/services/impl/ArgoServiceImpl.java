@@ -43,5 +43,11 @@ public class ArgoServiceImpl implements ArgoService {
 		argoRepository.delete(envToDelete.get());
 		
 	}
+	
+
+	@Override
+	public void delete(ArgoEnvironment argoEnv) {
+		argoRepository.delete(argoEnv);
+	}
 
 }
