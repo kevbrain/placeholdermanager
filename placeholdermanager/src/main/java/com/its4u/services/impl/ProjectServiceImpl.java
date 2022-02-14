@@ -27,6 +27,7 @@ import com.its4u.gitops.GitController;
 import com.its4u.gitops.Parser;
 import com.its4u.models.ArgoAppStatus;
 import com.its4u.models.ArgoAuthToken;
+import com.its4u.models.ArgoEnvironment;
 import com.its4u.models.ArgoResource;
 import com.its4u.models.Environments;
 import com.its4u.models.PlaceHolderSpec;
@@ -37,6 +38,7 @@ import com.its4u.repositories.EnvironmentRepository;
 import com.its4u.repositories.PlaceHoldersRepository;
 import com.its4u.repositories.ProjectRepository;
 import com.its4u.repositories.VersionRepository;
+import com.its4u.services.ArgoService;
 import com.its4u.services.ProjectService;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
@@ -48,6 +50,9 @@ public class ProjectServiceImpl implements ProjectService {
 
 	@Autowired
 	private ProjectRepository repository;
+	
+	@Autowired
+	private ArgoService argoService;
 	
 	@Autowired
 	private PlaceHoldersRepository placeHolderRepository;
@@ -81,10 +86,13 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public String synchronize(Environments env) {
 		
+		ArgoEnvironment argoEnv = argoService.getArgoEnvByID(env.getArgoEnvId());
+		String argoServer = argoEnv.getArgoServer();
+		
 		String responseArgo="";
 		Unirest.setTimeouts(0, 0);
 		try {
-			HttpResponse<String> response = Unirest.post(env.getArgoServer()+"/api/v1/applications/"+env.getProjectId()+"/sync")
+			HttpResponse<String> response = Unirest.post(argoServer+"/api/v1/applications/"+env.getProjectId()+"/sync")
 			  .header("Authorization", "Bearer "+getToken())
 			  .body("{\r\n  \"dryRun\": false\r\n\r\n}")
 			  .asString();		
@@ -100,6 +108,8 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public String synchronize(String projectName,String env) {
 		
+		
+		
 		Project proj = findProject(projectName);
 		enrichProject(proj);
 		String envID = proj.getMapenvs().get(env);
@@ -109,11 +119,13 @@ public class ProjectServiceImpl implements ProjectService {
 				envconcerned = envi;
 			}
 		}
+		ArgoEnvironment argoEnv = argoService.getArgoEnvByID(envconcerned.getArgoEnvId());
+		String argoServer = argoEnv.getArgoServer();
 		
 		String responseArgo="";
 		Unirest.setTimeouts(0, 0);
 		try {
-			HttpResponse<String> response = Unirest.post(envconcerned.getArgoServer()+"/api/v1/applications/"+projectName+"/sync")
+			HttpResponse<String> response = Unirest.post(argoServer+"/api/v1/applications/"+projectName+"/sync")
 			  .header("Authorization", "Bearer "+getToken())
 			  .body("{\r\n  \"dryRun\": false\r\n\r\n}")
 			  .asString();		
@@ -127,10 +139,14 @@ public class ProjectServiceImpl implements ProjectService {
 	
 	@Override
 	public String synchronize(String projectName,Environments env) {
+		
+		ArgoEnvironment argoEnv = argoService.getArgoEnvByID(env.getArgoEnvId());
+		String argoServer = argoEnv.getArgoServer();
+		
 		String responseArgo="";
 		Unirest.setTimeouts(0, 0);
 		try {
-			HttpResponse<String> response = Unirest.post(env.getArgoServer()+"/api/v1/applications/"+projectName+"/sync")
+			HttpResponse<String> response = Unirest.post(argoServer+"/api/v1/applications/"+projectName+"/sync")
 			  .header("Authorization", "Bearer "+getToken())
 			  .body("{\r\n  \"dryRun\": false\r\n\r\n}")
 			  .asString();		
@@ -152,10 +168,14 @@ public class ProjectServiceImpl implements ProjectService {
 				envconcerned = envi;
 			}
 		}
+		
+		ArgoEnvironment argoEnv = argoService.getArgoEnvByID(envconcerned.getArgoEnvId());
+		String argoServer = argoEnv.getArgoServer();
+		
 		String responseArgo="";
 		Unirest.setTimeouts(0, 0);
 		try {
-			HttpResponse<String> response = Unirest.delete(envconcerned.getArgoServer()+"/api/v1/applications/"+projectName+"?cascade=true")
+			HttpResponse<String> response = Unirest.delete(argoServer+"/api/v1/applications/"+projectName+"?cascade=true")
 			  .header("Authorization", "Bearer "+getToken())
 			  .body("{\r\n  \"dryRun\": false\r\n\r\n}")
 			  .asString();		

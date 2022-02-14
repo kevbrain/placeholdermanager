@@ -8,6 +8,8 @@ import com.its4u.models.ArgoEnvironment;
 public interface ArgoService {
 	
 	List<ArgoEnvironment> loadAllArgoEnvs();
+
+	ArgoEnvironment getArgoEnvByID(String argoEnvId);
 	
 	HashMap<String,ArgoEnvironment> findAll();
 	

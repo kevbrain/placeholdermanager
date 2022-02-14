@@ -64,7 +64,6 @@ public class GitController {
 		List<String> tags = new ArrayList<String>();
 		Map<String,Ref> tagsList = gitApp.getRepository().getTags();
 		for (String tag:tagsList.keySet()) {
-			System.out.println("--> "+tag);
 			tags.add(tag);
 		}
 		return tags;

@@ -19,6 +19,11 @@ public class ArgoServiceImpl implements ArgoService {
 	private ArgoEnvironmentRepository argoRepository;
 
 	@Override
+	public ArgoEnvironment getArgoEnvByID(String argoEnvId) {
+		return argoRepository.findById(argoEnvId).get();
+	}
+	
+	@Override
 	public List<ArgoEnvironment> loadAllArgoEnvs() {
 		return IterableUtils.toList(argoRepository.findAll());
 	}

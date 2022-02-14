@@ -69,9 +69,7 @@ public class PlaceHoldersView {
 	
 	private boolean applicationSelected;
 	
-	private ArgoEnvironment argoEnvironment;
-	
-	
+
 	
 	@PostConstruct
     public void init()  {
@@ -98,39 +96,7 @@ public class PlaceHoldersView {
 		selectedProjectId=projet.getProject_Id();
 	}
 	
-	public void addNewEnv(Environments env) {
-		argoEnvironment = new ArgoEnvironment();
-		argoEnvironment.setArgoEnvId("new-env");
-		env.setArgoEnv(argoEnvironment);
-		
-		argoInitialier.setNewEnv(true);
 
-	}
-	
-	public void onSelectedArgoEnvId(String argoEnvId,Environments env) {
-		
-		System.out.println("selected argoenv = "+argoEnvId);
-		System.out.println("for env = "+env.getEnvironment());
-		argoEnvironment = argoInitialier.getMyArgoEnv().get(argoEnvId);
-		env.setArgoEnvId(argoEnvId);
-			
-	}
-	
-	public void saveArgoEnv(ArgoEnvironment argoEnv) {
-		
-		System.out.println("*** Save "+argoEnv.getArgoEnvId());
-		//System.out.println("for env = "+env.getEnvironment());
-		System.out.println("* "+argoEnv.getGitOpsRepo());
-		System.out.println("* "+argoEnv.getGitOpsAppsRepo());
-		System.out.println("* "+argoEnv.getArgoUser());
-		System.out.println("* "+argoEnv.getArgoPassword());
-		System.out.println("* "+argoEnv.getArgoProj());
-		
-		argoEnvironment = argoService.createArgoEnv(argoEnv);
-		argoInitialier.setNewEnv(false);
-		
-	}	
-	
 	public void closeArgoDetails() {
 		argoInitialier.setNewEnv(false);
 	}
