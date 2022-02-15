@@ -2,6 +2,7 @@ package com.its4u.beans;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -262,7 +263,18 @@ public class PlaceHoldersView {
 		// publish new resources on gitops		
 		System.out.println("publish new resources to "+destinationEnv.getArgoEnv().getGitOpsRepo());
 		// clone ocp-gitops
-		System.out.println("gitops cloned at : "+projectService.cloneGitOps(destinationEnv));
+		String path = projectService.cloneGitOps(destinationEnv);
+		// argoApp-bootstraper.yaml
+		// NS-devops.yml
+		Path filePathArgoApp = Paths.get(path+"/cluster/applications/", "argoApp-"+selectedProject.getProject_Id()+".yaml");
+		Path filePathNameSpace = Paths.get(path+"/cluster/namespaces/", "NS-"+selectedProject.getProject_Id()+".yml");
+		try {
+			Files.writeString(filePathArgoApp,newArgoApp);
+			Files.writeString(filePathNameSpace,newNamespace);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 				
 				
