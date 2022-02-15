@@ -86,8 +86,8 @@ public class PlaceHoldersView {
 		myProjects = projectService.findAll();		
 		for (Project proj:myProjects.values()) {			
 			projectService.enrichProject(proj);			
-			proj.setAppstatus(appStatus);
-			proj.setSynchrone(appStatus.getSync().equalsIgnoreCase("synced"));
+			//proj.setAppstatus(appStatus);
+			//proj.setSynchrone(appStatus.getSync().equalsIgnoreCase("synced"));
 		}				
 		argoInitialier.setNewEnv(false);
 						
