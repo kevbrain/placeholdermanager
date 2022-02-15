@@ -131,9 +131,9 @@ public static void commitAndPushGitOps(Environments env) throws NoFilepatternExc
 		System.out.println("Commit ID = "+rev.getId().toString().substring(7, 47));
 		System.out.println("Commit Time = "+rev.getCommitTime());
 		
-		RemoteAddCommand remoteAddCommand = gitOpsApp.remoteAdd();
+		RemoteAddCommand remoteAddCommand = gitops.remoteAdd();
 	    remoteAddCommand.setName("origin");
-	    remoteAddCommand.setUri(new URIish(env.getGitOpsAppsRepo()));
+	    remoteAddCommand.setUri(new URIish(env.getArgoEnv().getGitOpsRepo()));
 	    remoteAddCommand.call();
 
 	    // push to remote:
@@ -164,7 +164,7 @@ public static void commitAndPushGitOps(Environments env) throws NoFilepatternExc
 		
 		RemoteAddCommand remoteAddCommand = gitOpsApp.remoteAdd();
 	    remoteAddCommand.setName("origin");
-	    remoteAddCommand.setUri(new URIish(env.getGitOpsAppsRepo()));
+	    remoteAddCommand.setUri(new URIish(env.getArgoEnv().getGitOpsAppsRepo()));
 	    remoteAddCommand.call();
 
 	    // push to remote:
