@@ -136,6 +136,13 @@ public class Environments implements Serializable {
 		return clears;
 	}
 	
+	public HashMap<String,String> getPlaceHoldersMap() {
+		HashMap<String,String> mapPlaceHolders = new HashMap<String, String>();
+		for (PlaceHolders pl:placeholders) {
+			mapPlaceHolders.put(pl.getPlaceHolderId().getKey(), pl.getValue());
+		}
+		return mapPlaceHolders;
+	}
 
 	
 	@Override

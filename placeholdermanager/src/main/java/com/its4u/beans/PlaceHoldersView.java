@@ -267,7 +267,7 @@ public class PlaceHoldersView {
 		// argoApp-bootstraper.yaml
 		// NS-devops.yml
 		Path filePathArgoApp = Paths.get(path+"/cluster/applications/", "argoApp-"+selectedProject.getProject_Id()+".yaml");
-		Path filePathNameSpace = Paths.get(path+"/cluster/namespaces/", "NS-"+selectedProject.getProject_Id()+".yml");
+		Path filePathNameSpace = Paths.get(path+"/cluster/namespaces/", "NS-"+destinationEnv.getPlaceHoldersMap().get("ocp-namespace")+".yml");
 		try {
 			Files.writeString(filePathArgoApp,newArgoApp);
 			Files.writeString(filePathNameSpace,newNamespace);
