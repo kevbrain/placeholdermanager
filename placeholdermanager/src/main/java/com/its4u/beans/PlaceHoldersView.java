@@ -26,11 +26,14 @@ import com.its4u.models.PlaceHolderSpec;
 import com.its4u.models.PlaceHolders;
 import com.its4u.models.Project;
 import com.its4u.models.Versions;
+import com.its4u.models.templates.TemplateModel;
 import com.its4u.services.ArgoService;
 import com.its4u.services.EnvironmentService;
 import com.its4u.services.OcpExplorerService;
 import com.its4u.services.ProjectService;
+import com.its4u.utils.TemplateGenerator;
 
+import freemarker.template.TemplateException;
 import lombok.Data;
 @ViewScoped
 @Data
@@ -210,9 +213,12 @@ public class PlaceHoldersView {
 	}
 	
 	public void promote(Environments env) {
+		String projectid= selectedProject.getProject_Id();
 		System.out.println("¨Promote "+env.getEnvironment()+" to another environment");
 		String envsuffix = env.getEnvironment().substring(env.getEnvironment().length() - 3);
 		System.out.println("Environment to promote = "+envsuffix);
+		
+		// Destination environment selection
 		String destinationEnvironment=null;
 		if (envsuffix.equalsIgnoreCase("dev")) {
 			destinationEnvironment= "tst";
@@ -228,7 +234,36 @@ public class PlaceHoldersView {
 		destinationEnv = mergePlaceHolders(env, destinationEnv);
 		environmentService.save(destinationEnv);
 		
+		// Generation argoApp and Namespace
+		TemplateModel tempMod = new TemplateModel(
+				projectid, 
+				env.getArgoEnv().getArgoProj(),
+				env.getArgoEnv().getGitOpsAppsRepo());
+		
+		TemplateGenerator templateGenerator;
+		String newArgoApp = null;
+		String newNamespace = null;
+		
+		try {
+			templateGenerator = new TemplateGenerator();
+			newArgoApp = templateGenerator.generateArgoApp(tempMod);
+			newNamespace = templateGenerator.generateOcpNameSpace(tempMod);
+		} catch (IOException | TemplateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println(newArgoApp);
+		System.out.println("--------------------");
+		System.out.println(newNamespace);
+		
+		// publish new resources on gitopps
+		System.out.println("publish new resources to "+destinationEnv.getArgoEnv().getGitOpsRepo());
+				
+				
 		refresh();
+		selectedProject=myProjects.get(projectid);
+		applicationSelected=true;
 		
 	}
 	
