@@ -428,7 +428,8 @@ public class ProjectServiceImpl implements ProjectService {
 	public void enrichProject(Project project) {
 		HashMap<String,HashMap<String,PlaceHolderSpec>> envplaceHolders = new HashMap<String,HashMap<String,PlaceHolderSpec>>();
 		HashMap<String,String> envByProject = createMapEnvironment(project);
-		for (Environments env:project.getEnvironments()) {								
+		for (Environments env:project.getEnvironments()) {		
+			env.setArgoEnv(argoService.getArgoEnvByID(env.getArgoEnvId()));
 			envplaceHolders.put(env.getEnvironment(),createMapPlaceHoldersFromEnv(env));
 			env.setAppStatus(statusAndHealth(project.getProject_Id(), env));
 		}
