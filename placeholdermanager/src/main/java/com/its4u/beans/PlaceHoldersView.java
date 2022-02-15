@@ -259,10 +259,11 @@ public class PlaceHoldersView {
 		System.out.println("--------------------");
 		System.out.println(newNamespace);
 		
-		// publish new resources on gitops
-		
-		
+		// publish new resources on gitops		
 		System.out.println("publish new resources to "+destinationEnv.getArgoEnv().getGitOpsRepo());
+		// clone ocp-gitops
+		System.out.println("gitops cloned at : "+projectService.cloneGitOps(destinationEnv));
+		
 				
 				
 		refresh();

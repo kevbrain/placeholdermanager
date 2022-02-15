@@ -31,6 +31,8 @@ public class GitController {
 	private static Git gitOpsApp;
 	
 	private static Git gitApp;
+	
+	private static Git gitops;
 			
 	
 	@SuppressWarnings("deprecation")
@@ -90,6 +92,30 @@ public class GitController {
 			System.out.println("Git Clone exception");
 			e.printStackTrace();
 			gitOpsApp = Git.init().setDirectory(workingDirectory).call();
+		}	
+		return path;
+		
+	}
+	
+	public static String loadGitOps(String gitOpsRepoUrl) throws IllegalStateException, GitAPIException {
+
+		UUID uuid = UUID.randomUUID();
+		String path = pathWorkspace+"//ocp-gitops-"+uuid;
+		
+		File workingDirectory = null;
+		workingDirectory = new File(path);
+		workingDirectory.delete();
+		workingDirectory.mkdirs();
+						
+		try {	
+			gitops = Git.cloneRepository()
+					  .setURI(gitOpsRepoUrl)
+					  .setDirectory(workingDirectory)
+					  .call();
+		} catch (Exception e) {
+			System.out.println("Git Clone exception");
+			e.printStackTrace();
+			gitops = Git.init().setDirectory(workingDirectory).call();
 		}	
 		return path;
 		

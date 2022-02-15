@@ -49,5 +49,9 @@ public interface ProjectService {
 	HashMap<String, PlaceHolderSpec> createMapPlaceHoldersFromEnv(Environments env);
 
 	void enrichProject(Project project);
+
+	String cloneGitOpsApps(Environments env);
+
+	String cloneGitOps(Environments env);
 	
 }

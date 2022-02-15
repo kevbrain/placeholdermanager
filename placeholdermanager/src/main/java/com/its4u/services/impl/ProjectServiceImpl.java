@@ -273,7 +273,7 @@ public class ProjectServiceImpl implements ProjectService {
 	public void updateGitOps(Environments env) {
 		
 		// clone gitops	
-		String pathWorkkingGitOpsProject = cloneGitOps(env)+"/"+env.getProjectId();							
+		String pathWorkkingGitOpsProject = cloneGitOpsApps(env)+"/"+env.getProjectId();							
 		String pathWorkingGitAppProject = cloneGitApp(env.getProject());
 		
 		
@@ -297,15 +297,29 @@ public class ProjectServiceImpl implements ProjectService {
 		}	
 	}
 	
+	@Override
 	public String cloneGitOps(Environments env) {
 		String pathWorkkingGitOps = null;
 		try {
-			pathWorkkingGitOps = GitController.loadGitOpsApps(env.getGitOpsAppsRepo());
+			pathWorkkingGitOps = GitController.loadGitOps(env.getArgoEnv().getGitOpsRepo());
 		} catch (IllegalStateException | GitAPIException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		return pathWorkkingGitOps;
+	}
+	
+	
+	@Override
+	public String cloneGitOpsApps(Environments env) {
+		String pathWorkkingGitOpsApps = null;
+		try {
+			pathWorkkingGitOpsApps = GitController.loadGitOpsApps(env.getArgoEnv().getGitOpsAppsRepo());
+		} catch (IllegalStateException | GitAPIException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		return pathWorkkingGitOpsApps;
 	}
 	
 	@Override
