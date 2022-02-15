@@ -125,14 +125,7 @@
 	 				 <h:outputText value="Git url"/>
 	 				 <h:outputText id="giturl" value="#{placeHoldersView.selectedProject.gitUrl}"/>
 	 				 
-	 				 <h:outputText value="Sync"/>
-	 				 <h:panelGroup>
-	 				 	<h:outputText id="syncstatus" value="#{placeHoldersView.appStatus.sync}"/>
-	 				 	<p:commandButton value="Details"  					   			
-					   			onclick="PF('dlgStatus').show()" style="margin:10px;background:#003b50;color:white" />
-	 				 </h:panelGroup>
-	 				 <h:outputText value="Health"/>
-	 				 <h:outputText id="healthstatus" value="#{placeHoldersView.appStatus.health}"/>
+	 				 
 	   			</h:panelGrid>
 	   			
    			
@@ -140,14 +133,8 @@
 		   		<p:tabView value="#{placeHoldersView.selectedProject.environments}" var="env" id="tabviewenv" >
 		   				<p:ajax event="tabChange"  update="@form" process="@form" listener="#{placeHoldersView.closeArgoDetails}"/>
 					    	<p:tab title="#{env.environment}" >
-					    			<!-- 
-					    				<p:outputLabel value="Release (mandatory) : "/>
-					    				 <p:selectOneMenu id="releaseTag" value="#{env.releaseTag}">
-					    				 	 <f:selectItem itemLabel="Select One" itemValue=""/>
-					    				 	 <f:selectItems value="#{placeHoldersView.tags}"/>
-					    				 </p:selectOneMenu>
-					    			 -->
-					    			<h:panelGrid columns="3">
+					    		
+					    			<h:panelGrid columns="9">
 					    			
 					    				<h:outputLabel value="Argo Environment"/>
 					    				<p:selectOneMenu  value="#{env.argoEnvId}">
@@ -158,6 +145,17 @@
 	 									</p:selectOneMenu>
 	 									<p:commandButton value="+" actionListener="#{argoInitializerBean.addNewEnv}" update="@form"
 					   						 style="margin:10px;background:#003b50;color:white" />
+					   					<p:spacer height="10" width="100"></p:spacer>
+					   					
+					   					<h:outputText value="Sync"/>
+						 				<h:panelGroup>
+						 				 	<h:outputText id="syncstatus" value="#{env.appStatus.sync}"/>
+						 				 	<p:commandButton value="Details"  					   			
+										   			onclick="PF('dlgStatus').show()" style="margin:10px;background:#003b50;color:white" />
+						 			    </h:panelGroup>
+						 			    <p:spacer height="10" width="100"></p:spacer>
+						 			    <h:outputText value="Health"/>
+						 			    <h:outputText id="healthstatus" value="#{env.appStatus.health}"/>
 	 								</h:panelGrid>
 					    				<p:panel id="newEnv" rendered="#{argoInitializerBean.newEnv}">
 					    						<h:panelGrid columns="2" id="gridArgo">

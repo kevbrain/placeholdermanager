@@ -26,7 +26,7 @@ public interface ProjectService {
 	
 	String synchronize(String projectName,Environments env);
 	
-	ArgoAppStatus statusAndHealth(String projectName);
+	ArgoAppStatus statusAndHealth(String projectName,Environments env);
 	
 	void updateGitOps(Environments env);
 

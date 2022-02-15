@@ -96,9 +96,9 @@ public class ArgoInitializerBean {
 				
 	}
 	
-	public ArgoAppStatus statusAndHealth(String project) {
+	public ArgoAppStatus statusAndHealth(String project,Environments env) {
 
-		return service.statusAndHealth(project);
+		return service.statusAndHealth(project,env);
 	}
 	
 

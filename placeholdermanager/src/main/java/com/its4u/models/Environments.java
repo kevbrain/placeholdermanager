@@ -60,6 +60,9 @@ public class Environments implements Serializable {
 	private String gitOpsAppsRepo;
 	
 	@JsonIgnore
+	private ArgoAppStatus appStatus;
+	
+	@JsonIgnore
 	@ManyToOne
     @JoinColumn(name = "project_Id",insertable = false, updatable = false)
     private Project project;

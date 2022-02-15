@@ -85,8 +85,7 @@ public class PlaceHoldersView {
 		applicationSelected=false;
 		myProjects = projectService.findAll();		
 		for (Project proj:myProjects.values()) {			
-			projectService.enrichProject(proj);
-			ArgoAppStatus appStatus = argoInitialier.statusAndHealth(proj.getProject_Id());
+			projectService.enrichProject(proj);			
 			proj.setAppstatus(appStatus);
 			proj.setSynchrone(appStatus.getSync().equalsIgnoreCase("synced"));
 		}				
@@ -192,7 +191,7 @@ public class PlaceHoldersView {
 		
 		selectedProject=myProjects.get(projectId);
 		searchForNewPlaceHolders();		
-		appStatus = argoInitialier.statusAndHealth(selectedProject.getProject_Id());
+		//appStatus = argoInitialier.statusAndHealth(selectedProject.getProject_Id());
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Project loaded"));
 						
 	}
@@ -201,7 +200,7 @@ public class PlaceHoldersView {
 	
 	public void refreshStatusProject() {
 		if (selectedProject !=null && selectedProjectId!=null) {
-			appStatus = argoInitialier.statusAndHealth(selectedProject.getProject_Id());
+			//appStatus = argoInitialier.statusAndHealth(selectedProject.getProject_Id());
 		}
 	}
 	

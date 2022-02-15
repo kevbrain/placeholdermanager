@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ocp-namespace}}
+  annotations:
+      openshift.io/requester: OCP BootStrapper
+spec:
+  finalizers:
+  - kubernetes

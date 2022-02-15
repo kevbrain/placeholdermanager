@@ -18,11 +18,13 @@ import org.eclipse.jgit.transport.URIish;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 import org.springframework.util.FileSystemUtils;
 
+import com.its4u.models.Environments;
+
 public class GitController {
 
 	private static String gitAppsUrl = "https://github.com/kevbrain/";
 	
-	private static String gitOpsAppsDeployUrl = "https://github.com/kevbrain/ocp-gitops-apps-deploy.git";
+	//private static String gitOpsAppsDeployUrl = "https://github.com/kevbrain/ocp-gitops-apps-deploy.git";
 	
 	private static String pathWorkspace = "/git-workspace";
 	
@@ -93,7 +95,7 @@ public class GitController {
 		
 	}
 	
-	public static void commitAndPush() throws NoFilepatternException, GitAPIException, URISyntaxException {
+	public static void commitAndPush(Environments env) throws NoFilepatternException, GitAPIException, URISyntaxException {
 		
 		gitOpsApp.add().addFilepattern(".").call();
 		
@@ -105,7 +107,7 @@ public class GitController {
 		
 		RemoteAddCommand remoteAddCommand = gitOpsApp.remoteAdd();
 	    remoteAddCommand.setName("origin");
-	    remoteAddCommand.setUri(new URIish(gitOpsAppsDeployUrl));
+	    remoteAddCommand.setUri(new URIish(env.getGitOpsAppsRepo()));
 	    remoteAddCommand.call();
 
 	    // push to remote:

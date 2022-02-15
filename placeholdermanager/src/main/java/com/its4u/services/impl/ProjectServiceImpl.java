@@ -93,7 +93,7 @@ public class ProjectServiceImpl implements ProjectService {
 		Unirest.setTimeouts(0, 0);
 		try {
 			HttpResponse<String> response = Unirest.post(argoServer+"/api/v1/applications/"+env.getProjectId()+"/sync")
-			  .header("Authorization", "Bearer "+getToken())
+			  .header("Authorization", "Bearer "+getToken(env))
 			  .body("{\r\n  \"dryRun\": false\r\n\r\n}")
 			  .asString();		
 			responseArgo = response.getBody();
@@ -107,9 +107,7 @@ public class ProjectServiceImpl implements ProjectService {
 	
 	@Override
 	public String synchronize(String projectName,String env) {
-		
-		
-		
+						
 		Project proj = findProject(projectName);
 		enrichProject(proj);
 		String envID = proj.getMapenvs().get(env);
@@ -126,7 +124,7 @@ public class ProjectServiceImpl implements ProjectService {
 		Unirest.setTimeouts(0, 0);
 		try {
 			HttpResponse<String> response = Unirest.post(argoServer+"/api/v1/applications/"+projectName+"/sync")
-			  .header("Authorization", "Bearer "+getToken())
+			  .header("Authorization", "Bearer "+getToken(envconcerned))
 			  .body("{\r\n  \"dryRun\": false\r\n\r\n}")
 			  .asString();		
 			responseArgo = response.getBody();
@@ -147,7 +145,7 @@ public class ProjectServiceImpl implements ProjectService {
 		Unirest.setTimeouts(0, 0);
 		try {
 			HttpResponse<String> response = Unirest.post(argoServer+"/api/v1/applications/"+projectName+"/sync")
-			  .header("Authorization", "Bearer "+getToken())
+			  .header("Authorization", "Bearer "+getToken(env))
 			  .body("{\r\n  \"dryRun\": false\r\n\r\n}")
 			  .asString();		
 			responseArgo = response.getBody();
@@ -176,7 +174,7 @@ public class ProjectServiceImpl implements ProjectService {
 		Unirest.setTimeouts(0, 0);
 		try {
 			HttpResponse<String> response = Unirest.delete(argoServer+"/api/v1/applications/"+projectName+"?cascade=true")
-			  .header("Authorization", "Bearer "+getToken())
+			  .header("Authorization", "Bearer "+getToken(envconcerned))
 			  .body("{\r\n  \"dryRun\": false\r\n\r\n}")
 			  .asString();		
 			responseArgo = response.getBody();
@@ -187,11 +185,11 @@ public class ProjectServiceImpl implements ProjectService {
 		return responseArgo;
 	}
 	
-	public String getToken() {		
-	
-		String argoPassword = System.getenv("argo.password");
-		String argoUser = System.getenv("argo.user");
-		String argoServer = System.getenv("argo.server");
+	public String getToken(Environments env) {		
+	 
+		String argoPassword = env.getArgoEnv().getArgoPassword();
+		String argoUser = env.getArgoEnv().getArgoUser();
+		String argoServer = env.getArgoEnv().getArgoServer();
 		String token="";
 	    String command = "curl -k -H \"Accept: application/json\"  -X POST -d {\"password\":\""+argoPassword+"\",\"username\":\""+argoUser+"\"} "+argoServer+"/api/v1/session";
 	    	   
@@ -222,12 +220,12 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	@Override
-	public ArgoAppStatus statusAndHealth(String projectName) {
+	public ArgoAppStatus statusAndHealth(String projectName,Environments env) {
 		Unirest.setTimeouts(0, 0);
 		ArgoAppStatus argoAppStatus = null;
 		try {
 			HttpResponse<JsonNode> response = Unirest.get("https://openshift-gitops-server-openshift-gitops.apps.ocp-lab.its4u.eu/api/v1/applications/"+projectName+"?refresh=true")
-			  .header("Authorization", "Bearer "+getToken())			  
+			  .header("Authorization", "Bearer "+getToken(env))			  
 			  .asJson();
 						
 			try {
@@ -289,7 +287,7 @@ public class ProjectServiceImpl implements ProjectService {
 			
 		// commit and push
 		try {
-			GitController.commitAndPush();
+			GitController.commitAndPush(env);
 		} catch (NoFilepatternException e) {
 			e.printStackTrace();
 		} catch (GitAPIException e) {
@@ -432,6 +430,7 @@ public class ProjectServiceImpl implements ProjectService {
 		HashMap<String,String> envByProject = createMapEnvironment(project);
 		for (Environments env:project.getEnvironments()) {								
 			envplaceHolders.put(env.getEnvironment(),createMapPlaceHoldersFromEnv(env));
+			env.setAppStatus(statusAndHealth(project.getProject_Id(), env));
 		}
 		
 		project.setMapenvs(envByProject);
