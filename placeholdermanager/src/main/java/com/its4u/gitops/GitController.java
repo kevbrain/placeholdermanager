@@ -121,7 +121,38 @@ public class GitController {
 		
 	}
 	
-	public static void commitAndPush(Environments env) throws NoFilepatternException, GitAPIException, URISyntaxException {
+public static void commitAndPushGitOps(Environments env) throws NoFilepatternException, GitAPIException, URISyntaxException {
+		
+		gitops.add().addFilepattern(".").call();
+		
+		// Now, we do the commit with a message
+
+		RevCommit rev =	gitops.commit().setAuthor("ksc", "ksc@example.com").setMessage("Modified by ITS4U PlaceHolderControler").call();
+		System.out.println("Commit ID = "+rev.getId().toString().substring(7, 47));
+		System.out.println("Commit Time = "+rev.getCommitTime());
+		
+		RemoteAddCommand remoteAddCommand = gitOpsApp.remoteAdd();
+	    remoteAddCommand.setName("origin");
+	    remoteAddCommand.setUri(new URIish(env.getGitOpsAppsRepo()));
+	    remoteAddCommand.call();
+
+	    // push to remote:
+	    PushCommand pushCommand = gitops.push();
+	    String user = System.getenv("git.user");
+	    String password = System.getenv("git.password");
+	    pushCommand.setCredentialsProvider(new UsernamePasswordCredentialsProvider(user, password));
+	    // you can add more settings here if needed
+	    pushCommand.call();
+	    System.out.println("Project modified and pushed");
+	    
+		// clean
+		System.out.println("Clean workspace");
+		FileSystemUtils.deleteRecursively(new File("pathWorkspace"));
+		System.out.println("Workspace cleaned");
+		
+	}
+	
+	public static void commitAndPushGitOpsApp(Environments env) throws NoFilepatternException, GitAPIException, URISyntaxException {
 		
 		gitOpsApp.add().addFilepattern(".").call();
 		

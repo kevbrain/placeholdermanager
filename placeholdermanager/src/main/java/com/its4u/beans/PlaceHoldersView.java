@@ -1,6 +1,7 @@
 package com.its4u.beans;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -14,6 +15,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 
+import org.eclipse.jgit.api.errors.GitAPIException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -115,9 +117,8 @@ public class PlaceHoldersView {
 		pollView.log("Save project on DataBase");
 		projectService.createProject(selectedProject);
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Project saved"));
-		
 		pollView.log("Update GitOps");
-		projectService.updateGitOps(env);
+		projectService.updateGitOpsApp(env);
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Git Synchronized"));
 	}
 	
@@ -237,11 +238,14 @@ public class PlaceHoldersView {
 		destinationEnv = mergePlaceHolders(env, destinationEnv);
 		environmentService.save(destinationEnv);
 		
+		String nsName = destinationEnv.getPlaceHoldersMap().get("ocp-namespace");
+		
 		// Generation argoApp and Namespace
 		TemplateModel tempMod = new TemplateModel(
 				projectid, 
 				destinationEnv.getArgoEnv().getArgoProj(),
-				destinationEnv.getArgoEnv().getGitOpsAppsRepo());
+				destinationEnv.getArgoEnv().getGitOpsAppsRepo(),
+				nsName);
 		
 		TemplateGenerator templateGenerator;
 		String newArgoApp = null;
@@ -267,7 +271,7 @@ public class PlaceHoldersView {
 		// argoApp-bootstraper.yaml
 		// NS-devops.yml
 		Path filePathArgoApp = Paths.get(path+"/cluster/applications/", "argoApp-"+selectedProject.getProject_Id()+".yaml");
-		Path filePathNameSpace = Paths.get(path+"/cluster/namespaces/", "NS-"+destinationEnv.getPlaceHoldersMap().get("ocp-namespace")+".yml");
+		Path filePathNameSpace = Paths.get(path+"/cluster/namespaces/", "NS-"+nsName+".yml");
 		try {
 			Files.writeString(filePathArgoApp,newArgoApp);
 			Files.writeString(filePathNameSpace,newNamespace);
@@ -275,7 +279,12 @@ public class PlaceHoldersView {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		try {
+			GitController.commitAndPushGitOps(destinationEnv);
+		} catch (GitAPIException | URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 				
 				
 		refresh();

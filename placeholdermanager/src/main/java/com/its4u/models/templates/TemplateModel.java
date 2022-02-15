@@ -7,12 +7,15 @@ public class TemplateModel {
 	private String argoProj;
 	
 	private String gitOpsAppsRepo;
+	
+	private String namespace;
 
-	public TemplateModel(String appName, String argoProj, String gitOpsAppsRepo) {
+	public TemplateModel(String appName, String argoProj, String gitOpsAppsRepo, String namespace) {
 		super();
 		this.appName = appName;
 		this.argoProj = argoProj;
 		this.gitOpsAppsRepo = gitOpsAppsRepo;
+		this.namespace = namespace;
 	}
 
 	public String getAppName() {
@@ -38,6 +41,15 @@ public class TemplateModel {
 	public void setGitOpsAppsRepo(String gitOpsAppsRepo) {
 		this.gitOpsAppsRepo = gitOpsAppsRepo;
 	}
+
+	public String getNamespace() {
+		return namespace;
+	}
+
+	public void setNamespace(String namespace) {
+		this.namespace = namespace;
+	}
+	
 	
 	
 

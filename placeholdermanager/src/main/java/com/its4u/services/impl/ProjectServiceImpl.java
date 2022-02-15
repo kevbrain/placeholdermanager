@@ -270,7 +270,7 @@ public class ProjectServiceImpl implements ProjectService {
 		}
 	}
 	
-	public void updateGitOps(Environments env) {
+	public void updateGitOpsApp(Environments env) {
 		
 		// clone gitops	
 		String pathWorkkingGitOpsProject = cloneGitOpsApps(env)+"/"+env.getProjectId();							
@@ -287,7 +287,7 @@ public class ProjectServiceImpl implements ProjectService {
 			
 		// commit and push
 		try {
-			GitController.commitAndPush(env);
+			GitController.commitAndPushGitOpsApp(env);
 		} catch (NoFilepatternException e) {
 			e.printStackTrace();
 		} catch (GitAPIException e) {
@@ -367,7 +367,7 @@ public class ProjectServiceImpl implements ProjectService {
 		for (Environments envi: project.getEnvironments()) {
 			if (envi.getEnvironment().equalsIgnoreCase(envID)) {
 				envconcerned = envi;
-				updateGitOps(envconcerned);
+				updateGitOpsApp(envconcerned);
 			}
 		}		
 		
