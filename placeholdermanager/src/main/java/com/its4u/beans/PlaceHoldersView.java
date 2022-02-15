@@ -230,6 +230,8 @@ public class PlaceHoldersView {
 		Environments destinationEnv = environmentService.getEnvById(iddestinationEnvironment);
 		
 		System.out.println("Destination Environment = "+destinationEnv.getEnvironment());
+		System.out.println(destinationEnv.getArgoEnvId());
+		destinationEnv.setArgoEnv(argoService.getArgoEnvByID(destinationEnv.getArgoEnvId()));
 		
 		destinationEnv = mergePlaceHolders(env, destinationEnv);
 		environmentService.save(destinationEnv);
@@ -237,8 +239,8 @@ public class PlaceHoldersView {
 		// Generation argoApp and Namespace
 		TemplateModel tempMod = new TemplateModel(
 				projectid, 
-				env.getArgoEnv().getArgoProj(),
-				env.getArgoEnv().getGitOpsAppsRepo());
+				destinationEnv.getArgoEnv().getArgoProj(),
+				destinationEnv.getArgoEnv().getGitOpsAppsRepo());
 		
 		TemplateGenerator templateGenerator;
 		String newArgoApp = null;
@@ -258,6 +260,8 @@ public class PlaceHoldersView {
 		System.out.println(newNamespace);
 		
 		// publish new resources on gitops
+		
+		
 		System.out.println("publish new resources to "+destinationEnv.getArgoEnv().getGitOpsRepo());
 				
 				
