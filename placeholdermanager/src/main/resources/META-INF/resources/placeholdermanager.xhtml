@@ -96,7 +96,7 @@
                       rendered="#{pfExceptionHandler.type == 'javax.faces.application.ViewExpiredException'}"/>
         </p:dialog>
    		
-   		<p:poll interval="4" listener="#{placeHoldersView.refreshStatusProject}" update="syncstatus,healthstatus"/>
+   		<!-- <p:poll interval="4" listener="#{placeHoldersView.refreshStatusProject}" update=",healthstatus"/> -->
    		
    		<p:panel rendered="#{placeHoldersView.applicationSelected}">
    		
@@ -118,7 +118,7 @@
 	 				 	 onchange="PF('dlg0').show()">
 	 				 	 	<f:selectItem itemLabel="Select One" itemValue=""/>
 	                  	<f:selectItems value="#{placeHoldersView.myProjects}" var="project" itemLabel="#{project}" itemValue="#{project}"/>
-	                  	<p:ajax  oncomplete="PF('dlg0').hide()"  event="change" update="tabviewenv,giturl,growl,syncstatus,healthstatus,tableResources"
+	                  	<p:ajax  oncomplete="PF('dlg0').hide()"  event="change" update="tabviewenv,giturl,growl,tableResources"
 	                  	 listener="#{placeHoldersView.onSelectedProject(placeHoldersView.selectedProjectId)}" />
 	                  	
 	 				 </p:selectOneMenu>
