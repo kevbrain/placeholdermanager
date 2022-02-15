@@ -429,7 +429,7 @@ public class ProjectServiceImpl implements ProjectService {
 		HashMap<String,HashMap<String,PlaceHolderSpec>> envplaceHolders = new HashMap<String,HashMap<String,PlaceHolderSpec>>();
 		HashMap<String,String> envByProject = createMapEnvironment(project);
 		for (Environments env:project.getEnvironments()) {		
-			env.setArgoEnv(argoService.getArgoEnvByID(env.getArgoEnvId()));
+			if (env.getArgoEnvId()!=null && !env.getArgoEnvId().isEmpty()) env.setArgoEnv(argoService.getArgoEnvByID(env.getArgoEnvId()));
 			envplaceHolders.put(env.getEnvironment(),createMapPlaceHoldersFromEnv(env));
 			env.setAppStatus(statusAndHealth(project.getProject_Id(), env));
 		}
