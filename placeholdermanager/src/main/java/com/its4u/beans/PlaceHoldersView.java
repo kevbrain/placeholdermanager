@@ -118,6 +118,7 @@ public class PlaceHoldersView {
 		projectService.createProject(selectedProject);
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Project saved"));
 		pollView.log("Update GitOps");
+		
 		projectService.updateGitOpsApp(env);
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Git Synchronized"));
 	}

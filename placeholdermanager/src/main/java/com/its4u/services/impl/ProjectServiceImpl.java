@@ -303,7 +303,6 @@ public class ProjectServiceImpl implements ProjectService {
 			e1.printStackTrace();
 		}
 		
-		pathWorkkingGitOpsAppsProject = cloneGitOpsApps(env)+"/"+env.getProjectId();	
 		
 		String pathWorkingGitAppProject = cloneGitApp(env.getProject());
 		
