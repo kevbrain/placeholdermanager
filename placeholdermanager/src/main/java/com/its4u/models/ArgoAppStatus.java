@@ -17,6 +17,8 @@ public class ArgoAppStatus implements Serializable {
 	private String health;
 	
 	private List<ArgoResource> argoResources;
+	
+	private boolean synchrone;
 
 	public ArgoAppStatus(String sync, String health) {
 		super();
