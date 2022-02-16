@@ -148,6 +148,7 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public String synchronize(String projectName,Environments env) {
 		
+		System.out.println("Synchronize application : "+projectName);
 		ArgoEnvironment argoEnv = argoService.getArgoEnvByID(env.getArgoEnvId());
 		String argoServer = argoEnv.getArgoServer();
 		
@@ -163,6 +164,7 @@ public class ProjectServiceImpl implements ProjectService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.out.println(responseArgo);
 		return responseArgo;
 	}
 	
