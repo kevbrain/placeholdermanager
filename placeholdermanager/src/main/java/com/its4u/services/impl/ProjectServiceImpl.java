@@ -292,7 +292,7 @@ public class ProjectServiceImpl implements ProjectService {
 			for (PlaceHolders pl:env.getPlaceholders()) {
 				keyValues.put(pl.getPlaceHolderId().getKey(),pl.getValue());
 			}
-			updateGitopsPerEnvironment(pathWorkkingGitOpsProject,pathWorkingGitAppProject,env.getEnvironment(),keyValues);
+			updateGitopsPerEnvironment(env.getProjectId(),pathWorkkingGitOpsProject,pathWorkingGitAppProject,env.getEnvironment(),keyValues);
 		//}
 			
 		// commit and push
@@ -345,9 +345,9 @@ public class ProjectServiceImpl implements ProjectService {
 		return pathWorkingGitApp;
 	}
 	
-	public void updateGitopsPerEnvironment(String pathWorkkingGitOps,String pathWorkingGitApp,String keyenv, HashMap<String,String> placesH) {
+	public void updateGitopsPerEnvironment(String projectId,String pathWorkkingGitOps,String pathWorkingGitApp,String keyenv, HashMap<String,String> placesH) {
 		String pathWorkkingGitOpsEnv = pathWorkkingGitOps+"/jkube/"+keyenv;
-		String pathWorkingGitAppEnv = pathWorkingGitApp+"/src/main/jkube/"+keyenv;
+		String pathWorkingGitAppEnv = pathWorkingGitApp+"/src/main/jkube/"+projectId+"-dev";
 		try {
 			System.out.println("Sync resource between "+pathWorkingGitAppEnv+ " and "+pathWorkkingGitOpsEnv);
 			
