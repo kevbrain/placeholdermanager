@@ -92,7 +92,7 @@ public class ArgoInitializerBean {
 	
 	public void synchronise(Environments env) {
 					
-		service.synchronize(env.getProjectId(),env);
+		service.synchronize(env.getEnvironment(),env);
 				
 	}
 	
