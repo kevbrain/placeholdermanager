@@ -215,10 +215,11 @@ public class PlaceHoldersView {
 	}
 	
 	public void promote(Environments env) {
-		String projectid= selectedProject.getProject_Id();
-		System.out.println("¨Promote "+env.getEnvironment()+" to another environment");
+		
+		String projectid= selectedProject.getProject_Id();	
+		projectService.promote(env);
+		/*
 		String envsuffix = env.getEnvironment().substring(env.getEnvironment().length() - 3);
-		System.out.println("Environment to promote = "+envsuffix);
 		
 		// Destination environment selection
 		String destinationEnvironment=null;
@@ -243,6 +244,7 @@ public class PlaceHoldersView {
 		System.out.println("--->"+destinationEnv.getEnvironment());
 		// Generation argoApp and Namespace
 		TemplateModel tempMod = new TemplateModel(
+				selectedProject.getProject_Id(),
 				destinationEnv.getEnvironment(), 
 				destinationEnv.getArgoEnv().getArgoProj(),
 				destinationEnv.getArgoEnv().getGitOpsAppsRepo(),
@@ -261,12 +263,7 @@ public class PlaceHoldersView {
 			e.printStackTrace();
 		}
 		
-		System.out.println(newArgoApp);
-		System.out.println("--------------------");
-		System.out.println(newNamespace);
-		
 		// publish new resources on gitops		
-		System.out.println("publish new resources to "+destinationEnv.getArgoEnv().getGitOpsRepo());
 		// clone ocp-gitops
 		String path = projectService.cloneGitOps(destinationEnv);
 		// argoApp-bootstraper.yaml
@@ -286,8 +283,7 @@ public class PlaceHoldersView {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-				
-				
+				*/						
 		refresh();
 		selectedProject=myProjects.get(projectid);
 		applicationSelected=true;

@@ -53,5 +53,7 @@ public interface ProjectService {
 	String cloneGitOpsApps(Environments env);
 
 	String cloneGitOps(Environments env);
+
+	void promote(Environments env);
 	
 }

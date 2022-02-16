@@ -1,6 +1,7 @@
 package com.its4u.services.impl;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URISyntaxException;
@@ -30,20 +31,26 @@ import com.its4u.models.ArgoAuthToken;
 import com.its4u.models.ArgoEnvironment;
 import com.its4u.models.ArgoResource;
 import com.its4u.models.Environments;
+import com.its4u.models.PlaceHolderId;
 import com.its4u.models.PlaceHolderSpec;
 import com.its4u.models.PlaceHolders;
 import com.its4u.models.Project;
 import com.its4u.models.Versions;
+import com.its4u.models.templates.TemplateModel;
 import com.its4u.repositories.EnvironmentRepository;
 import com.its4u.repositories.PlaceHoldersRepository;
 import com.its4u.repositories.ProjectRepository;
 import com.its4u.repositories.VersionRepository;
 import com.its4u.services.ArgoService;
+import com.its4u.services.EnvironmentService;
 import com.its4u.services.ProjectService;
+import com.its4u.utils.TemplateGenerator;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+
+import freemarker.template.TemplateException;
 
 @Service
 public class ProjectServiceImpl implements ProjectService {
@@ -59,6 +66,9 @@ public class ProjectServiceImpl implements ProjectService {
 	
 	@Autowired 
 	private EnvironmentRepository environmentRepository;
+	
+	@Autowired
+	private EnvironmentService environmentService;
 	
 	@Autowired
 	private VersionRepository versionRepository;
@@ -471,5 +481,98 @@ public class ProjectServiceImpl implements ProjectService {
 		return keyvalue;
 	}
 
+	@Override
+	public void promote(Environments env) {
+		String projectid= env.getProjectId();		
+		String envsuffix = env.getEnvironment().substring(env.getEnvironment().length() - 3);
+		
+		// Destination environment selection
+		String destinationEnvironment=null;
+		if (envsuffix.equalsIgnoreCase("dev")) {
+			destinationEnvironment= "tst";
+		}
+		if (envsuffix.equalsIgnoreCase("tst")) {
+			destinationEnvironment= "int";
+		}
+		String  iddestinationEnvironment = env.getProject().getMapenvs().get(destinationEnvironment);
+		Environments destinationEnv = environmentService.getEnvById(iddestinationEnvironment);
+		
+		System.out.println("Destination Environment = "+destinationEnv.getEnvironment());
+		System.out.println(destinationEnv.getArgoEnvId());
+		destinationEnv.setArgoEnv(argoService.getArgoEnvByID(destinationEnv.getArgoEnvId()));
+		
+		destinationEnv = mergePlaceHolders(env, destinationEnv);
+		environmentService.save(destinationEnv);
+		
+		String nsName = destinationEnv.getPlaceHoldersMap().get("ocp-namespace");
+		
+		System.out.println("--->"+destinationEnv.getEnvironment());
+		// Generation argoApp and Namespace
+		TemplateModel tempMod = new TemplateModel(
+				projectid,
+				destinationEnv.getEnvironment(), 
+				destinationEnv.getArgoEnv().getArgoProj(),
+				destinationEnv.getArgoEnv().getGitOpsAppsRepo(),
+				nsName);
+		
+		TemplateGenerator templateGenerator;
+		String newArgoApp = null;
+		String newNamespace = null;
+		
+		try {
+			templateGenerator = new TemplateGenerator();
+			newArgoApp = templateGenerator.generateArgoApp(tempMod);
+			newNamespace = templateGenerator.generateOcpNameSpace(tempMod);
+		} catch (IOException | TemplateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		// publish new resources on gitops		
+		// clone ocp-gitops
+		String path = cloneGitOps(destinationEnv);
+		// argoApp-bootstraper.yaml
+		// NS-devops.yml
+		Path filePathArgoApp = Paths.get(path+"/cluster/applications/", "argoApp-"+projectid+".yaml");
+		Path filePathNameSpace = Paths.get(path+"/cluster/namespaces/", "NS-"+nsName+".yml");
+		try {
+			Files.writeString(filePathArgoApp,newArgoApp);
+			Files.writeString(filePathNameSpace,newNamespace);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			GitController.commitAndPushGitOps(destinationEnv);
+		} catch (GitAPIException | URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+				
+				
+	}
+	
+	public Environments mergePlaceHolders(Environments envSource,Environments envDest) {
+		HashMap<String,PlaceHolderSpec> keyplaceHolderSource = envSource.getProject().getMapPlaceHoldersByEnv().get(envSource.getEnvironment());
+		HashMap<String,PlaceHolderSpec> keyplaceHolderDest = envSource.getProject().getMapPlaceHoldersByEnv().get(envDest.getEnvironment());
+		
+		List<PlaceHolders> plholDest = envDest.getPlaceholders();
+		if (plholDest==null) {
+			plholDest = new ArrayList<PlaceHolders>();
+		}
+		
+		for (String keySource : keyplaceHolderSource.keySet()) {
+			if (keyplaceHolderDest!=null && keyplaceHolderDest.get(keySource)!=null) {
+				// key already exists
+			} else {
+				PlaceHolderId plId = new PlaceHolderId(envDest.getEnvironment(), keySource);
+				PlaceHolders pl = new PlaceHolders(plId,envDest,keyplaceHolderSource.get(keySource).getValue(),keyplaceHolderSource.get(keySource).getType());
+				plholDest.add(pl);
+			}
+		}
+		envDest.setPlaceholders(plholDest);
+		return envDest;
+		
+	}
 	
 }
