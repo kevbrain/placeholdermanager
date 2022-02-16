@@ -290,17 +290,20 @@ public class ProjectServiceImpl implements ProjectService {
 		String pathWorkkingGitOpsAppsProject = cloneGitOpsApps(env)+"/"+env.getProjectId();		
 		
 		// clean GitOpsApps and recreate arborescence 
+		System.out.println("clean gitOpsApp");
 		try {
-			FileUtils.deleteDirectory(new File(pathWorkkingGitOpsAppsProject+"/"+env.getProjectId()));
+			FileUtils.deleteDirectory(new File(pathWorkkingGitOpsAppsProject));
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 		}
 		try {
-			FileUtils.forceMkdir(new File(pathWorkkingGitOpsAppsProject+"/"+env.getProjectId()+"/jkube/"+env.getEnvironment()));
+			FileUtils.forceMkdir(new File(pathWorkkingGitOpsAppsProject+"/jkube/"+env.getEnvironment()));
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		
+		pathWorkkingGitOpsAppsProject = cloneGitOpsApps(env)+"/"+env.getProjectId();	
 		
 		String pathWorkingGitAppProject = cloneGitApp(env.getProject());
 		
