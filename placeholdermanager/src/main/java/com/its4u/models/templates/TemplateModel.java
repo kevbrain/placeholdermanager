@@ -4,15 +4,18 @@ public class TemplateModel {
 	
 	private String appName;
 	
+	private String envId;
+	
 	private String argoProj;
 	
 	private String gitOpsAppsRepo;
 	
 	private String namespace;
 
-	public TemplateModel(String appName, String argoProj, String gitOpsAppsRepo, String namespace) {
+	public TemplateModel(String appName, String envId, String argoProj, String gitOpsAppsRepo, String namespace) {
 		super();
 		this.appName = appName;
+		this.envId = envId;
 		this.argoProj = argoProj;
 		this.gitOpsAppsRepo = gitOpsAppsRepo;
 		this.namespace = namespace;
@@ -48,6 +51,14 @@ public class TemplateModel {
 
 	public void setNamespace(String namespace) {
 		this.namespace = namespace;
+	}
+
+	public String getEnvId() {
+		return envId;
+	}
+
+	public void setEnvId(String envId) {
+		this.envId = envId;
 	}
 	
 	
