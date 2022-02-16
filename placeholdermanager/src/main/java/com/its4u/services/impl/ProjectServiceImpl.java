@@ -487,39 +487,19 @@ public class ProjectServiceImpl implements ProjectService {
 		}
 		return keyvalue;
 	}
-
+	
 	@Override
-	public void promote(Environments env) {
+	public void updateArgoApplication(Environments env) {
+		
 		String projectid= env.getProjectId();		
-		String envsuffix = env.getEnvironment().substring(env.getEnvironment().length() - 3);
 		
-		// Destination environment selection
-		String destinationEnvironment=null;
-		if (envsuffix.equalsIgnoreCase("dev")) {
-			destinationEnvironment= "tst";
-		}
-		if (envsuffix.equalsIgnoreCase("tst")) {
-			destinationEnvironment= "int";
-		}
-		String  iddestinationEnvironment = env.getProject().getMapenvs().get(destinationEnvironment);
-		Environments destinationEnv = environmentService.getEnvById(iddestinationEnvironment);
+		String nsName = env.getPlaceHoldersMap().get("ocp-namespace");
 		
-		System.out.println("Destination Environment = "+destinationEnv.getEnvironment());
-		System.out.println(destinationEnv.getArgoEnvId());
-		destinationEnv.setArgoEnv(argoService.getArgoEnvByID(destinationEnv.getArgoEnvId()));
-		
-		destinationEnv = mergePlaceHolders(env, destinationEnv);
-		environmentService.save(destinationEnv);
-		
-		String nsName = destinationEnv.getPlaceHoldersMap().get("ocp-namespace");
-		
-		System.out.println("--->"+destinationEnv.getEnvironment());
-		// Generation argoApp and Namespace
 		TemplateModel tempMod = new TemplateModel(
 				projectid,
-				destinationEnv.getEnvironment(), 
-				destinationEnv.getArgoEnv().getArgoProj(),
-				destinationEnv.getArgoEnv().getGitOpsAppsRepo(),
+				env.getEnvironment(), 
+				env.getArgoEnv().getArgoProj(),
+				env.getArgoEnv().getGitOpsAppsRepo(),
 				nsName);
 		
 		TemplateGenerator templateGenerator;
@@ -537,9 +517,7 @@ public class ProjectServiceImpl implements ProjectService {
 		
 		// publish new resources on gitops		
 		// clone ocp-gitops
-		String path = cloneGitOps(destinationEnv);
-		// argoApp-bootstraper.yaml
-		// NS-devops.yml
+		String path = cloneGitOps(env);
 		Path filePathArgoApp = Paths.get(path+"/cluster/applications/", "argoApp-"+projectid+".yaml");
 		Path filePathNameSpace = Paths.get(path+"/cluster/namespaces/", "NS-"+nsName+".yml");
 		try {
@@ -550,13 +528,33 @@ public class ProjectServiceImpl implements ProjectService {
 			e.printStackTrace();
 		}
 		try {
-			GitController.commitAndPushGitOps(destinationEnv);
+			GitController.commitAndPushGitOps(env);
 		} catch (GitAPIException | URISyntaxException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void promote(Environments env) {
 				
+		String envsuffix = env.getEnvironment().substring(env.getEnvironment().length() - 3);
+		
+		// Destination environment selection
+		String destinationEnvironment=null;
+		if (envsuffix.equalsIgnoreCase("dev")) {
+			destinationEnvironment= "tst";
+		}
+		if (envsuffix.equalsIgnoreCase("tst")) {
+			destinationEnvironment= "int";
+		}
 				
+		String  iddestinationEnvironment = env.getProject().getMapenvs().get(destinationEnvironment);
+		Environments destinationEnv = environmentService.getEnvById(iddestinationEnvironment);
+		destinationEnv.setArgoEnv(argoService.getArgoEnvByID(destinationEnv.getArgoEnvId()));
+		
+		destinationEnv = mergePlaceHolders(env, destinationEnv);
+		environmentService.save(destinationEnv);
 	}
 	
 	public Environments mergePlaceHolders(Environments envSource,Environments envDest) {

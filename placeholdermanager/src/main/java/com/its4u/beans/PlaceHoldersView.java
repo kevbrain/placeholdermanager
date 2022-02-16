@@ -218,100 +218,12 @@ public class PlaceHoldersView {
 		
 		String projectid= selectedProject.getProject_Id();	
 		projectService.promote(env);
-		/*
-		String envsuffix = env.getEnvironment().substring(env.getEnvironment().length() - 3);
-		
-		// Destination environment selection
-		String destinationEnvironment=null;
-		if (envsuffix.equalsIgnoreCase("dev")) {
-			destinationEnvironment= "tst";
-		}
-		if (envsuffix.equalsIgnoreCase("tst")) {
-			destinationEnvironment= "int";
-		}
-		String  iddestinationEnvironment = selectedProject.getMapenvs().get(destinationEnvironment);
-		Environments destinationEnv = environmentService.getEnvById(iddestinationEnvironment);
-		
-		System.out.println("Destination Environment = "+destinationEnv.getEnvironment());
-		System.out.println(destinationEnv.getArgoEnvId());
-		destinationEnv.setArgoEnv(argoService.getArgoEnvByID(destinationEnv.getArgoEnvId()));
-		
-		destinationEnv = mergePlaceHolders(env, destinationEnv);
-		environmentService.save(destinationEnv);
-		
-		String nsName = destinationEnv.getPlaceHoldersMap().get("ocp-namespace");
-		
-		System.out.println("--->"+destinationEnv.getEnvironment());
-		// Generation argoApp and Namespace
-		TemplateModel tempMod = new TemplateModel(
-				selectedProject.getProject_Id(),
-				destinationEnv.getEnvironment(), 
-				destinationEnv.getArgoEnv().getArgoProj(),
-				destinationEnv.getArgoEnv().getGitOpsAppsRepo(),
-				nsName);
-		
-		TemplateGenerator templateGenerator;
-		String newArgoApp = null;
-		String newNamespace = null;
-		
-		try {
-			templateGenerator = new TemplateGenerator();
-			newArgoApp = templateGenerator.generateArgoApp(tempMod);
-			newNamespace = templateGenerator.generateOcpNameSpace(tempMod);
-		} catch (IOException | TemplateException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		// publish new resources on gitops		
-		// clone ocp-gitops
-		String path = projectService.cloneGitOps(destinationEnv);
-		// argoApp-bootstraper.yaml
-		// NS-devops.yml
-		Path filePathArgoApp = Paths.get(path+"/cluster/applications/", "argoApp-"+selectedProject.getProject_Id()+".yaml");
-		Path filePathNameSpace = Paths.get(path+"/cluster/namespaces/", "NS-"+nsName+".yml");
-		try {
-			Files.writeString(filePathArgoApp,newArgoApp);
-			Files.writeString(filePathNameSpace,newNamespace);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			GitController.commitAndPushGitOps(destinationEnv);
-		} catch (GitAPIException | URISyntaxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-				*/						
 		refresh();
 		selectedProject=myProjects.get(projectid);
 		applicationSelected=true;
 		
 	}
 	
-	public Environments mergePlaceHolders(Environments envSource,Environments envDest) {
-		HashMap<String,PlaceHolderSpec> keyplaceHolderSource = selectedProject.getMapPlaceHoldersByEnv().get(envSource.getEnvironment());
-		HashMap<String,PlaceHolderSpec> keyplaceHolderDest = selectedProject.getMapPlaceHoldersByEnv().get(envDest.getEnvironment());
-		
-		List<PlaceHolders> plholDest = envDest.getPlaceholders();
-		if (plholDest==null) {
-			plholDest = new ArrayList<PlaceHolders>();
-		}
-		
-		for (String keySource : keyplaceHolderSource.keySet()) {
-			if (keyplaceHolderDest!=null && keyplaceHolderDest.get(keySource)!=null) {
-				// key already exists
-			} else {
-				PlaceHolderId plId = new PlaceHolderId(envDest.getEnvironment(), keySource);
-				PlaceHolders pl = new PlaceHolders(plId,envDest,keyplaceHolderSource.get(keySource).getValue(),keyplaceHolderSource.get(keySource).getType());
-				plholDest.add(pl);
-			}
-		}
-		envDest.setPlaceholders(plholDest);
-		return envDest;
-		
-	}
 	
 	public List<Project> getProjectList() {
 		return new ArrayList(myProjects.values());

@@ -92,6 +92,9 @@ public class ArgoInitializerBean {
 	
 	public void synchronise(Environments env) {
 					
+		String envsuffix = env.getEnvironment().substring(env.getEnvironment().length() - 3);
+		service.updateArgoApplication(env);
+		service.synchronize("cluster-configs-"+envsuffix, env);
 		service.synchronize(env.getEnvironment(),env);
 				
 	}
