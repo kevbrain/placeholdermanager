@@ -240,9 +240,10 @@ public class PlaceHoldersView {
 		
 		String nsName = destinationEnv.getPlaceHoldersMap().get("ocp-namespace");
 		
+		System.out.println("--->"+destinationEnv.getEnvironment());
 		// Generation argoApp and Namespace
 		TemplateModel tempMod = new TemplateModel(
-				projectid, 
+				destinationEnv.getEnvironment(), 
 				destinationEnv.getArgoEnv().getArgoProj(),
 				destinationEnv.getArgoEnv().getGitOpsAppsRepo(),
 				nsName);
