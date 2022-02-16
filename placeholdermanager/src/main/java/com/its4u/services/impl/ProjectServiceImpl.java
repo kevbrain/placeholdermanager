@@ -362,6 +362,7 @@ public class ProjectServiceImpl implements ProjectService {
 			
 		
 		} catch (Exception e) {
+			e.printStackTrace();
 			System.out.println("Unable to synchronize...");
 		}
 			
