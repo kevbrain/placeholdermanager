@@ -24,5 +24,10 @@ public class ArgoAppStatus implements Serializable {
 		this.health = health;
 	}
 	
+	public boolean isSynchrone() {		
+		if (sync!=null && sync.equalsIgnoreCase("synced")) return true;
+		return false;
+	}
+	
 	
 }
