@@ -1,6 +1,7 @@
 package com.its4u.services.impl;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -13,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.commons.io.FileUtils;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.api.errors.NoFilepatternException;
 import org.json.JSONArray;
@@ -285,17 +287,31 @@ public class ProjectServiceImpl implements ProjectService {
 	public void updateGitOpsApp(Environments env) {
 		
 		// clone gitops	
-		String pathWorkkingGitOpsProject = cloneGitOpsApps(env)+"/"+env.getProjectId();							
+		String pathWorkkingGitOpsAppsProject = cloneGitOpsApps(env)+"/"+env.getProjectId();		
+		
+		// clean GitOpsApps and recreate arborescence 
+		try {
+			FileUtils.deleteDirectory(new File(pathWorkkingGitOpsAppsProject+"/"+env.getProjectId()));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+		}
+		try {
+			FileUtils.forceMkdir(new File(pathWorkkingGitOpsAppsProject+"/"+env.getProjectId()+"/jkube/"+env.getEnvironment()));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		String pathWorkingGitAppProject = cloneGitApp(env.getProject());
 		
 		
-		//for (Environments env:project.getEnvironments()) {
+		
 			HashMap<String, String> keyValues = new HashMap<String, String>();
 			for (PlaceHolders pl:env.getPlaceholders()) {
 				keyValues.put(pl.getPlaceHolderId().getKey(),pl.getValue());
 			}
-			updateGitopsPerEnvironment(env.getProjectId(),pathWorkkingGitOpsProject,pathWorkingGitAppProject,env.getEnvironment(),keyValues);
-		//}
+			updateGitopsPerEnvironment(env.getProjectId(),pathWorkkingGitOpsAppsProject,pathWorkingGitAppProject,env.getEnvironment(),keyValues);
+		
 			
 		// commit and push
 		try {
