@@ -322,9 +322,13 @@ public class ProjectServiceImpl implements ProjectService {
 	
 	@Override
 	public String cloneGitOpsApps(Environments env) {
+		
 		String pathWorkkingGitOpsApps = null;
 		try {
+			System.out.println("env = "+env.getEnvironment());
+			System.out.println("url = "+env.getArgoEnv().getGitOpsAppsRepo());
 			pathWorkkingGitOpsApps = GitController.loadGitOpsApps(env.getArgoEnv().getGitOpsAppsRepo());
+			System.out.println("Git Ops project cloned on "+pathWorkkingGitOpsApps);
 		} catch (IllegalStateException | GitAPIException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
