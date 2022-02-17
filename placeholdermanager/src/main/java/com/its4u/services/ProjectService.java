@@ -59,5 +59,7 @@ public interface ProjectService {
 	void updateArgoApplication(Environments env);
 
 	String synchronizeClusterConfig(String env, String argoEnvid);
+
+	void delete(Environments env);
 	
 }

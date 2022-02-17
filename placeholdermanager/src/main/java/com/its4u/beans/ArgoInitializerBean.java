@@ -99,6 +99,11 @@ public class ArgoInitializerBean {
 				
 	}
 	
+	public void delete(Environments env) {
+		
+		String envsuffix = env.getEnvironment().substring(env.getEnvironment().length() - 3);
+	}
+	
 	public ArgoAppStatus statusAndHealth(String project,Environments env) {
 
 		return service.statusAndHealth(project,env);

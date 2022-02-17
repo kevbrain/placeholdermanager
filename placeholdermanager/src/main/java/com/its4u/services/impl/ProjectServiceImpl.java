@@ -27,6 +27,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.its4u.gitops.CopyDir;
 import com.its4u.gitops.GitController;
+import com.its4u.gitops.ListFilesDir;
 import com.its4u.gitops.Parser;
 import com.its4u.models.ArgoAppStatus;
 import com.its4u.models.ArgoAuthToken;
@@ -587,6 +588,30 @@ public class ProjectServiceImpl implements ProjectService {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	@Override
+	public void delete(Environments env) {
+		
+		// delete gitOps
+		// clone ocp-gitops
+		String pathapp = cloneGitApp(env.getProject())+"//src//main//argo//applications";
+		String pathops = cloneGitOps(env);
+		String pathappsdeployString = cloneGitOpsApps(env);
+		
+		// we browse the app git 
+		List<String> pathfiletoDelete = new ArrayList<String>();
+		
+		Path pathtoBrowse = Paths.get(pathapp);
+		try {
+			Files.walkFileTree(pathtoBrowse, new ListFilesDir(pathtoBrowse, pathfiletoDelete));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(pathfiletoDelete);
+		
+	}
 
 	@Override
 	public void promote(Environments env) {
@@ -609,6 +634,8 @@ public class ProjectServiceImpl implements ProjectService {
 		destinationEnv = mergePlaceHolders(env, destinationEnv);
 		environmentService.save(destinationEnv);
 	}
+	
+	
 	
 	public Environments mergePlaceHolders(Environments envSource,Environments envDest) {
 		HashMap<String,PlaceHolderSpec> keyplaceHolderSource = envSource.getProject().getMapPlaceHoldersByEnv().get(envSource.getEnvironment());
