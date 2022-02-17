@@ -172,6 +172,7 @@ public class ProjectServiceImpl implements ProjectService {
 	public String synchronize(String projectName,Environments env) {
 		
 		System.out.println("Synchronize application : "+projectName);
+		System.out.println("Env : "+env);
 		//Project proj = findProject(projectName);
 		//env.getArgoEnv()
 		System.out.println("env = "+env.getEnvironment());
@@ -419,14 +420,19 @@ public class ProjectServiceImpl implements ProjectService {
 
 	@Override
 	public String applyConf(String projectName,String env) {
+		System.out.println("Apply-conf for "+projectName+ " [env = "+env+"]");   
 		// TODO Auto-generated method stub
 		Project project= findProject(projectName);
 		enrichProject(project);
 		String envID = project.getMapenvs().get(env);
+		System.out.println("envID = "+envID);
 		Environments envconcerned = null ;
 		for (Environments envi: project.getEnvironments()) {
+			System.out.println("->"+envi.getEnvironment());
 			if (envi.getEnvironment().equalsIgnoreCase(envID)) {
+				
 				envconcerned = envi;
+				System.out.println("envconcernerd = "+envconcerned);
 				updateGitOpsApp(envconcerned);
 			}
 		}		
