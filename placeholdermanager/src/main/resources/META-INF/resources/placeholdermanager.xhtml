@@ -9,7 +9,13 @@
 >
 
 <h:head>
+<style>
+.healthyButton {
+    background-image: url(health_Healthy.png)
+}
+</style>
 </h:head>
+
 
 <h:body style="margin-left:50px">
 	
@@ -19,6 +25,7 @@
 			var droppredKey = ui.draggable;
 			
 		}
+		
 	</script>
     
 	<p:panel id="panelApp">
@@ -36,6 +43,7 @@
    		<p:panel id="dashboard" rendered="#{!placeHoldersView.applicationSelected}">
 	   		<p:dataTable value="#{placeHoldersView.projectList}"  var="proj"  widgetVar="projectsTable" id="projectstable">
 	   			<p:column  headerText="APPLICATIONS" width="250px;">	
+	   				<p:commandButton styleClass="healthyButton"/>
 					<p:commandButton value="#{proj.project_Id}"
 					    style="margin:10px;background-color: transparent;border-color: transparent;}"
 						actionListener="#{placeHoldersView.loadDetailApp(proj)}"
