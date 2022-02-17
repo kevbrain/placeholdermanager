@@ -131,7 +131,11 @@ public class PlaceHoldersView {
 	}
 	
 	public void deleteProject() {
-		projectService.listFileForClean(selectedProject);
+		List<String> filesApplicationToRemove = projectService.listFileForClean(selectedProject,"applications");
+		List<String> filesNamespacesToRemove = projectService.listFileForClean(selectedProject,"namespaces");
+		
+		System.out.println(filesApplicationToRemove);
+		System.out.println(filesNamespacesToRemove);
 		/*
 		for (Environments env: selectedProject.getEnvironments()) {	
 				System.out.println("Delete env "+env.getEnvironment());		
@@ -141,7 +145,7 @@ public class PlaceHoldersView {
 		//projectService.deleteProject(selectedProject);
 		//selectedProject = null;
 		pollView.log("Project deleted");
-		refresh();
+		//refresh();
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Project deleted"));
 	}
 	

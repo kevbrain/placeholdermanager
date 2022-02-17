@@ -592,8 +592,8 @@ public class ProjectServiceImpl implements ProjectService {
 	
 	
 	@Override
-	public void listFileForClean(Project project) {
-		String pathapp = cloneGitApp(project)+"//src//main//argo";
+	public List<String> listFileForClean(Project project,String type) {
+		String pathapp = cloneGitApp(project)+"//src//main//argo//"+type;
 		// we browse the app git 
 		List<String> pathfiletoDelete = new ArrayList<String>();
 		
@@ -604,30 +604,17 @@ public class ProjectServiceImpl implements ProjectService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(pathfiletoDelete);
+		return pathfiletoDelete;
 	}
 	
 	
 	@Override
-	public void delete(Environments env) {
-		
-		// delete gitOps
+	public void delete(Environments env,List<String> fileNamesToDelete)  {
+			
 		// clone ocp-gitops
-		String pathapp = cloneGitApp(env.getProject())+"//src//main//argo//applications";
 		String pathops = cloneGitOps(env);
 		String pathappsdeployString = cloneGitOpsApps(env);
 		
-		// we browse the app git 
-		List<String> pathfiletoDelete = new ArrayList<String>();
-		
-		Path pathtoBrowse = Paths.get(pathapp);
-		try {
-			Files.walkFileTree(pathtoBrowse, new ListFilesDir(pathtoBrowse, pathfiletoDelete));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		System.out.println(pathfiletoDelete);
 		
 	}
 
