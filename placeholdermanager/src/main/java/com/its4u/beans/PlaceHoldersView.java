@@ -130,12 +130,14 @@ public class PlaceHoldersView {
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "PlaceHolder "+pl.getPlaceHolderId().getKey()+" deleted"));
 	}
 	
-	public void deleteEnv(Environments env) {
-		System.out.println("Delete env "+env.getEnvironment());
+	public void deleteProject() {
 		
-		projectService.delete(selectedEnvironment);
+		for (Environments env: selectedProject.getEnvironments()) {	
+				System.out.println("Delete env "+env.getEnvironment());		
+				projectService.delete(selectedEnvironment);
+		}
 		//projectService.deleteProject(selectedProject);
-		selectedProject = null;
+		//selectedProject = null;
 		pollView.log("Project deleted");
 		refresh();
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Project deleted"));
