@@ -44,10 +44,11 @@
 				</p:column>		
 				<p:column  headerText="DEV">	
 					<p:commandButton value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['app-version'].value}" 
-							 style="margin:10px;background-color: transparent;border-color:#{proj.mapappstatusByEnv[proj.mapenvs['dev']].synchrone?'green':'red'};color:#{proj.mapappstatusByEnv[proj.mapenvs['dev']].synchrone?'green':'red'}"/>
-					<p:commandButton value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['ocp-namespace'].value}" 
+							 style="margin:10px;background-color: transparent;border-color:#{proj.mapappstatusByEnv[proj.mapenvs['dev']].synchrone?'green':'red'};color:#{proj.mapappstatusByEnv[proj.mapenvs['dev']].synchrone?'green':'red'}"
+							 rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]!=null and proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['app-version'].value!=null}"/>
+					<p:commandButton value="NS:#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['ocp-namespace'].value}" 
 							style="margin:5px;background-color: transparent;border-color:#003b50;color:#003b50}"
-							rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['ocp-namespace'].value!=null}"/>
+							rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]!=null and proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['ocp-namespace'].value!=null}"/>
 					
 				</p:column>
 				<p:column width="40px;">
@@ -59,11 +60,11 @@
 				</p:column>
 				<p:column  headerText="TST"  >	
 					<p:commandButton value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['tst']]['app-version'].value}"
-							style="margin:10px;background-color: transparent;border-color:#{proj.mapappstatusByEnv[proj.mapenvs['tst']].synchrone?'green':'red'};color:#{proj.mapappstatusByEnv[proj.mapenvs['tst']].synchrone?'green':'red'}"/>	
-							rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['tst']]['app-version'].value!=null}"/>
-					<p:commandButton value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['tst']]['ocp-namespace'].value}" 
+							style="margin:10px;background-color: transparent;border-color:#{proj.mapappstatusByEnv[proj.mapenvs['tst']].synchrone?'green':'red'};color:#{proj.mapappstatusByEnv[proj.mapenvs['tst']].synchrone?'green':'red'}"	
+							rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['tst']]!=null and proj.mapPlaceHoldersByEnv[proj.mapenvs['tst']]['app-version'].value!=null}"/>
+					<p:commandButton value="NS:#{proj.mapPlaceHoldersByEnv[proj.mapenvs['tst']]['ocp-namespace'].value}" 
 							style="margin:5px;background-color: transparent;border-color:#003b50;color:#003b50}"
-							rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['tst']]['ocp-namespace'].value!=null}"/>
+							rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['tst']]!=null and proj.mapPlaceHoldersByEnv[proj.mapenvs['tst']]['ocp-namespace'].value!=null}"/>
 					
 				</p:column>
 				
@@ -79,11 +80,11 @@
 				
 				<p:column  headerText="INT">	
 					<p:commandButton value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['int']]['app-version'].value}"
-						style="margin:10px;background-color: transparent;border-color:#{proj.mapappstatusByEnv[proj.mapenvs['int']].synchrone?'green':'red'};color:#{proj.mapappstatusByEnv[proj.mapenvs['int']].synchrone?'green':'red'}"/>
-						rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['int']]['app-version'].value!=null}"/>
-					<p:commandButton value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['int']]['ocp-namespace'].value}" 
+						style="margin:10px;background-color: transparent;border-color:#{proj.mapappstatusByEnv[proj.mapenvs['int']].synchrone?'green':'red'};color:#{proj.mapappstatusByEnv[proj.mapenvs['int']].synchrone?'green':'red'}"
+						rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['int']]!=null and proj.mapPlaceHoldersByEnv[proj.mapenvs['int']]['app-version'].value!=null}"/>
+					<p:commandButton value="NS:#{proj.mapPlaceHoldersByEnv[proj.mapenvs['int']]['ocp-namespace'].value}" 
 							style="margin:5px;background-color: transparent;border-color:#003b50;color:#003b50}"
-							rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['int']]['ocp-namespace'].value!=null}"/>
+							rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['int']]!=null and proj.mapPlaceHoldersByEnv[proj.mapenvs['int']]['ocp-namespace'].value!=null}"/>
 					
 				</p:column>
 	   		</p:dataTable>
