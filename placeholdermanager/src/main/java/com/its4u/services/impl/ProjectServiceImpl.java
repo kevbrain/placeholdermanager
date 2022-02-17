@@ -172,8 +172,9 @@ public class ProjectServiceImpl implements ProjectService {
 	public String synchronize(String projectName,Environments env) {
 		
 		System.out.println("Synchronize application : "+projectName);
-		ArgoEnvironment argoEnv = argoService.getArgoEnvByID(env.getArgoEnvId());
-		String argoServer = argoEnv.getArgoServer();
+		//env.getArgoEnv()
+		//ArgoEnvironment argoEnv = argoService.getArgoEnvByID(env.getArgoEnvId());
+		String argoServer = env.getArgoEnv().getArgoServer();
 		
 		String responseArgo="";
 		Unirest.setTimeouts(0, 0);
@@ -427,7 +428,7 @@ public class ProjectServiceImpl implements ProjectService {
 			}
 		}		
 		
-		if (envconcerned!=null) synchronize("cluster-configs",envconcerned);
+		if (envconcerned!=null) synchronizeClusterConfig("env",envconcerned.getArgoEnv().getArgoEnvId());
 		
 		try {
 			Thread.sleep(1500);

@@ -58,7 +58,7 @@ public class PlaceHoldersController {
 		return service.getDevVersion(projectName);
 	}
 	
-	@RequestMapping(value = "/apply-conf/{projectName}/{env}")
+	@PostMapping(value = "/apply-conf/{projectName}/{env}")
 	public @ResponseBody String applyconf(@PathVariable("projectName") String projectName,@PathVariable("env") String env) {
 		return service.applyConf(projectName,env);
 	}
@@ -67,8 +67,8 @@ public class PlaceHoldersController {
 	public @ResponseBody String synchronize(@PathVariable("projectName") String projectName,@PathVariable("env") String env) {
 		return service.synchronize(projectName,env);
 	}
-	//String env,String argoEnvid
-	@RequestMapping(value = "/sync-cluster-config/{env}/{argoEnvid}")
+	
+	@PostMapping(value = "/sync-cluster-config/{env}/{argoEnvid}")
 	public @ResponseBody String synchronizeClusterConfig(@PathVariable("env") String env,@PathVariable("argoEnvid") String argoEnvid) {
 		return service.synchronizeClusterConfig(env,argoEnvid);
 	}
