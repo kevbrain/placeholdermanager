@@ -35,7 +35,7 @@
    		
    		<p:panel id="dashboard" rendered="#{!placeHoldersView.applicationSelected}">
 	   		<p:dataTable value="#{placeHoldersView.projectList}"  var="proj"  widgetVar="projectsTable" id="projectstable">
-	   			<p:column  headerText="APPLICATIONS" width="300px;">	
+	   			<p:column  headerText="APPLICATIONS" width="250px;">	
 					<p:commandButton value="#{proj.project_Id}"
 					    style="margin:10px;background-color: transparent;border-color: transparent;}"
 						actionListener="#{placeHoldersView.loadDetailApp(proj)}"
@@ -51,7 +51,7 @@
 							rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]!=null and proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['ocp-namespace'].value!=null}"/>
 					
 				</p:column>
-				<p:column width="40px;">
+				<p:column width="40px;" style="margin:0px;">
 					<p:commandButton value=">>"   title="promote"
 						rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]!=null and !proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['app-version'].snapshot}"
 		   				oncomplete="PF('dlg0').hide()"
