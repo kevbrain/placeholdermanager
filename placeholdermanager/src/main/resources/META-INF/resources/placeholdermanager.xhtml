@@ -35,14 +35,14 @@
    		
    		<p:panel id="dashboard" rendered="#{!placeHoldersView.applicationSelected}">
 	   		<p:dataTable value="#{placeHoldersView.projectList}"  var="proj"  widgetVar="projectsTable" id="projectstable">
-	   			<p:column  headerText="APPLICATIONS">	
+	   			<p:column  headerText="APPLICATIONS" width="300px;">	
 					<p:commandButton value="#{proj.project_Id}"
-					    style="margin:10px;background-color: transparent;border-color:none}"
+					    style="margin:10px;background-color: transparent;border-color: transparent;}"
 						actionListener="#{placeHoldersView.loadDetailApp(proj)}"
 						oncomplete="PF('dlg0').hide()"
 			   			onclick="PF('dlg0').show()" update="@form,growl"/>
 				</p:column>		
-				<p:column  headerText="DEV" width="300px;">	
+				<p:column  headerText="DEV" >	
 					<p:commandButton value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['app-version'].value}" 
 							 style="margin:10px;background-color: transparent;border-color:#{proj.mapappstatusByEnv[proj.mapenvs['dev']].synchrone?'green':'red'};color:#{proj.mapappstatusByEnv[proj.mapenvs['dev']].synchrone?'green':'red'}"
 							 rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]!=null and proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['app-version'].value!=null}"/>
@@ -51,12 +51,12 @@
 							rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]!=null and proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['ocp-namespace'].value!=null}"/>
 					
 				</p:column>
-				<p:column width="50px;">
+				<p:column width="40px;">
 					<p:commandButton value=">>"   title="promote"
 						rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]!=null and !proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['app-version'].snapshot}"
 		   				oncomplete="PF('dlg0').hide()"
 			   			onclick="PF('dlg0').show()"
-		   				update="@form" style="background:#003b50;color:white; margin:3px;" />
+		   				update="@form" style="background:#003b50;color:white; " />
 				</p:column>
 				<p:column  headerText="TST"  >	
 					<p:commandButton value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['tst']]['app-version'].value}"
