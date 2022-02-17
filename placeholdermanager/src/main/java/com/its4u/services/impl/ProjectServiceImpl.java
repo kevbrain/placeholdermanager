@@ -489,6 +489,7 @@ public class ProjectServiceImpl implements ProjectService {
 		project.setMapenvs(envByProject);
 		project.setMapPlaceHoldersByEnv(envplaceHolders);
 		project.setMapappstatusByEnv(mapArgoStatusByEnv);
+		System.out.println(mapArgoStatusByEnv);
 	}
 	
 	@Override	
