@@ -105,7 +105,28 @@ public class ProjectServiceImpl implements ProjectService {
 		Unirest.setTimeouts(0, 0);
 		try {
 			HttpResponse<String> response = Unirest.post(argoServer+"/api/v1/applications/"+env.getProjectId()+"/sync")
-			  .header("Authorization", "Bearer "+getToken(env))
+			  .header("Authorization", "Bearer "+getToken(env.getArgoEnv()))
+			  .body("{\r\n  \"dryRun\": false\r\n\r\n}")
+			  .asString();		
+			responseArgo = response.getBody();
+		} catch (UnirestException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return responseArgo;
+	}
+	
+	@Override
+	public String synchronizeClusterConfig(String env,String argoEnvid) {
+						
+		ArgoEnvironment argoEnv = argoService.getArgoEnvByID(argoEnvid);
+		String argoServer = argoEnv.getArgoServer();
+		
+		String responseArgo="";
+		Unirest.setTimeouts(0, 0);
+		try {
+			HttpResponse<String> response = Unirest.post(argoServer+"/api/v1/applications/cluster-configs-"+env+"/sync")
+			  .header("Authorization", "Bearer "+getToken(argoEnv))
 			  .body("{\r\n  \"dryRun\": false\r\n\r\n}")
 			  .asString();		
 			responseArgo = response.getBody();
@@ -136,7 +157,7 @@ public class ProjectServiceImpl implements ProjectService {
 		Unirest.setTimeouts(0, 0);
 		try {
 			HttpResponse<String> response = Unirest.post(argoServer+"/api/v1/applications/"+projectName+"/sync")
-			  .header("Authorization", "Bearer "+getToken(envconcerned))
+			  .header("Authorization", "Bearer "+getToken(envconcerned.getArgoEnv()))
 			  .body("{\r\n  \"dryRun\": false\r\n\r\n}")
 			  .asString();		
 			responseArgo = response.getBody();
@@ -158,7 +179,7 @@ public class ProjectServiceImpl implements ProjectService {
 		Unirest.setTimeouts(0, 0);
 		try {
 			HttpResponse<String> response = Unirest.post(argoServer+"/api/v1/applications/"+projectName+"/sync")
-			  .header("Authorization", "Bearer "+getToken(env))
+			  .header("Authorization", "Bearer "+getToken(env.getArgoEnv()))
 			  .body("{\r\n  \"dryRun\": false\r\n\r\n}")
 			  .asString();		
 			responseArgo = response.getBody();
@@ -188,7 +209,7 @@ public class ProjectServiceImpl implements ProjectService {
 		Unirest.setTimeouts(0, 0);
 		try {
 			HttpResponse<String> response = Unirest.delete(argoServer+"/api/v1/applications/"+projectName+"?cascade=true")
-			  .header("Authorization", "Bearer "+getToken(envconcerned))
+			  .header("Authorization", "Bearer "+getToken(argoEnv))
 			  .body("{\r\n  \"dryRun\": false\r\n\r\n}")
 			  .asString();		
 			responseArgo = response.getBody();
@@ -199,11 +220,11 @@ public class ProjectServiceImpl implements ProjectService {
 		return responseArgo;
 	}
 	
-	public String getToken(Environments env) {		
+	public String getToken(ArgoEnvironment argoenv) {		
 	 
-		String argoPassword = env.getArgoEnv().getArgoPassword();
-		String argoUser = env.getArgoEnv().getArgoUser();
-		String argoServer = env.getArgoEnv().getArgoServer();
+		String argoPassword = argoenv.getArgoPassword();
+		String argoUser = argoenv.getArgoUser();
+		String argoServer = argoenv.getArgoServer();
 		String token="";
 	    String command = "curl -k -H \"Accept: application/json\"  -X POST -d {\"password\":\""+argoPassword+"\",\"username\":\""+argoUser+"\"} "+argoServer+"/api/v1/session";
 	    	   
@@ -239,7 +260,7 @@ public class ProjectServiceImpl implements ProjectService {
 		ArgoAppStatus argoAppStatus = null;
 		try {
 			HttpResponse<JsonNode> response = Unirest.get("https://openshift-gitops-server-openshift-gitops.apps.ocp-lab.its4u.eu/api/v1/applications/"+env.getEnvironment()+"?refresh=true")
-			  .header("Authorization", "Bearer "+getToken(env))			  
+			  .header("Authorization", "Bearer "+getToken(env.getArgoEnv()))			  
 			  .asJson();
 						
 			try {

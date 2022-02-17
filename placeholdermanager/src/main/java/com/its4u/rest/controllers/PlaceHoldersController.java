@@ -67,6 +67,11 @@ public class PlaceHoldersController {
 	public @ResponseBody String synchronize(@PathVariable("projectName") String projectName,@PathVariable("env") String env) {
 		return service.synchronize(projectName,env);
 	}
+	//String env,String argoEnvid
+	@RequestMapping(value = "/sync/{env}/{argoEnvid}")
+	public @ResponseBody String synchronizeClusterConfig(@PathVariable("env") String env,@PathVariable("argoEnvid") String argoEnvid) {
+		return service.synchronizeClusterConfig(env,argoEnvid);
+	}
 	
 	@RequestMapping(value = "/projects/{projectName}/create-version/{version}")
 	public @ResponseBody Project createVersion(@PathVariable("projectName") String projectName, @PathVariable("version") String version) {
