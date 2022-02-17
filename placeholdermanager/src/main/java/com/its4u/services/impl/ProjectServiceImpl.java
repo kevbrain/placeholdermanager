@@ -172,8 +172,11 @@ public class ProjectServiceImpl implements ProjectService {
 	public String synchronize(String projectName,Environments env) {
 		
 		System.out.println("Synchronize application : "+projectName);
+		//Project proj = findProject(projectName);
 		//env.getArgoEnv()
-		//ArgoEnvironment argoEnv = argoService.getArgoEnvByID(env.getArgoEnvId());
+		System.out.println("env = "+env.getEnvironment());
+		System.out.println("env = "+env.getArgoEnvId());
+		ArgoEnvironment argoEnv = argoService.getArgoEnvByID(env.getArgoEnvId());
 		String argoServer = env.getArgoEnv().getArgoServer();
 		
 		String responseArgo="";
