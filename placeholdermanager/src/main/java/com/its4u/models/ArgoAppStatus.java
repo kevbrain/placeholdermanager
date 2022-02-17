@@ -19,6 +19,8 @@ public class ArgoAppStatus implements Serializable {
 	private List<ArgoResource> argoResources;
 	
 	private boolean synchrone;
+	
+	private boolean healthy;
 
 	public ArgoAppStatus(String sync, String health) {
 		super();
@@ -28,6 +30,11 @@ public class ArgoAppStatus implements Serializable {
 	
 	public boolean isSynchrone() {		
 		if (sync!=null && sync.equalsIgnoreCase("synced")) return true;
+		return false;
+	}
+	
+	public boolean isHealthy() {
+		if (health!=null && health.equalsIgnoreCase("Healthy")) return true;
 		return false;
 	}
 	
