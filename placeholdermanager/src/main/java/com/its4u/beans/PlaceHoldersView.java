@@ -131,11 +131,13 @@ public class PlaceHoldersView {
 	}
 	
 	public void deleteProject() {
-		
+		projectService.listFileForClean(selectedProject);
+		/*
 		for (Environments env: selectedProject.getEnvironments()) {	
 				System.out.println("Delete env "+env.getEnvironment());		
 				projectService.delete(selectedEnvironment);
 		}
+		*/
 		//projectService.deleteProject(selectedProject);
 		//selectedProject = null;
 		pollView.log("Project deleted");

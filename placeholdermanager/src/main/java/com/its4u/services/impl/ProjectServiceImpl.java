@@ -590,6 +590,24 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 	
 	
+	
+	@Override
+	public void listFileForClean(Project project) {
+		String pathapp = cloneGitApp(project)+"//src//main//argo//applications";
+		// we browse the app git 
+		List<String> pathfiletoDelete = new ArrayList<String>();
+		
+		Path pathtoBrowse = Paths.get(pathapp);
+		try {
+			Files.walkFileTree(pathtoBrowse, new ListFilesDir(pathtoBrowse, pathfiletoDelete));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(pathfiletoDelete);
+	}
+	
+	
 	@Override
 	public void delete(Environments env) {
 		
