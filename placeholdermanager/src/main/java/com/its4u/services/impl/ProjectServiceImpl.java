@@ -238,7 +238,7 @@ public class ProjectServiceImpl implements ProjectService {
 		Unirest.setTimeouts(0, 0);
 		ArgoAppStatus argoAppStatus = null;
 		try {
-			HttpResponse<JsonNode> response = Unirest.get("https://openshift-gitops-server-openshift-gitops.apps.ocp-lab.its4u.eu/api/v1/applications/"+projectName+"?refresh=true")
+			HttpResponse<JsonNode> response = Unirest.get("https://openshift-gitops-server-openshift-gitops.apps.ocp-lab.its4u.eu/api/v1/applications/"+env.getEnvironment()+"?refresh=true")
 			  .header("Authorization", "Bearer "+getToken(env))			  
 			  .asJson();
 						
