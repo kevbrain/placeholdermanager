@@ -60,7 +60,7 @@
 					
 				</p:column>
 				<p:column width="40px;" style="margin:0px;padding:0px;">
-					<p:commandButton value=">>"   title="promote"
+					<p:commandButton value=">> "   title="promote"
 						rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]!=null and !proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['app-version'].snapshot}"
 		   				oncomplete="PF('dlg0').hide()"
 			   			onclick="PF('dlg0').show()"
@@ -166,13 +166,13 @@
 					   					
 					   					<h:outputText value="Sync"/>
 						 				<h:panelGroup>
-						 				 	<h:outputText id="syncstatus" value=""/>
+						 				 	<h:outputText id="syncstatus" value="#{placeHoldersView.selectedProject.mapappstatusByEnv[env.environment].sync}"/>
 						 				 	<p:commandButton value="Details"  					   			
 										   			onclick="PF('dlgStatus').show()" style="margin:10px;background:#003b50;color:white" />
 						 			    </h:panelGroup>
 						 			    <p:spacer height="10" width="100"></p:spacer>
 						 			    <h:outputText value="Health"/>
-						 			    <h:outputText id="healthstatus" value=""/>
+						 			    <h:outputText id="healthstatus" value="#{placeHoldersView.selectedProject.mapappstatusByEnv[env.environment].health}"/>
 	 								</h:panelGrid>
 					    				<p:panel id="newEnv" rendered="#{argoInitializerBean.newEnv}">
 					    						<h:panelGrid columns="2" id="gridArgo">
