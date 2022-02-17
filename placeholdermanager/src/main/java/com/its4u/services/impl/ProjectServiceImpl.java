@@ -183,7 +183,7 @@ public class ProjectServiceImpl implements ProjectService {
 		String responseArgo="";
 		Unirest.setTimeouts(0, 0);
 		try {
-			HttpResponse<String> response = Unirest.post(argoServer+"/api/v1/applications/"+projectName+"/sync")
+			HttpResponse<String> response = Unirest.post(argoServer+"/api/v1/applications/"+env.getEnvironment()+"/sync")
 			  .header("Authorization", "Bearer "+getToken(env.getArgoEnv()))
 			  .body("{\r\n  \"dryRun\": false\r\n\r\n}")
 			  .asString();		
@@ -432,7 +432,6 @@ public class ProjectServiceImpl implements ProjectService {
 			if (envi.getEnvironment().equalsIgnoreCase(envID)) {
 				
 				envconcerned = envi;
-				System.out.println("envconcernerd = "+envconcerned);
 				updateGitOpsApp(envconcerned);
 			}
 		}		
