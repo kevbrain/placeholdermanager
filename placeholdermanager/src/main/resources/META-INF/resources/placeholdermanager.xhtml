@@ -43,7 +43,7 @@
    		<p:panel id="dashboard" rendered="#{!placeHoldersView.applicationSelected}">
 	   		<p:dataTable value="#{placeHoldersView.projectList}"  var="proj"  widgetVar="projectsTable" id="projectstable">
 	   			<p:column  headerText="APPLICATIONS" width="250px;">	
-	   				<p:commandButton styleClass="healthyButton"/>
+	   				<p:graphicImage name="health_Healthy.png"/>
 					<p:commandButton value="#{proj.project_Id}"
 					    style="margin:10px;background-color: transparent;border-color: transparent;}"
 						actionListener="#{placeHoldersView.loadDetailApp(proj)}"
