@@ -89,6 +89,9 @@ public class Environments implements Serializable {
 	@Transient
 	public int index;
 	
+	@JsonIgnore
+	@Transient
+	public boolean selected=false;
 		
 	public Environments() {
 		super();
