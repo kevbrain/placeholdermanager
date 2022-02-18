@@ -60,8 +60,11 @@ public interface ProjectService {
 
 	String synchronizeClusterConfig(String env, String argoEnvid);
 
-	void delete(Environments env,List<String> fileNamesToDelete);
-
 	List<String> listFileForClean(Project project,String type);
+
+	void deleteGitOpsArgo(Environments env,List<String> fileAppToDelete,List<String> fileNamespacesToDelete);
+
+	void deleteGitOpsApps(Environments env);
 	
+		
 }

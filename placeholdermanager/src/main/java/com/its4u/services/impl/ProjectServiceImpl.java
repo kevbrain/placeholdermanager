@@ -332,14 +332,12 @@ public class ProjectServiceImpl implements ProjectService {
 		
 		
 		String pathWorkingGitAppProject = cloneGitApp(env.getProject());
-		
-		
-		
-			HashMap<String, String> keyValues = new HashMap<String, String>();
-			for (PlaceHolders pl:env.getPlaceholders()) {
-				keyValues.put(pl.getPlaceHolderId().getKey(),pl.getValue());
-			}
-			updateGitopsPerEnvironment(env.getProjectId(),pathWorkkingGitOpsAppsProject,pathWorkingGitAppProject,env.getEnvironment(),keyValues);
+
+		HashMap<String, String> keyValues = new HashMap<String, String>();
+		for (PlaceHolders pl:env.getPlaceholders()) {
+			keyValues.put(pl.getPlaceHolderId().getKey(),pl.getValue());
+		}
+		updateGitopsPerEnvironment(env.getProjectId(),pathWorkkingGitOpsAppsProject,pathWorkingGitAppProject,env.getEnvironment(),keyValues);
 		
 			
 		// commit and push
@@ -611,14 +609,49 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 	
 	
+	
 	@Override
-	public void delete(Environments env,List<String> fileNamesToDelete)  {
+	public void deleteGitOpsArgo(Environments env,List<String> fileAppToDelete,List<String> fileNamespacesToDelete)  {
 			
 		// clone ocp-gitops
 		String pathops = cloneGitOps(env);
+		Path filepath = null;
+		
+		// delete application
+		for (String filename:fileAppToDelete) {
+			filepath = Paths.get(pathops+"/cluster/applications/"+filename);
+			try {
+				Files.delete(filepath);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		// delete namespace items
+		for (String filename:fileNamespacesToDelete) {
+			filepath = Paths.get(pathops+"/cluster/namespaces/"+filename);
+			try {
+				Files.delete(filepath);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		// commitAndPush
+	
+		
+		
+	}
+	
+	
+	
+	@Override
+	public void deleteGitOpsApps(Environments env)  {
+			
+		// clone ocp-gitops
+		
 		String pathappsdeployString = cloneGitOpsApps(env);
-		
-		
+				
 	}
 
 	@Override
