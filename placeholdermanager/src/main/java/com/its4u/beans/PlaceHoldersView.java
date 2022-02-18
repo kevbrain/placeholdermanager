@@ -144,9 +144,7 @@ public class PlaceHoldersView {
 	public void deleteProject(Environments env) {
 		List<String> filesApplicationToRemove = projectService.listFileForClean(selectedProject,"applications");
 		List<String> filesNamespacesToRemove = projectService.listFileForClean(selectedProject,"namespaces");
-		
-		
-		
+						
 		System.out.println("Delete env "+env.getEnvironment());		
 		projectService.deleteGitOpsApps(env);
 		projectService.deleteGitOpsArgo(selectedEnvironment,filesApplicationToRemove,filesNamespacesToRemove);

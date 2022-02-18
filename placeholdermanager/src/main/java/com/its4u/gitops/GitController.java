@@ -155,12 +155,13 @@ public static void commitAndPushGitOps(Environments env) throws NoFilepatternExc
 	public static void commitAndPushGitOpsApp(Environments env) throws NoFilepatternException, GitAPIException, URISyntaxException {
 		
 		gitOpsApp.add().addFilepattern(".").call();
-		
+		System.out.println("Path Repository: "+gitOpsApp.getRepository().getDirectory().toString());
 		// Now, we do the commit with a message
 
 		RevCommit rev =	gitOpsApp.commit().setAuthor("ksc", "ksc@example.com").setMessage("Modified by ITS4U PlaceHolderControler").call();
 		System.out.println("Commit ID = "+rev.getId().toString().substring(7, 47));
 		System.out.println("Commit Time = "+rev.getCommitTime());
+		
 		
 		RemoteAddCommand remoteAddCommand = gitOpsApp.remoteAdd();
 	    remoteAddCommand.setName("origin");

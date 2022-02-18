@@ -665,7 +665,7 @@ public class ProjectServiceImpl implements ProjectService {
 		try {
 			FileUtils.deleteDirectory(new File(pathWorkkingGitOpsAppsProject));
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 		// commit and push
 		try {
