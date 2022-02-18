@@ -614,7 +614,9 @@ public class ProjectServiceImpl implements ProjectService {
 	public void deleteGitOpsArgo(Environments env,List<String> fileAppToDelete,List<String> fileNamespacesToDelete)  {
 			
 		// clone ocp-gitops
-		String pathops = cloneGitOps(env);
+		Environments envToDelete = environmentService.getEnvById(env.getEnvironment());
+		System.out.println(envToDelete.getArgoEnv().getGitOpsRepo());
+		String pathops = cloneGitOps(envToDelete);
 		Path filepath = null;
 		
 		// delete application
