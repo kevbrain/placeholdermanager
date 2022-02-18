@@ -354,6 +354,7 @@ public class ProjectServiceImpl implements ProjectService {
 	
 	@Override
 	public String cloneGitOps(Environments env) {
+		System.out.println("Clone GitOps from "+env.getArgoEnv().getGitOpsRepo());
 		String pathWorkkingGitOps = null;
 		try {
 			pathWorkkingGitOps = GitController.loadGitOps(env.getArgoEnv().getGitOpsRepo());
@@ -614,9 +615,8 @@ public class ProjectServiceImpl implements ProjectService {
 	public void deleteGitOpsArgo(Environments env,List<String> fileAppToDelete,List<String> fileNamespacesToDelete)  {
 			
 		// clone ocp-gitops
-		Environments envToDelete = environmentService.getEnvById(env.getEnvironment());
-		System.out.println(envToDelete.getArgoEnv().getGitOpsRepo());
-		String pathops = cloneGitOps(envToDelete);
+	    env.setArgoEnv(argoService.getArgoEnvByID(env.getArgoEnvId()));
+		String pathops = cloneGitOps(env);
 		Path filepath = null;
 		
 		// delete application
