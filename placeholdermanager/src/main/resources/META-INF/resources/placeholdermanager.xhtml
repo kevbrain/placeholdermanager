@@ -126,8 +126,17 @@
 			   		<p:commandButton value="Logs" onclick="PF('dlg1').show()"/>
 			   		<p:commandButton value="Delete" style="margin:10px;background:red;color:white" 
 			   			update="growl,@form" immediate="true"
-			   			actionListener="#{placeHoldersView.deleteProject}"/>
+			   			actionListener="#{placeHoldersView.deleteProject}">
+			   			<p:confirm header="Confirmation" message="Do you want to delete this application ?" icon="pi pi-info-circle"/>
+			   		</p:commandButton>
 		   		</div>
+		   		
+		   		 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+			            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+			            <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" />
+			            <p:selectBooleanButton onLabel="Yes" offLabel="No"
+                                onIcon="pi pi-check" offIcon="pi pi-times" style="width:6rem" />
+			     </p:confirmDialog>
 		   		 	   		
 	 			<h:panelGrid columns="2">
 	 				<h:outputText value="My projects :"/>
