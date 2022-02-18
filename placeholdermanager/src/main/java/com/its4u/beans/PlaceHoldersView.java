@@ -106,6 +106,14 @@ public class PlaceHoldersView {
 		selectedProjectId=projet.getProject_Id();
 	}
 	
+	public void loadDetailEnv(Project projet,String envId) {
+		selectedProject=projet;
+		applicationSelected=true;
+		onSelectedProject(projet.getProject_Id());
+		selectedProjectId=projet.getProject_Id();
+		selectedEnvironment = environmentService.getEnvById(envId);
+		System.out.println("environement loaded = "+selectedEnvironment.getEnvironment());
+	}
 
 	public void closeArgoDetails() {
 		argoInitialier.setNewEnv(false);
@@ -119,8 +127,6 @@ public class PlaceHoldersView {
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Project saved"));
 		pollView.log("Update GitOps");
 		
-		projectService.updateGitOpsApp(env);
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Git Synchronized"));
 	}
 	
 	public void deletePlaceHolder(PlaceHolders pl,Environments env) {
@@ -222,6 +228,7 @@ public class PlaceHoldersView {
 	
 	public void synchronise(Environments env) {
 		save(env);
+		projectService.updateGitOpsApp(env);
 		argoInitialier.synchronise(env);
 	}
 	

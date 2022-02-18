@@ -53,6 +53,7 @@
 				<p:column  headerText="DEV" >	
 					<p:commandButton value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['app-version'].value}" 
 							 style="margin:10px;background-color: transparent;border-color:#{proj.mapappstatusByEnv[proj.mapenvs['dev']].synchrone?'green':'red'};color:#{proj.mapappstatusByEnv[proj.mapenvs['dev']].synchrone?'green':'red'}"
+							 actionListener="#{placeHoldersView.loadDetailEnv(proj,proj.mapenvs['dev'])}"
 							 rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]!=null and proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['app-version'].value!=null}"/>
 					<p:commandButton value="ns: #{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['ocp-namespace'].value}" 
 							style="margin:5px;background-color: transparent;border-color:#003b50;color:#003b50}"
@@ -154,7 +155,7 @@
 	   			
    			
    			
-		   		<p:tabView value="#{placeHoldersView.selectedProject.environments}" var="env" id="tabviewenv"  tabindex="#{env.index}">
+		   		<p:tabView value="#{placeHoldersView.selectedProject.environments}" var="env" id="tabviewenv" >
 		   				<p:ajax event="tabChange"  update="@form" process="@form" listener="#{placeHoldersView.closeArgoDetails}"/>
 					    	<p:tab title="#{env.environment}" >
 					    		
