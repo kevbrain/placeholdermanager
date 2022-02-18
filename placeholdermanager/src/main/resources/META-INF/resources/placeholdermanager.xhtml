@@ -133,9 +133,7 @@
 		   		
 		   		 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
 			            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
-			            <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" />
-			            <p:selectBooleanButton onLabel="Yes" offLabel="No"
-                                onIcon="pi pi-check" offIcon="pi pi-times" style="width:6rem" />
+			            <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" />			           			           
 			     </p:confirmDialog>
 		   		 	   		
 	 			<h:panelGrid columns="2">
@@ -156,7 +154,7 @@
 	   			
    			
    			
-		   		<p:tabView value="#{placeHoldersView.selectedProject.environments}" var="env" id="tabviewenv" >
+		   		<p:tabView value="#{placeHoldersView.selectedProject.environments}" var="env" id="tabviewenv"  tabindex="#{env.index}">
 		   				<p:ajax event="tabChange"  update="@form" process="@form" listener="#{placeHoldersView.closeArgoDetails}"/>
 					    	<p:tab title="#{env.environment}" >
 					    		

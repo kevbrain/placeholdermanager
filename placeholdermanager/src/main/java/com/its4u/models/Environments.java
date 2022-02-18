@@ -85,7 +85,9 @@ public class Environments implements Serializable {
 	@Transient
 	public List<PlaceHolders> newPlaceholders;
 	
-	
+	@JsonIgnore
+	@Transient
+	public int index;
 	
 		
 	public Environments() {
@@ -140,6 +142,18 @@ public class Environments implements Serializable {
 			mapPlaceHolders.put(pl.getPlaceHolderId().getKey(), pl.getValue());
 		}
 		return mapPlaceHolders;
+	}
+	
+	public int getIndex() {
+		
+		String envsuffix = environment.substring(environment.length() - 3);
+		switch (envsuffix) {
+		case "dev": index= 0;
+		case "tst": index= 1;
+		case "int": index= 2;
+		case "prd": index= 3;
+		}
+		return index;
 	}
 
 	
