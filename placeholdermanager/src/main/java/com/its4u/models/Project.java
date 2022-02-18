@@ -3,6 +3,7 @@ package com.its4u.models;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -51,6 +52,10 @@ public class Project implements Serializable{
 	@Transient
 	@JsonIgnore	
 	private HashMap<String,ArgoAppStatus> mapappstatusByEnv;
+	
+	@Transient
+	@JsonIgnore
+	private Map<String,Boolean> envSelectedMap;
 	
 	@Transient
 	@JsonIgnore

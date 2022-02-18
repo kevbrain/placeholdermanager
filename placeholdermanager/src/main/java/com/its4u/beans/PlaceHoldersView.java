@@ -80,6 +80,8 @@ public class PlaceHoldersView {
 	
 	private boolean applicationSelected;
 	
+	
+	
 
 	
 	@PostConstruct
@@ -88,6 +90,7 @@ public class PlaceHoldersView {
     }
 	
 	public void refresh() {
+		
 		applicationSelected=false;
 		myProjects = projectService.findAll();		
 		for (Project proj:myProjects.values()) {			
@@ -112,7 +115,8 @@ public class PlaceHoldersView {
 		onSelectedProject(projet.getProject_Id());
 		selectedProjectId=projet.getProject_Id();
 		selectedEnvironment = environmentService.getEnvById(envId);
-		selectedEnvironment.setSelected(true);
+		
+		projet.getEnvSelectedMap().put(envId, true);
 		System.out.println("environement loaded = "+selectedEnvironment.getEnvironment());
 	}
 
