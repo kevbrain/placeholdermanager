@@ -141,20 +141,22 @@ public class PlaceHoldersView {
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "PlaceHolder "+pl.getPlaceHolderId().getKey()+" deleted"));
 	}
 	
-	public void deleteProject() {
+	public void deleteProject(Environments env) {
 		List<String> filesApplicationToRemove = projectService.listFileForClean(selectedProject,"applications");
 		List<String> filesNamespacesToRemove = projectService.listFileForClean(selectedProject,"namespaces");
 		
 		
-		for (Environments env: selectedProject.getEnvironments()) {	
-				System.out.println("Delete env "+env.getEnvironment());		
-				projectService.deleteGitOpsArgo(selectedEnvironment,filesApplicationToRemove,filesNamespacesToRemove);
-		}
 		
-		//projectService.deleteProject(selectedProject);
-		//selectedProject = null;
+		System.out.println("Delete env "+env.getEnvironment());		
+		projectService.deleteGitOpsApps(env);
+		projectService.deleteGitOpsArgo(selectedEnvironment,filesApplicationToRemove,filesNamespacesToRemove);
+		projectService.synchronize(env);
+		String envsuffix = env.getEnvironment().substring(env.getEnvironment().length() - 3);
+		projectService.synchronizeClusterConfig(envsuffix, env.getArgoEnvId());
+		
+		
 		pollView.log("Project deleted");
-		//refresh();
+		refresh();
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Project deleted"));
 	}
 	

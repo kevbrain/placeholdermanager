@@ -329,8 +329,7 @@ public class ProjectServiceImpl implements ProjectService {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
-		
+	
 		String pathWorkingGitAppProject = cloneGitApp(env.getProject());
 
 		HashMap<String, String> keyValues = new HashMap<String, String>();
@@ -371,8 +370,6 @@ public class ProjectServiceImpl implements ProjectService {
 		
 		String pathWorkkingGitOpsApps = null;
 		try {
-			System.out.println("env = "+env.getEnvironment());
-			System.out.println("url = "+env.getArgoEnv().getGitOpsAppsRepo());
 			pathWorkkingGitOpsApps = GitController.loadGitOpsApps(env.getArgoEnv().getGitOpsAppsRepo());
 			System.out.println("Git Ops project cloned on "+pathWorkkingGitOpsApps);
 		} catch (IllegalStateException | GitAPIException e1) {
@@ -640,7 +637,16 @@ public class ProjectServiceImpl implements ProjectService {
 		}
 		
 		// commitAndPush
-	
+		// commit and push
+		try {
+			GitController.commitAndPushGitOps(env);
+		} catch (NoFilepatternException e) {
+			e.printStackTrace();
+		} catch (GitAPIException e) {
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}	
 		
 		
 	}
@@ -651,9 +657,27 @@ public class ProjectServiceImpl implements ProjectService {
 	public void deleteGitOpsApps(Environments env)  {
 			
 		// clone ocp-gitops
+		// clone gitops	
+		String pathWorkkingGitOpsAppsProject = cloneGitOpsApps(env)+"/"+env.getProjectId();		
 		
-		String pathappsdeployString = cloneGitOpsApps(env);
-				
+		// clean GitOpsApps and recreate arborescence 
+		System.out.println("clean gitOpsApp");
+		try {
+			FileUtils.deleteDirectory(new File(pathWorkkingGitOpsAppsProject));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+		}
+		// commit and push
+		try {
+			GitController.commitAndPushGitOpsApp(env);
+		} catch (NoFilepatternException e) {
+			e.printStackTrace();
+		} catch (GitAPIException e) {
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+						
 	}
 
 	@Override
