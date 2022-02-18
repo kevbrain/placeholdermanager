@@ -112,6 +112,7 @@ public class PlaceHoldersView {
 		onSelectedProject(projet.getProject_Id());
 		selectedProjectId=projet.getProject_Id();
 		selectedEnvironment = environmentService.getEnvById(envId);
+		selectedEnvironment.setSelected(true);
 		System.out.println("environement loaded = "+selectedEnvironment.getEnvironment());
 	}
 
