@@ -69,6 +69,8 @@ public class GitController {
 	
 	public static String getRepoPath(Git gitrepo) {
 		String gitRepoPath = gitrepo.getRepository().getDirectory().toString();
+		System.out.println("["+gitRepoPath+"]");
+		System.out.println("-->["+gitRepoPath.substring(0,gitRepoPath.length()-5)+"]");
 		return gitRepoPath.substring(0,gitRepoPath.length()-5);		
 	}
 	
