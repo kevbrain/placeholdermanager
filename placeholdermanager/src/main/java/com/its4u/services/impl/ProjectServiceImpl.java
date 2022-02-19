@@ -620,14 +620,11 @@ public class ProjectServiceImpl implements ProjectService {
 		
 		List<String> fileAppToDelete = listFileForClean(gitApp,"applications");
 		List<String> fileNamespacesToDelete = listFileForClean(gitApp,"namespaces");
-		//Path filepath = null;
+		Path filepath = null;
 		
 		// delete application
 		for (String filename:fileAppToDelete) {
-			System.out.println("Delete "+filename);
-			String pathFileToDelete = pathops+"/cluster/applications/"+filename;
-			//File fileToDelete = new File(pathFileToDelete);
-			Path filepath = Paths.get(pathops+"/cluster/applications/"+filename);
+			filepath = Paths.get(pathops+"/cluster/applications/"+filename);
 			try {
 				System.out.println("Delete cluster/applications/"+filename);
 				Files.delete(filepath);
@@ -639,15 +636,16 @@ public class ProjectServiceImpl implements ProjectService {
 		
 		// delete namespace items
 		for (String filename:fileNamespacesToDelete) {
-			//filepath = Paths.get(pathops+"/cluster/namespaces/"+filename);
+			filepath = Paths.get(pathops+"/cluster/namespaces/"+filename);
 			try {
-				//Files.delete(filepath);
+				System.out.println("Delete cluster/namespaces/"+filename);
+				Files.delete(filepath);
+				gitops.rm().addFilepattern("cluster/namespaces/"+filename).call();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 		
-		// commitAndPush
 		// commit and push
 		try {
 			GitController.commitAndPushGitOps(env,gitops);
@@ -658,8 +656,7 @@ public class ProjectServiceImpl implements ProjectService {
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 		}	
-		
-		
+			
 	}
 	
 	
@@ -676,9 +673,25 @@ public class ProjectServiceImpl implements ProjectService {
 		// clean GitOpsApps and recreate arborescence 
 		System.out.println("clean gitOpsApp");
 		try {
-			FileUtils.deleteDirectory(new File(pathWorkkingGitOpsAppsProject));
-		} catch (IOException e1) {
-			e1.printStackTrace();
+			File directorybase = new File(pathWorkkingGitOpsAppsProject);
+			File[] contents = directorybase.listFiles();
+			
+			if (contents !=null) {
+				for (File f: contents) {
+					f.delete();
+					System.out.println("Delete "+env.getProjectId()+"/"+f.getName());
+					gitopsapps.rm().addFilepattern(env.getProjectId()+"/"+f.getName()).call();
+				}
+			}
+			directorybase.delete();
+			gitopsapps.rm().addFilepattern(env.getProjectId()).call();
+			
+		} catch (NoFilepatternException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (GitAPIException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		// commit and push
 		try {

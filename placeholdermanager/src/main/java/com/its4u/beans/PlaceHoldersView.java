@@ -151,7 +151,7 @@ public class PlaceHoldersView {
 		projectService.synchronize(env);
 		String envsuffix = env.getEnvironment().substring(env.getEnvironment().length() - 3);
 		projectService.synchronizeClusterConfig(envsuffix, env.getArgoEnvId());
-		
+		projectService.synchronize(env);
 		
 		pollView.log("Project deleted");
 		refresh();
