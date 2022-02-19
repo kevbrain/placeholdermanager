@@ -16,6 +16,7 @@ import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.transport.URIish;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
+import org.eclipse.jgit.util.FileUtils;
 import org.springframework.util.FileSystemUtils;
 
 import com.its4u.models.Environments;
@@ -60,6 +61,10 @@ public class GitController {
 			gitApp = Git.init().setDirectory(workingDirectory).call();
 		}	
 		
+		String gitRepoPath = gitApp.getRepository().getDirectory().toString();
+		String repoPath = gitRepoPath.substring(0,gitRepoPath.length()-5);
+		
+		System.out.println("===> Path Repository: "+repoPath);
 		return path;
 		
 	}
@@ -154,15 +159,16 @@ public static void commitAndPushGitOps(Environments env) throws NoFilepatternExc
 	
 	public static void commitAndPushGitOpsApp(Environments env) throws NoFilepatternException, GitAPIException, URISyntaxException {
 		
+		
 		gitOpsApp.add().addFilepattern(".").call();
-		System.out.println("Path Repository: "+gitOpsApp.getRepository().getDirectory().toString());
+		
 		// Now, we do the commit with a message
 
 		RevCommit rev =	gitOpsApp.commit().setAuthor("ksc", "ksc@example.com").setMessage("Modified by ITS4U PlaceHolderControler").call();
 		System.out.println("Commit ID = "+rev.getId().toString().substring(7, 47));
 		System.out.println("Commit Time = "+rev.getCommitTime());
 		
-		
+				
 		RemoteAddCommand remoteAddCommand = gitOpsApp.remoteAdd();
 	    remoteAddCommand.setName("origin");
 	    remoteAddCommand.setUri(new URIish(env.getArgoEnv().getGitOpsAppsRepo()));
