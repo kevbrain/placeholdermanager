@@ -614,13 +614,14 @@ public class ProjectServiceImpl implements ProjectService {
 	    env.setArgoEnv(argoService.getArgoEnvByID(env.getArgoEnvId()));
 	    Git gitops = cloneGitOps(env);	    
 		String pathops = GitController.getRepoPath(gitops);
-		Path filepath = null;
+		System.out.println("#### PATH = ["+pathops+"]");
+		//Path filepath = null;
 		
 		// delete application
 		for (String filename:fileAppToDelete) {
 			String pathFileToDelete = pathops+"/cluster/applications/"+filename;
 			File fileToDelete = new File(pathFileToDelete);
-			filepath = Paths.get(pathops+"/cluster/applications/"+filename);
+			//filepath = Paths.get(pathops+"/cluster/applications/"+filename);
 			try {
 				FileUtils.forceDelete(fileToDelete);
 				gitops.rm().addFilepattern(pathFileToDelete).call();
@@ -632,9 +633,9 @@ public class ProjectServiceImpl implements ProjectService {
 		
 		// delete namespace items
 		for (String filename:fileNamespacesToDelete) {
-			filepath = Paths.get(pathops+"/cluster/namespaces/"+filename);
+			//filepath = Paths.get(pathops+"/cluster/namespaces/"+filename);
 			try {
-				Files.delete(filepath);
+				//Files.delete(filepath);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
