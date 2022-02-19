@@ -142,13 +142,12 @@ public class PlaceHoldersView {
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "PlaceHolder "+pl.getPlaceHolderId().getKey()+" deleted"));
 	}
 	
+	
 	public void deleteProject(Environments env) {
-		List<String> filesApplicationToRemove = projectService.listFileForClean(selectedProject,"applications");
-		List<String> filesNamespacesToRemove = projectService.listFileForClean(selectedProject,"namespaces");
-						
+								
 		System.out.println("Delete env "+env.getEnvironment());		
 		projectService.deleteGitOpsApps(env);
-		projectService.deleteGitOpsArgo(selectedEnvironment,filesApplicationToRemove,filesNamespacesToRemove);
+		projectService.deleteGitOpsArgo(env);
 		projectService.synchronize(env);
 		String envsuffix = env.getEnvironment().substring(env.getEnvironment().length() - 3);
 		projectService.synchronizeClusterConfig(envsuffix, env.getArgoEnvId());
