@@ -590,8 +590,9 @@ public class ProjectServiceImpl implements ProjectService {
 	
 	
 	@Override
-	public List<String> listFileForClean(Project project,String type) {
-		String pathapp = cloneGitApp(project)+"//src//main//argo//"+type;
+	public List<String> listFileForClean(Git gitrepo,String type) {
+		//Git gitapp = cloneGitApp(project);
+		String pathapp = GitController.getRepoPath(gitrepo)+"//src//main//argo//"+type;
 		// we browse the app git 
 		List<String> pathfiletoDelete = new ArrayList<String>();
 		
@@ -608,13 +609,16 @@ public class ProjectServiceImpl implements ProjectService {
 	
 	
 	@Override
-	public void deleteGitOpsArgo(Environments env,List<String> fileAppToDelete,List<String> fileNamespacesToDelete)  {
+	public void deleteGitOpsArgo(Environments env)  {
 			
 		// clone ocp-gitops
 	    env.setArgoEnv(argoService.getArgoEnvByID(env.getArgoEnvId()));
 	    Git gitops = cloneGitOps(env);	    
 		String pathops = GitController.getRepoPath(gitops);
-		System.out.println("#### PATH = ["+pathops+"]");
+
+		
+		List<String> fileAppToDelete = listFileForClean(gitops,"applications");
+		List<String> fileNamespacesToDelete = listFileForClean(gitops,"namespaces");
 		//Path filepath = null;
 		
 		// delete application
