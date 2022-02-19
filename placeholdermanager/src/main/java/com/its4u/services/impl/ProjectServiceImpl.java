@@ -16,6 +16,7 @@ import java.util.Optional;
 
 import org.apache.commons.io.FileUtils;
 import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.RmCommand;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.api.errors.NoFilepatternException;
 import org.json.JSONArray;
@@ -617,9 +618,13 @@ public class ProjectServiceImpl implements ProjectService {
 		
 		// delete application
 		for (String filename:fileAppToDelete) {
+			String pathFileToDelete = pathops+"/cluster/applications/"+filename;
+			File fileToDelete = new File(pathFileToDelete);
 			filepath = Paths.get(pathops+"/cluster/applications/"+filename);
 			try {
-				Files.delete(filepath);
+				FileUtils.forceDelete(fileToDelete);
+				gitops.rm().addFilepattern(pathFileToDelete).call();
+				//Files.delete(filepath);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
