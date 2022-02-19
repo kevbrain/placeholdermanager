@@ -629,9 +629,9 @@ public class ProjectServiceImpl implements ProjectService {
 			//File fileToDelete = new File(pathFileToDelete);
 			Path filepath = Paths.get(pathops+"/cluster/applications/"+filename);
 			try {
-				System.out.println("Delete "+filepath.getFileName());
+				System.out.println("Delete /cluster/applications/"+filename);
 				Files.delete(filepath);
-				gitops.rm().addFilepattern(filename).call();				
+				gitops.rm().addFilepattern("/cluster/applications/"+filename).call();				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

@@ -139,11 +139,6 @@ public static void commitAndPushGitOps(Environments env,Git gitRepo) throws NoFi
 		gitRepo.add().addFilepattern(".").call();
 		
 		// Now, we do the commit with a message
-
-		RevCommit rev =	gitRepo.commit().setAuthor("ksc", "ksc@example.com").setMessage("Modified by ITS4U PlaceHolderControler").call();
-		System.out.println("Commit ID = "+rev.getId().toString().substring(7, 47));
-		System.out.println("Commit Time = "+rev.getCommitTime());
-		
 		
 		RemoteRemoveCommand remoteRemoveCommand = gitRepo.remoteRemove();
 		remoteRemoveCommand.setName("origin");
@@ -153,6 +148,13 @@ public static void commitAndPushGitOps(Environments env,Git gitRepo) throws NoFi
 	    remoteAddCommand.setName("origin");
 	    remoteAddCommand.setUri(new URIish(env.getArgoEnv().getGitOpsRepo()));
 	    remoteAddCommand.call();
+
+		RevCommit rev =	gitRepo.commit().setAuthor("ksc", "ksc@example.com").setMessage("Modified by ITS4U PlaceHolderControler").call();
+		System.out.println("Commit ID = "+rev.getId().toString().substring(7, 47));
+		System.out.println("Commit Time = "+rev.getCommitTime());
+		
+		
+		
 
 	    // push to remote:
 	    PushCommand pushCommand = gitRepo.push();
