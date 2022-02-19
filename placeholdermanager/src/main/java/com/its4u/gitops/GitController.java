@@ -144,11 +144,11 @@ public static void commitAndPushGitOps(Environments env,Git gitRepo) throws NoFi
 		System.out.println("Commit ID = "+rev.getId().toString().substring(7, 47));
 		System.out.println("Commit Time = "+rev.getCommitTime());
 		
-		/*
+		
 		RemoteRemoveCommand remoteRemoveCommand = gitRepo.remoteRemove();
 		remoteRemoveCommand.setName("origin");
 		remoteRemoveCommand.call();
-		*/
+		
 		RemoteAddCommand remoteAddCommand = gitRepo.remoteAdd();
 	    remoteAddCommand.setName("origin");
 	    remoteAddCommand.setUri(new URIish(env.getArgoEnv().getGitOpsRepo()));
