@@ -592,7 +592,7 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public List<String> listFileForClean(Git gitrepo,String type) {
 		//Git gitapp = cloneGitApp(project);
-		String pathapp = GitController.getRepoPath(gitrepo)+"//src//main//argo//"+type;
+		String pathapp = GitController.getRepoPath(gitrepo)+"/cluster/"+type;
 		// we browse the app git 
 		List<String> pathfiletoDelete = new ArrayList<String>();
 		
