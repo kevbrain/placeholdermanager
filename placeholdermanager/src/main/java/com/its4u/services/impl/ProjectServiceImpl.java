@@ -623,10 +623,12 @@ public class ProjectServiceImpl implements ProjectService {
 		
 		// delete application
 		for (String filename:fileAppToDelete) {
+			System.out.println("Delete "+filename);
 			String pathFileToDelete = pathops+"/cluster/applications/"+filename;
 			//File fileToDelete = new File(pathFileToDelete);
 			Path filepath = Paths.get(pathops+"/cluster/applications/"+filename);
 			try {
+				System.out.println("Delete "+filepath.getFileName());
 				Files.delete(filepath);
 				gitops.rm().addFilepattern(filename).call();				
 			} catch (Exception e) {
