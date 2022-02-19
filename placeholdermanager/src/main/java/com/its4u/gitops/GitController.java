@@ -10,6 +10,8 @@ import java.util.UUID;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.PushCommand;
 import org.eclipse.jgit.api.RemoteAddCommand;
+import org.eclipse.jgit.api.RemoteRemoveCommand;
+import org.eclipse.jgit.api.RemoteSetUrlCommand;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.api.errors.NoFilepatternException;
 import org.eclipse.jgit.lib.Ref;
@@ -142,6 +144,11 @@ public static void commitAndPushGitOps(Environments env,Git gitRepo) throws NoFi
 		System.out.println("Commit ID = "+rev.getId().toString().substring(7, 47));
 		System.out.println("Commit Time = "+rev.getCommitTime());
 		
+		/*
+		RemoteRemoveCommand remoteRemoveCommand = gitRepo.remoteRemove();
+		remoteRemoveCommand.setName("origin");
+		remoteRemoveCommand.call();
+		*/
 		RemoteAddCommand remoteAddCommand = gitRepo.remoteAdd();
 	    remoteAddCommand.setName("origin");
 	    remoteAddCommand.setUri(new URIish(env.getArgoEnv().getGitOpsRepo()));
