@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.apache.commons.io.FileUtils;
+import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.api.errors.NoFilepatternException;
 import org.json.JSONArray;
@@ -308,7 +309,8 @@ public class ProjectServiceImpl implements ProjectService {
 	public void updateGitOpsApp(Environments env) {
 		
 		// clone gitops	
-		String pathWorkkingGitOpsAppsProject = cloneGitOpsApps(env)+"/"+env.getProjectId();		
+		Git gitOpsApps = cloneGitOpsApps(env);
+		String pathWorkkingGitOpsAppsProject = GitController.getRepoPath(gitOpsApps)+"/"+env.getProjectId();		
 		
 		// clean GitOpsApps and recreate arborescence 
 		System.out.println("clean gitOpsApp");
@@ -324,7 +326,8 @@ public class ProjectServiceImpl implements ProjectService {
 			e1.printStackTrace();
 		}
 	
-		String pathWorkingGitAppProject = cloneGitApp(env.getProject());
+		Git gitApps = cloneGitApp(env.getProject());
+		String pathWorkingGitAppProject = GitController.getRepoPath(gitApps);
 
 		HashMap<String, String> keyValues = new HashMap<String, String>();
 		for (PlaceHolders pl:env.getPlaceholders()) {
@@ -335,7 +338,7 @@ public class ProjectServiceImpl implements ProjectService {
 			
 		// commit and push
 		try {
-			GitController.commitAndPushGitOpsApp(env);
+			GitController.commitAndPushGitOpsApp(env,gitOpsApps);
 		} catch (NoFilepatternException e) {
 			e.printStackTrace();
 		} catch (GitAPIException e) {
@@ -346,44 +349,44 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 	
 	@Override
-	public String cloneGitOps(Environments env) {
+	public Git cloneGitOps(Environments env) {
 		System.out.println("Clone GitOps from "+env.getArgoEnv().getGitOpsRepo());
-		String pathWorkkingGitOps = null;
-		try {
-			pathWorkkingGitOps = GitController.loadGitOps(env.getArgoEnv().getGitOpsRepo());
-		} catch (IllegalStateException | GitAPIException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		return pathWorkkingGitOps;
-	}
-	
-	
-	@Override
-	public String cloneGitOpsApps(Environments env) {
 		
-		String pathWorkkingGitOpsApps = null;
+		Git gitops = null;
 		try {
-			pathWorkkingGitOpsApps = GitController.loadGitOpsApps(env.getArgoEnv().getGitOpsAppsRepo());
-			System.out.println("Git Ops project cloned on "+pathWorkkingGitOpsApps);
+			gitops = GitController.loadGitOps(env.getArgoEnv().getGitOpsRepo());
 		} catch (IllegalStateException | GitAPIException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		return pathWorkkingGitOpsApps;
+		return gitops;
+	}
+	
+	
+	@Override
+	public Git cloneGitOpsApps(Environments env) {
+		
+		Git gitOpsApps = null;
+		try {
+			gitOpsApps = GitController.loadGitOpsApps(env.getArgoEnv().getGitOpsAppsRepo());			
+		} catch (IllegalStateException | GitAPIException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		return gitOpsApps;
 	}
 	
 	@Override
-	public String cloneGitApp(Project project) {
-		String pathWorkingGitApp = null;
+	public Git cloneGitApp(Project project) {
+		Git gitApp = null;
 		try {
-			pathWorkingGitApp = GitController.loadGitApps(project.getProject_Id());			
-			System.out.println("Git App project cloned on "+pathWorkingGitApp);
+			gitApp = GitController.loadGitApps(project.getProject_Id());			
+			
 		} catch (IllegalStateException | GitAPIException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		return pathWorkingGitApp;
+		return gitApp;
 	}
 	
 	public void updateGitopsPerEnvironment(String projectId,String pathWorkkingGitOps,String pathWorkingGitApp,String keyenv, HashMap<String,String> placesH) {
@@ -564,7 +567,8 @@ public class ProjectServiceImpl implements ProjectService {
 		
 		// publish new resources on gitops		
 		// clone ocp-gitops
-		String path = cloneGitOps(env);
+		Git gitops = cloneGitOps(env);		
+		String path = GitController.getRepoPath(gitops);
 		Path filePathArgoApp = Paths.get(path+"/cluster/applications/", "argoApp-"+projectid+".yaml");
 		Path filePathNameSpace = Paths.get(path+"/cluster/namespaces/", "NS-"+nsName+".yml");
 		try {
@@ -575,7 +579,7 @@ public class ProjectServiceImpl implements ProjectService {
 			e.printStackTrace();
 		}
 		try {
-			GitController.commitAndPushGitOps(env);
+			GitController.commitAndPushGitOps(env,gitops);
 		} catch (GitAPIException | URISyntaxException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -607,7 +611,8 @@ public class ProjectServiceImpl implements ProjectService {
 			
 		// clone ocp-gitops
 	    env.setArgoEnv(argoService.getArgoEnvByID(env.getArgoEnvId()));
-		String pathops = cloneGitOps(env);
+	    Git gitops = cloneGitOps(env);	    
+		String pathops = GitController.getRepoPath(gitops);
 		Path filepath = null;
 		
 		// delete application
@@ -633,7 +638,7 @@ public class ProjectServiceImpl implements ProjectService {
 		// commitAndPush
 		// commit and push
 		try {
-			GitController.commitAndPushGitOps(env);
+			GitController.commitAndPushGitOps(env,gitops);
 		} catch (NoFilepatternException e) {
 			e.printStackTrace();
 		} catch (GitAPIException e) {
@@ -652,7 +657,9 @@ public class ProjectServiceImpl implements ProjectService {
 			
 		// clone ocp-gitops
 		// clone gitops	
-		String pathWorkkingGitOpsAppsProject = cloneGitOpsApps(env)+"/"+env.getProjectId();		
+		
+		Git gitopsapps = cloneGitOpsApps(env);
+		String pathWorkkingGitOpsAppsProject =GitController.getRepoPath(gitopsapps)+"/"+env.getProjectId();		
 		
 		// clean GitOpsApps and recreate arborescence 
 		System.out.println("clean gitOpsApp");
@@ -663,7 +670,7 @@ public class ProjectServiceImpl implements ProjectService {
 		}
 		// commit and push
 		try {
-			GitController.commitAndPushGitOpsApp(env);
+			GitController.commitAndPushGitOpsApp(env,gitopsapps);
 		} catch (NoFilepatternException e) {
 			e.printStackTrace();
 		} catch (GitAPIException e) {

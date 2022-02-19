@@ -3,6 +3,8 @@ package com.its4u.services;
 import java.util.HashMap;
 import java.util.List;
 
+import org.eclipse.jgit.api.Git;
+
 import com.its4u.models.ArgoAppStatus;
 import com.its4u.models.Environments;
 import com.its4u.models.PlaceHolderSpec;
@@ -30,7 +32,7 @@ public interface ProjectService {
 	
 	void updateGitOpsApp(Environments env);
 
-	String cloneGitApp(Project project);
+	Git cloneGitApp(Project project);
 	
 	String applyConf(String projectName,String env);
 	
@@ -50,9 +52,9 @@ public interface ProjectService {
 
 	void enrichProject(Project project);
 
-	String cloneGitOpsApps(Environments env);
+	Git cloneGitOpsApps(Environments env);
 
-	String cloneGitOps(Environments env);
+	Git cloneGitOps(Environments env);
 
 	void promote(Environments env);
 

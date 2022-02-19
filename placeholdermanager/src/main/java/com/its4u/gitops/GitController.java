@@ -29,15 +29,15 @@ public class GitController {
 	
 	private static String pathWorkspace = "/git-workspace";
 	
-	private static Git gitOpsApp;
+	//private static Git gitOpsApp;
 	
-	private static Git gitApp;
+	//private static Git gitApp;
 	
-	private static Git gitops;
+	//private static Git gitops;
 			
 	
 	@SuppressWarnings("deprecation")
-	public static String loadGitApps(String project) throws IllegalStateException, GitAPIException {
+	public static Git loadGitApps(String project) throws IllegalStateException, GitAPIException {
 
 		
 		String gitAppsUrlProject = gitAppsUrl+project+".git";
@@ -48,9 +48,11 @@ public class GitController {
 		workingDirectory = new File(path);
 		workingDirectory.delete();
 		workingDirectory.mkdirs();
+		
+		Git gitRepo = null;
 						
 		try {	
-			gitApp = Git.cloneRepository()
+			gitRepo = Git.cloneRepository()
 					  .setURI(gitAppsUrlProject)
 					  .setDirectory(workingDirectory)
 					  .call();
@@ -58,27 +60,28 @@ public class GitController {
 		} catch (Exception e) {
 			System.out.println("Git Clone exception");
 			e.printStackTrace();
-			gitApp = Git.init().setDirectory(workingDirectory).call();
+			gitRepo = Git.init().setDirectory(workingDirectory).call();
 		}	
 		
-		String gitRepoPath = gitApp.getRepository().getDirectory().toString();
-		String repoPath = gitRepoPath.substring(0,gitRepoPath.length()-5);
-		
-		System.out.println("===> Path Repository: "+repoPath);
-		return path;
+		return gitRepo;
 		
 	}
 	
-	public static List<String> searchTagsGitApps() {
+	public static String getRepoPath(Git gitrepo) {
+		String gitRepoPath = gitrepo.getRepository().getDirectory().toString();
+		return gitRepoPath.substring(0,gitRepoPath.length()-5);		
+	}
+	
+	public static List<String> searchTagsGitApps(Git gitRepo) {
 		List<String> tags = new ArrayList<String>();
-		Map<String,Ref> tagsList = gitApp.getRepository().getTags();
+		Map<String,Ref> tagsList = gitRepo.getRepository().getTags();
 		for (String tag:tagsList.keySet()) {
 			tags.add(tag);
 		}
 		return tags;
 	}
 	
-	public static String loadGitOpsApps(String gitOpsAppsRepoUrl) throws IllegalStateException, GitAPIException {
+	public static Git loadGitOpsApps(String gitOpsAppsRepoUrl) throws IllegalStateException, GitAPIException {
 
 		UUID uuid = UUID.randomUUID();
 		String path = pathWorkspace+"//ocp-gitops-apps-deploy-"+uuid;
@@ -87,22 +90,23 @@ public class GitController {
 		workingDirectory = new File(path);
 		workingDirectory.delete();
 		workingDirectory.mkdirs();
-						
+				
+		Git gitRepo = null;
 		try {	
-			gitOpsApp = Git.cloneRepository()
+			gitRepo = Git.cloneRepository()
 					  .setURI(gitOpsAppsRepoUrl)
 					  .setDirectory(workingDirectory)
 					  .call();
 		} catch (Exception e) {
 			System.out.println("Git Clone exception");
 			e.printStackTrace();
-			gitOpsApp = Git.init().setDirectory(workingDirectory).call();
+			gitRepo = Git.init().setDirectory(workingDirectory).call();
 		}	
-		return path;
+		return gitRepo;
 		
 	}
 	
-	public static String loadGitOps(String gitOpsRepoUrl) throws IllegalStateException, GitAPIException {
+	public static Git loadGitOps(String gitOpsRepoUrl) throws IllegalStateException, GitAPIException {
 
 		UUID uuid = UUID.randomUUID();
 		String path = pathWorkspace+"//ocp-gitops-"+uuid;
@@ -111,38 +115,40 @@ public class GitController {
 		workingDirectory = new File(path);
 		workingDirectory.delete();
 		workingDirectory.mkdirs();
+		
+		Git gitRepo = null;
 						
 		try {	
-			gitops = Git.cloneRepository()
+			gitRepo = Git.cloneRepository()
 					  .setURI(gitOpsRepoUrl)
 					  .setDirectory(workingDirectory)
 					  .call();
 		} catch (Exception e) {
 			System.out.println("Git Clone exception");
 			e.printStackTrace();
-			gitops = Git.init().setDirectory(workingDirectory).call();
+			gitRepo = Git.init().setDirectory(workingDirectory).call();
 		}	
-		return path;
+		return gitRepo;
 		
 	}
 	
-public static void commitAndPushGitOps(Environments env) throws NoFilepatternException, GitAPIException, URISyntaxException {
+public static void commitAndPushGitOps(Environments env,Git gitRepo) throws NoFilepatternException, GitAPIException, URISyntaxException {
 		
-		gitops.add().addFilepattern(".").call();
+		gitRepo.add().addFilepattern(".").call();
 		
 		// Now, we do the commit with a message
 
-		RevCommit rev =	gitops.commit().setAuthor("ksc", "ksc@example.com").setMessage("Modified by ITS4U PlaceHolderControler").call();
+		RevCommit rev =	gitRepo.commit().setAuthor("ksc", "ksc@example.com").setMessage("Modified by ITS4U PlaceHolderControler").call();
 		System.out.println("Commit ID = "+rev.getId().toString().substring(7, 47));
 		System.out.println("Commit Time = "+rev.getCommitTime());
 		
-		RemoteAddCommand remoteAddCommand = gitops.remoteAdd();
+		RemoteAddCommand remoteAddCommand = gitRepo.remoteAdd();
 	    remoteAddCommand.setName("origin");
 	    remoteAddCommand.setUri(new URIish(env.getArgoEnv().getGitOpsRepo()));
 	    remoteAddCommand.call();
 
 	    // push to remote:
-	    PushCommand pushCommand = gitops.push();
+	    PushCommand pushCommand = gitRepo.push();
 	    String user = System.getenv("git.user");
 	    String password = System.getenv("git.password");
 	    pushCommand.setCredentialsProvider(new UsernamePasswordCredentialsProvider(user, password));
@@ -157,25 +163,25 @@ public static void commitAndPushGitOps(Environments env) throws NoFilepatternExc
 		
 	}
 	
-	public static void commitAndPushGitOpsApp(Environments env) throws NoFilepatternException, GitAPIException, URISyntaxException {
+	public static void commitAndPushGitOpsApp(Environments env,Git gitRepo) throws NoFilepatternException, GitAPIException, URISyntaxException {
 		
 		
-		gitOpsApp.add().addFilepattern(".").call();
+		gitRepo.add().addFilepattern(".").call();
 		
 		// Now, we do the commit with a message
 
-		RevCommit rev =	gitOpsApp.commit().setAuthor("ksc", "ksc@example.com").setMessage("Modified by ITS4U PlaceHolderControler").call();
+		RevCommit rev =	gitRepo.commit().setAuthor("ksc", "ksc@example.com").setMessage("Modified by ITS4U PlaceHolderControler").call();
 		System.out.println("Commit ID = "+rev.getId().toString().substring(7, 47));
 		System.out.println("Commit Time = "+rev.getCommitTime());
 		
 				
-		RemoteAddCommand remoteAddCommand = gitOpsApp.remoteAdd();
+		RemoteAddCommand remoteAddCommand = gitRepo.remoteAdd();
 	    remoteAddCommand.setName("origin");
 	    remoteAddCommand.setUri(new URIish(env.getArgoEnv().getGitOpsAppsRepo()));
 	    remoteAddCommand.call();
 
 	    // push to remote:
-	    PushCommand pushCommand = gitOpsApp.push();
+	    PushCommand pushCommand = gitRepo.push();
 	    String user = System.getenv("git.user");
 	    String password = System.getenv("git.password");
 	    pushCommand.setCredentialsProvider(new UsernamePasswordCredentialsProvider(user, password));

@@ -15,6 +15,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 
+import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -163,7 +164,8 @@ public class PlaceHoldersView {
 		
 		pollView.log("Start Git Clone "+selectedProject.getProject_Id()+" project...");
 		
-		String pathWorkingGitAppProject = projectService.cloneGitApp(selectedProject)+"/"+selectedProject.getProject_Id();
+		Git gitapp = projectService.cloneGitApp(selectedProject);
+		String pathWorkingGitAppProject = GitController.getRepoPath(gitapp)+"/"+selectedProject.getProject_Id();
 			
 		pollView.log("Search for new PlaceHolders...");
 		for (Environments env:selectedProject.getEnvironments()) {
@@ -192,7 +194,7 @@ public class PlaceHoldersView {
 		}
 		
 		this.tags = new HashMap<String, String>();
-		for (String tag:GitController.searchTagsGitApps()) {
+		for (String tag:GitController.searchTagsGitApps(gitapp)) {
 			this.tags.put(tag,tag);
 		}
 		
