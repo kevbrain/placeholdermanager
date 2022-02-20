@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -145,13 +146,20 @@ public class PlaceHoldersView {
 	
 	public void deleteProject(Environments env) {
 								
-		System.out.println("Delete env "+env.getEnvironment());		
-		projectService.deleteGitOpsApps(env);
-		projectService.deleteGitOpsArgo(env);
-		projectService.synchronize(env);
 		String envsuffix = env.getEnvironment().substring(env.getEnvironment().length() - 3);
-		projectService.synchronizeClusterConfig(envsuffix, env.getArgoEnvId());
+		System.out.println("Delete env "+env.getEnvironment());		
+		projectService.deleteGitOpsApps(env);		
+		
 		projectService.synchronize(env);
+		System.out.println("Wait 5s ....");
+    	try {
+    		TimeUnit.SECONDS.sleep(3);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	projectService.deleteGitOpsArgo(env);
+		projectService.synchronizeClusterConfig(envsuffix, env.getArgoEnvId());
 		
 		pollView.log("Project deleted");
 		refresh();
