@@ -701,7 +701,7 @@ public class ProjectServiceImpl implements ProjectService {
 		// clone gitops	
 		
 		Git gitopsapps = cloneGitOpsApps(env);
-		String pathWorkkingGitOpsAppsProject =GitController.getRepoPath(gitopsapps)+"/"+env.getProjectId();		
+		String pathWorkkingGitOpsAppsProject =GitController.getRepoPath(gitopsapps)+"/"+env.getProjectId()+"/jkube/";		
 		
 		// clean GitOpsApps and recreate arborescence 
 		System.out.println("clean gitOpsApp");

@@ -231,8 +231,7 @@ public class PlaceHoldersView {
 	public void onSelectedProject(String projectId) {
 		
 		selectedProject=myProjects.get(projectId);
-		searchForNewPlaceHolders();		
-		//appStatus = argoInitialier.statusAndHealth(selectedProject.getProject_Id());
+		searchForNewPlaceHolders();				
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Project loaded"));
 						
 	}
@@ -256,7 +255,6 @@ public class PlaceHoldersView {
 		try {
     		TimeUnit.SECONDS.sleep(10);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		projectService.updateGitOpsApp(env);
