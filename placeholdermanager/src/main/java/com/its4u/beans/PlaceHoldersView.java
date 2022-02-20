@@ -166,7 +166,7 @@ public class PlaceHoldersView {
     	projectService.deleteGitOpsArgo(env);
 		projectService.synchronizeClusterConfig(envsuffix, env.getArgoEnvId());
 		
-		projectService.deleteProject(selectedProject);
+		//projectService.deleteProject(selectedProject);
 		
 		pollView.log("Project deleted");
 		refresh();
@@ -251,6 +251,13 @@ public class PlaceHoldersView {
 		if (envsuffix.equalsIgnoreCase("dev")) {
 			projectService.updateGitOps(env);
 			projectService.synchronizeClusterConfig(envsuffix, env.getArgoEnvId());
+		}
+		System.out.println("Wait 3s for (Cluster Upgrade ) ....");
+		try {
+    		TimeUnit.SECONDS.sleep(10);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		projectService.updateGitOpsApp(env);
 		argoInitialier.synchronise(env);
