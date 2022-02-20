@@ -143,15 +143,20 @@ public class PlaceHoldersView {
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "PlaceHolder "+pl.getPlaceHolderId().getKey()+" deleted"));
 	}
 	
+	public void undeployEnv(Environments env) {
+		
+		projectService.deleteGitOpsApps(env);				
+		projectService.synchronize(env);
+	}
+	
 	
 	public void deleteProject(Environments env) {
 								
 		String envsuffix = env.getEnvironment().substring(env.getEnvironment().length() - 3);
-		System.out.println("Delete env "+env.getEnvironment());		
 		projectService.deleteGitOpsApps(env);		
 		
 		projectService.synchronize(env);
-		System.out.println("Wait 5s ....");
+		System.out.println("Wait 3s ....");
     	try {
     		TimeUnit.SECONDS.sleep(3);
 		} catch (InterruptedException e) {
@@ -160,6 +165,8 @@ public class PlaceHoldersView {
 		}
     	projectService.deleteGitOpsArgo(env);
 		projectService.synchronizeClusterConfig(envsuffix, env.getArgoEnvId());
+		
+		projectService.deleteProject(selectedProject);
 		
 		pollView.log("Project deleted");
 		refresh();
