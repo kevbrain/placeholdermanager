@@ -247,6 +247,11 @@ public class PlaceHoldersView {
 	
 	public void synchronise(Environments env) {
 		save(env);
+		String envsuffix = env.getEnvironment().substring(env.getEnvironment().length() - 3);
+		if (envsuffix.equalsIgnoreCase("dev")) {
+			projectService.updateGitOps(env);
+			projectService.synchronizeClusterConfig(envsuffix, env.getArgoEnvId());
+		}
 		projectService.updateGitOpsApp(env);
 		argoInitialier.synchronise(env);
 	}

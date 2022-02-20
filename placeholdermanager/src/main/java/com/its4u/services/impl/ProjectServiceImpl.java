@@ -309,6 +309,37 @@ public class ProjectServiceImpl implements ProjectService {
 		}
 	}
 	
+	@Override
+	public void updateGitOps(Environments env) {
+		
+		// clone gitaps
+		Git gitApps = cloneGitApp(env.getProject());
+		String gitAppsPath = GitController.getRepoPath(gitApps)+"/src/main/argo/";
+		
+		Git gitops = cloneGitOps(env);
+		String gitOpsPath = GitController.getRepoPath(gitops)+"/cluster/";
+		
+		Path source = Paths.get(gitAppsPath);
+		Path dest = Paths.get(gitOpsPath);
+		try {
+			Files.walkFileTree(source, new CopyDir(source, dest));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		// commit and push
+		try {
+			GitController.commitAndPushGitOpsApp(env,gitops);
+		} catch (NoFilepatternException e) {
+			e.printStackTrace();
+		} catch (GitAPIException e) {
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}	
+		
+	}
+	
 	public void updateGitOpsApp(Environments env) {
 		
 		// clone gitops	
@@ -401,7 +432,7 @@ public class ProjectServiceImpl implements ProjectService {
 			Path source = Paths.get(pathWorkingGitAppEnv);
 			Path dest = Paths.get(pathWorkkingGitOpsEnv);
 			Files.walkFileTree(source, new CopyDir(source, dest));	
-			System.out.println("Replace PlaceHolders by values");
+			
 			
 			Files.walk(Paths.get(pathWorkkingGitOpsEnv))
 	        .filter(Files::isRegularFile)

@@ -67,6 +67,8 @@ public interface ProjectService {
 	void deleteGitOpsArgo(Environments env);
 
 	void deleteGitOpsApps(Environments env);
+
+	void updateGitOps(Environments env);
 	
 		
 }
