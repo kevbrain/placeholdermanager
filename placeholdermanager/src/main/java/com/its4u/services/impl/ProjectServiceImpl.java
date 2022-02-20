@@ -692,7 +692,45 @@ public class ProjectServiceImpl implements ProjectService {
 			
 	}
 	
-	
+
+	@Override
+	public void undeployGitOpsArgo(Environments env)  {
+			
+		// clone ocp-gitops
+	    env.setArgoEnv(argoService.getArgoEnvByID(env.getArgoEnvId()));
+	    Git gitApp = cloneGitApp(env.getProject());
+	    Git gitops = cloneGitOps(env);	    
+		String pathops = GitController.getRepoPath(gitops);
+
+		
+		List<String> fileAppToDelete = listFileForClean(gitApp,"applications");
+		List<String> fileNamespacesToDelete = listFileForClean(gitApp,"namespaces");
+		Path filepath = null;
+		
+		// delete application
+		for (String filename:fileAppToDelete) {
+			filepath = Paths.get(pathops+"/cluster/applications/"+filename);
+			try {
+				System.out.println("Delete cluster/applications/"+filename);
+				Files.delete(filepath);
+				gitops.rm().addFilepattern("cluster/applications/"+filename).call();				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		// commit and push
+		try {
+			GitController.commitAndPushGitOps(env,gitops);
+		} catch (NoFilepatternException e) {
+			e.printStackTrace();
+		} catch (GitAPIException e) {
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}	
+			
+	}
 	
 	@Override
 	public void deleteGitOpsApps(Environments env)  {

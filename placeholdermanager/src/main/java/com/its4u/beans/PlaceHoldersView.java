@@ -145,8 +145,15 @@ public class PlaceHoldersView {
 	
 	public void undeployEnv(Environments env) {
 		
+		String envsuffix = env.getEnvironment().substring(env.getEnvironment().length() - 3);
 		projectService.deleteGitOpsApps(env);				
 		projectService.synchronize(env);
+		
+		projectService.undeployGitOpsArgo(env);
+		projectService.synchronizeClusterConfig(envsuffix, env.getArgoEnvId());
+		pollView.log("Project undeloyed");
+		
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Project undeployed"));
 	}
 	
 	
@@ -166,8 +173,7 @@ public class PlaceHoldersView {
     	projectService.deleteGitOpsArgo(env);
 		projectService.synchronizeClusterConfig(envsuffix, env.getArgoEnvId());
 		
-		//projectService.deleteProject(selectedProject);
-		
+			
 		pollView.log("Project deleted");
 		refresh();
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Project deleted"));
