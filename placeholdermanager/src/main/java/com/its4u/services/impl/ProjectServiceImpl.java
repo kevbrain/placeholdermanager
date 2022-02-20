@@ -122,6 +122,7 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public String synchronizeClusterConfig(String env,String argoEnvid) {
 						
+		System.out.println("synchronize cluster config");
 		ArgoEnvironment argoEnv = argoService.getArgoEnvByID(argoEnvid);
 		String argoServer = argoEnv.getArgoServer();
 		
@@ -130,7 +131,8 @@ public class ProjectServiceImpl implements ProjectService {
 		try {
 			HttpResponse<String> response = Unirest.post(argoServer+"/api/v1/applications/cluster-configs-"+env+"/sync")
 			  .header("Authorization", "Bearer "+getToken(argoEnv))
-			  .body("{\\r\\n    \\\"dryRun\\\": true,\\r\\n    \\\"prune\\\": true\\r\\n}\"")
+			  //.body("{\r\n  \"dryRun\": false\r\n\r\n}")
+			  .body("{\r\n  \"dryRun\": false,\r\n \"prune\": true\r\n}")
 			  .asString();		
 			responseArgo = response.getBody();
 		} catch (UnirestException e) {
@@ -507,10 +509,10 @@ public class ProjectServiceImpl implements ProjectService {
 		for (Environments env:project.getEnvironments()) {		
 			if (env.getArgoEnvId()!=null && !env.getArgoEnvId().isEmpty()) env.setArgoEnv(argoService.getArgoEnvByID(env.getArgoEnvId()));
 			envplaceHolders.put(env.getEnvironment(),createMapPlaceHoldersFromEnv(env));
-			ArgoAppStatus envstatus = statusAndHealth(project.getProject_Id(), env);
+			//ArgoAppStatus envstatus = statusAndHealth(project.getProject_Id(), env);
+			ArgoAppStatus envstatus = new ArgoAppStatus("Unknow","Unknow");
 			mapArgoStatusByEnv.put(env.getEnvironment(), envstatus);
-			envSelectedMap.put(env.getEnvironment(),false);
-			
+			envSelectedMap.put(env.getEnvironment(),false);			
 		}
 		
 		project.setMapenvs(envByProject);
