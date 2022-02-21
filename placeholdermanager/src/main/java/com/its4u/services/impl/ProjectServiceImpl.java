@@ -109,7 +109,7 @@ public class ProjectServiceImpl implements ProjectService {
 		try {
 			HttpResponse<String> response = Unirest.post(argoServer+"/api/v1/applications/"+env.getProjectId()+"/sync")
 			  .header("Authorization", "Bearer "+getToken(env.getArgoEnv()))
-			  .body("{\\r\\n    \\\"dryRun\\\": true,\\r\\n    \\\"prune\\\": true\\r\\n}\"")
+			  .body("{\r\n  \"dryRun\": false,\r\n \"prune\": true\r\n}")
 			  .asString();		
 			responseArgo = response.getBody();
 		} catch (UnirestException e) {
