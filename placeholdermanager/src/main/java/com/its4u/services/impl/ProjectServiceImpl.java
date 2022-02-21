@@ -135,6 +135,7 @@ public class ProjectServiceImpl implements ProjectService {
 			  .body("{\r\n  \"dryRun\": false,\r\n \"prune\": true\r\n}")
 			  .asString();		
 			responseArgo = response.getBody();
+			System.out.println("Argo response :"+response.getStatus());
 		} catch (UnirestException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -166,6 +167,7 @@ public class ProjectServiceImpl implements ProjectService {
 			  .body("{\r\n  \"dryRun\": false\r\n\r\n}")
 			  .asString();		
 			responseArgo = response.getBody();
+			System.out.println("Argo response :"+response.getStatus());
 		} catch (UnirestException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -550,7 +552,7 @@ public class ProjectServiceImpl implements ProjectService {
 		project.setMapPlaceHoldersByEnv(envplaceHolders);
 		project.setMapappstatusByEnv(mapArgoStatusByEnv);
 		project.setEnvSelectedMap(envSelectedMap);
-		System.out.println(mapArgoStatusByEnv);
+		//System.out.println(mapArgoStatusByEnv);
 	}
 	
 	@Override	

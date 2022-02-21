@@ -259,9 +259,9 @@ public class PlaceHoldersView {
 			projectService.updateGitOps(env);
 			projectService.synchronizeClusterConfig(envsuffix, env.getArgoEnvId());
 		}
-		System.out.println("Wait 3s for (Cluster Upgrade ) ....");
+		System.out.println("Wait 20s for (Cluster Upgrade ) ....");
 		try {
-    		TimeUnit.SECONDS.sleep(10);
+    		TimeUnit.SECONDS.sleep(20);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
