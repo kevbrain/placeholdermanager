@@ -256,19 +256,26 @@ public class PlaceHoldersView {
 		save(env);
 		String envsuffix = env.getEnvironment().substring(env.getEnvironment().length() - 3);
 		if (envsuffix.equalsIgnoreCase("dev")) {
+			
 			projectService.updateGitOps(env);
 			projectService.synchronizeClusterConfig(envsuffix, env.getArgoEnvId());
-			System.out.println("Wait 20s for (Cluster Upgrade ) ....");
-			try {
-	    		TimeUnit.SECONDS.sleep(20);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			projectService.updateGitOpsApp(env);
+			
+			
 		} else {
-			argoInitialier.synchronise(env);
+			
+			projectService.updateArgoApplication(env);
+			projectService.synchronizeClusterConfig(envsuffix, env.getArgoEnvId());
+			
+					
 		}
-		
+		System.out.println("Wait 10s for (Cluster Upgrade ) ....");
+		try {
+    		TimeUnit.SECONDS.sleep(10);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		projectService.updateGitOpsApp(env);
+		projectService.synchronize(env.getEnvironment(),env);	
 		
 	}
 	

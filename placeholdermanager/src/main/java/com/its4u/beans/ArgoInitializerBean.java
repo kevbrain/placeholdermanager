@@ -91,20 +91,6 @@ public class ArgoInitializerBean {
 				
 	}
 	
-	public void synchronise(Environments env) {
-					
-		String envsuffix = env.getEnvironment().substring(env.getEnvironment().length() - 3);
-		service.updateArgoApplication(env);
-		service.synchronizeClusterConfig(envsuffix, env.getArgoEnvId());
-		System.out.println("wait 10 s (upgrade cluster config");
-		try {
-    		TimeUnit.SECONDS.sleep(10);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		service.synchronize(env.getEnvironment(),env);
-				
-	}
 	
 	public void delete(Environments env) {
 		
