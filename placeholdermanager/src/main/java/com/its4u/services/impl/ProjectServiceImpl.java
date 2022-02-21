@@ -778,7 +778,7 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	@Override
-	public void promote(Environments env) {
+	public String promote(Environments env) {
 				
 		String envsuffix = env.getEnvironment().substring(env.getEnvironment().length() - 3);
 		
@@ -797,6 +797,8 @@ public class ProjectServiceImpl implements ProjectService {
 		
 		destinationEnv = mergePlaceHolders(env, destinationEnv);
 		environmentService.save(destinationEnv);
+		
+		return destinationEnvironment;
 	}
 	
 	

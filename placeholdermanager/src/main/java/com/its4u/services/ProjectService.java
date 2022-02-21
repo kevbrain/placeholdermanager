@@ -56,7 +56,7 @@ public interface ProjectService {
 
 	Git cloneGitOps(Environments env);
 
-	void promote(Environments env);
+	String promote(Environments env);
 
 	void updateArgoApplication(Environments env);
 
