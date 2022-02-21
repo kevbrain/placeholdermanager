@@ -82,6 +82,8 @@ public class PlaceHoldersView {
 	
 	private boolean applicationSelected;
 	
+	private int tabindex;
+	
 	
 	
 
@@ -280,7 +282,7 @@ public class PlaceHoldersView {
 		selectedProject.getEnvSelectedMap().put(actualEnvironment, true);
 		
 		applicationSelected=true;
-		
+		tabindex++;
 	}
 	
 	

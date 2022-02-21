@@ -159,9 +159,10 @@
 	   			
    			
    			
-		   		<p:tabView value="#{placeHoldersView.selectedProject.environments}" var="env" id="tabviewenv" >
+		   		<p:tabView value="#{placeHoldersView.selectedProject.environments}" var="env" id="tabviewenv" activeIndex="#{placeHoldersView.tabindex}">
 		   				<p:ajax event="tabChange"  update="@form" process="@form" listener="#{placeHoldersView.closeArgoDetails}"/>
-					    	<p:tab title="#{env.environment}" rendered="#{placeHoldersView.selectedProject.envSelectedMap[env.environment]}">
+					    	<p:tab title="#{env.environment}" 					    		
+					    		rendered="#{placeHoldersView.selectedProject.envSelectedMap[env.environment]}">
 					    		
 					    			<h:panelGrid columns="9">
 					    			
