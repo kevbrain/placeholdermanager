@@ -248,8 +248,7 @@
 					    				 actionListener="#{placeHoldersView.synchronise(env)}" update="growl" style="margin:10px;background:#003b50;color:white" />
 			   		
 						   		 		<p:commandButton value="Save Configuration"  actionListener="#{placeHoldersView.save(env)}" 
-						   							oncomplete="PF('dlg0').hide()"
-						   							onclick="PF('dlg0').show()" update="growl" style="margin:10px;background:#003b50;color:white" />
+						   							" update="growl,@form" style="margin:10px;background:#003b50;color:white" />
 						  
 			   							<p:commandButton value="UnDeploy Project"  actionListener="#{placeHoldersView.undeployEnv(env)}" 
 			   								update="growl,@form" style="margin:10px;background:#003b50;color:white"
