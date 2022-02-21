@@ -817,15 +817,21 @@ public class ProjectServiceImpl implements ProjectService {
 		for (String keySource : keyplaceHolderSource.keySet()) {
 			if (keyplaceHolderDest!=null && keyplaceHolderDest.get(keySource)!=null) {
 				// key already exists
+				if (keySource.equalsIgnoreCase("ocp.environment")) {
+					
+				}
 			} else {
 				PlaceHolderId plId = new PlaceHolderId(envDest.getEnvironment(), keySource);
 				PlaceHolders pl = new PlaceHolders(plId,envDest,keyplaceHolderSource.get(keySource).getValue(),keyplaceHolderSource.get(keySource).getType());
 				plholDest.add(pl);
 			}
+			
 		}
 		envDest.setPlaceholders(plholDest);
 		return envDest;
 		
 	}
+	
+	
 	
 }

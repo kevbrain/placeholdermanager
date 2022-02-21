@@ -86,7 +86,7 @@ public class ArgoInitializerBean {
 		argoEnvironmentSelected = myArgoEnv.get(argoEnvId);
 		env.setArgoEnvId(argoEnvId);
 		selectedArgoEnId=argoEnvId;
-	
+		service.createProject(env.getProject());
 				
 	}
 	
