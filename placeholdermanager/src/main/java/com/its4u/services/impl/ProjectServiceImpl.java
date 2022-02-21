@@ -754,7 +754,7 @@ public class ProjectServiceImpl implements ProjectService {
 					gitopsapps.rm().addFilepattern(env.getProjectId()+"/"+f.getName()).call();
 				}
 			}
-			directorybase.delete();
+			//directorybase.delete();
 			gitopsapps.rm().addFilepattern(env.getProjectId()).call();
 			
 		} catch (NoFilepatternException e) {
