@@ -122,7 +122,7 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public String synchronizeClusterConfig(String env,String argoEnvid) {
 						
-		System.out.println("synchronize cluster config");
+		System.out.println("synchronize cluster config /api/v1/applications/cluster-configs-"+env+"/sync");
 		ArgoEnvironment argoEnv = argoService.getArgoEnvByID(argoEnvid);
 		String argoServer = argoEnv.getArgoServer();
 		
@@ -180,7 +180,7 @@ public class ProjectServiceImpl implements ProjectService {
 		
 		ArgoEnvironment argoEnv = argoService.getArgoEnvByID(env.getArgoEnvId());
 		String argoServer = env.getArgoEnv().getArgoServer();
-		
+		System.out.println("synchronize cluster config /api/v1/applications/"+env.getEnvironment()+"/sync");
 		String responseArgo="";
 		Unirest.setTimeouts(0, 0);
 		try {

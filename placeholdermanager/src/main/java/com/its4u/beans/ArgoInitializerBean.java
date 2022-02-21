@@ -2,6 +2,7 @@ package com.its4u.beans;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.annotation.PostConstruct;
 
@@ -94,7 +95,13 @@ public class ArgoInitializerBean {
 					
 		String envsuffix = env.getEnvironment().substring(env.getEnvironment().length() - 3);
 		service.updateArgoApplication(env);
-		service.synchronize("cluster-configs-"+envsuffix, env);
+		service.synchronizeClusterConfig(envsuffix, env.getArgoEnvId());
+		System.out.println("wait 10 s (upgrade cluster config");
+		try {
+    		TimeUnit.SECONDS.sleep(10);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		service.synchronize(env.getEnvironment(),env);
 				
 	}
