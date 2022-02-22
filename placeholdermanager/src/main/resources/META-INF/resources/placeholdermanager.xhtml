@@ -28,7 +28,7 @@
 		
 	</script>
     
-	<p:panel id="panelApp">
+	<p:panel id="panelApp" style="margin-left:0px;">
 		<f:facet name="header">
 			<h:panelGrid columns="3">
 				<p:graphicImage name="LOGO_ITS4U_Group_Interstate_COLOR.png"  style="background: transparent;width:200px;margin-right:20px;"/>
@@ -63,13 +63,13 @@
 					
 				</p:column>
 				<p:column width="40px;" style="margin:0px;padding:0px;">
-					<p:commandButton value=">> "   title="promote"
+					<p:commandButton value=">"   title="promote"
 						rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]!=null and !proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['app-version'].snapshot}"
 		   				oncomplete="PF('dlg0').hide()"
 			   			onclick="PF('dlg0').show()"
 		   				update="@form" style="background:#003b50;color:white;margin:0px;padding:0px; " />
 				</p:column>
-				<p:column  headerText="TST"  >	
+				<p:column  headerText="TST">	
 					<p:commandButton value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['tst']]['app-version'].value}"
 							style="margin:10px;background-color: transparent;border-color:#{proj.mapappstatusByEnv[proj.mapenvs['tst']].synchrone?'green':'red'};color:#{proj.mapappstatusByEnv[proj.mapenvs['tst']].synchrone?'green':'red'}"	
 							rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['tst']]!=null and proj.mapPlaceHoldersByEnv[proj.mapenvs['tst']]['app-version'].value!=null}"
@@ -83,7 +83,7 @@
 				</p:column>
 				
 				<p:column width="40px;">
-					<p:commandButton value=">>" title="promote"
+					<p:commandButton value=">" title="promote"
 						rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['tst']]!=null
 						 and proj.mapPlaceHoldersByEnv[proj.mapenvs['tst']]['app-version']!=null
 						 and !proj.mapPlaceHoldersByEnv[proj.mapenvs['tst']]['app-version'].snapshot}"
