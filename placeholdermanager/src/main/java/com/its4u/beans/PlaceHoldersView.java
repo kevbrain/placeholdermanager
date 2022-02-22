@@ -188,8 +188,8 @@ public class PlaceHoldersView {
     	projectService.deleteArgoApplication(env.getProjectId(), envsuffix);
 				
     	if (!envsuffix.equalsIgnoreCase("dev")) {
-	    	System.out.println("Delete Env from placeHolders.....");
-			environmentService.delete(env);
+	    	env.getProject().getEnvironments().remove(env);
+	    	projectService.createProject(env.getProject());
     	}
     	
 		pollView.log("Project deleted");
