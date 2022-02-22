@@ -21,6 +21,8 @@ public class ArgoAppStatus implements Serializable {
 	private boolean synchrone;
 	
 	private boolean healthy;
+	
+	private boolean unknow;
 
 	public ArgoAppStatus(String sync, String health) {
 		super();
@@ -38,5 +40,9 @@ public class ArgoAppStatus implements Serializable {
 		return false;
 	}
 	
+	public boolean isUnknow() {
+		if (health!=null && health.equalsIgnoreCase("Unknow")) return true;
+		return false;
+	}
 	
 }
