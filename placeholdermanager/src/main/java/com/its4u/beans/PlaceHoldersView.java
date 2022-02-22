@@ -301,22 +301,29 @@ public class PlaceHoldersView {
 	
 	public void promote(Project project,String envId) {
 		
-		System.out.println("Promote environment = "+envId);
-		System.out.println("Project = "+project.getProject_Id());
-		
-		System.out.println("env = "+project.getMapenvs().get(envId));
 		Environments env = environmentService.getEnvById(project.getMapenvs().get(envId));
-		
-		System.out.println("env loaded "+env);
 		projectService.promote(env);			
 		projectService.enrichProject(project);
-		refresh(); // like back to Dashboard
+		refresh(); 
 		
 	}
 	
 	
 	public List<Project> getProjectList() {
 		return new ArrayList(myProjects.values());
+	}
+	
+	public void refreshStatus() {
+		for (Project proj:myProjects.values()) {
+			for (Environments env:proj.getEnvironments()) {	
+				try {
+				ArgoAppStatus envstatus = projectService.statusAndHealth(proj.getProject_Id(), env);
+				proj.getMapappstatusByEnv().put(env.getEnvironment(), envstatus);
+				} catch (Exception e) {
+					
+				}
+			}
+		}
 	}
 
 }
