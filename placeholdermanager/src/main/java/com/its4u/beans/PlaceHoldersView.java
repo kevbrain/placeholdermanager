@@ -174,6 +174,7 @@ public class PlaceHoldersView {
 			e.printStackTrace();
 		}
     	projectService.deleteGitOpsArgo(env);
+    	projectService.deleteArgoApplication(env.getProjectId(), envsuffix);
 		projectService.synchronizeClusterConfig(envsuffix, env.getArgoEnvId());
 		
 			

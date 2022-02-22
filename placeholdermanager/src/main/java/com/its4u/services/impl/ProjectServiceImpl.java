@@ -698,11 +698,11 @@ public class ProjectServiceImpl implements ProjectService {
 					e.printStackTrace();
 				}
 				// and Namespace
-				filepath = Paths.get(pathops+"/cluster/applications/NS-"+env.getEnvironment()+".yml");
+				filepath = Paths.get(pathops+"/cluster/namespaces/NS-"+env.getEnvironment()+".yml");
 				try {
-					System.out.println("/cluster/applications/NS-"+env.getEnvironment()+".yml");
+					System.out.println("/cluster/namespaces/NS-"+env.getEnvironment()+".yml");
 					Files.delete(filepath);
-					gitops.rm().addFilepattern("/cluster/applications/NS-"+env.getEnvironment()+".yml").call();	
+					gitops.rm().addFilepattern("/cluster/namespaces/NS-"+env.getEnvironment()+".yml").call();	
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

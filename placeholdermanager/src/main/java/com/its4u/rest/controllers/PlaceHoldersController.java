@@ -43,6 +43,11 @@ public class PlaceHoldersController {
 		argoService.delete(envId);
 	}
 	
+	@DeleteMapping(value = "/delete/{projectName}/{env}")
+	public void deleteArgoApplication(@PathVariable("projectName") String projectName,@PathVariable("env") String env) {
+		service.deleteArgoApplication(projectName, env);
+	}
+	
 	@RequestMapping(value = "/argo-environment/list", produces = "application/json")
 	public @ResponseBody Collection<ArgoEnvironment> getAllArogoEnvironment() {
 		return argoService.findAll().values();
