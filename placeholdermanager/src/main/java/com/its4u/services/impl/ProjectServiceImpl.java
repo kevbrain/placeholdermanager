@@ -823,6 +823,8 @@ public class ProjectServiceImpl implements ProjectService {
 		if (envsuffix.equalsIgnoreCase("tst")) {
 			destinationEnvironment= "int";
 		}
+		enrichProject(env.getProject());
+		System.out.println("---> "+env.getProject().getMapenvs());
 				
 		String  iddestinationEnvironment = env.getProject().getMapenvs().get(destinationEnvironment);
 		Environments destinationEnv = null;
