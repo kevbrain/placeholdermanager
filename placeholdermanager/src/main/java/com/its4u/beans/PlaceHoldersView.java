@@ -162,8 +162,9 @@ public class PlaceHoldersView {
 	public void deleteProject(Environments env) {
 								
 		String envsuffix = env.getEnvironment().substring(env.getEnvironment().length() - 3);
-		projectService.deleteGitOpsApps(env);		
 		
+		System.out.println("Delete GitOpsApps.....");
+		projectService.deleteGitOpsApps(env);				
 		projectService.synchronize(env);
 		System.out.println("Wait 3s ....");
     	try {
@@ -255,6 +256,7 @@ public class PlaceHoldersView {
 	public void synchronise(Environments env) {
 		save(env);
 		String envsuffix = env.getEnvironment().substring(env.getEnvironment().length() - 3);
+		
 		if (envsuffix.equalsIgnoreCase("dev")) {
 			
 			projectService.updateGitOps(env);
@@ -263,7 +265,7 @@ public class PlaceHoldersView {
 			
 		} else {
 			
-			projectService.updateArgoApplication(env);
+			projectService.updateGitOpsOnlyArgoApplication(env);
 			projectService.synchronizeClusterConfig(envsuffix, env.getArgoEnvId());
 			
 					
@@ -274,7 +276,10 @@ public class PlaceHoldersView {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		
+		System.out.println("Update GitopsApps ....");
 		projectService.updateGitOpsApp(env);
+		System.out.println("Synchronize App ....");
 		projectService.synchronize(env.getEnvironment(),env);	
 		
 	}

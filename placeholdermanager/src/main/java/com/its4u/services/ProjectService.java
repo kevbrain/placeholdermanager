@@ -58,7 +58,7 @@ public interface ProjectService {
 
 	String promote(Environments env);
 
-	void updateArgoApplication(Environments env);
+	void updateGitOpsOnlyArgoApplication(Environments env);
 
 	String synchronizeClusterConfig(String env, String argoEnvid);
 

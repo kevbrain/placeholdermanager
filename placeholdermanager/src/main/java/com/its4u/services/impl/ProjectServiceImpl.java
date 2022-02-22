@@ -575,7 +575,7 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 	
 	@Override
-	public void updateArgoApplication(Environments env) {
+	public void updateGitOpsOnlyArgoApplication(Environments env) {
 		
 		String projectid= env.getProjectId();		
 		
@@ -646,39 +646,66 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public void deleteGitOpsArgo(Environments env)  {
 			
+		String envsuffix = env.getEnvironment().substring(env.getEnvironment().length() - 3);
+		
 		// clone ocp-gitops
 	    env.setArgoEnv(argoService.getArgoEnvByID(env.getArgoEnvId()));
-	    Git gitApp = cloneGitApp(env.getProject());
-	    Git gitops = cloneGitOps(env);	    
-		String pathops = GitController.getRepoPath(gitops);
-
-		
-		List<String> fileAppToDelete = listFileForClean(gitApp,"applications");
-		List<String> fileNamespacesToDelete = listFileForClean(gitApp,"namespaces");
+	    
+	    Git gitops = cloneGitOps(env);	
+		String pathops = GitController.getRepoPath(gitops);  
 		Path filepath = null;
 		
-		// delete application
-		for (String filename:fileAppToDelete) {
-			filepath = Paths.get(pathops+"/cluster/applications/"+filename);
-			try {
-				System.out.println("Delete cluster/applications/"+filename);
-				Files.delete(filepath);
-				gitops.rm().addFilepattern("cluster/applications/"+filename).call();				
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
+		if (envsuffix.equalsIgnoreCase("dev")) {
 		
-		// delete namespace items
-		for (String filename:fileNamespacesToDelete) {
-			filepath = Paths.get(pathops+"/cluster/namespaces/"+filename);
-			try {
-				System.out.println("Delete cluster/namespaces/"+filename);
-				Files.delete(filepath);
-				gitops.rm().addFilepattern("cluster/namespaces/"+filename).call();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			    Git gitApp = cloneGitApp(env.getProject());    
+			    
+				List<String> fileAppToDelete = listFileForClean(gitApp,"applications");
+				List<String> fileNamespacesToDelete = listFileForClean(gitApp,"namespaces");
+				
+				
+				// delete application
+				for (String filename:fileAppToDelete) {
+					filepath = Paths.get(pathops+"/cluster/applications/"+filename);
+					try {
+						System.out.println("Delete cluster/applications/"+filename);
+						Files.delete(filepath);
+						gitops.rm().addFilepattern("cluster/applications/"+filename).call();				
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+				
+				// delete namespace items
+				for (String filename:fileNamespacesToDelete) {
+					filepath = Paths.get(pathops+"/cluster/namespaces/"+filename);
+					try {
+						System.out.println("Delete cluster/namespaces/"+filename);
+						Files.delete(filepath);
+						gitops.rm().addFilepattern("cluster/namespaces/"+filename).call();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+		} else {
+			
+				// delete only argoApplication 
+				filepath = Paths.get(pathops+"/cluster/applications/argoApp-"+env.getProjectId()+".yaml");
+				try {
+					System.out.println("/cluster/applications/argoApp-"+env.getProjectId()+".yaml");
+					Files.delete(filepath);
+					gitops.rm().addFilepattern("/cluster/applications/argoApp-"+env.getProjectId()+".yaml").call();	
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				// and Namespace
+				filepath = Paths.get(pathops+"/cluster/applications/NS-"+env.getEnvironment()+".yml");
+				try {
+					System.out.println("/cluster/applications/NS-"+env.getEnvironment()+".yml");
+					Files.delete(filepath);
+					gitops.rm().addFilepattern("/cluster/applications/NS-"+env.getEnvironment()+".yml").call();	
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 		}
 		
 		// commit and push
