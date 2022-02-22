@@ -306,6 +306,8 @@ public class PlaceHoldersView {
 		
 		System.out.println("env = "+project.getMapenvs().get(envId));
 		Environments env = environmentService.getEnvById(project.getMapenvs().get(envId));
+		
+		System.out.println("env loaded "+env);
 		projectService.promote(env);			
 		
 		refresh(); // like back to Dashboard

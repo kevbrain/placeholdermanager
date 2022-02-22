@@ -810,6 +810,8 @@ public class ProjectServiceImpl implements ProjectService {
 
 	@Override
 	public String promote(Environments env) {
+		
+		System.out.println("Promote env "+env.getEnvironment());
 				
 		String envsuffix = env.getEnvironment().substring(env.getEnvironment().length() - 3);
 		
