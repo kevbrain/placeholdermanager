@@ -270,9 +270,9 @@ public class PlaceHoldersView {
 			
 					
 		}
-		System.out.println("Wait 10s for (Cluster Upgrade ) ....");
+		System.out.println("Wait 30s for (Cluster Upgrade ) ....");
 		try {
-    		TimeUnit.SECONDS.sleep(10);
+    		TimeUnit.SECONDS.sleep(30);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

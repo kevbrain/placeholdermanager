@@ -127,13 +127,10 @@
    		<p:panel rendered="#{placeHoldersView.applicationSelected}">
    		
 		   		<div style="position:relative;margin:auto;text-align:center;">	
-		   			<p:commandButton value="Back to Dashboard"  actionListener="#{placeHoldersView.refresh}"
-		   				oncomplete="PF('dlg0').hide()"
-			   			onclick="PF('dlg0').show()"
+		   			<p:commandButton value="Back to Dashboard"  actionListener="#{placeHoldersView.refresh}"		   				
 		   				update="@form" style="margin:10px;background:#003b50;color:white" />
 			   		<p:commandButton value="Refresh"  actionListener="#{placeHoldersView.refresh}" update="@form" style="margin:10px;background:#003b50;color:white" />
-			   		<p:commandButton value="Logs" onclick="PF('dlg1').show()"/>
-			   		
+			   		<p:commandButton value="Logs" onclick="PF('dlg1').show()"/>			   		
 		   		</div>
 		   		
 		   		 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
