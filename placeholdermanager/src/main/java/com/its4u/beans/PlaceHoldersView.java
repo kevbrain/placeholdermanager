@@ -314,6 +314,7 @@ public class PlaceHoldersView {
 	}
 	
 	public void refreshStatus() {
+		System.out.println("Refresh status function called");
 		for (Project proj:myProjects.values()) {
 			for (Environments env:proj.getEnvironments()) {	
 				try {
