@@ -139,17 +139,7 @@
 			     </p:confirmDialog>
 		   		 	   		
 	 			<h:panelGrid columns="2">
-	 				<!-- 
-	 				<h:outputText value="My projects :"/>
-	 				 <p:selectOneMenu  value="#{placeHoldersView.selectedProjectId}"
-	 				 	 onchange="PF('dlg0').show()">
-	 				 	 	<f:selectItem itemLabel="Select One" itemValue=""/>
-	                  	<f:selectItems value="#{placeHoldersView.myProjects}" var="project" itemLabel="#{project}" itemValue="#{project}"/>
-	                  	<p:ajax  oncomplete="PF('dlg0').hide()"  event="change" update="tabviewenv,giturl,growl,tableResources"
-	                  	 listener="#{placeHoldersView.onSelectedProject(placeHoldersView.selectedProjectId)}" />
-	                  	
-	 				 </p:selectOneMenu>
-	 				  -->
+	 	
 	 				 <h:outputText value="Git url"/>
 	 				 <h:outputText id="giturl" value="#{placeHoldersView.selectedProject.gitUrl}"/>
 	 				 

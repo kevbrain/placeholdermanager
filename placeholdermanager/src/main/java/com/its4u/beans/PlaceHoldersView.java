@@ -307,20 +307,22 @@ public class PlaceHoldersView {
 		String actualEnvironment = env.getEnvironment();
 		String destIDenv = projectService.promote(env);
 		String destinationEnvironment = selectedProject.getMapenvs().get(destIDenv);
-				
-		//refresh();
-		selectedProject=myProjects.get(projectid);
+		refresh();
+		loadDetailEnv(env.getProject(),destIDenv);
+		//selectedProject=myProjects.get(projectid);
 		
-		selectedProject.getEnvSelectedMap().put(destinationEnvironment, true);
-		selectedProject.getEnvSelectedMap().put(actualEnvironment, true);
+		env.getProject().getEnvSelectedMap().put(destinationEnvironment, true);
+		env.getProject().getEnvSelectedMap().put(actualEnvironment, true);
 		
 		applicationSelected=true;
 		
+		/*
 		if (envsuffix.equalsIgnoreCase("dev")) {
 			tabindex=1;
 		} else if (envsuffix.equalsIgnoreCase("tst")) {
 			tabindex=2;
 		}
+		*/
 	}
 	
 	
