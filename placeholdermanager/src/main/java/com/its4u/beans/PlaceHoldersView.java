@@ -309,14 +309,14 @@ public class PlaceHoldersView {
 		String destinationEnvironment = selectedProject.getMapenvs().get(destIDenv);
 		
 		
-		refresh();
+		refresh(); // like back to Dashboard
 		loadDetailEnv(env.getProject(),destIDenv);
 		//selectedProject=myProjects.get(projectid);
 		
-		env.getProject().getEnvSelectedMap().put(destinationEnvironment, true);
-		env.getProject().getEnvSelectedMap().put(actualEnvironment, true);
+		//env.getProject().getEnvSelectedMap().put(destinationEnvironment, true);
+		//env.getProject().getEnvSelectedMap().put(actualEnvironment, true);
 		
-		applicationSelected=true;
+		//applicationSelected=true;
 		
 		/*
 		if (envsuffix.equalsIgnoreCase("dev")) {
