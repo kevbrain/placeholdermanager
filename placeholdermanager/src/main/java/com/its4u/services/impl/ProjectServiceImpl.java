@@ -821,6 +821,17 @@ public class ProjectServiceImpl implements ProjectService {
 		}
 				
 		String  iddestinationEnvironment = env.getProject().getMapenvs().get(destinationEnvironment);
+		
+		if (iddestinationEnvironment==null) {
+			// we create new Environment
+			Environments newEnv = new Environments();
+			newEnv.setEnvironment(env.getProjectId()+"-"+destinationEnvironment);
+			newEnv.setProject(env.getProject());
+			newEnv.setProjectId(env.getProjectId());
+			newEnv.setArgoEnvId("lab.its4u.eu-"+destinationEnvironment);
+			environmentService.save(newEnv);		
+			iddestinationEnvironment = env.getEnvironment();
+		}		
 		Environments destinationEnv = environmentService.getEnvById(iddestinationEnvironment);
 		destinationEnv.setArgoEnv(argoService.getArgoEnvByID(destinationEnv.getArgoEnvId()));
 		

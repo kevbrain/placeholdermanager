@@ -23,5 +23,9 @@ public class EnvironmentServiceImpl implements EnvironmentService{
 	public Environments save(Environments env) {
 		return environmentRepository.save(env);
 	}
-
+	
+	@Override
+	public void delete(Environments env) {
+		environmentRepository.delete(env);
+	}
 }

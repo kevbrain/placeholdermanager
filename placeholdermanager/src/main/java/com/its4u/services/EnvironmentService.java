@@ -7,5 +7,7 @@ public interface EnvironmentService {
 	Environments getEnvById(String envId);
 	
 	Environments save(Environments env);
+	
+	void delete(Environments env);
 
 }

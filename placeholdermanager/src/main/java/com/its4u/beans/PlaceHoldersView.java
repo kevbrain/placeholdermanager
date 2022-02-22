@@ -186,9 +186,12 @@ public class PlaceHoldersView {
     	projectService.synchronizeClusterConfig(envsuffix, env.getArgoEnvId());
     	System.out.println("Delete Argo Application.....");
     	projectService.deleteArgoApplication(env.getProjectId(), envsuffix);
-		
-		
-			
+				
+    	if (!envsuffix.equalsIgnoreCase("dev")) {
+	    	System.out.println("Delete Env from placeHolders.....");
+			environmentService.delete(env);
+    	}
+    	
 		pollView.log("Project deleted");
 		refresh();
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Project deleted"));
@@ -303,7 +306,7 @@ public class PlaceHoldersView {
 		String projectid= selectedProject.getProject_Id();	
 		String actualEnvironment = env.getEnvironment();
 		String destinationEnvironment = selectedProject.getMapenvs().get(projectService.promote(env));
-		
+				
 		refresh();
 		selectedProject=myProjects.get(projectid);
 		
