@@ -124,7 +124,7 @@ public class PlaceHoldersView {
 		
 		if (envId.equalsIgnoreCase("dev")) {
 			tabindex=0;
-		} else if (envId.equalsIgnoreCase("dev")) {
+		} else if (envId.equalsIgnoreCase("tst")) {
 			tabindex=1;
 		} else if (envId.equalsIgnoreCase("int")) {
 			tabindex=2;
