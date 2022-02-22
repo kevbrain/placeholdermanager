@@ -301,7 +301,8 @@ public class PlaceHoldersView {
 	
 	public void promote(String envId) {
 		
-		
+		System.out.println("Promote environment = "+envId);
+		System.out.println("env = "+selectedProject.getMapenvs().get("envId"));
 		Environments env = environmentService.getEnvById(selectedProject.getMapenvs().get("envId"));
 		projectService.promote(env);			
 		
