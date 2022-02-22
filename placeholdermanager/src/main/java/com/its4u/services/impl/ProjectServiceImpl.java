@@ -691,18 +691,18 @@ public class ProjectServiceImpl implements ProjectService {
 				// delete only argoApplication 
 				filepath = Paths.get(pathops+"/cluster/applications/argoApp-"+env.getProjectId()+".yaml");
 				try {
-					System.out.println("/cluster/applications/argoApp-"+env.getProjectId()+".yaml");
+					System.out.println("Delete /cluster/applications/argoApp-"+env.getProjectId()+".yaml");
 					Files.delete(filepath);
-					gitops.rm().addFilepattern("/cluster/applications/argoApp-"+env.getProjectId()+".yaml").call();	
+					gitops.rm().addFilepattern("cluster/applications/argoApp-"+env.getProjectId()+".yaml").call();	
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 				// and Namespace
 				filepath = Paths.get(pathops+"/cluster/namespaces/NS-"+env.getEnvironment()+".yml");
 				try {
-					System.out.println("/cluster/namespaces/NS-"+env.getEnvironment()+".yml");
+					System.out.println("delete /cluster/namespaces/NS-"+env.getEnvironment()+".yml");
 					Files.delete(filepath);
-					gitops.rm().addFilepattern("/cluster/namespaces/NS-"+env.getEnvironment()+".yml").call();	
+					gitops.rm().addFilepattern("cluster/namespaces/NS-"+env.getEnvironment()+".yml").call();	
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

@@ -173,9 +173,12 @@ public class PlaceHoldersView {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+    	System.out.println("Delete GitOps.....");
     	projectService.deleteGitOpsArgo(env);
+    	projectService.synchronizeClusterConfig(envsuffix, env.getArgoEnvId());
+    	System.out.println("Delete Argo Application.....");
     	projectService.deleteArgoApplication(env.getProjectId(), envsuffix);
-		projectService.synchronizeClusterConfig(envsuffix, env.getArgoEnvId());
+		
 		
 			
 		pollView.log("Project deleted");
