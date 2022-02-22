@@ -121,6 +121,14 @@ public class PlaceHoldersView {
 		selectedEnvironment = environmentService.getEnvById(envId);
 		
 		projet.getEnvSelectedMap().put(envId, true);
+		
+		if (envId.equalsIgnoreCase("dev")) {
+			tabindex=0;
+		} else if (envId.equalsIgnoreCase("dev")) {
+			tabindex=1;
+		} else if (envId.equalsIgnoreCase("int")) {
+			tabindex=2;
+		}
 		System.out.println("environement loaded = "+selectedEnvironment.getEnvironment());
 	}
 
