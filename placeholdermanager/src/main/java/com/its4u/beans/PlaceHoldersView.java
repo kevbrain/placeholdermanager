@@ -309,7 +309,7 @@ public class PlaceHoldersView {
 		
 		System.out.println("env loaded "+env);
 		projectService.promote(env);			
-		
+		projectService.enrichProject(project);
 		refresh(); // like back to Dashboard
 		//loadDetailEnv(env.getProject(),destIDenv);
 		//selectedProject=myProjects.get(projectid);
