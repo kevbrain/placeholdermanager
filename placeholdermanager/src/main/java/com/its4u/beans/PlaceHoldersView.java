@@ -308,7 +308,7 @@ public class PlaceHoldersView {
 		String destIDenv = projectService.promote(env);
 		String destinationEnvironment = selectedProject.getMapenvs().get(destIDenv);
 				
-		refresh();
+		//refresh();
 		selectedProject=myProjects.get(projectid);
 		
 		selectedProject.getEnvSelectedMap().put(destinationEnvironment, true);
