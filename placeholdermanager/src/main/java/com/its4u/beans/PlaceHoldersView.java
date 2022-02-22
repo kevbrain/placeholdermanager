@@ -166,8 +166,21 @@ public class PlaceHoldersView {
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Project undeployed"));
 	}
 	
+	public void deleteProject(Project project) {
+		for (Environments env:project.getEnvironments()) {
+			System.out.println("Delete env "+env.getEnvironment());
+			try {
+				deleteEnvironment(env);
+			} catch (Exception e) {
+				
+			}
+		}
+		projectService.deleteProject(project);
+		refresh();
+	}
 	
-	public void deleteProject(Environments env) {
+	
+	public void deleteEnvironment(Environments env) {
 								
 		String envsuffix = env.getEnvironment().substring(env.getEnvironment().length() - 3);
 		
@@ -192,7 +205,7 @@ public class PlaceHoldersView {
 	    	projectService.createProject(env.getProject());
     	}
     	
-		pollView.log("Project deleted");
+		pollView.log("Environment "+env.getEnvironment()+" deleted");
 		refresh();
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Project deleted"));
 	}
