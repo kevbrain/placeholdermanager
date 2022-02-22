@@ -286,6 +286,8 @@ public class PlaceHoldersView {
 	
 	public void promote(Environments env) {
 		
+		String envsuffix = env.getEnvironment().substring(env.getEnvironment().length() - 3);
+		
 		String projectid= selectedProject.getProject_Id();	
 		String actualEnvironment = env.getEnvironment();
 		String destinationEnvironment = selectedProject.getMapenvs().get(projectService.promote(env));
@@ -297,7 +299,12 @@ public class PlaceHoldersView {
 		selectedProject.getEnvSelectedMap().put(actualEnvironment, true);
 		
 		applicationSelected=true;
-		tabindex++;
+		
+		if (envsuffix.equalsIgnoreCase("dev")) {
+			tabindex=1;
+		} else if (envsuffix.equalsIgnoreCase("tst")) {
+			tabindex=2;
+		}
 	}
 	
 	
