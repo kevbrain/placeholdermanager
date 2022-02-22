@@ -176,7 +176,7 @@ public class PlaceHoldersView {
 			}
 		}
 		projectService.deleteProject(project);
-		refresh();
+		//refresh();
 	}
 	
 	
@@ -197,8 +197,8 @@ public class PlaceHoldersView {
     	System.out.println("Delete GitOps.....");
     	projectService.deleteGitOpsArgo(env);
     	projectService.synchronizeClusterConfig(envsuffix, env.getArgoEnvId());
-    	System.out.println("Delete Argo Application.....");
-    	projectService.deleteArgoApplication(env.getProjectId(), envsuffix);
+    	//System.out.println("Delete Argo Application.....");
+    	//projectService.deleteArgoApplication(env.getProjectId(), envsuffix);
 				
     	if (!envsuffix.equalsIgnoreCase("dev")) {
 	    	env.getProject().getEnvironments().remove(env);
@@ -206,6 +206,7 @@ public class PlaceHoldersView {
     	}
     	
 		pollView.log("Environment "+env.getEnvironment()+" deleted");
+		System.out.println("Environment "+env.getEnvironment()+" deleted");
 		refresh();
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Project deleted"));
 	}
