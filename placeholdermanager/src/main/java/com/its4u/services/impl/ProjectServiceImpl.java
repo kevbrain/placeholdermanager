@@ -823,18 +823,22 @@ public class ProjectServiceImpl implements ProjectService {
 		}
 				
 		String  iddestinationEnvironment = env.getProject().getMapenvs().get(destinationEnvironment);
+		Environments destinationEnv = null;
 		
 		if (iddestinationEnvironment==null) {
 			// we create new Environment
-			Environments newEnv = new Environments();
-			newEnv.setEnvironment(env.getProjectId()+"-"+destinationEnvironment);
-			newEnv.setProject(env.getProject());
-			newEnv.setProjectId(env.getProjectId());
-			newEnv.setArgoEnvId("lab.its4u.eu-"+destinationEnvironment);
-			environmentService.save(newEnv);		
+			destinationEnv = new Environments();
+			destinationEnv.setEnvironment(env.getProjectId()+"-"+destinationEnvironment);
+			destinationEnv.setProject(env.getProject());
+			destinationEnv.setProjectId(env.getProjectId());
+			destinationEnv.setArgoEnvId("lab.its4u.eu-"+destinationEnvironment);
+			environmentService.save(destinationEnv);		
 			iddestinationEnvironment = env.getEnvironment();
-		}		
-		Environments destinationEnv = environmentService.getEnvById(iddestinationEnvironment);
+			env.getProject().getMapenvs().put(destinationEnvironment, destinationEnv.getEnvironment());
+		} else {
+			destinationEnv = environmentService.getEnvById(iddestinationEnvironment);
+		}
+				
 		destinationEnv.setArgoEnv(argoService.getArgoEnvByID(destinationEnv.getArgoEnvId()));
 		
 		destinationEnv = mergePlaceHolders(env, destinationEnv);
