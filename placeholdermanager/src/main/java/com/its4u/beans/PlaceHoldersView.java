@@ -299,15 +299,11 @@ public class PlaceHoldersView {
 		
 	}
 	
-	public void promote(Environments env) {
+	public void promote(String envId) {
 		
-		String envsuffix = env.getEnvironment().substring(env.getEnvironment().length() - 3);
 		
-		String projectid= selectedProject.getProject_Id();	
-		String actualEnvironment = env.getEnvironment();
-		String destIDenv = projectService.promote(env);
-		String destinationEnvironment = selectedProject.getMapenvs().get(destIDenv);
-		
+		Environments env = environmentService.getEnvById(selectedProject.getMapenvs().get("envId"));
+		projectService.promote(env);			
 		
 		refresh(); // like back to Dashboard
 		//loadDetailEnv(env.getProject(),destIDenv);

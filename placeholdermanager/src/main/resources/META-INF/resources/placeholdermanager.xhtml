@@ -63,10 +63,8 @@
 					
 				</p:column>
 				<p:column width="40px;" style="margin:0px;padding:0px;">
-					<p:commandButton value=">"   title="promote"
-						rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]!=null and !proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['app-version'].snapshot}"
-		   				oncomplete="PF('dlg0').hide()"
-			   			onclick="PF('dlg0').show()"
+					<p:commandButton value=">"   title="promote"						
+		   				actionListener="#{placeHoldersView.promote('dev')}" update="@form"
 		   				update="@form" style="background:#003b50;color:white;margin:0px;padding:0px; " />
 				</p:column>
 				<p:column  headerText="TST">	
@@ -84,11 +82,7 @@
 				
 				<p:column width="40px;">
 					<p:commandButton value=">" title="promote"
-						rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['tst']]!=null
-						 and proj.mapPlaceHoldersByEnv[proj.mapenvs['tst']]['app-version']!=null
-						 and !proj.mapPlaceHoldersByEnv[proj.mapenvs['tst']]['app-version'].snapshot}"
-		   				oncomplete="PF('dlg0').hide()"
-			   			onclick="PF('dlg0').show()"
+		   				actionListener="#{placeHoldersView.promote('tst')}" update="@form"
 		   				update="@form" style="background:#003b50;color:white;margin:3px;" />
 				</p:column>
 				
@@ -247,8 +241,7 @@
 			   							</p:commandButton>
 			   		
 			   							<p:commandButton value="Rollback"  actionListener="#{placeHoldersView.refresh}" update="@form" style="margin:10px;background:#003b50;color:white" />
-			   							
-			   							<p:commandButton value="Promote >>>>"  actionListener="#{placeHoldersView.promote(env)}" update="@form" style="margin:10px;background:#a85032;color:white" />
+			   										   						
 			   							
 			   							<p:commandButton value="Delete Project" style="margin:10px;background:red;color:white" 
 									   			update="growl,@form" immediate="true"
