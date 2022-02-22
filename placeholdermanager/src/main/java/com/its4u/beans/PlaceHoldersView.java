@@ -299,11 +299,12 @@ public class PlaceHoldersView {
 		
 	}
 	
-	public void promote(String envId) {
+	public void promote(Project project,String envId) {
 		
 		System.out.println("Promote environment = "+envId);
-		System.out.println("env = "+selectedProject.getMapenvs().get("envId"));
-		Environments env = environmentService.getEnvById(selectedProject.getMapenvs().get("envId"));
+		
+		System.out.println("env = "+project.getMapenvs().get("envId"));
+		Environments env = environmentService.getEnvById(project.getMapenvs().get("envId"));
 		projectService.promote(env);			
 		
 		refresh(); // like back to Dashboard
