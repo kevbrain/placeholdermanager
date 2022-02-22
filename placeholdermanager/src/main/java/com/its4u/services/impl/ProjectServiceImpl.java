@@ -535,13 +535,13 @@ public class ProjectServiceImpl implements ProjectService {
 
 	@Override
 	public void enrichProject(Project project) {
-		System.out.println("Enrich project "+project.getProject_Id());
+		
 		HashMap<String,HashMap<String,PlaceHolderSpec>> envplaceHolders = new HashMap<String,HashMap<String,PlaceHolderSpec>>();
 		HashMap<String,ArgoAppStatus> mapArgoStatusByEnv = new HashMap<String, ArgoAppStatus>();
 		HashMap<String,String> envByProject = createMapEnvironment(project);
 		HashMap<String,Boolean> envSelectedMap = new HashMap<String, Boolean>();
 		for (Environments env:project.getEnvironments()) {	
-			System.out.println("with env "+env.getEnvironment());
+			
 			if (env.getArgoEnvId()!=null && !env.getArgoEnvId().isEmpty()) env.setArgoEnv(argoService.getArgoEnvByID(env.getArgoEnvId()));
 			envplaceHolders.put(env.getEnvironment(),createMapPlaceHoldersFromEnv(env));
 			//ArgoAppStatus envstatus = statusAndHealth(project.getProject_Id(), env);
