@@ -65,7 +65,7 @@
 				<p:column width="40px;" style="margin:0px;padding:0px;">
 					<p:commandButton value=">"   title="promote" immediate="true"
 		   				actionListener="#{placeHoldersView.promote(proj,'dev')}" 
-		   				update="@form" style="background:#003b50;color:white;margin:0px;padding:0px; " />
+		   				update="@form,dashboard" style="background:#003b50;color:white;margin:0px;padding:0px; " />
 				</p:column>
 				<p:column  headerText="TST">	
 					<p:commandButton value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['tst']]['app-version'].value}"
@@ -82,8 +82,8 @@
 				
 				<p:column width="40px;" style="margin:0px;padding:0px;">
 					<p:commandButton value=">" title="promote"
-		   				actionListener="#{placeHoldersView.promote(proj,'tst')}" immediate="true"
-		   				update="@form" style="background:#003b50;color:white;margin:0px;padding:0px;" />
+		   				actionListener="#{placeHoldersView.promote(proj,'tst')}" 
+		   				update="@form,dashboard" style="background:#003b50;color:white;margin:0px;padding:0px;" />
 				</p:column>
 				
 				<p:column  headerText="INT">	

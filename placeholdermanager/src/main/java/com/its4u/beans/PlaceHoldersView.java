@@ -311,21 +311,7 @@ public class PlaceHoldersView {
 		projectService.promote(env);			
 		projectService.enrichProject(project);
 		refresh(); // like back to Dashboard
-		//loadDetailEnv(env.getProject(),destIDenv);
-		//selectedProject=myProjects.get(projectid);
 		
-		//env.getProject().getEnvSelectedMap().put(destinationEnvironment, true);
-		//env.getProject().getEnvSelectedMap().put(actualEnvironment, true);
-		
-		//applicationSelected=true;
-		
-		/*
-		if (envsuffix.equalsIgnoreCase("dev")) {
-			tabindex=1;
-		} else if (envsuffix.equalsIgnoreCase("tst")) {
-			tabindex=2;
-		}
-		*/
 	}
 	
 	
