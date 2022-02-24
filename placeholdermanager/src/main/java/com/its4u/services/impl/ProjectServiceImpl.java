@@ -823,8 +823,10 @@ public class ProjectServiceImpl implements ProjectService {
 		if (envsuffix.equalsIgnoreCase("tst")) {
 			destinationEnvironment= "int";
 		}
+		if (envsuffix.equalsIgnoreCase("int")) {
+			destinationEnvironment= "prod";
+		}
 		enrichProject(env.getProject());
-		System.out.println("---> "+env.getProject().getMapenvs());
 				
 		String  iddestinationEnvironment = env.getProject().getMapenvs().get(destinationEnvironment);
 		Environments destinationEnv = null;
@@ -835,7 +837,11 @@ public class ProjectServiceImpl implements ProjectService {
 			destinationEnv.setEnvironment(env.getProjectId()+"-"+destinationEnvironment);
 			destinationEnv.setProject(env.getProject());
 			destinationEnv.setProjectId(env.getProjectId());
-			destinationEnv.setArgoEnvId("lab.its4u.eu-"+destinationEnvironment);
+			if (!destinationEnvironment.equalsIgnoreCase("prod")) {
+				destinationEnv.setArgoEnvId("lab.its4u.eu-"+destinationEnvironment);
+			} else {
+				destinationEnv.setArgoEnvId("its4u.eu-"+destinationEnvironment);
+			}
 			environmentService.save(destinationEnv);		
 			iddestinationEnvironment = env.getEnvironment();
 			env.getProject().getMapenvs().put(destinationEnvironment, destinationEnv.getEnvironment());

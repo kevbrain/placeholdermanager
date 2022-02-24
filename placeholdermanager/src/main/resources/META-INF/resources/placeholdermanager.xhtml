@@ -67,6 +67,7 @@
 		   				actionListener="#{placeHoldersView.promote(proj,'dev')}" 
 		   				update="@form,dashboard" style="background:#003b50;color:white;margin:0px;padding:0px;" />
 				</p:column>
+				
 				<p:column  headerText="TST">	
 					<p:commandButton value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['tst']]['app-version'].value}"
 							style="margin:10px;background-color: transparent;border-color:#{proj.mapappstatusByEnv[proj.mapenvs['tst']].unknow?black:proj.mapappstatusByEnv[proj.mapenvs['tst']].synchrone?'green':'red'};color:#{proj.mapappstatusByEnv[proj.mapenvs['tst']].unknow?black:proj.mapappstatusByEnv[proj.mapenvs['tst']].synchrone?'green':'red'}"	
@@ -99,11 +100,11 @@
 		   				update="@form,dashboard" style="background:#003b50;color:white;margin:0px;padding:0px;" />
 				</p:column>
 				
-				<p:column  headerText="PRD">	
-					<p:commandButton value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['int']]['app-version'].value}"
-						style="margin:10px;background-color: transparent;border-color:#{proj.mapappstatusByEnv[proj.mapenvs['int']].unknow?black:proj.mapappstatusByEnv[proj.mapenvs['int']].synchrone?'green':'red'};color:#{proj.mapappstatusByEnv[proj.mapenvs['int']].unknow?black:proj.mapappstatusByEnv[proj.mapenvs['int']].synchrone?'green':'red'}"
-						rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['int']]!=null and proj.mapPlaceHoldersByEnv[proj.mapenvs['int']]['app-version'].value!=null}"
-						actionListener="#{placeHoldersView.loadDetailEnv(proj,proj.mapenvs['int'])}"
+				<p:column  headerText="PROD">	
+					<p:commandButton value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['prod']]['app-version'].value}"
+						style="margin:10px;background-color: transparent;border-color:#{proj.mapappstatusByEnv[proj.mapenvs['prod']].unknow?black:proj.mapappstatusByEnv[proj.mapenvs['prod']].synchrone?'green':'red'};color:#{proj.mapappstatusByEnv[proj.mapenvs['prod']].unknow?black:proj.mapappstatusByEnv[proj.mapenvs['prod']].synchrone?'green':'red'}"
+						rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['prod']]!=null and proj.mapPlaceHoldersByEnv[proj.mapenvs['prod']]['app-version'].value!=null}"
+						actionListener="#{placeHoldersView.loadDetailEnv(proj,proj.mapenvs['prod'])}"
 						oncomplete="PF('dlg0').hide()"
 			   			onclick="PF('dlg0').show()" update="@form,growl"/>				
 				</p:column>
