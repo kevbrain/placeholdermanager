@@ -581,6 +581,7 @@ public class ProjectServiceImpl implements ProjectService {
 	public void updateGitOpsOnlyArgoApplication(Environments env) {
 		
 		String projectid= env.getProjectId();		
+		if (env.getArgoEnvId()!=null && !env.getArgoEnvId().isEmpty()) env.setArgoEnv(argoService.getArgoEnvByID(env.getArgoEnvId()));
 		
 		String nsName = env.getPlaceHoldersMap().get("ocp-namespace");
 		
