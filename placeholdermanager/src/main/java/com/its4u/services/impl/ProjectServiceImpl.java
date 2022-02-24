@@ -824,7 +824,7 @@ public class ProjectServiceImpl implements ProjectService {
 			destinationEnvironment= "int";
 		}
 		if (envsuffix.equalsIgnoreCase("int")) {
-			destinationEnvironment= "prod";
+			destinationEnvironment= "prd";
 		}
 		enrichProject(env.getProject());
 				
@@ -837,7 +837,7 @@ public class ProjectServiceImpl implements ProjectService {
 			destinationEnv.setEnvironment(env.getProjectId()+"-"+destinationEnvironment);
 			destinationEnv.setProject(env.getProject());
 			destinationEnv.setProjectId(env.getProjectId());
-			if (!destinationEnvironment.equalsIgnoreCase("prod")) {
+			if (!destinationEnvironment.equalsIgnoreCase("prd")) {
 				destinationEnv.setArgoEnvId("lab.its4u.eu-"+destinationEnvironment);
 			} else {
 				destinationEnv.setArgoEnvId("its4u.eu-"+destinationEnvironment);

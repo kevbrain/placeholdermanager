@@ -101,10 +101,10 @@
 				</p:column>
 				
 				<p:column  headerText="PROD">	
-					<p:commandButton value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['prod']]['app-version'].value}"
-						style="margin:10px;background-color: transparent;border-color:#{proj.mapappstatusByEnv[proj.mapenvs['prod']].unknow?black:proj.mapappstatusByEnv[proj.mapenvs['prod']].synchrone?'green':'red'};color:#{proj.mapappstatusByEnv[proj.mapenvs['prod']].unknow?black:proj.mapappstatusByEnv[proj.mapenvs['prod']].synchrone?'green':'red'}"
-						rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['prod']]!=null and proj.mapPlaceHoldersByEnv[proj.mapenvs['prod']]['app-version'].value!=null}"
-						actionListener="#{placeHoldersView.loadDetailEnv(proj,proj.mapenvs['prod'])}"
+					<p:commandButton value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['prd']]['app-version'].value}"
+						style="margin:10px;background-color: transparent;border-color:#{proj.mapappstatusByEnv[proj.mapenvs['prd']].unknow?black:proj.mapappstatusByEnv[proj.mapenvs['prd']].synchrone?'green':'red'};color:#{proj.mapappstatusByEnv[proj.mapenvs['prd']].unknow?black:proj.mapappstatusByEnv[proj.mapenvs['prd']].synchrone?'green':'red'}"
+						rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['prd']]!=null and proj.mapPlaceHoldersByEnv[proj.mapenvs['prd']]['app-version'].value!=null}"
+						actionListener="#{placeHoldersView.loadDetailEnv(proj,proj.mapenvs['prd'])}"
 						oncomplete="PF('dlg0').hide()"
 			   			onclick="PF('dlg0').show()" update="@form,growl"/>				
 				</p:column>
