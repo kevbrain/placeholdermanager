@@ -329,6 +329,7 @@ public class PlaceHoldersView {
 		projectService.updateGitOpsOnlyArgoApplication(destinationEnv);
 		projectService.synchronizeClusterConfig(destEnvsuffix, destinationEnv.getArgoEnvId());
 		
+		projectService.enrichProject(project);
 		// prepare skopeoModel
 		TemplateModel skopeoModel =  new TemplateModel();
 		skopeoModel.setAppName(project.getProject_Id());

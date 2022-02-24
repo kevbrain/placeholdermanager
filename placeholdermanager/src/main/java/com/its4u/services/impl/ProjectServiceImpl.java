@@ -890,8 +890,12 @@ public class ProjectServiceImpl implements ProjectService {
 	
 	
 	public Environments mergePlaceHolders(Environments envSource,Environments envDest) {
+		
 		HashMap<String,PlaceHolderSpec> keyplaceHolderSource = envSource.getProject().getMapPlaceHoldersByEnv().get(envSource.getEnvironment());
 		HashMap<String,PlaceHolderSpec> keyplaceHolderDest = envSource.getProject().getMapPlaceHoldersByEnv().get(envDest.getEnvironment());
+		
+		String envSourcesuffix = envSource.getEnvironment().substring(envSource.getEnvironment().length() - 3);
+		String envDestsuffix = envDest.getEnvironment().substring(envDest.getEnvironment().length() - 3);
 		
 		List<PlaceHolders> plholDest = envDest.getPlaceholders();
 		if (plholDest==null) {
@@ -902,11 +906,11 @@ public class ProjectServiceImpl implements ProjectService {
 			if (keyplaceHolderDest!=null && keyplaceHolderDest.get(keySource)!=null) {
 				// key already exists
 				if (keySource.equalsIgnoreCase("ocp.environment")) {
-					
+					//keyplaceHolderDest.put("ocp.environment", envDestsuffix);
 				}
 			} else {
 				PlaceHolderId plId = new PlaceHolderId(envDest.getEnvironment(), keySource);
-				PlaceHolders pl = new PlaceHolders(plId,envDest,keyplaceHolderSource.get(keySource).getValue(),keyplaceHolderSource.get(keySource).getType());
+				PlaceHolders pl = new PlaceHolders(plId,envDest,keyplaceHolderSource.get(keySource).getValue().replace(envSourcesuffix, envDestsuffix),keyplaceHolderSource.get(keySource).getType());
 				plholDest.add(pl);
 			}
 			
