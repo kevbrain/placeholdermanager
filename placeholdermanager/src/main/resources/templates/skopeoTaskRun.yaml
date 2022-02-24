@@ -1,0 +1,22 @@
+-apiVersion: tekton.dev/v1beta1
+kind: TaskRun
+metadata:
+  name: skopeo-run-${appName}-${uuid}
+  namespace: openshift-gitops
+spec:
+  serviceAccountName: skopeo
+  params:
+    - name: srcImageURL
+      value: docker://default-route-openshift-image-registry.apps.ocp-lab.its4u.eu/${namespaceSource}/${appName}:${version}
+    - name: destImageURL
+      value: docker://default-route-openshift-image-registry.apps.ocp-lab.its4u.eu/${namespaceDest}/${appName}:${version}
+    - name: destTLSverify
+      value: "false"
+    - name: srcTLSverify
+      value: "false"
+  taskRef:
+    kind: ClusterTask
+    name: skopeo-copy
+  workspaces:
+  - name: images-url
+    emptyDir: {}
