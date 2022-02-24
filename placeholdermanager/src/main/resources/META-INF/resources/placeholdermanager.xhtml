@@ -53,7 +53,7 @@
 						oncomplete="PF('dlg0').hide()"
 			   			onclick="PF('dlg0').show()" update="@form,growl"/>
 				</p:column>		
-				<p:column  headerText="DEV" >	
+				<p:column  headerText="DEV" style="text-align:center;">	
 					<p:commandButton value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['app-version'].value}" 
 							 style="margin:10px;background-color: transparent;border-color:#{proj.mapappstatusByEnv[proj.mapenvs['dev']].unknow?black:proj.mapappstatusByEnv[proj.mapenvs['dev']].synchrone?'green':'red'};color:#{proj.mapappstatusByEnv[proj.mapenvs['dev']].unknow?black:proj.mapappstatusByEnv[proj.mapenvs['dev']].synchrone?'green':'red'}"
 							 actionListener="#{placeHoldersView.loadDetailEnv(proj,proj.mapenvs['dev'])}"
