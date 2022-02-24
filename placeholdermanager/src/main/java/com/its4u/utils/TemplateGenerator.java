@@ -19,12 +19,15 @@ public class TemplateGenerator {
 	
 	private final Template ocpNameSpaceTemplate;
 	
+	private final Template skopeoCopy;
+	
 	public TemplateGenerator() throws IOException {    	
         Configuration cfg = new Configuration(Configuration.VERSION_2_3_29);
         
         cfg.setDirectoryForTemplateLoading(new File("//app//resources//templates/"));
         argoAppTemplate = cfg.getTemplate("argoAppTemplate.yaml");
         ocpNameSpaceTemplate = cfg.getTemplate("ocpNameSpaceTemplate.yaml");
+        skopeoCopy = cfg.getTemplate("skopeo-copy.json");
       
     }
 	
@@ -40,6 +43,14 @@ public class TemplateGenerator {
 
         Writer out = new StringWriter();
         argoAppTemplate.process(model, out);
+        return out.toString();
+
+    }
+	
+	public String generateSkopeoCopyEvent(TemplateModel model) throws IOException, TemplateException {
+
+        Writer out = new StringWriter();
+        skopeoCopy.process(model, out);
         return out.toString();
 
     }

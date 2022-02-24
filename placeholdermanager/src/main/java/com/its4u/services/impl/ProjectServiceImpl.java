@@ -810,7 +810,7 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	@Override
-	public String promote(Environments env) {
+	public Environments promote(Environments env) {
 		
 		System.out.println("Promote env "+env.getEnvironment());
 				
@@ -853,11 +853,39 @@ public class ProjectServiceImpl implements ProjectService {
 		destinationEnv.setArgoEnv(argoService.getArgoEnvByID(destinationEnv.getArgoEnvId()));
 		
 		destinationEnv = mergePlaceHolders(env, destinationEnv);
-		environmentService.save(destinationEnv);
-		
-		return destinationEnvironment;
+		destinationEnv = environmentService.save(destinationEnv);
+									
+		return destinationEnv;
 	}
 	
+
+	@Override
+	public void skopeoCopy(TemplateModel skopeoModel) {
+		
+		try {
+			TemplateGenerator templateGenerator = new TemplateGenerator();
+			String payLoadSkopeoJson = templateGenerator.generateSkopeoCopyEvent(skopeoModel);
+			System.out.println(payLoadSkopeoJson);
+			
+			String responseOpenShift="";
+			Unirest.setTimeouts(0, 0);
+			try {
+				HttpResponse<String> response = Unirest.post("http://el-skopeo-copy-eventlistener-openshift-gitops.apps.ocp-lab.its4u.eu/")
+				  .body(payLoadSkopeoJson)
+				  .asString();		
+				responseOpenShift = response.getBody();
+				System.out.println("OpenShift response :"+response.getStatus());
+			} catch (UnirestException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 	
 	
 	public Environments mergePlaceHolders(Environments envSource,Environments envDest) {

@@ -1,0 +1,6 @@
+{
+    "skopeo-copy": {
+    "srcImageURL": "docker://default-route-openshift-image-registry.${srcClusterSuffix}/${srcNamespace}/${appName}:${appVersion}",
+    "destImageURL": "docker://default-route-openshift-image-registry.${destClusterSuffix}/${destNamespace}/${appName}:${appVersion}"
+  }
+}

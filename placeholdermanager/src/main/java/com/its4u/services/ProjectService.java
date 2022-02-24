@@ -11,6 +11,7 @@ import com.its4u.models.PlaceHolderSpec;
 import com.its4u.models.PlaceHolders;
 import com.its4u.models.Project;
 import com.its4u.models.Versions;
+import com.its4u.models.templates.TemplateModel;
 
 public interface ProjectService {
 	
@@ -56,7 +57,7 @@ public interface ProjectService {
 
 	Git cloneGitOps(Environments env);
 
-	String promote(Environments env);
+	Environments promote(Environments env);
 
 	void updateGitOpsOnlyArgoApplication(Environments env);
 
@@ -71,6 +72,8 @@ public interface ProjectService {
 	void updateGitOps(Environments env);
 
 	void undeployGitOpsArgo(Environments env);
+
+	void skopeoCopy(TemplateModel skopeoModel);
 	
 		
 }

@@ -318,9 +318,29 @@ public class PlaceHoldersView {
 	
 	public void promote(Project project,String envId) {
 		
-		Environments env = environmentService.getEnvById(project.getMapenvs().get(envId));
-		projectService.promote(env);			
+		
+		Environments sourceenv = environmentService.getEnvById(project.getMapenvs().get(envId));
+		String srcEnvsuffix = sourceenv.getEnvironment().substring(sourceenv.getEnvironment().length() - 3);
+		Environments destinationEnv = projectService.promote(sourceenv);			
 		projectService.enrichProject(project);
+		
+		// synchronise cluster ( destination env)
+		String destEnvsuffix = destinationEnv.getEnvironment().substring(destinationEnv.getEnvironment().length() - 3);
+		projectService.updateGitOpsOnlyArgoApplication(destinationEnv);
+		projectService.synchronizeClusterConfig(destEnvsuffix, destinationEnv.getArgoEnvId());
+		
+		// prepare skopeoModel
+		TemplateModel skopeoModel =  new TemplateModel();
+		skopeoModel.setAppName(project.getProject_Id());
+		skopeoModel.setSrcNamespace(project.getMapPlaceHoldersByEnv().get(srcEnvsuffix).get("ocp-namespace").getValue());
+		skopeoModel.setDestNamespace(project.getMapPlaceHoldersByEnv().get(destEnvsuffix).get("ocp-namespace").getValue());
+		skopeoModel.setSrcClusterSuffix(project.getMapPlaceHoldersByEnv().get(srcEnvsuffix).get("cluster-suffix").getValue());
+		skopeoModel.setDestClusterSuffix(project.getMapPlaceHoldersByEnv().get(srcEnvsuffix).get("cluster-suffix").getValue());
+		skopeoModel.setAppVersion(project.getMapPlaceHoldersByEnv().get(srcEnvsuffix).get("app-version").getValue());
+		
+		// promote image container
+		projectService.skopeoCopy(skopeoModel);
+		
 		refresh(); 
 		
 	}
