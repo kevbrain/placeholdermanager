@@ -331,6 +331,11 @@ public class PlaceHoldersView {
 		
 		projectService.enrichProject(project);
 		// prepare skopeoModel
+		
+		System.out.println("create skopeo model");
+		System.out.println(project.getMapPlaceHoldersByEnv().get(sourceenv.getEnvironment()));
+		System.out.println(project.getMapPlaceHoldersByEnv().get(destinationEnv.getEnvironment()));
+		
 		TemplateModel skopeoModel =  new TemplateModel();
 		skopeoModel.setAppName(project.getProject_Id());
 		skopeoModel.setSrcNamespace(project.getMapPlaceHoldersByEnv().get(sourceenv.getEnvironment()).get("ocp-namespace").getValue());
