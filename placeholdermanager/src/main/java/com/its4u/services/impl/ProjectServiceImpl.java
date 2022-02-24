@@ -840,7 +840,7 @@ public class ProjectServiceImpl implements ProjectService {
 			if (!destinationEnvironment.equalsIgnoreCase("prd")) {
 				destinationEnv.setArgoEnvId("lab.its4u.eu-"+destinationEnvironment);
 			} else {
-				destinationEnv.setArgoEnvId("its4u.eu-"+destinationEnvironment);
+				destinationEnv.setArgoEnvId("its4u.eu-prod");
 			}
 			//environmentService.save(destinationEnv);		
 			iddestinationEnvironment = env.getEnvironment();
