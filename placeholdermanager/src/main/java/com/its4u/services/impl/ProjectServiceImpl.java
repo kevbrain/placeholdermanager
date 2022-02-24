@@ -842,7 +842,7 @@ public class ProjectServiceImpl implements ProjectService {
 			} else {
 				destinationEnv.setArgoEnvId("its4u.eu-"+destinationEnvironment);
 			}
-			environmentService.save(destinationEnv);		
+			//environmentService.save(destinationEnv);		
 			iddestinationEnvironment = env.getEnvironment();
 			env.getProject().getMapenvs().put(destinationEnvironment, destinationEnv.getEnvironment());
 		} else {
