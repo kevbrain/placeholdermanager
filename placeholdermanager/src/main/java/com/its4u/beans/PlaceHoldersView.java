@@ -300,7 +300,7 @@ public class PlaceHoldersView {
 					
 		}
 		int timeSleep=30;
-		if (envsuffix.equalsIgnoreCase("prod")) timeSleep=60;
+		if (envsuffix.equalsIgnoreCase("prd")) timeSleep=60;
 		
 		try {
 			System.out.println("Wait "+timeSleep+"s for (Cluster Upgrade ) ....");
