@@ -299,9 +299,12 @@ public class PlaceHoldersView {
 			
 					
 		}
-		System.out.println("Wait 30s for (Cluster Upgrade ) ....");
+		int timeSleep=30;
+		if (envsuffix.equalsIgnoreCase("prod")) timeSleep=60;
+		
 		try {
-    		TimeUnit.SECONDS.sleep(30);
+			System.out.println("Wait "+timeSleep+"s for (Cluster Upgrade ) ....");
+    		TimeUnit.SECONDS.sleep(timeSleep);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
