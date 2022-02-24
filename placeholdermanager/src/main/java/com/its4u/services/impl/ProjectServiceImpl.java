@@ -122,6 +122,7 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public String synchronizeClusterConfig(String env,String argoEnvid) {
 						
+		if (env.equalsIgnoreCase("prd")) env="prod"; 
 		System.out.println("synchronize cluster config /api/v1/applications/cluster-configs-"+env+"/sync");
 		ArgoEnvironment argoEnv = argoService.getArgoEnvByID(argoEnvid);
 		String argoServer = argoEnv.getArgoServer();
