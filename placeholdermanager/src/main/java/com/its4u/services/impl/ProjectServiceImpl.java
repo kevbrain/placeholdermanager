@@ -854,6 +854,11 @@ public class ProjectServiceImpl implements ProjectService {
 		destinationEnv.setArgoEnv(argoService.getArgoEnvByID(destinationEnv.getArgoEnvId()));
 		
 		destinationEnv = mergePlaceHolders(env, destinationEnv);
+		if (!destinationEnvironment.equalsIgnoreCase("prd")) {
+			destinationEnv.setArgoEnvId("lab.its4u.eu-"+destinationEnvironment);
+		} else {
+			destinationEnv.setArgoEnvId("its4u.eu-prod");
+		}
 		destinationEnv = environmentService.save(destinationEnv);
 									
 		return destinationEnv;
