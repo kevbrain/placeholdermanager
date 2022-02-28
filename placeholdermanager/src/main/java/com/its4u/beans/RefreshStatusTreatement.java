@@ -27,12 +27,15 @@ public class RefreshStatusTreatement implements Runnable{
 	@Override
 	public void run() {
 		for (Project proj:myProjects.values()) {
+			System.out.println("projet "+proj.getProject_Id());
 			for (Environments env:proj.getEnvironments()) {	
 				try {
-				ArgoAppStatus envstatus = projectService.statusAndHealth(proj.getProject_Id(), env);
-				proj.getMapappstatusByEnv().put(env.getEnvironment(), envstatus);
-				} catch (Exception e) {
 					
+					ArgoAppStatus envstatus = projectService.statusAndHealth(proj.getProject_Id(), env);
+					proj.getMapappstatusByEnv().put(env.getEnvironment(), envstatus);
+					System.out.println("    env  "+env.getEnvironment()+ " healthy = "+envstatus.isHealthy());
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
 			}
 		}
