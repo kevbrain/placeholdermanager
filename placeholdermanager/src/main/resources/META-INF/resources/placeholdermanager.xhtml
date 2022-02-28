@@ -41,7 +41,7 @@
    		<p:growl id="growl" showDetail="true" />
    		
    		
-   		<p:poll interval="30" listener="#{placeHoldersView.refreshStatus}" update="@form"/>
+   		<p:poll interval="60" listener="#{placeHoldersView.refreshStatus}" update="@form"/>
    		
    		<p:panel id="dashboard" rendered="#{!placeHoldersView.applicationSelected}">
    		

@@ -27,13 +27,13 @@ public class RefreshStatusTreatement implements Runnable{
 	@Override
 	public void run() {
 		for (Project proj:myProjects.values()) {
-			System.out.println("projet "+proj.getProject_Id());
+			
 			for (Environments env:proj.getEnvironments()) {	
 				try {
-					System.out.println("    env  "+env.getEnvironment());
+					
 					ArgoAppStatus envstatus = projectService.statusAndHealth(proj.getProject_Id(), env);
 					if (envstatus!=null) {
-						System.out.println("    env  "+env.getEnvironment()+ " healthy = "+envstatus.isHealthy());
+						
 						proj.getMapappstatusByEnv().put(env.getEnvironment(), envstatus);
 					} else {
 						proj.getMapappstatusByEnv().put(env.getEnvironment(), new ArgoAppStatus("Unknow", "Unknow"));
