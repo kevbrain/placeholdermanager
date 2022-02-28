@@ -12,15 +12,15 @@ import com.its4u.services.ProjectService;
 public class RefreshStatusTreatement implements Runnable{
 
 	
-	@Autowired
 	private ProjectService projectService;
 	
 	private HashMap<String,Project> myProjects; 
 			
 	
-	public RefreshStatusTreatement(HashMap<String, Project> myProjects) {
+	public RefreshStatusTreatement(HashMap<String, Project> myProjects,ProjectService projectService) {
 		super();
 		this.myProjects = myProjects;
+		this.projectService = projectService;
 	}
 
 
@@ -30,7 +30,7 @@ public class RefreshStatusTreatement implements Runnable{
 			System.out.println("projet "+proj.getProject_Id());
 			for (Environments env:proj.getEnvironments()) {	
 				try {
-					
+					System.out.println("    env  "+env.getEnvironment());
 					ArgoAppStatus envstatus = projectService.statusAndHealth(proj.getProject_Id(), env);
 					proj.getMapappstatusByEnv().put(env.getEnvironment(), envstatus);
 					System.out.println("    env  "+env.getEnvironment()+ " healthy = "+envstatus.isHealthy());
