@@ -361,7 +361,7 @@ public class PlaceHoldersView {
 	
 	public void refreshStatus() {
 		System.out.println("Refresh status function called");
-		Runnable runnable = new RefreshStatusTreatement(myProjects);
+		Runnable runnable = new RefreshStatusTreatement(myProjects,projectService);
 		Thread thread = new Thread(runnable);
 		thread.start();
 	}
