@@ -103,6 +103,7 @@ public class PlaceHoldersView {
 			//proj.setSynchrone(appStatus.getSync().equalsIgnoreCase("synced"));
 		}				
 		argoInitialier.setNewEnv(false);
+		refreshStatus();
 						
 	}
 	
