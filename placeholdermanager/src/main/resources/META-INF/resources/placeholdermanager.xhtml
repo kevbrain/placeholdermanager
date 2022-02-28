@@ -82,6 +82,7 @@
 				<p:column width="40px;" style="margin:0px;padding:0px;">
 					<p:commandButton value=">" title="promote"
 		   				actionListener="#{placeHoldersView.promote(proj,'tst')}" 
+		   				rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['tst']]!=null and proj.mapPlaceHoldersByEnv[proj.mapenvs['tst']]['app-version'].value!=null}"
 		   				update="@form,dashboard" style="background:#003b50;color:white;margin:0px;padding:0px;" />
 				</p:column>
 				
@@ -97,6 +98,7 @@
 				<p:column width="40px;" style="margin:0px;padding:0px;">
 					<p:commandButton value=">" title="promote"
 		   				actionListener="#{placeHoldersView.promote(proj,'int')}" 
+		   				rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['int']]!=null and proj.mapPlaceHoldersByEnv[proj.mapenvs['int']]['app-version'].value!=null}"
 		   				update="@form,dashboard" style="background:#003b50;color:white;margin:0px;padding:0px;" />
 				</p:column>
 				
