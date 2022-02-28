@@ -217,7 +217,7 @@ public class PlaceHoldersView {
 		System.out.println("Start Git Clone "+selectedProject.getProject_Id()+" project...");
 		
 		Git gitapp = projectService.cloneGitApp(selectedProject);
-		String pathWorkingGitAppProject = GitController.getRepoPath(gitapp)+"/"+selectedProject.getProject_Id();
+		String pathWorkingGitAppProject = GitController.getRepoPath(gitapp);
 		
 		System.out.println("->" + pathWorkingGitAppProject);
 		
