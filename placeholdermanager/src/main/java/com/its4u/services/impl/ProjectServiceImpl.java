@@ -913,6 +913,9 @@ public class ProjectServiceImpl implements ProjectService {
 				if (keySource.equalsIgnoreCase("ocp.environment")) {
 					//keyplaceHolderDest.put("ocp.environment", envDestsuffix);
 				}
+				if (keySource.equalsIgnoreCase("cluster-suffix")) {
+					//keyplaceHolderDest.put("ocp.environment", envDestsuffix);
+				}
 			} else {
 				PlaceHolderId plId = new PlaceHolderId(envDest.getEnvironment(), keySource);
 				PlaceHolders pl = new PlaceHolders(plId,envDest,keyplaceHolderSource.get(keySource).getValue().replace(envSourcesuffix, envDestsuffix),keyplaceHolderSource.get(keySource).getType());

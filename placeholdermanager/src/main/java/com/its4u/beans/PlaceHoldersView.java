@@ -214,13 +214,17 @@ public class PlaceHoldersView {
 	public void searchForNewPlaceHolders() {
 		
 		
-		pollView.log("Start Git Clone "+selectedProject.getProject_Id()+" project...");
+		System.out.println("Start Git Clone "+selectedProject.getProject_Id()+" project...");
 		
 		Git gitapp = projectService.cloneGitApp(selectedProject);
 		String pathWorkingGitAppProject = GitController.getRepoPath(gitapp)+"/"+selectedProject.getProject_Id();
+		
+		System.out.println("->" + pathWorkingGitAppProject);
+		
 			
-		pollView.log("Search for new PlaceHolders...");
+		
 		for (Environments env:selectedProject.getEnvironments()) {
+			System.out.println("Search for new PlaceHolders.. in "+pathWorkingGitAppProject+"/src/main/jkube/"+env.getEnvironment());
 			HashMap<String,String> placeholders = new HashMap<String, String>();
 			try {
 				Files.walk(Paths.get(pathWorkingGitAppProject+"/src/main/jkube/"+env.getEnvironment()))
@@ -357,16 +361,11 @@ public class PlaceHoldersView {
 	
 	public void refreshStatus() {
 		System.out.println("Refresh status function called");
-		for (Project proj:myProjects.values()) {
-			for (Environments env:proj.getEnvironments()) {	
-				try {
-				ArgoAppStatus envstatus = projectService.statusAndHealth(proj.getProject_Id(), env);
-				proj.getMapappstatusByEnv().put(env.getEnvironment(), envstatus);
-				} catch (Exception e) {
-					
-				}
-			}
-		}
+		Runnable runnable = new RefreshStatusTreatement(myProjects);
+		Thread thread = new Thread(runnable);
+		thread.start();
 	}
+	
+	
 
 }
