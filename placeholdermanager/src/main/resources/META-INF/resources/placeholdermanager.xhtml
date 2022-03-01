@@ -9,11 +9,12 @@
 >
 
 <h:head>
-<style>
-.healthyButton {
-    background-image: url(health_Healthy.png)
-}
-</style>
+		<link rel="stylesheet" href="primefaces-smoothness/primeicons.css">
+		<style>
+		.healthyButton {
+		    background-image: url(health_Healthy.png)
+		}
+		</style>
 </h:head>
 
 
@@ -45,7 +46,7 @@
    		
    		<p:panel id="dashboard" rendered="#{!placeHoldersView.applicationSelected}">
    		
-   		
+   			<i class="pi pi-check"></i>
    		
 	   		<p:dataTable value="#{placeHoldersView.projectList}"  var="proj"  widgetVar="projectsTable" id="projectstable">
 	   			<p:column  headerText="APPLICATIONS" width="250px;">	
