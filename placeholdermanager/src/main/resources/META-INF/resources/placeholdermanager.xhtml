@@ -59,14 +59,14 @@
 				</p:column>		
 				
 				<p:column  headerText="DEV" style="text-align:center;">	
-					<p:commandButton type="button"  value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['app-version'].value}" 							
+					<p:commandButton  value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['app-version'].value}" 							
 							 styleClass="ui-button-raised ui-button-secondary ui-button-flat"
 							 actionListener="#{placeHoldersView.loadDetailEnv(proj,proj.mapenvs['dev'])}"
 							 rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]!=null and proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['app-version'].value!=null}"
 							 oncomplete="PF('dlg0').hide()"
 			   				 onclick="PF('dlg0').show()" update="@form,growl"/>		
 			   		 <p:commandButton type="button" icon="pi pi-heart"
-			   		  styleClass="rounded-button ui-button-success" 
+			   		  styleClass="rounded-button ui-button-success ui-button-flat" 
 			   		  rendered="#{proj.mapappstatusByEnv[proj.mapenvs['dev']].synchrone}"/>			
 				</p:column>
 				
