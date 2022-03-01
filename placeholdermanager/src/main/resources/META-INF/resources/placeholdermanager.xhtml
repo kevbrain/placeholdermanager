@@ -50,17 +50,17 @@
    
    		
 	   		<p:dataTable value="#{placeHoldersView.projectList}"  var="proj"  widgetVar="projectsTable" id="projectstable">
-	   			<p:column  headerText="APPLICATIONS" width="250px;">	
-	   				 
+	   			<p:column  headerText="APPLICATIONS" width="250px;">		   				 
 					<p:commandButton type="button" value="#{proj.project_Id}"
 					    styleClass="rounded-button ui-button-secondary"
 						actionListener="#{placeHoldersView.loadDetailApp(proj)}"
 						oncomplete="PF('dlg0').hide()"
 			   			onclick="PF('dlg0').show()" update="@form,growl"/>
 				</p:column>		
+				
 				<p:column  headerText="DEV" style="text-align:center;">	
-					<p:commandButton value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['app-version'].value}" 
-							 style="margin:10px;background-color: transparent;border-color:#{proj.mapappstatusByEnv[proj.mapenvs['dev']].unknow?black:proj.mapappstatusByEnv[proj.mapenvs['dev']].synchrone?'green':'red'};color:#{proj.mapappstatusByEnv[proj.mapenvs['dev']].unknow?black:proj.mapappstatusByEnv[proj.mapenvs['dev']].synchrone?'green':'red'}"
+					<p:commandButton type="button"  value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['app-version'].value}" 							
+							 styleClass="#{proj.mapappstatusByEnv[proj.mapenvs['dev']].unknow?ui-button-raised ui-button-secondary:proj.mapappstatusByEnv[proj.mapenvs['dev']].synchrone?ui-button-raised ui-button-success:ui-button-raised ui-button-danger}"
 							 actionListener="#{placeHoldersView.loadDetailEnv(proj,proj.mapenvs['dev'])}"
 							 rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]!=null and proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['app-version'].value!=null}"
 							 oncomplete="PF('dlg0').hide()"
