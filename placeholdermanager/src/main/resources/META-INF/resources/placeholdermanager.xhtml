@@ -9,8 +9,6 @@
 >
 
 <h:head>
-		<link rel="stylesheet" href="primefaces-smoothness/primeicons.css"/>
-		<h:outputStylesheet name="primefaces-smoothness/primeicons.css" />
 		<style>
 		.healthyButton {
 		    background-image: url(health_Healthy.png)
@@ -45,7 +43,7 @@
    		<p:growl id="growl" showDetail="true" />
    		
    		
-   		<p:poll interval="60" listener="#{placeHoldersView.refreshStatus}" update="@form"/>
+   		<p:poll interval="30" listener="#{placeHoldersView.refreshStatus}" update="@form"/>
    		
    		<p:panel id="dashboard" rendered="#{!placeHoldersView.applicationSelected}">
    		
