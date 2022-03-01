@@ -60,7 +60,7 @@
 				
 				<p:column  headerText="DEV" style="text-align:center;">	
 					<p:commandButton type="button"  value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['app-version'].value}" 							
-							 styleClass="#{proj.mapappstatusByEnv[proj.mapenvs['dev']].unknow?ui-button-raised ui-button-secondary:proj.mapappstatusByEnv[proj.mapenvs['dev']].synchrone?ui-button-raised ui-button-success:ui-button-raised ui-button-danger}"
+							 styleClass="#{proj.mapappstatusByEnv[proj.mapenvs['dev']].unknow?'ui-button-raised ui-button-secondary':proj.mapappstatusByEnv[proj.mapenvs['dev']].synchrone?'ui-button-raised ui-button-success':'ui-button-raised ui-button-danger'}"
 							 actionListener="#{placeHoldersView.loadDetailEnv(proj,proj.mapenvs['dev'])}"
 							 rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]!=null and proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['app-version'].value!=null}"
 							 oncomplete="PF('dlg0').hide()"
