@@ -65,9 +65,18 @@
 							 rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]!=null and proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]['app-version'].value!=null}"
 							 oncomplete="PF('dlg0').hide()"
 			   				 onclick="PF('dlg0').show()" update="@form,growl"/>		
-			   		 <p:commandButton type="button" icon="pi pi-heart"
+			   		 <p:commandButton type="button" icon="pi pi-cloud-upload"
 			   		  styleClass="rounded-button ui-button-success ui-button-flat" 
-			   		  rendered="#{proj.mapappstatusByEnv[proj.mapenvs['dev']].synchrone}"/>			
+			   		  rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]!=null and proj.mapappstatusByEnv[proj.mapenvs['dev']].synchrone}"/>
+			   		 <p:commandButton type="button" icon="pi pi-cloud-upload"
+			   		  styleClass="rounded-button ui-button-danger ui-button-flat" 
+			   		  rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]!=null and !proj.mapappstatusByEnv[proj.mapenvs['dev']].synchrone}"/>
+					 <p:commandButton type="button" icon="pi pi-heart"
+			   		  styleClass="rounded-button ui-button-success ui-button-flat" 
+			   		  rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]!=null and proj.mapappstatusByEnv[proj.mapenvs['dev']].healthy}"/>	
+			   		 <p:commandButton type="button" icon="pi pi-heart"
+			   		  styleClass="rounded-button ui-button-danger ui-button-flat" 
+			   		  rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['dev']]!=null and !proj.mapappstatusByEnv[proj.mapenvs['dev']].healthy}"/>			
 				</p:column>
 				
 				<p:column width="40px;" style="margin:0px;padding:0px;">
@@ -78,7 +87,7 @@
 				
 				<p:column  headerText="TST" style="text-align:center;">	
 					<p:commandButton value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['tst']]['app-version'].value}"
-							style="margin:10px;background-color: transparent;border-color:#{proj.mapappstatusByEnv[proj.mapenvs['tst']].unknow?black:proj.mapappstatusByEnv[proj.mapenvs['tst']].synchrone?'green':'red'};color:#{proj.mapappstatusByEnv[proj.mapenvs['tst']].unknow?black:proj.mapappstatusByEnv[proj.mapenvs['tst']].synchrone?'green':'red'}"	
+							styleClass="ui-button-raised ui-button-secondary ui-button-flat"	
 							rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['tst']]!=null and proj.mapPlaceHoldersByEnv[proj.mapenvs['tst']]['app-version'].value!=null}"
 							actionListener="#{placeHoldersView.loadDetailEnv(proj,proj.mapenvs['tst'])}"
 							oncomplete="PF('dlg0').hide()"
@@ -96,7 +105,7 @@
 				
 				<p:column  headerText="INT" style="text-align:center;">	
 					<p:commandButton value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['int']]['app-version'].value}"
-						style="margin:10px;background-color: transparent;border-color:#{proj.mapappstatusByEnv[proj.mapenvs['int']].unknow?black:proj.mapappstatusByEnv[proj.mapenvs['int']].synchrone?'green':'red'};color:#{proj.mapappstatusByEnv[proj.mapenvs['int']].unknow?black:proj.mapappstatusByEnv[proj.mapenvs['int']].synchrone?'green':'red'}"
+						styleClass="ui-button-raised ui-button-secondary ui-button-flat"
 						rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['int']]!=null and proj.mapPlaceHoldersByEnv[proj.mapenvs['int']]['app-version'].value!=null}"
 						actionListener="#{placeHoldersView.loadDetailEnv(proj,proj.mapenvs['int'])}"
 						oncomplete="PF('dlg0').hide()"
@@ -112,7 +121,7 @@
 				
 				<p:column  headerText="PROD" style="text-align:center;">	
 					<p:commandButton value="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['prd']]['app-version'].value}"
-						style="margin:10px;background-color: transparent;border-color:#{proj.mapappstatusByEnv[proj.mapenvs['prd']].unknow?black:proj.mapappstatusByEnv[proj.mapenvs['prd']].synchrone?'green':'red'};color:#{proj.mapappstatusByEnv[proj.mapenvs['prd']].unknow?black:proj.mapappstatusByEnv[proj.mapenvs['prd']].synchrone?'green':'red'}"
+						styleClass="ui-button-raised ui-button-secondary ui-button-flat"
 						rendered="#{proj.mapPlaceHoldersByEnv[proj.mapenvs['prd']]!=null and proj.mapPlaceHoldersByEnv[proj.mapenvs['prd']]['app-version'].value!=null}"
 						actionListener="#{placeHoldersView.loadDetailEnv(proj,proj.mapenvs['prd'])}"
 						oncomplete="PF('dlg0').hide()"
