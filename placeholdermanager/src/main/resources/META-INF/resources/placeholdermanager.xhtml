@@ -47,20 +47,13 @@
    		
    		<p:panel id="dashboard" rendered="#{!placeHoldersView.applicationSelected}">
    		
-   			<i class="pi pi-check"></i>
-   			<p:button icon="pi pi-bookmark" styleClass="rounded-button ui-button-secondary" />
-		    <p:button icon="pi pi-search" styleClass="rounded-button ui-button-success" />
-		    <p:button icon="pi pi-user" styleClass="rounded-button ui-button-info" />
-		    <p:button icon="pi pi-bell" styleClass="rounded-button ui-button-warning" />
-		    <p:button icon="pi pi-heart" styleClass="rounded-button ui-button-help" />
-		    <p:button icon="pi pi-times" styleClass="rounded-button ui-button-danger" />
-		    <p:button icon="pi pi-check" styleClass="rounded-button" />
+   
    		
 	   		<p:dataTable value="#{placeHoldersView.projectList}"  var="proj"  widgetVar="projectsTable" id="projectstable">
 	   			<p:column  headerText="APPLICATIONS" width="250px;">	
-	   				
-					<p:commandButton value="#{proj.project_Id}"
-					    style="margin:10px;background-color: transparent;border-color: transparent;}"
+	   				 
+					<p:commandButton type="button" value="#{proj.project_Id}"
+					    styleClass="rounded-button ui-button-secondary"
 						actionListener="#{placeHoldersView.loadDetailApp(proj)}"
 						oncomplete="PF('dlg0').hide()"
 			   			onclick="PF('dlg0').show()" update="@form,growl"/>
