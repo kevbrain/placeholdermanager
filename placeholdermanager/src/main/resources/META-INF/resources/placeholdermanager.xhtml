@@ -131,7 +131,7 @@
 				</p:column>
 				
 				<p:column width="50px;" style="margin:10px;">
-					<p:commandButton value="X" style="margin:10px;background:#003b50;color:white;" title="Delete"
+					<p:commandButton type="button" styleClass="rounded-button ui-button-secondary" icon="pi pi-trash"
 					   			update="growl,@form" 
 					   			actionListener="#{placeHoldersView.deleteProject(proj)}"
 					   			onclick="PF('dlg0').show()" oncomplete="PF('dlg0').hide()">
@@ -320,7 +320,8 @@
 									        		<p:password  value="#{entry.value}" toggleMask="true" redisplay="true" style="width:400px;"/>
 										</p:column>		
 										<p:column  headerText="">	
-									        		<p:commandButton value="Delete" actionListener="#{placeHoldersView.deletePlaceHolder(entry,env)}" update="@form,growl" />									        		
+									        		<p:commandButton type="button" styleClass="rounded-button ui-button-danger ui-button-flat" icon="pi pi-trash" 
+									        			actionListener="#{placeHoldersView.deletePlaceHolder(entry,env)}" update="@form,growl" />									        		
 										</p:column>
 																	
 					    			</p:dataTable>
