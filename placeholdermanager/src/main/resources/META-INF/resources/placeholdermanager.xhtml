@@ -44,12 +44,9 @@
    		<h:form id="form" prependId="false">
    		<p:growl id="growl" showDetail="true" />
    		
-
    		
    		<p:panel id="dashboard" rendered="#{!placeHoldersView.applicationSelected}">
-   		
-   
-   		
+ 		  		
 	   		<p:dataTable value="#{placeHoldersView.projectList}"  var="proj"  widgetVar="projectsTable" id="projectstable">
 	   			<p:column  headerText="APPLICATIONS" width="250px;">		   				 
 					<p:commandButton type="button" value="#{proj.project_Id}"
