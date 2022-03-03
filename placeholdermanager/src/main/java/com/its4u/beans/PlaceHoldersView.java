@@ -365,6 +365,7 @@ public class PlaceHoldersView {
 		Runnable runnable = new RefreshStatusTreatement(myProjects,projectService);
 		Thread thread = new Thread(runnable);
 		thread.start();
+
 	}
 	
 	

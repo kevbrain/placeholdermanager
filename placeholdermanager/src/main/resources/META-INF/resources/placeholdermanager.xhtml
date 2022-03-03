@@ -293,7 +293,9 @@
 									        		<p:inputText value="#{entry.value}" style="width:600px;" id="iptxt_placeholderValue"/>
 										</p:column>		
 										<p:column  headerText="">	
-									        		<p:commandButton value="Delete" actionListener="#{placeHoldersView.deletePlaceHolder(entry,env)}" update="@form,growl"  rendered="#{!entry.version}"/>
+										   
+									        		<p:commandButton type="button" styleClass="rounded-button ui-button-danger ui-button-flat" icon="pi pi-trash"
+									        			actionListener="#{placeHoldersView.deletePlaceHolder(entry,env)}" update="@form,growl"  rendered="#{!entry.version}"/>
 									        		<p:commandButton value="Replace by : " rendered="#{entry.version}"/> 
 									        		<p:selectOneMenu rendered="#{entry.version}" value="#{entry.value}">
 									        			 <f:selectItem itemLabel="Select One" itemValue=""/>
