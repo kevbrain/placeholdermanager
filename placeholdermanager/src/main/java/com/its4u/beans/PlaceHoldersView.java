@@ -18,6 +18,7 @@ import javax.faces.view.ViewScoped;
 
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
+import org.primefaces.PrimeFaces;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -354,9 +355,9 @@ public class PlaceHoldersView {
 		
 		// promote image container
 		
-		System.out.println("Wait 10s ....");
+		System.out.println("Wait 5s ....");
     	try {
-    		TimeUnit.SECONDS.sleep(10);
+    		TimeUnit.SECONDS.sleep(5);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -365,7 +366,7 @@ public class PlaceHoldersView {
 		projectService.skopeoCopy(skopeoModel);
 		
 		refresh(); 
-		
+		PrimeFaces.current().ajax().update("@form");
 	}
 	
 	
