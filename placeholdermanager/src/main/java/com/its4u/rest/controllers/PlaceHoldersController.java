@@ -1,6 +1,7 @@
 package com.its4u.rest.controllers;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.its4u.models.ArgoEnvironment;
 import com.its4u.models.Project;
+import com.its4u.models.Versions;
 import com.its4u.services.ArgoService;
 import com.its4u.services.ProjectService;
 
@@ -24,6 +26,9 @@ public class PlaceHoldersController {
 	
 	@Autowired
 	private ArgoService argoService;
+	
+	@Autowired
+	
 	
 	@ResponseBody
 	@PostMapping(value= "/createProject", consumes = "application/json", produces = "application/json")
@@ -81,5 +86,10 @@ public class PlaceHoldersController {
 	@RequestMapping(value = "/projects/{projectName}/create-version/{version}")
 	public @ResponseBody Project createVersion(@PathVariable("projectName") String projectName, @PathVariable("version") String version) {
 		return service.createVersion(projectName,version);
+	}
+	
+	@RequestMapping(value = "/projects/versions")
+	public @ResponseBody List<Versions> getVersionProject() {
+		return service.getVersionsProjects();
 	}
 }

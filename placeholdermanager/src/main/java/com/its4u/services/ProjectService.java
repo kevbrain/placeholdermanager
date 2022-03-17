@@ -74,6 +74,8 @@ public interface ProjectService {
 	void undeployGitOpsArgo(Environments env);
 
 	void skopeoCopy(TemplateModel skopeoModel);
+
+	List<Versions> getVersionsProjects();
 	
 		
 }

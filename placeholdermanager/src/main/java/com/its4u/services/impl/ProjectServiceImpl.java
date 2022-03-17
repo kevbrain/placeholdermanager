@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.commons.collections4.IterableUtils;
 import org.apache.commons.io.FileUtils;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.RmCommand;
@@ -516,6 +517,11 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public List<Versions> getVersionsByProject(String projectId) {
 		return versionRepository.findAllByProjectId(projectId);
+	}
+	
+	@Override
+	public List<Versions> getVersionsProjects() {
+		return IterableUtils.toList(versionRepository.findAll());
 	}
 
 	@Override
