@@ -127,7 +127,7 @@
 				</p:column>
 				
 				<p:column width="50px;" style="margin:10px;">
-					<p:commandButton type="button" styleClass="rounded-button ui-button-secondary" icon="pi pi-trash"
+					<p:commandButton  styleClass="rounded-button ui-button-secondary" icon="pi pi-trash"
 					   			update="growl,@form" 
 					   			actionListener="#{placeHoldersView.deleteProject(proj)}"
 					   			onclick="PF('dlg0').show()" oncomplete="PF('dlg0').hide()">
@@ -293,11 +293,11 @@
 									        		<p:commandButton type="button" styleClass="rounded-button ui-button-danger ui-button-flat" icon="pi pi-trash"
 									        			actionListener="#{placeHoldersView.deletePlaceHolder(entry,env)}" update="@form,growl"  rendered="#{!entry.version}"/>
 									        		<p:commandButton value="Replace by : " rendered="#{entry.version}"/> 
-									        		<p:selectOneMenu rendered="#{entry.version}" value="#{entry.value}">
-									        			 <f:selectItem itemLabel="Select One" itemValue=""/>
-									        			 <f:selectItems value="#{placeHoldersView.versions}"/>
-									        			 <p:ajax  event="change" update="iptxt_placeholderValue"/>
-									        		</p:selectOneMenu>									        		
+										        		<p:selectOneMenu rendered="#{entry.version}" value="#{entry.value}">
+										        			 <f:selectItem itemLabel="Select One" itemValue=""/>
+										        			 <f:selectItems value="#{placeHoldersView.versions}"/>
+										        			 <p:ajax  event="change" update="iptxt_placeholderValue"/>
+										        		</p:selectOneMenu>									        		
 										</p:column>		
 										
 					    			</p:dataTable>

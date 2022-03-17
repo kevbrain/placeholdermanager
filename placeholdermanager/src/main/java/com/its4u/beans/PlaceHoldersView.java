@@ -168,6 +168,7 @@ public class PlaceHoldersView {
 	}
 	
 	public void deleteProject(Project project) {
+		System.out.println("Delete Project "+project.getProject_Id());
 		for (Environments env:project.getEnvironments()) {
 			System.out.println("Delete env "+env.getEnvironment());
 			try {
