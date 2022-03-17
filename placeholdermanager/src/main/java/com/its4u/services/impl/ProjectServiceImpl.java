@@ -510,7 +510,7 @@ public class ProjectServiceImpl implements ProjectService {
 		} else {
 			versions = proj.getVersions();
 		}
-		versions.add(new Versions(new VersionsId(version,proj.getProject_Id())));
+		versions.add(new Versions(new VersionsId(proj.getProject_Id(),version)));
 		return createProject(proj);
 		
 	}

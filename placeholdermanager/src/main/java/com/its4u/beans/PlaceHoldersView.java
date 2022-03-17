@@ -353,6 +353,15 @@ public class PlaceHoldersView {
 		skopeoModel.setAppVersion(sourceenv.getPlaceHoldersMap().get("app-version"));
 		
 		// promote image container
+		
+		System.out.println("Wait 10s ....");
+    	try {
+    		TimeUnit.SECONDS.sleep(10);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		projectService.skopeoCopy(skopeoModel);
 		
 		refresh(); 
