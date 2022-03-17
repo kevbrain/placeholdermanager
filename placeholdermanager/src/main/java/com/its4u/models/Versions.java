@@ -19,8 +19,6 @@ import lombok.Data;
 @Table(name = "VERSIONSPROJ")
 public class Versions implements Serializable {
 
-	
-
 	private static final long serialVersionUID = 1L;
 	
 	@Id
