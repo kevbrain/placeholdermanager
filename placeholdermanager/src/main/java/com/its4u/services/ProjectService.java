@@ -43,8 +43,6 @@ public interface ProjectService {
 
 	Project createVersion(String projectName, String version);
 
-	List<Versions> getVersionsByProject(String projectId);
-
 	String getDevVersion(String projectName);
 
 	HashMap<String, String> createMapEnvironment(Project project);

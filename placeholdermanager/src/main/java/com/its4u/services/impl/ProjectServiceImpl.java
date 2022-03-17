@@ -515,10 +515,7 @@ public class ProjectServiceImpl implements ProjectService {
 		
 	}
 	
-	@Override
-	public List<Versions> getVersionsByProject(String projectId) {
-		return versionRepository.findAllByProjectId(projectId);
-	}
+	
 	
 	@Override
 	public List<Versions> getVersionsProjects() {
