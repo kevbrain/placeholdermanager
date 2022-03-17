@@ -42,6 +42,7 @@ import com.its4u.models.PlaceHolderSpec;
 import com.its4u.models.PlaceHolders;
 import com.its4u.models.Project;
 import com.its4u.models.Versions;
+import com.its4u.models.VersionsId;
 import com.its4u.models.templates.TemplateModel;
 import com.its4u.repositories.EnvironmentRepository;
 import com.its4u.repositories.PlaceHoldersRepository;
@@ -509,7 +510,7 @@ public class ProjectServiceImpl implements ProjectService {
 		} else {
 			versions = proj.getVersions();
 		}
-		versions.add(new Versions(version,proj.getProject_Id()));
+		versions.add(new Versions(new VersionsId(version,proj.getProject_Id())));
 		return createProject(proj);
 		
 	}
