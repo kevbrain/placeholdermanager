@@ -89,8 +89,7 @@ public class PlaceHoldersController {
 	}
 	
 	@RequestMapping(value = "/projects/versions")
-	public @ResponseBody List<Versions> getVersionProject() {
-		
+	public @ResponseBody List<Versions> getVersionProject() {		
 		return service.getVersionsProjects();
 	}
 }
