@@ -22,10 +22,11 @@ public class Versions implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	@Id
+	
 	@Column(name = "VERSION")
 	private String version;
 	
+	@Id
 	@Column(name = "PROJECT_ID")
 	private String projectId;
 	
