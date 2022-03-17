@@ -26,9 +26,7 @@ public class PlaceHoldersController {
 	
 	@Autowired
 	private ArgoService argoService;
-	
-	@Autowired
-	
+
 	
 	@ResponseBody
 	@PostMapping(value= "/createProject", consumes = "application/json", produces = "application/json")
