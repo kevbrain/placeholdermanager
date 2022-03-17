@@ -3,6 +3,7 @@ package com.its4u.models;
 import java.io.Serializable;
 
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -16,18 +17,13 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "VERSIONSPROJ")
+@Table(name = "VERSIONS")
 public class Versions implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	@Id
-	@Column(name = "PROJECT_ID")
-	private String projectId;
-	
-	@Column(name = "VERSION")
-	private String version;
-	
+	@EmbeddedId
+	private VersionsId versionsid;
 	
 	@JsonIgnore
 	@ManyToOne
@@ -38,11 +34,12 @@ public class Versions implements Serializable {
 		super();
 	}
 
-	public Versions(String version, String projectId) {
+	public Versions(VersionsId versionsid) {
 		super();
-		this.version = version;
-		this.projectId = projectId;
+		this.versionsid = versionsid;
 	}
+
+	
 
 	
 }
