@@ -34,6 +34,12 @@ public class Project implements Serializable{
 	
 	@Column(name = "OWNER")
 	private String owner;
+	
+	@Column(name = "TEAM")
+	private String team;
+	
+	@Column(name = "VALUECHAIN")
+	private String valueChain;
 			
 	@OneToMany( mappedBy = "project", cascade = { CascadeType.ALL },fetch = FetchType.EAGER,orphanRemoval = true)	
    	private List<Environments> environments;
