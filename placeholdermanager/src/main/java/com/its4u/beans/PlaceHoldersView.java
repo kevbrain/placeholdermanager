@@ -110,6 +110,8 @@ public class PlaceHoldersView {
 	
 	public void loadMetadasProject(Project projet) {
 		selectedProject=projet;
+		System.out.println("selected project = "+selectedProject.getProject_Id());
+		PrimeFaces.current().ajax().update("dialogProjectMetadatas");
 		
 	}
 	
