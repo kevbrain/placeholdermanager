@@ -51,9 +51,9 @@
 	   			<p:column  headerText="APPLICATIONS" width="250px;">		   				 
 					<p:commandButton type="button" value="#{proj.project_Id}"
 					    styleClass="rounded-button ui-button-secondary"
-						actionListener="#{placeHoldersView.loadDetailApp(proj)}"
-						oncomplete="PF('dlg0').hide()"
-			   			onclick="PF('dlg0').show()" update="@form,growl"/>
+						actionListener="#{placeHoldersView.loadMetadasProject(proj)}"						
+			   			onclick="PF('dlgProjectMetadata').show()" 			   			
+			   			update="@form,growl"/>
 				</p:column>		
 				
 				<p:column  headerText="DEV" style="text-align:center;">	
@@ -349,6 +349,16 @@
 					</p:tabView>
 					
 				</p:panel>	
+				
+			<p:dilaog header="Project Metadatas" widgetVar="dlgProjectMetadata" showEffect="fade"  id="dialogProjectMetadatas">
+				
+				<h:panelGrid columns="2">
+					<h:outputLabel value="Id"/>
+					<h:outputText value=""/>
+					
+				</h:panelGrid>
+			
+			</p:dilaog>
 							
 			<p:dialog header="Resources" widgetVar="dlgStatus" minHeight="500" width="1400" showEffect="fade"  id="dialogresources">
 	
@@ -380,8 +390,7 @@
 						<h:outputText value="#{res.message}"/>
 					</p:column>
 				
-				</p:dataTable>						
-				
+				</p:dataTable>										
 			</p:dialog>
     	</h:form>
 	</p:panel>

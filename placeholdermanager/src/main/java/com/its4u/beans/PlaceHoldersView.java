@@ -108,6 +108,11 @@ public class PlaceHoldersView {
 						
 	}
 	
+	public void loadMetadasProject(Project projet) {
+		selectedProject=projet;
+		
+	}
+	
 	public void loadDetailApp(Project projet) {
 		selectedProject=projet;
 		applicationSelected=true;
@@ -366,7 +371,7 @@ public class PlaceHoldersView {
 		projectService.skopeoCopy(skopeoModel);
 		
 		refresh(); 
-		PrimeFaces.current().ajax().update("@form");
+		PrimeFaces.current().ajax().update("form");
 	}
 	
 	
