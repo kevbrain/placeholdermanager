@@ -51,9 +51,7 @@
 	   			<p:column  headerText="APPLICATIONS" width="250px;">		   				 
 					<p:commandButton value="#{proj.project_Id}"
 					    styleClass="rounded-button ui-button-secondary"
-						actionListener="#{placeHoldersView.loadMetadasProject(proj)}"						
-			   			onclick="PF('dlgProjectMetadata').show()" 			   			
-			   			update="@form,growl"/>
+						actionListener="#{placeHoldersView.loadMetadasProject(proj)}"/>
 				</p:column>		
 				
 				<p:column  headerText="DEV" style="text-align:center;">	

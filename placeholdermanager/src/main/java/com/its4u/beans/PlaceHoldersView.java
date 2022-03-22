@@ -112,6 +112,7 @@ public class PlaceHoldersView {
 		selectedProject=projet;
 		System.out.println("selected project = "+selectedProject.getProject_Id());
 		PrimeFaces.current().ajax().update("dialogProjectMetadatas");
+		PrimeFaces.current().executeScript("PF('dlgProjectMetadata').show();");
 		
 	}
 	
