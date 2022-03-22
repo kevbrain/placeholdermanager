@@ -355,15 +355,17 @@
 					<h:outputText value="#{placeHoldersView.selectedProject.project_Id}"/>
 					
 					<h:outputLabel value="Git :"/>
-					<h:outputText value="#{placeHoldersView.selectedProject.gitUrl}"/>
+					<p:inputText value="#{placeHoldersView.selectedProject.gitUrl}"/>
 					
 					<h:outputLabel value="Team :"/>
-					<h:outputText value="#{placeHoldersView.selectedProject.team}"/>
+					<p:inputText value="#{placeHoldersView.selectedProject.team}"/>
 					
 					<h:outputLabel value="Department :"/>
-					<h:outputText value="#{placeHoldersView.selectedProject.valueChain}"/>
+					<p:inputText value="#{placeHoldersView.selectedProject.valueChain}"/>
 					
-				
+					<h:outputLabel value="Description :"/>
+					<p:inputTextarea rows="5" cols="30" maxlength="10" autoResize="false" value="#{placeHoldersView.selectedProject.description}"/>
+					
 				</h:panelGrid>
 			
 			</p:dialog>
