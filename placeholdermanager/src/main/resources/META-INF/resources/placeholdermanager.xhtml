@@ -419,7 +419,7 @@
 						<h:outputText value="#{placeHoldersView.selectedProject.project_Id}"/>
 						
 						<h:outputLabel value="Git :"/>
-						<p:inputText value="#{placeHoldersView.selectedProject.gitUrl}"/>
+						<p:inputText value="#{placeHoldersView.selectedProject.gitUrl}" style="width:400px;"/>
 						
 						<h:outputLabel value="Team :"/>
 						<p:inputText value="#{placeHoldersView.selectedProject.team}"/>
@@ -431,6 +431,16 @@
 						<p:inputTextarea rows="5" cols="30" maxlength="10" autoResize="false" value="#{placeHoldersView.selectedProject.description}"/>
 						
 					</h:panelGrid>
+					
+					<div style="position:relative;margin:auto;text-align:center;">	
+			   			<p:commandButton value="Save"  actionListener="#{placeHoldersView.updateProject}"		   				
+			   				update="@form" style="margin:10px;background:#003b50;color:white" 
+			   				oncomplete="PF('dlgProjectMetadata').hide()"/>
+				   		<p:commandButton value="Cancel" update="@form"
+				   			oncomplete="PF('dlgProjectMetadata').hide()" 
+				   			style="margin:10px;background:#003b50;color:white" />
+				   				   		
+		   			</div>
 				</h:form>
 			</p:dialog>
  

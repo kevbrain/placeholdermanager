@@ -156,6 +156,11 @@ public class PlaceHoldersView {
 		
 	}
 	
+	public void updateProject() {
+		projectService.createProject(selectedProject);
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Project saved"));
+	}
+	
 	public void deletePlaceHolder(PlaceHolders pl,Environments env) {
 		
 		projectService.deletePlaceHolder(pl);
