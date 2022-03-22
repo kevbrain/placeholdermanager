@@ -65,7 +65,7 @@ public class PlaceHoldersView {
 	
 	private HashMap<String,Project> myProjects;
 	
-	private Project selectedProject;
+	public Project selectedProject;
 	
 	private String selectedProjectId;
 	
