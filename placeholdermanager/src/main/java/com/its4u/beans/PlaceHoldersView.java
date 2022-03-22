@@ -108,8 +108,9 @@ public class PlaceHoldersView {
 	}
 	
 	public void loadMetadasProject(Project projet) {
-		selectedProject=projet;
+		this.selectedProject=projet;
 		System.out.println("selected project = "+selectedProject.getProject_Id());
+		System.out.println("selected project = "+selectedProject.getGitUrl());
 		PrimeFaces.current().ajax().update("dialogProjectMetadatas");
 		//PrimeFaces.current().executeScript("PF('dlgProjectMetadata').show();");
 		
