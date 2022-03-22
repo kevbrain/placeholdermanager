@@ -348,28 +348,7 @@
 					</p:tabView>
 					
 				</p:panel>	
-				
-			<p:dialog header="Project Metadatas" widgetVar="dlgProjectMetadata"   id="dialogProjectMetadatas">
-				
-				<h:panelGrid columns="2">
-					<h:outputLabel value="Id :"/>
-					<h:outputText value="#{placeHoldersView.selectedProject.project_Id}"/>
-					
-					<h:outputLabel value="Git :"/>
-					<p:inputText value="#{placeHoldersView.selectedProject.gitUrl}"/>
-					
-					<h:outputLabel value="Team :"/>
-					<p:inputText value="#{placeHoldersView.selectedProject.team}"/>
-					
-					<h:outputLabel value="Department :"/>
-					<p:inputText value="#{placeHoldersView.selectedProject.valueChain}"/>
-					
-					<h:outputLabel value="Description :"/>
-					<p:inputTextarea rows="5" cols="30" maxlength="10" autoResize="false" value="#{placeHoldersView.selectedProject.description}"/>
-					
-				</h:panelGrid>
-			
-			</p:dialog>
+
 							
 			<p:dialog header="Resources" widgetVar="dlgStatus" minHeight="500" width="1400" showEffect="fade"  id="dialogresources">
 	
@@ -431,6 +410,28 @@
 		
 	</p:dialog>
 	
+					
+			<p:dialog header="Project Metadatas" widgetVar="dlgProjectMetadata"   id="dialogProjectMetadatas">
+				<h:form>
+					<h:panelGrid columns="2">
+						<h:outputLabel value="Id :"/>
+						<h:outputText value="#{placeHoldersView.selectedProject.project_Id}"/>
+						
+						<h:outputLabel value="Git :"/>
+						<p:inputText value="#{placeHoldersView.selectedProject.gitUrl}"/>
+						
+						<h:outputLabel value="Team :"/>
+						<p:inputText value="#{placeHoldersView.selectedProject.team}"/>
+						
+						<h:outputLabel value="Department :"/>
+						<p:inputText value="#{placeHoldersView.selectedProject.valueChain}"/>
+						
+						<h:outputLabel value="Description :"/>
+						<p:inputTextarea rows="5" cols="30" maxlength="10" autoResize="false" value="#{placeHoldersView.selectedProject.description}"/>
+						
+					</h:panelGrid>
+				</h:form>
+			</p:dialog>
  
 </h:body>
 </html>
