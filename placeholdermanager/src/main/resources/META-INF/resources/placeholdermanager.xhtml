@@ -350,15 +350,15 @@
 					
 				</p:panel>	
 				
-			<p:dilaog header="Project Metadatas" widgetVar="dlgProjectMetadata" showEffect="fade"  id="dialogProjectMetadatas">
+			<p:dialog header="Project Metadatas" widgetVar="dlgProjectMetadata" showEffect="fade"  id="dialogProjectMetadatas">
 				
 				<h:panelGrid columns="2">
 					<h:outputLabel value="Id"/>
-					<h:outputText value=""/>
+					<h:outputText value="#{placeHoldersView.selectedProject.project_Id}"/>
 					
 				</h:panelGrid>
 			
-			</p:dilaog>
+			</p:dialog>
 							
 			<p:dialog header="Resources" widgetVar="dlgStatus" minHeight="500" width="1400" showEffect="fade"  id="dialogresources">
 	
