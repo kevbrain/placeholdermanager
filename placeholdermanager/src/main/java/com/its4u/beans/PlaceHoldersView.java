@@ -42,7 +42,6 @@ import com.its4u.utils.TemplateGenerator;
 import freemarker.template.TemplateException;
 import lombok.Data;
 @ViewScoped
-@Data
 @Component
 public class PlaceHoldersView {
 
@@ -388,6 +387,142 @@ public class PlaceHoldersView {
 		Thread thread = new Thread(runnable);
 		thread.start();
 
+	}
+
+	public ProjectService getProjectService() {
+		return projectService;
+	}
+
+	public void setProjectService(ProjectService projectService) {
+		this.projectService = projectService;
+	}
+
+	public ArgoService getArgoService() {
+		return argoService;
+	}
+
+	public void setArgoService(ArgoService argoService) {
+		this.argoService = argoService;
+	}
+
+	public EnvironmentService getEnvironmentService() {
+		return environmentService;
+	}
+
+	public void setEnvironmentService(EnvironmentService environmentService) {
+		this.environmentService = environmentService;
+	}
+
+	public ArgoInitializerBean getArgoInitialier() {
+		return argoInitialier;
+	}
+
+	public void setArgoInitialier(ArgoInitializerBean argoInitialier) {
+		this.argoInitialier = argoInitialier;
+	}
+
+	public PollView getPollView() {
+		return pollView;
+	}
+
+	public void setPollView(PollView pollView) {
+		this.pollView = pollView;
+	}
+
+	public OcpExplorerService getOcp() {
+		return ocp;
+	}
+
+	public void setOcp(OcpExplorerService ocp) {
+		this.ocp = ocp;
+	}
+
+	public HashMap<String, Project> getMyProjects() {
+		return myProjects;
+	}
+
+	public void setMyProjects(HashMap<String, Project> myProjects) {
+		this.myProjects = myProjects;
+	}
+
+	public Project getSelectedProject() {
+		return selectedProject;
+	}
+
+	public void setSelectedProject(Project selectedProject) {
+		this.selectedProject = selectedProject;
+	}
+
+	public String getSelectedProjectId() {
+		return selectedProjectId;
+	}
+
+	public void setSelectedProjectId(String selectedProjectId) {
+		this.selectedProjectId = selectedProjectId;
+	}
+
+	public Environments getSelectedEnvironment() {
+		return selectedEnvironment;
+	}
+
+	public void setSelectedEnvironment(Environments selectedEnvironment) {
+		this.selectedEnvironment = selectedEnvironment;
+	}
+
+	public ArgoAppStatus getAppStatus() {
+		return appStatus;
+	}
+
+	public void setAppStatus(ArgoAppStatus appStatus) {
+		this.appStatus = appStatus;
+	}
+
+	public Map<String, String> getTags() {
+		return tags;
+	}
+
+	public void setTags(Map<String, String> tags) {
+		this.tags = tags;
+	}
+
+	public Map<String, String> getVersions() {
+		return versions;
+	}
+
+	public void setVersions(Map<String, String> versions) {
+		this.versions = versions;
+	}
+
+	public HashMap<String, HashMap<String, String>> getProjectMap() {
+		return projectMap;
+	}
+
+	public void setProjectMap(HashMap<String, HashMap<String, String>> projectMap) {
+		this.projectMap = projectMap;
+	}
+
+	public HashMap<String, HashMap<String, String>> getEnvplaceHolders() {
+		return envplaceHolders;
+	}
+
+	public void setEnvplaceHolders(HashMap<String, HashMap<String, String>> envplaceHolders) {
+		this.envplaceHolders = envplaceHolders;
+	}
+
+	public boolean isApplicationSelected() {
+		return applicationSelected;
+	}
+
+	public void setApplicationSelected(boolean applicationSelected) {
+		this.applicationSelected = applicationSelected;
+	}
+
+	public int getTabindex() {
+		return tabindex;
+	}
+
+	public void setTabindex(int tabindex) {
+		this.tabindex = tabindex;
 	}
 	
 	
