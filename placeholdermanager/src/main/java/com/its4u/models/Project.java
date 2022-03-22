@@ -20,7 +20,6 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "PROJECT")
 public class Project implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
@@ -40,6 +39,9 @@ public class Project implements Serializable{
 	
 	@Column(name = "VALUECHAIN")
 	private String valueChain;
+	
+	@Column(name = "DESCRIPTION")
+	private String description;
 			
 	@OneToMany( mappedBy = "project", cascade = { CascadeType.ALL },fetch = FetchType.EAGER,orphanRemoval = true)	
    	private List<Environments> environments;

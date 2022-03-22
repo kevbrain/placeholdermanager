@@ -348,11 +348,23 @@
 					
 				</p:panel>	
 				
-			<p:dialog header="Project Metadatas" widgetVar="dlgProjectMetadata" showEffect="fade"  id="dialogProjectMetadatas">
+			<p:dialog header="Project Metadatas" widgetVar="dlgProjectMetadata"   id="dialogProjectMetadatas">
 				
 				<h:panelGrid columns="2">
-					<h:outputLabel value="Id"/>
+					<h:outputLabel value="Id :"/>
 					<h:outputText value="#{placeHoldersView.selectedProject.project_Id}"/>
+					
+					<h:outputLabel value="Git :"/>
+					<p:inputText value="#{placeHoldersView.selectedProject.gitUrl}"/>
+					
+					<h:outputLabel value="Team :"/>
+					<p:inputText value="#{placeHoldersView.selectedProject.team}"/>
+					
+					<h:outputLabel value="Department :"/>
+					<p:input value="#{placeHoldersView.selectedProject.valueChain}"/>
+					
+					<h:outputLabel value="Description :"/>
+					<p:inputTextarea rows="5" cols="30" maxlength="10" autoResize="false" value="#{placeHoldersView.selectedProject.description}"/>
 					
 				</h:panelGrid>
 			
