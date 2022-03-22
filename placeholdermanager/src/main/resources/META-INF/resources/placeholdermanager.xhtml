@@ -49,7 +49,7 @@
  		  		
 	   		<p:dataTable value="#{placeHoldersView.projectList}"  var="proj"  widgetVar="projectsTable" id="projectstable">
 	   			<p:column  headerText="APPLICATIONS" width="250px;">		   				 
-					<p:commandButton value="#{proj.project_Id}"
+					<p:commandButton value="#{proj.project_Id}" immediate="true"
 					    styleClass="rounded-button ui-button-secondary"
 						actionListener="#{placeHoldersView.loadMetadasProject(proj)}"
 						oncomplete="PF('dlgProjectMetadata').show()"/>
