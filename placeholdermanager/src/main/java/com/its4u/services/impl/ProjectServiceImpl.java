@@ -546,12 +546,12 @@ public class ProjectServiceImpl implements ProjectService {
 		HashMap<String,String> envByProject = createMapEnvironment(project);
 		HashMap<String,Boolean> envSelectedMap = new HashMap<String, Boolean>();
 		for (Environments env:project.getEnvironments()) {	
-			
+			/*
 			if (env.getArgoEnvId()!=null && !env.getArgoEnvId().isEmpty()) {
 				ArgoEnvironment argoEnvironment = argoService.getArgoEnvByID(env.getArgoEnvId());
 				if (argoEnvironment!=null)
 					env.setArgoEnv(argoService.getArgoEnvByID(env.getArgoEnvId()));
-			}
+			}*/
 			envplaceHolders.put(env.getEnvironment(),createMapPlaceHoldersFromEnv(env));
 			//ArgoAppStatus envstatus = statusAndHealth(project.getProject_Id(), env);
 			ArgoAppStatus envstatus = new ArgoAppStatus("Unknow","Unknow");
