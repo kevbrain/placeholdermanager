@@ -20,6 +20,7 @@ public class ArgoServiceImpl implements ArgoService {
 
 	@Override
 	public ArgoEnvironment getArgoEnvByID(String argoEnvId) {
+		System.out.println("argoENVID = "+argoEnvId);
 		return argoRepository.findById(argoEnvId).get();
 	}
 	
