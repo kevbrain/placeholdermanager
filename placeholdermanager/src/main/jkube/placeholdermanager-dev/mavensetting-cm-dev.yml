@@ -35,23 +35,23 @@ data:
         <mirror>
           <id>internal-repository</id>
           <name>Maven Repository Manager running on repo.mycompany.com</name>
-          <url>http:/nexus.dev-tools.svc.cluster.local:8081/repository/maven-public/</url>
+          <url>http:/nexus3.nexus3.svc.cluster.local:8081/repository/maven-public/</url>
           <mirrorOf>*</mirrorOf>
         </mirror>
       </mirrors>
       <profiles>
         <profile>
           <properties>
-            <altDeploymentRepository>nexus3-snapshots::default:http://nexus.dev-tools.svc.cluster.local:8081/repository/maven-snapshots/</altDeploymentRepository>
-            <altReleaseDeploymentRepository>nexus3-releases::default::http://nexus.dev-tools.svc.cluster.local:8081/repository/maven-releases/</altReleaseDeploymentRepository>
-            <altSnapshotDeploymentRepository>nexus3-snapshots::default::http://nexus.dev-tools.svc.cluster.local:8081/repository/maven-snapshots/</altSnapshotDeploymentRepository>
+            <altDeploymentRepository>nexus3-snapshots::default:http://nexus3.nexus3.svc.cluster.local:8081/repository/maven-snapshots/</altDeploymentRepository>
+            <altReleaseDeploymentRepository>nexus3-releases::default::http://nexus3.nexus3.svc.cluster.local:8081/repository/maven-releases/</altReleaseDeploymentRepository>
+            <altSnapshotDeploymentRepository>nexus3-snapshots::default::http://nexus3.nexus3.svc.cluster.local:8081/repository/maven-snapshots/</altSnapshotDeploymentRepository>
           </properties>
           <id>allow-snapshots</id>
           <activation><activeByDefault>true</activeByDefault></activation>
           <repositories>
             <repository>
               <id>snapshots-repo</id>
-              <url>http://nexus.dev-tools.svc.cluster.local:8081/repository/maven-snapshots</url>
+              <url>http://nexus3.nexus3.svc.cluster.local:8081/repository/maven-snapshots</url>
               <releases><enabled>false</enabled></releases>
               <snapshots><enabled>true</enabled><updatePolicy>always</updatePolicy></snapshots>
             </repository>
@@ -63,7 +63,7 @@ data:
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <sonar.host.url>http://sonarqube.dev-tools.svc.cluster.local:9000</sonar.host.url>
+                <sonar.host.url>http://sonarqube.sonarqube.svc.cluster.local:9000</sonar.host.url>
                 <sonar.login>admin</sonar.login>
                 <sonar.password>its4uITS4U!</sonar.password>
             </properties>
